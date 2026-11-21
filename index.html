@@ -259,7 +259,6 @@
       gap: 8px;
     }
 
-    /* Glass Tint Switcher Dots */
     .tint-switcher {
       display: inline-flex;
       align-items: center;
@@ -284,7 +283,7 @@
     .tint-dot[data-t="aurora"]   { background: linear-gradient(135deg, #3b0764, #2dd4bf); }
     .tint-dot[data-t="emerald"]  { background: linear-gradient(135deg, #064e3b, #34d399); }
 
-    /* ==================== VIEW 1: OPTION 3 BENTO COMMAND HOME ==================== */
+    /* ==================== VIEW 1: BENTO COMMAND HOME ==================== */
     #bento-view {
       max-width: 1340px;
       margin: 0 auto;
@@ -328,7 +327,6 @@
       justify-content: space-between;
     }
 
-    /* 6-Month Progress Rings */
     .rings-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -355,7 +353,6 @@
     .ring-label { font-size: 12px; font-weight: 700; margin-top: 6px; text-align: center; }
     .ring-sub { font-size: 10px; color: var(--text-secondary); }
 
-    /* Streak Dots */
     .streak-big { font-size: 36px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.1; }
     .progress-bar-track {
       width: 100%;
@@ -389,7 +386,7 @@
       color: var(--success);
     }
 
-    /* ==================== VIEW 2: OPTION 2 MACOS FLOATING-DOCK STUDIO ==================== */
+    /* ==================== VIEW 2: MACOS FLOATING-DOCK STUDIO ==================== */
     #studio-view {
       display: none;
       height: calc(100vh - 53px);
@@ -423,7 +420,6 @@
       overflow-y: auto;
     }
 
-    /* Video Card */
     .video-card { padding: 14px; flex-shrink: 0; }
     .video-header {
       display: flex;
@@ -450,7 +446,6 @@
       border: 0;
     }
 
-    /* Lab & Takeaways Card */
     .lab-card { padding: 16px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 12px; }
     .takeaways-list { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
     .takeaways-list li {
@@ -485,7 +480,6 @@
     }
     .hint-drawer.open { display: block; }
 
-    /* Code Editor & Console Card */
     .ide-card {
       padding: 14px;
       display: flex;
@@ -561,7 +555,6 @@
     }
     .sql-table th { color: var(--accent); font-weight: 700; }
 
-    /* Live Instinct Mentor Card */
     .mentor-card {
       padding: 14px;
       display: flex;
@@ -682,7 +675,7 @@
       margin: 0 2px;
     }
 
-    /* ==================== GLASS MODALS (ONBOARDING, NOTES, ROADMAP, SYNC) ==================== */
+    /* ==================== GLASS MODALS ==================== */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -718,7 +711,6 @@
       border-bottom: 1px solid var(--glass-border);
     }
 
-    /* Roadmap Grid */
     .roadmap-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -737,7 +729,6 @@
     .day-tile.done { border-color: rgba(52, 211, 153, 0.5); background: rgba(52, 211, 153, 0.08); }
     .day-tile.current { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-glow); }
 
-    /* Smart Notes */
     .tag-pill {
       padding: 4px 10px;
       border-radius: 999px;
@@ -761,7 +752,6 @@
       margin-bottom: 8px;
     }
 
-    /* Toast Notification */
     .toast {
       position: fixed;
       top: 66px;
@@ -822,9 +812,8 @@
     </div>
   </header>
 
-  <!-- ==================== VIEW 1: OPTION 3 BENTO COMMAND HOME ==================== -->
+  <!-- ==================== VIEW 1: BENTO COMMAND HOME ==================== -->
   <main id="bento-view">
-    <!-- Tile 1: 6-Month Skill Progress Rings -->
     <section class="glass-card bento-rings-card">
       <div class="card-eyebrow">
         <span>6-Month Mastery Progress Rings</span>
@@ -833,7 +822,6 @@
       <div class="rings-grid" id="skill-rings-container"></div>
     </section>
 
-    <!-- Tile 2: Daily Streak & Completion -->
     <section class="glass-card bento-streak-card">
       <div>
         <div class="card-eyebrow"><span>Daily Momentum</span><span>🔥</span></div>
@@ -849,7 +837,6 @@
       </div>
     </section>
 
-    <!-- Tile 3: 3-Layer Profile Sync -->
     <section class="glass-card bento-sync-card">
       <div>
         <div class="card-eyebrow"><span>Student Identity & Sync</span><span id="gist-status-dot">● Local</span></div>
@@ -862,7 +849,6 @@
       </div>
     </section>
 
-    <!-- Tile 4: Today's Mission Hero Card -->
     <section class="glass-card bento-mission-card">
       <div>
         <div class="card-eyebrow">
@@ -873,7 +859,7 @@
           Day 01: Variables, Strings & F-String Formatting
         </h1>
         <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 14px;" id="mission-lab-preview">
-          Clean the raw messy customer record string, extract the city and spend amount, and print a formatted summary line.
+          Clean the raw customer record string, extract the city and spend amount, and print a formatted summary line.
         </p>
         <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px;">
           <span class="pill-badge" id="mission-instructor">🎓 Corey Schafer</span>
@@ -889,7 +875,6 @@
       </div>
     </section>
 
-    <!-- Tile 5: Recent Smart Notes -->
     <section class="glass-card bento-notes-card">
       <div>
         <div class="card-eyebrow">
@@ -905,10 +890,9 @@
     </section>
   </main>
 
-  <!-- ==================== VIEW 2: OPTION 2 MACOS FLOATING-DOCK STUDIO ==================== -->
+  <!-- ==================== VIEW 2: MACOS FLOATING-DOCK STUDIO ==================== -->
   <section id="studio-view">
     <div class="studio-grid" id="studio-grid">
-      <!-- Left Column: Video Lecture + Lab Brief -->
       <div class="studio-left-col">
         <div class="glass-card video-card">
           <div class="video-header">
@@ -961,7 +945,6 @@
         </div>
       </div>
 
-      <!-- Right Column: Python 3.11 / SQLite Editor + Live Instinct Mentor -->
       <div class="studio-right-col">
         <div class="glass-card ide-card">
           <div class="ide-toolbar">
@@ -1150,7 +1133,6 @@
         <button class="btn btn-sm" onclick="closeModal('sync-modal')">✕ Close</button>
       </div>
 
-      <!-- Layer 1: Handle + 4-Digit PIN -->
       <div style="margin-bottom: 16px; padding: 14px; border-radius: 16px; background: var(--glass-bg-subtle); border: 1px solid var(--glass-border);">
         <div class="card-eyebrow"><span>Layer 1: Local Profile Isolation (Handle + 4-Digit PIN)</span></div>
         <div style="display: grid; grid-template-columns: 1.5fr 1fr auto; gap: 8px;">
@@ -1160,7 +1142,6 @@
         </div>
       </div>
 
-      <!-- Gemini API Key -->
       <div style="margin-bottom: 16px; padding: 14px; border-radius: 16px; background: var(--glass-bg-subtle); border: 1px solid var(--glass-border);">
         <div class="card-eyebrow">
           <span>Gemini API Key (gemini-3.8-flash)</span>
@@ -1172,7 +1153,6 @@
         </div>
       </div>
 
-      <!-- Layer 2: Base64 Sync Code -->
       <div style="margin-bottom: 16px; padding: 14px; border-radius: 16px; background: var(--glass-bg-subtle); border: 1px solid var(--glass-border);">
         <div class="card-eyebrow"><span>Layer 2: Instant Base64 Cross-Device Sync</span></div>
         <div style="display: flex; gap: 8px; margin-bottom: 8px;">
@@ -1182,7 +1162,6 @@
         <textarea id="sync-base64-box" rows="2" placeholder="Paste Base64 sync code from another device here to restore progress, notes & drafts..." style="width: 100%; font-size: 11.5px;"></textarea>
       </div>
 
-      <!-- Layer 3: Optional GitHub Gist Sync -->
       <div style="padding: 14px; border-radius: 16px; background: var(--glass-bg-subtle); border: 1px solid var(--glass-border);">
         <div class="card-eyebrow"><span>Layer 3: Optional GitHub Gist Auto-Cloud Sync</span></div>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;">
@@ -1201,22 +1180,369 @@
   <!-- Toast Banner -->
   <div class="toast" id="toast-banner"></div>
 
-  <!-- Load Decoupled 168-Day Curriculum -->
-  <script src="./curriculum.js"></script>
+  <!-- ==================== SELF-CONTAINED 168-DAY CURRICULUM ENGINE ==================== -->
+  <script>
+    window.CURRICULUM = (function buildFull168DayCurriculum() {
+      const modules = [
+        // MONTH 1: PYTHON FOUNDATIONS & GIT (Days 1–28)
+        {
+          month: 1, week: 1, subject: "Python Foundations", instructor: "Corey Schafer", videoId: "k9TUPpGqYTo", altVideoId: "nLRL_NcnK-4",
+          topics: [
+            ["Variables, Strings & F-String Formatting", "21m", "00:00 – 21:15", "Clean the raw customer string '  ishan_m | panvel | 4500  ', extract city & spend, and print a formatted summary.", "Use .strip(), .split('|'), and f-strings.", "raw = '  ishan_m | panvel | 4500  '\n# Clean and format below\n"],
+            ["Integers, Floats & Numeric Operators", "12m", "00:00 – 11:50", "Compute 18% GST and percentage revenue growth from ₹1,20,000 to ₹1,48,500.", "Percentage change = ((new - old) / old) * 100.", "old_rev, new_rev = 120000, 148500\ngst_rate = 0.18\n"],
+            ["Lists, Tuples & Sets", "29m", "00:00 – 29:05", "Deduplicate a list of customer IDs while preserving count stats.", "Convert list to set() to find unique IDs.", "ids = [101, 102, 101, 105, 102, 109]\n"],
+            ["Dictionaries & Key-Value Lookups", "10m", "00:00 – 10:15", "Build a product price lookup dict and safely fetch a missing SKU with .get().", "Use dict.get(key, default) to prevent KeyError.", "catalog = {'SKU1': 499, 'SKU2': 1299}\n"],
+            ["Conditionals & Boolean Logic", "16m", "00:00 – 16:20", "Classify customer tier: Platinum (>10000), Gold (5000–10000), Silver (<5000).", "Use if / elif / else chains.", "spend = 8400\n"],
+            ["Loops (for, while, enumerate, zip)", "10m", "00:00 – 10:05", "Pair product names with quantities using zip() and compute total order value.", "for item, qty in zip(items, qtys):", "items = ['Laptop Stand', 'Mouse', 'USB Hub']\nprices = [1500, 800, 1200]\nqtys = [2, 3, 1]\n"],
+            ["Week 1 Capstone: CLI Expense & GST Ledger", "22m", "00:00 – 22:00", "Aggregate a list of expense dicts by category and compute total spend + 18% GST.", "Accumulate totals in a dictionary.", "expenses = [\n  {'cat': 'Cloud', 'amt': 2400},\n  {'cat': 'Food', 'amt': 850},\n  {'cat': 'Cloud', 'amt': 1600}\n]\n"]
+          ],
+          starterSql: "SELECT department, COUNT(*) AS headcount, ROUND(AVG(salary), 0) AS avg_salary\nFROM employees\nGROUP BY department;"
+        },
+        {
+          month: 1, week: 2, subject: "Python Functions & Files", instructor: "Corey Schafer", videoId: "9Os0o3wzS_I", altVideoId: "C-gEQdGVXbk",
+          topics: [
+            ["Functions, *args & **kwargs", "21m", "00:00 – 21:40", "Write a reusable function calc_metrics(*scores) returning min, max, and mean.", "Return a tuple (min(scores), max(scores), sum(scores)/len(scores)).", "def calc_metrics(*scores):\n    pass\n\nprint(calc_metrics(78, 85, 92, 88))"],
+            ["List & Dict Comprehensions", "17m", "00:00 – 17:30", "Filter even numbers and square them in a single Python list comprehension.", "[x**2 for x in nums if x % 2 == 0]", "nums = list(range(1, 16))\n"],
+            ["Lambda, Map, Filter & Custom Sorting", "14m", "00:00 – 14:10", "Sort a list of employee tuples by salary descending using a lambda key.", "sorted(staff, key=lambda x: x[1], reverse=True)", "staff = [('Aarav', 95000), ('Diya', 112000), ('Kabir', 84000)]\n"],
+            ["String Parsing & Regular Expressions", "24m", "00:00 – 24:00", "Extract all valid email addresses from a messy support log string using re.findall.", "import re; re.findall(r'[\\w.-]+@[\\w.-]+', text)", "import re\nlog = 'Contact hr@dataforge.io or support@acme.in for billing.'\n"],
+            ["Dates, Times & Timedelta Calculations", "26m", "00:00 – 26:15", "Parse '2026-06-15' and compute days elapsed until '2026-11-21'.", "Use datetime.strptime(s, '%Y-%m-%d').", "from datetime import datetime\n"],
+            ["Exception Handling (try/except/finally)", "13m", "00:00 – 13:05", "Safely convert a list of mixed strings into floats, skipping corrupt entries.", "Wrap float(val) inside try / except ValueError.", "raw_vals = ['120.5', 'N/A', '89.0', 'ERR', '310.25']\n"],
+            ["Week 2 Capstone: JSON & CSV Log Parser", "25m", "00:00 – 25:00", "Parse a JSON payload of transactions and compute net completed revenue.", "Use json.loads() and filter status == 'Completed'.", "import json\npayload = '[{\"id\":1,\"amt\":4500,\"status\":\"Completed\"},{\"id\":2,\"amt\":1200,\"status\":\"Cancelled\"}]'\n"]
+          ],
+          starterSql: "SELECT region, SUM(amount) AS revenue\nFROM orders\nWHERE status = 'Completed'\nGROUP BY region\nORDER BY revenue DESC;"
+        },
+        {
+          month: 1, week: 3, subject: "OOP & Python Internals", instructor: "Corey Schafer", videoId: "ZDa-Z5JzLYM", altVideoId: "rq8cL2XMM5M",
+          topics: [
+            ["Classes, Instances & __init__", "15m", "00:00 – 15:25", "Create a Dataset class storing name and rows, with a summary() method.", "Define def __init__(self, name, rows):", "class Dataset:\n    pass\n"],
+            ["Class Variables & @classmethod", "16m", "00:00 – 16:10", "Add an alternative constructor Dataset.from_csv_string(csv_str).", "Decorate with @classmethod and split lines.", "class Dataset:\n    def __init__(self, rows):\n        self.rows = rows\n"],
+            ["Inheritance & Method Overriding", "19m", "00:00 – 19:30", "Subclass DataConnector into PostgresConnector overriding connect().", "class PostgresConnector(DataConnector):", "class DataConnector:\n    def connect(self): return 'Base connected'\n"],
+            ["Dunder Methods (__repr__, __len__, __add__)", "14m", "00:00 – 14:20", "Implement __len__ and __repr__ on a FeatureBatch class.", "Return len(self.items) inside __len__.", "class FeatureBatch:\n    def __init__(self, items): self.items = items\n"],
+            ["Generators & Memory-Efficient Pipelines", "12m", "00:00 – 12:15", "Write a generator function stream_batches(data, size) using yield.", "Loop in steps of size and yield data[i:i+size].", "def stream_batches(data, size):\n    pass\n"],
+            ["Decorators & Execution Timers", "21m", "00:00 – 21:00", "Write a @timer decorator that prints how many ms a function takes.", "Use time.perf_counter() before and after fn(*args, **kwargs).", "import time\n"],
+            ["Week 3 Capstone: Modular ETL Pipeline Class", "24m", "00:00 – 24:00", "Build an ETLJob class with extract(), transform(), and load() steps.", "Chain methods cleanly and return cleaned records.", "class ETLJob:\n    pass\n"]
+          ],
+          starterSql: "SELECT e.name, e.department, SUM(o.amount) AS total_sales\nFROM employees e\nJOIN orders o ON e.emp_id = o.emp_id\nGROUP BY e.name, e.department;"
+        },
+        {
+          month: 1, week: 4, subject: "Git, GitHub & Environments", instructor: "Corey Schafer", videoId: "HVsySz-h9r4", altVideoId: "Uszj_k0DGsg",
+          topics: [
+            ["Git Init, Staging, Commits & Diffs", "18m", "00:00 – 18:30", "Simulate a commit log tracker in Python storing hash, author, and message.", "Append commit dicts to a list and display formatted history.", "commits = []\n"],
+            ["Branching, Merging & Conflict Resolution", "20m", "00:00 – 20:10", "Compare two config dictionaries (main vs feature) and resolve key conflicts.", "Merge dicts while flagging differing values.", "main_cfg = {'lr': 0.01, 'epochs': 10}\nfeat_cfg = {'lr': 0.005, 'epochs': 10, 'dropout': 0.2}\n"],
+            ["Virtual Environments & requirements.txt", "15m", "00:00 – 15:00", "Parse a requirements.txt string into a {package: version} dictionary.", "Split each line on '=='.", "reqs = 'numpy==1.26.4\\npandas==2.2.2\\nscikit-learn==1.5.0'\n"],
+            ["Unit Testing with pytest / unittest", "25m", "00:00 – 25:10", "Write assert tests verifying an outlier-clipping function works on edge cases.", "Use assert statements to test empty and extreme inputs.", "def clip_outliers(vals, low, high):\n    return [max(low, min(high, v)) for v in vals]\n"],
+            ["API Requests & JSON Pagination", "22m", "00:00 – 22:00", "Flatten nested API response records into clean tabular rows.", "Extract nested user['profile']['city'] safely.", "api_data = [{'id': 1, 'profile': {'city': 'Mumbai'}}, {'id': 2, 'profile': {'city': 'Pune'}}]\n"],
+            ["Clean Code, PEP 8 & Type Hints", "17m", "00:00 – 17:15", "Add Python type annotations (list[float], dict[str, int]) to a stats helper.", "from typing import List, Dict", "def normalize(values: list[float]) -> list[float]:\n    pass\n"],
+            ["Month 1 Capstone: End-to-End Sales Ingestion Script", "28m", "00:00 – 28:00", "Ingest raw order strings, validate schema, deduplicate, and output KPI summary.", "Combine string parsing, sets, and dicts.", "raw_orders = ['ORD1,West,4500', 'ORD2,South,3200', 'ORD1,West,4500']\n"]
+          ],
+          starterSql: "SELECT category, COUNT(*) AS order_count, SUM(amount) AS total_amt\nFROM orders\nGROUP BY category;"
+        },
+
+        // MONTH 2: SQL ANALYTICS MASTERY (Days 29–56)
+        {
+          month: 2, week: 5, subject: "SQL Fundamentals", instructor: "Alex The Analyst", videoId: "RSl8fqNy3vY", altVideoId: "HXV3zeQKqGY",
+          topics: [
+            ["SELECT, WHERE, IN, BETWEEN & LIKE", "19m", "00:00 – 19:20", "Query Completed orders in the West or South region above ₹8,000.", "Use WHERE status = 'Completed' AND region IN ('West','South') AND amount > 8000.", "SELECT * FROM orders\nWHERE status = 'Completed' AND amount > 8000;"],
+            ["ORDER BY, LIMIT & Distinct Values", "14m", "00:00 – 14:00", "Find the top 5 highest-value orders along with customer name and date.", "ORDER BY amount DESC LIMIT 5;", "SELECT order_id, customer_name, amount, order_date\nFROM orders\nORDER BY amount DESC LIMIT 5;"],
+            ["Aggregations: COUNT, SUM, AVG, MIN, MAX", "18m", "00:00 – 18:15", "Compute total orders, unique customers, and average order value.", "Use COUNT(DISTINCT customer_name).", "SELECT COUNT(*) AS total_orders, COUNT(DISTINCT customer_name) AS unique_customers, ROUND(AVG(amount), 2) AS aov\nFROM orders;"],
+            ["GROUP BY & HAVING Filters", "21m", "00:00 – 21:10", "List customers whose total Completed spend exceeds ₹15,000.", "Filter aggregated totals with HAVING SUM(amount) > 15000.", "SELECT customer_name, SUM(amount) AS total_spend\nFROM orders\nWHERE status = 'Completed'\nGROUP BY customer_name\nHAVING SUM(amount) > 15000;"],
+            ["CASE WHEN Conditional Bucketing", "16m", "00:00 – 16:30", "Bucket orders into 'Enterprise' (>=10000), 'Mid-Market' (5000-9999), and 'SMB'.", "Use CASE WHEN amount >= 10000 THEN 'Enterprise' ... END.", "SELECT order_id, amount,\n  CASE WHEN amount >= 10000 THEN 'Enterprise' WHEN amount >= 5000 THEN 'Mid-Market' ELSE 'SMB' END AS segment\nFROM orders;"],
+            ["NULL Handling & COALESCE", "15m", "00:00 – 15:00", "Display each employee and replace NULL manager_id with 'Department Head'.", "COALESCE(CAST(manager_id AS TEXT), 'Department Head')", "SELECT name, department, COALESCE(CAST(manager_id AS TEXT), 'Department Head') AS reports_to\nFROM employees;"],
+            ["Week 5 Capstone: Executive Revenue Scorecard", "24m", "00:00 – 24:00", "Build a regional breakdown showing Completed vs Cancelled revenue.", "Use SUM(CASE WHEN status='Completed' THEN amount ELSE 0 END).", "SELECT region,\n  SUM(CASE WHEN status = 'Completed' THEN amount ELSE 0 END) AS completed_rev,\n  SUM(CASE WHEN status = 'Cancelled' THEN amount ELSE 0 END) AS cancelled_rev\nFROM orders GROUP BY region;"]
+          ],
+          starterSql: "SELECT * FROM orders LIMIT 10;"
+        },
+        {
+          month: 2, week: 6, subject: "Relational Joins & Modeling", instructor: "Alex The Analyst", videoId: "9yeOJ0ZMUYw", altVideoId: "HXV3zeQKqGY",
+          topics: [
+            ["INNER JOIN Multi-Table Analytics", "20m", "00:00 – 20:00", "Join orders with employees to see each rep's closed deal revenue.", "JOIN employees e ON o.emp_id = e.emp_id", "SELECT e.name, e.department, SUM(o.amount) AS closed_rev\nFROM orders o\nJOIN employees e ON o.emp_id = e.emp_id\nWHERE o.status = 'Completed'\nGROUP BY e.name, e.department;"],
+            ["LEFT JOIN & Finding Unmatched Records", "18m", "00:00 – 18:10", "Find all employees who have generated zero orders so far.", "LEFT JOIN orders o ON e.emp_id = o.emp_id WHERE o.order_id IS NULL", "SELECT e.emp_id, e.name, e.department\nFROM employees e\nLEFT JOIN orders o ON e.emp_id = o.emp_id\nWHERE o.order_id IS NULL;"],
+            ["Self-Joins (Employee–Manager Hierarchies)", "16m", "00:00 – 16:40", "List every employee alongside their direct manager's name.", "LEFT JOIN employees m ON e.manager_id = m.emp_id", "SELECT e.name AS employee, COALESCE(m.name, 'Top Lead') AS manager\nFROM employees e\nLEFT JOIN employees m ON e.manager_id = m.emp_id;"],
+            ["UNION vs UNION ALL", "12m", "00:00 – 12:15", "Combine high-salary staff (>100k) and top-performing reps into one alert list.", "Use UNION to deduplicate rows.", "SELECT name, 'High Earner' AS flag FROM employees WHERE salary > 100000\nUNION\nSELECT DISTINCT e.name, 'Top Seller' AS flag FROM employees e JOIN orders o ON e.emp_id = o.emp_id WHERE o.amount > 12000;"],
+            ["Subqueries in WHERE and FROM", "19m", "00:00 – 19:20", "Find employees earning more than their own department's average salary.", "Correlated subquery comparing e.department = e2.department.", "SELECT name, department, salary\nFROM employees e\nWHERE salary > (SELECT AVG(salary) FROM employees e2 WHERE e2.department = e.department);"],
+            ["Date Truncation & Monthly Cohort Grouping", "17m", "00:00 – 17:00", "Aggregate Completed revenue by YYYY-MM using SUBSTR(order_date, 1, 7).", "GROUP BY SUBSTR(order_date, 1, 7)", "SELECT SUBSTR(order_date, 1, 7) AS month, SUM(amount) AS monthly_rev\nFROM orders WHERE status = 'Completed'\nGROUP BY month ORDER BY month;"],
+            ["Week 6 Capstone: Sales Rep Commission Leaderboard", "25m", "00:00 – 25:00", "Compute 8% commission on Completed sales per rep and rank them.", "Join employees & orders, multiply SUM(amount) * 0.08.", "SELECT e.name, SUM(o.amount) AS sales, ROUND(SUM(o.amount)*0.08, 2) AS commission\nFROM employees e JOIN orders o ON e.emp_id = o.emp_id\nWHERE o.status = 'Completed' GROUP BY e.name ORDER BY sales DESC;"]
+          ],
+          starterSql: "SELECT e.name, o.order_id, o.amount FROM employees e LEFT JOIN orders o ON e.emp_id = o.emp_id;"
+        },
+        {
+          month: 2, week: 7, subject: "Window Functions & CTEs", instructor: "Alex The Analyst", videoId: "Ww71knvhQ-s", altVideoId: "HXV3zeQKqGY",
+          topics: [
+            ["Common Table Expressions (WITH CTEs)", "18m", "00:00 – 18:30", "Use a CTE to calculate monthly revenue first, then compute overall average.", "WITH monthly AS (SELECT ... )", "WITH monthly AS (\n  SELECT SUBSTR(order_date,1,7) AS ym, SUM(amount) AS rev\n  FROM orders WHERE status='Completed' GROUP BY ym\n)\nSELECT ym, rev, ROUND(AVG(rev) OVER(), 2) AS avg_monthly_rev FROM monthly;"],
+            ["ROW_NUMBER, RANK & DENSE_RANK", "22m", "00:00 – 22:00", "Rank employees by salary within each department using PARTITION BY.", "RANK() OVER (PARTITION BY department ORDER BY salary DESC)", "SELECT name, department, salary,\n  DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS dept_rank\nFROM employees;"],
+            ["Running Totals with SUM() OVER()", "19m", "00:00 – 19:15", "Calculate cumulative revenue across chronological Completed orders.", "SUM(amount) OVER (ORDER BY order_date, order_id)", "SELECT order_date, customer_name, amount,\n  SUM(amount) OVER (ORDER BY order_date, order_id) AS running_total\nFROM orders WHERE status = 'Completed';"],
+            ["LAG & LEAD for Month-over-Month Growth", "23m", "00:00 – 23:10", "Compute previous month revenue and MoM % growth using LAG().", "LAG(rev) OVER (ORDER BY ym)", "WITH m AS (\n  SELECT SUBSTR(order_date,1,7) AS ym, SUM(amount) AS rev\n  FROM orders WHERE status='Completed' GROUP BY ym\n)\nSELECT ym, rev, LAG(rev) OVER (ORDER BY ym) AS prev_rev,\n  ROUND((rev - LAG(rev) OVER (ORDER BY ym)) * 100.0 / LAG(rev) OVER (ORDER BY ym), 1) AS mom_pct\nFROM m;"],
+            ["Moving Averages (ROWS BETWEEN)", "17m", "00:00 – 17:30", "Calculate a 3-order rolling average amount on Completed orders.", "AVG(amount) OVER (ORDER BY order_date ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)", "SELECT order_id, order_date, amount,\n  ROUND(AVG(amount) OVER (ORDER BY order_date, order_id ROWS BETWEEN 2 PRECEDING AND CURRENT ROW), 2) AS rolling_3_avg\nFROM orders WHERE status = 'Completed';"],
+            ["FIRST_VALUE & Top-N Per Group", "16m", "00:00 – 16:20", "Retrieve the single largest order for each region using a CTE + ROW_NUMBER.", "Filter WHERE rn = 1 outside the CTE.", "WITH ranked AS (\n  SELECT region, customer_name, amount,\n    ROW_NUMBER() OVER (PARTITION BY region ORDER BY amount DESC) AS rn\n  FROM orders\n)\nSELECT region, customer_name, amount FROM ranked WHERE rn = 1;"],
+            ["Week 7 Capstone: Customer Retention & Repeat Spend", "26m", "00:00 – 26:00", "Identify repeat customers (>=2 Completed orders) and days between their orders.", "Use LAG(order_date) OVER (PARTITION BY customer_name ORDER BY order_date).", "SELECT customer_name, order_date, amount,\n  LAG(order_date) OVER (PARTITION BY customer_name ORDER BY order_date) AS prev_order_date\nFROM orders WHERE status = 'Completed';"]
+          ],
+          starterSql: "SELECT name, department, salary, RANK() OVER(ORDER BY salary DESC) AS org_rank FROM employees;"
+        },
+        {
+          month: 2, week: 8, subject: "Query Optimization & SQL Case Study", instructor: "Alex The Analyst", videoId: "2-1XQHAgDsM", altVideoId: "HXV3zeQKqGY",
+          topics: [
+            ["Indexes, Query Plans & EXPLAIN QUERY PLAN", "18m", "00:00 – 18:00", "Inspect the SQLite execution plan for a filtered join query.", "Prefix your query with EXPLAIN QUERY PLAN.", "EXPLAIN QUERY PLAN\nSELECT * FROM orders WHERE region = 'West' AND status = 'Completed';"],
+            ["Data Cleaning in SQL (TRIM, UPPER, REPLACE)", "16m", "00:00 – 16:30", "Standardize customer names to uppercase and generate slug codes.", "UPPER(REPLACE(customer_name, ' ', '_'))", "SELECT DISTINCT customer_name, UPPER(REPLACE(customer_name, ' ', '_')) AS slug FROM orders;"],
+            ["Pivoting Data with Conditional Aggregation", "20m", "00:00 – 20:00", "Create a region x category revenue matrix using CASE WHEN.", "One SUM(CASE WHEN category = ... ) column per category.", "SELECT region,\n  SUM(CASE WHEN category='Cloud' THEN amount ELSE 0 END) AS cloud_rev,\n  SUM(CASE WHEN category='Software' THEN amount ELSE 0 END) AS software_rev,\n  SUM(CASE WHEN category='Electronics' THEN amount ELSE 0 END) AS electronics_rev\nFROM orders WHERE status='Completed' GROUP BY region;"],
+            ["RFM Customer Segmentation in SQL", "24m", "00:00 – 24:10", "Compute Recency (latest date), Frequency (order count), and Monetary value per customer.", "GROUP BY customer_name with MAX(order_date), COUNT(*), SUM(amount).", "SELECT customer_name, MAX(order_date) AS last_order, COUNT(*) AS freq, SUM(amount) AS monetary\nFROM orders WHERE status = 'Completed' GROUP BY customer_name ORDER BY monetary DESC;"],
+            ["Cohort Analysis & Churn Risk Flags", "22m", "00:00 – 22:00", "Flag customers whose last Completed order was before '2026-04-01' as Churn Risk.", "Use HAVING MAX(order_date) < '2026-04-01'.", "SELECT customer_name, MAX(order_date) AS last_seen, SUM(amount) AS ltv\nFROM orders WHERE status='Completed' GROUP BY customer_name HAVING MAX(order_date) < '2026-04-01';"],
+            ["Views & Reusable Semantic Metrics", "15m", "00:00 – 15:00", "Create a temporary view v_clean_sales and query total revenue by department.", "CREATE TEMP VIEW v_clean_sales AS ...", "CREATE TEMP VIEW v_clean_sales AS\nSELECT o.*, e.department FROM orders o JOIN employees e ON o.emp_id = e.emp_id WHERE o.status='Completed';\nSELECT department, SUM(amount) AS rev FROM v_clean_sales GROUP BY department;"],
+            ["Month 2 Capstone: Full SQL Business Intelligence Audit", "30m", "00:00 – 30:00", "Combine CTEs, window share-of-total %, and rep joins into one executive report.", "ROUND(rev * 100.0 / SUM(rev) OVER(), 2) AS pct_share", "WITH dept_rev AS (\n  SELECT e.department, SUM(o.amount) AS rev\n  FROM orders o JOIN employees e ON o.emp_id = e.emp_id\n  WHERE o.status='Completed' GROUP BY e.department\n)\nSELECT department, rev, ROUND(rev * 100.0 / SUM(rev) OVER(), 1) AS share_pct FROM dept_rev;"]
+          ],
+          starterSql: "SELECT * FROM employees;"
+        },
+
+        // MONTH 3: NUMPY & PANDAS DATA WRANGLING (Days 57–84)
+        {
+          month: 3, week: 9, subject: "NumPy Vectorization", instructor: "Keith Galli", videoId: "QUT1VHiLmmI", altVideoId: "8Y0qQEh7dJg",
+          topics: [
+            ["NumPy Arrays, Shapes, Dtypes & Memory", "18m", "00:00 – 18:30", "Create a 2D NumPy matrix of shape (4, 3) and inspect .shape, .dtype, and .ndim.", "import numpy as np; arr = np.arange(1, 13).reshape(4, 3)", "import numpy as np\narr = np.arange(1, 13).reshape(4, 3)\nprint(arr.shape, arr.dtype)\n"],
+            ["Indexing, Slicing & Boolean Masking", "20m", "00:00 – 20:00", "Filter all sensor readings > 75.0 and replace values > 95.0 with 95.0.", "arr[arr > 95] = 95", "import numpy as np\nreadings = np.array([62.5, 78.1, 99.4, 81.0, 54.2, 96.8])\n"],
+            ["Broadcasting & Vectorized Math", "17m", "00:00 – 17:15", "Z-score normalize a 1D array using vectorized (x - mean) / std.", "Use arr.mean() and arr.std() without loops.", "import numpy as np\nx = np.array([10, 20, 30, 40, 50], dtype=float)\n"],
+            ["Axis Operations (Row vs Column Aggregations)", "16m", "00:00 – 16:00", "Compute column-wise means (axis=0) and row-wise sums (axis=1) on a 3x4 matrix.", "mat.mean(axis=0), mat.sum(axis=1)", "import numpy as np\nmat = np.array([[10, 20, 30, 40], [15, 25, 35, 45], [20, 30, 40, 50]])\n"],
+            ["Linear Algebra & Dot Products", "19m", "00:00 – 19:00", "Compute predicted house prices y = X @ weights + bias using matrix multiplication.", "Use the @ operator for matrix-vector dot product.", "import numpy as np\nX = np.array([[1200, 2], [1800, 3], [2400, 4]])\nw = np.array([150.0, 10000.0])\nbias = 25000.0\n"],
+            ["Random Sampling & Monte Carlo Simulation", "21m", "00:00 – 21:10", "Simulate 10,000 dice rolls with np.random.default_rng(42) and estimate P(sum >= 10).", "rng = np.random.default_rng(42)", "import numpy as np\nrng = np.random.default_rng(42)\n"],
+            ["Week 9 Capstone: Vectorized Portfolio Risk Engine", "25m", "00:00 – 25:00", "Compute annualized volatility and Sharpe ratio from daily return arrays.", "Annualized vol = std * np.sqrt(252).", "import numpy as np\nreturns = np.array([0.012, -0.005, 0.008, 0.015, -0.009, 0.004, 0.011])\n"]
+          ],
+          starterSql: "SELECT * FROM orders LIMIT 5;"
+        },
+        {
+          month: 3, week: 10, subject: "Pandas Core & Inspection", instructor: "Corey Schafer", videoId: "ZyhVh-qRZPA", altVideoId: "vmEHCJofslg",
+          topics: [
+            ["DataFrames, Series & Column Selection", "22m", "00:00 – 22:00", "Construct a DataFrame of 5 products and display .info() and .describe().", "import pandas as pd; df = pd.DataFrame(...)", "import pandas as pd\ndf = pd.DataFrame({'product': ['A','B','C'], 'price': [450, 1200, 800], 'units': [30, 12, 25]})\nprint(df.describe())\n"],
+            ["loc vs iloc & Multi-Condition Filtering", "24m", "00:00 – 24:15", "Filter rows where region == 'West' and sales > 5000 using .loc.", "df.loc[(df['region']=='West') & (df['sales']>5000)]", "import pandas as pd\ndf = pd.DataFrame({'region':['West','East','West'], 'sales':[6200,4800,9100]})\n"],
+            ["Sorting, Ranking & Custom Columns", "18m", "00:00 – 18:00", "Add a profit_margin column and sort descending by margin.", "df['margin'] = (df['rev'] - df['cost']) / df['rev']", "import pandas as pd\ndf = pd.DataFrame({'sku':['X1','X2','X3'], 'rev':[1000,2500,1800], 'cost':[600,1900,900]})\n"],
+            ["Handling Missing Data (isna, fillna, dropna)", "21m", "00:00 – 21:20", "Impute missing numerical ages with the median and missing cities with 'Unknown'.", "df['age'].fillna(df['age'].median())", "import pandas as pd, numpy as np\ndf = pd.DataFrame({'age':[25, np.nan, 31, 29, np.nan], 'city':['Mumbai', None, 'Pune', 'Delhi', None]})\n"],
+            ["String Accessors (.str) & Cleaning", "19m", "00:00 – 19:00", "Strip whitespace, title-case names, and extract domain from emails.", "df['email'].str.split('@').str[1]", "import pandas as pd\ndf = pd.DataFrame({'name':['  aarav ', 'DIYA'], 'email':['a@gmail.com', 'd@yahoo.in']})\n"],
+            ["Apply, Map & Vectorized np.where", "20m", "00:00 – 20:10", "Create a 'priority' column ('High' if amount >= 5000 else 'Normal') using np.where.", "np.where(df['amount'] >= 5000, 'High', 'Normal')", "import pandas as pd, numpy as np\ndf = pd.DataFrame({'amount':[2400, 7800, 5100, 1900]})\n"],
+            ["Week 10 Capstone: Messy CRM Dataset Sanitizer", "26m", "00:00 – 26:00", "Deduplicate records, fix dtypes, impute missing spend, and print clean KPIs.", "Use .drop_duplicates() and .astype(float).", "import pandas as pd, numpy as np\ndf = pd.DataFrame({'id':[1,1,2,3], 'spend':['4500','4500',None,'8200']})\n"]
+          ],
+          starterSql: "SELECT * FROM employees;"
+        },
+        {
+          month: 3, week: 11, subject: "GroupBy, Merging & Reshaping", instructor: "Corey Schafer", videoId: "txMdrV1Ut64", altVideoId: "vmEHCJofslg",
+          topics: [
+            ["GroupBy Split-Apply-Combine & Named Aggs", "25m", "00:00 – 25:00", "Group by category and compute total_rev, mean_order, and order_count.", "df.groupby('cat').agg(total_rev=('amt','sum'), avg_amt=('amt','mean'))", "import pandas as pd\ndf = pd.DataFrame({'cat':['Cloud','Cloud','AI','AI'], 'amt':[5000,7000,12000,8000]})\n"],
+            ["Merging & Joining DataFrames (pd.merge)", "23m", "00:00 – 23:10", "Left-merge orders with customer tier metadata and calculate revenue by tier.", "pd.merge(orders, customers, on='cust_id', how='left')", "import pandas as pd\norders = pd.DataFrame({'cust_id':[1,2,1], 'amt':[3000,5000,4500]})\ncustomers = pd.DataFrame({'cust_id':[1,2], 'tier':['Gold','Silver']})\n"],
+            ["Pivot Tables & Cross-Tabulations", "19m", "00:00 – 19:20", "Build a pivot_table of revenue indexed by region with columns by category.", "df.pivot_table(values='amt', index='region', columns='cat', aggfunc='sum', fill_value=0)", "import pandas as pd\ndf = pd.DataFrame({'region':['West','West','South'], 'cat':['SaaS','Cloud','SaaS'], 'amt':[4000,6000,3500]})\n"],
+            ["Melt, Stack & Unstack (Wide to Long)", "18m", "00:00 – 18:00", "Unpivot quarterly revenue columns (Q1, Q2, Q3) into tidy long format via pd.melt.", "pd.melt(df, id_vars=['product'], var_name='quarter', value_name='rev')", "import pandas as pd\ndf = pd.DataFrame({'product':['Alpha','Beta'], 'Q1':[100,200], 'Q2':[150,240], 'Q3':[180,290]})\n"],
+            ["Time Series DatetimeIndex & Resampling", "24m", "00:00 – 24:00", "Convert date strings to datetime, set index, and resample weekly sums.", "df.set_index('date').resample('W')['sales'].sum()", "import pandas as pd\ndf = pd.DataFrame({'date': pd.date_range('2026-01-01', periods=14, freq='D'), 'sales': range(100, 240, 10)})\n"],
+            ["Rolling Windows & Expanding Metrics", "17m", "00:00 – 17:15", "Compute a 3-day rolling mean and cumulative sum on daily traffic.", "df['traffic'].rolling(3).mean()", "import pandas as pd\ndf = pd.DataFrame({'traffic':[120, 145, 130, 190, 210, 185]})\n"],
+            ["Week 11 Capstone: Multi-Source E-Commerce Cohort Table", "28m", "00:00 – 28:00", "Merge users & orders, group by signup month, and compute repeat spend.", "Combine pd.to_datetime, pd.merge, and groupby.", "import pandas as pd\nusers = pd.DataFrame({'uid':[1,2,3], 'signup':['2026-01','2026-01','2026-02']})\norders = pd.DataFrame({'uid':[1,1,2,3], 'amt':[2000,3500,1500,4200]})\n"]
+          ],
+          starterSql: "SELECT * FROM orders;"
+        },
+        {
+          month: 3, week: 12, subject: "Exploratory Data Analysis (EDA)", instructor: "Krish Naik", videoId: "fHFOANOHwh8", altVideoId: "vmEHCJofslg",
+          topics: [
+            ["Univariate Distributions & Skewness", "20m", "00:00 – 20:00", "Calculate mean, median, skewness, and kurtosis of a right-skewed income series.", "Use s.skew() and s.kurt().", "import pandas as pd\nincome = pd.Series([35, 42, 38, 45, 50, 48, 220, 310])\n"],
+            ["IQR & Z-Score Outlier Detection", "22m", "00:00 – 22:15", "Flag outliers outside [Q1 - 1.5*IQR, Q3 + 1.5*IQR].", "q1, q3 = s.quantile([0.25, 0.75]); iqr = q3 - q1", "import pandas as pd\ns = pd.Series([12, 14, 13, 15, 16, 14, 89, 13, 15])\n"],
+            ["Correlation Matrices & Multicollinearity", "19m", "00:00 – 19:00", "Compute Pearson & Spearman correlations across feature columns.", "df.corr(method='pearson')", "import pandas as pd\ndf = pd.DataFrame({'ad_spend':[10,20,30,40], 'clicks':[105,198,310,395], 'sales':[50,98,152,201]})\n"],
+            ["Categorical Encoding (One-Hot & Ordinal)", "21m", "00:00 – 21:00", "One-hot encode a 'city' column with pd.get_dummies(drop_first=True).", "pd.get_dummies(df, columns=['city'], drop_first=True)", "import pandas as pd\ndf = pd.DataFrame({'city':['Mumbai','Pune','Delhi','Mumbai'], 'spend':[500,300,700,450]})\n"],
+            ["Feature Engineering & Interaction Ratios", "23m", "00:00 – 23:20", "Engineer 'spend_per_visit' and 'is_weekend' features from raw logs.", "Create ratio features and avoid division by zero.", "import pandas as pd\ndf = pd.DataFrame({'spend':[1200, 0, 3400], 'visits':[4, 1, 8]})\n"],
+            ["Automated EDA Summary Function", "18m", "00:00 – 18:00", "Write a reusable audit_df(df) function reporting nulls, dtypes, and unique counts.", "Combine df.isna().sum(), df.dtypes, and df.nunique().", "import pandas as pd\ndef audit_df(df):\n    pass\n"],
+            ["Month 3 Capstone: Full Customer Churn EDA Report", "30m", "00:00 – 30:00", "Compare churned vs retained customer metrics (tenure, support calls, monthly charge).", "Use df.groupby('churned').mean().", "import pandas as pd\ndf = pd.DataFrame({'churned':[0,1,0,1,0], 'tenure':[24,3,36,2,18], 'calls':[1,5,0,6,2], 'charge':[65,95,55,99,70]})\n"]
+          ],
+          starterSql: "SELECT * FROM orders;"
+        },
+
+        // MONTH 4: STATISTICS & DATA VISUALIZATION (Days 85–112)
+        {
+          month: 4, week: 13, subject: "Descriptive & Inferential Stats", instructor: "StatQuest (Josh Starmer)", videoId: "qBigTkBLU6g", altVideoId: "xxpc-HPKN28",
+          topics: [
+            ["Central Tendency, Variance & Bessel's Correction", "16m", "00:00 – 16:00", "Compare population variance (ddof=0) vs sample variance (ddof=1) in NumPy.", "np.var(x, ddof=1)", "import numpy as np\nx = np.array([12, 15, 18, 22, 25])\n"],
+            ["Normal Distribution & Empirical Rule (68-95-99.7)", "18m", "00:00 – 18:20", "Compute the probability of scoring > 85 when mean=70 and std=10 using scipy.stats.norm.", "1 - stats.norm.cdf(85, loc=70, scale=10)", "from scipy import stats\n"],
+            ["Central Limit Theorem (CLT) Simulation", "20m", "00:00 – 20:00", "Draw 1,000 sample means (n=30) from an exponential distribution and verify normality.", "Compute mean and std of the sample means.", "import numpy as np\nrng = np.random.default_rng(7)\n"],
+            ["Confidence Intervals (95% & 99%)", "17m", "00:00 – 17:15", "Compute the 95% confidence interval for average order value from a sample.", "stats.t.interval(0.95, df=len(x)-1, loc=x.mean(), scale=stats.sem(x))", "import numpy as np\nfrom scipy import stats\nsample = np.array([420, 480, 510, 390, 460, 530, 445, 495])\n"],
+            ["Binomial & Poisson Event Modeling", "19m", "00:00 – 19:00", "Calculate the probability of receiving >= 8 support tickets in an hour when lambda=4.", "1 - stats.poisson.cdf(7, mu=4)", "from scipy import stats\n"],
+            ["Bayes' Theorem & Conditional Probability", "18m", "00:00 – 18:10", "Compute P(Fraud | Flagged) given 1% fraud base rate, 95% sensitivity, 5% false positive.", "P(A|B) = P(B|A)*P(A) / P(B)", "p_fraud = 0.01\nsens = 0.95\nfpr = 0.05\n"],
+            ["Week 13 Capstone: Probabilistic SLA Risk Calculator", "24m", "00:00 – 24:00", "Model delivery times and compute the 95th percentile SLA threshold.", "stats.norm.ppf(0.95, loc=mean, scale=std)", "from scipy import stats\n"]
+          ],
+          starterSql: "SELECT * FROM orders;"
+        },
+        {
+          month: 4, week: 14, subject: "Hypothesis Testing & A/B Tests", instructor: "StatQuest (Josh Starmer)", videoId: "0oc49DyA3hU", altVideoId: "5OL1RqHrZQ8",
+          topics: [
+            ["Null Hypothesis, P-Values & Alpha (0.05)", "17m", "00:00 – 17:00", "Interpret a p-value of 0.023 at alpha=0.05 and write a decision helper function.", "Reject H0 when p_value < alpha.", "def decide(p_val, alpha=0.05):\n    return 'Reject H0 (Significant)' if p_val < alpha else 'Fail to Reject H0'\n"],
+            ["Two-Sample Independent T-Test", "19m", "00:00 – 19:20", "Run Welch's t-test comparing checkout spend between Control and Variant groups.", "stats.ttest_ind(control, variant, equal_var=False)", "import numpy as np\nfrom scipy import stats\nctrl = np.array([45, 50, 48, 52, 47, 49])\nvar = np.array([55, 60, 58, 62, 54, 59])\n"],
+            ["Paired T-Test (Before vs After Intervention)", "16m", "00:00 – 16:10", "Test whether a new caching pipeline significantly reduced query latency.", "stats.ttest_rel(before, after)", "from scipy import stats\nbefore = [210, 195, 240, 225, 205]\nafter = [165, 160, 185, 175, 170]\n"],
+            ["Chi-Square Test for Conversion Rates", "21m", "00:00 – 21:00", "Test if conversion rate differs across 3 landing page variants via chi2_contingency.", "stats.chi2_contingency(table)", "from scipy import stats\ntable = [[120, 880], [155, 845], [170, 830]]\n"],
+            ["One-Way ANOVA Across Multiple Groups", "18m", "00:00 – 18:15", "Compare average order values across 4 regions using stats.f_oneway.", "stats.f_oneway(g1, g2, g3, g4)", "from scipy import stats\ng1, g2, g3 = [40,42,39], [52,55,50], [41,44,40]\n"],
+            ["Statistical Power, Sample Size & Effect Size", "20m", "00:00 – 20:00", "Compute Cohen's d effect size between two experiment arms.", "(mean2 - mean1) / pooled_std", "import numpy as np\na, b = np.array([10,12,11,13]), np.array([15,17,16,18])\n"],
+            ["Week 14 Capstone: End-to-End A/B Experiment Evaluator", "26m", "00:00 – 26:00", "Compute conversion lift, 95% CI, z-stat, and p-value for a pricing test.", "Use stats.norm.sf(abs(z)) * 2 for two-tailed p-value.", "import numpy as np\nfrom scipy import stats\n"]
+          ],
+          starterSql: "SELECT * FROM orders;"
+        },
+        {
+          month: 4, week: 15, subject: "Matplotlib & Seaborn Storytelling", instructor: "Corey Schafer", videoId: "UO98lJQ3QGI", altVideoId: "6GUZXDef2U0",
+          topics: [
+            ["Matplotlib Figure, Axes & Object-Oriented API", "20m", "00:00 – 20:00", "Build a clean line plot with title, axis labels, grid, and saved PNG buffer.", "fig, ax = plt.subplots(); ax.plot(...)", "import matplotlib.pyplot as plt\nmonths = ['Jan','Feb','Mar','Apr']\nrev = [120, 145, 138, 172]\n"],
+            ["Bar Charts, Grouped Bars & Annotations", "19m", "00:00 – 19:15", "Create a horizontal bar chart ranking top product categories by revenue.", "ax.barh(cats, vals)", "import matplotlib.pyplot as plt\n"],
+            ["Histograms, KDEs & Boxplots", "18m", "00:00 – 18:00", "Inspect distribution quartiles and outliers across 3 customer segments.", "ax.boxplot([s1, s2, s3])", "import matplotlib.pyplot as plt, numpy as np\n"],
+            ["Scatter Plots, Bubble Sizing & Trendlines", "21m", "00:00 – 21:10", "Plot ad spend vs revenue and overlay a linear np.polyfit trendline.", "m, b = np.polyfit(x, y, 1)", "import numpy as np, matplotlib.pyplot as plt\n"],
+            ["Heatmaps & Correlation Visuals", "17m", "00:00 – 17:00", "Render a correlation heatmap matrix using ax.imshow() with colorbar.", "im = ax.imshow(corr, cmap='coolwarm')", "import numpy as np, matplotlib.pyplot as plt\n"],
+            ["Multi-Panel Subplots & Executive Dashboards", "22m", "00:00 – 22:00", "Create a 2x2 subplot layout combining trend, bar, histogram, and scatter plots.", "fig, axes = plt.subplots(2, 2, figsize=(10, 6))", "import matplotlib.pyplot as plt\n"],
+            ["Week 15 Capstone: Automated Visual KPI Report", "25m", "00:00 – 25:00", "Generate a multi-metric summary chart and verify image buffer dimensions.", "Save figure to io.BytesIO() and confirm byte size > 0.", "import io, matplotlib.pyplot as plt\n"]
+          ],
+          starterSql: "SELECT * FROM orders;"
+        },
+        {
+          month: 4, week: 16, subject: "BI Dashboards & Metric Design", instructor: "Alex The Analyst", videoId: "pixlHHe_lNQ", altVideoId: "HXV3zeQKqGY",
+          topics: [
+            ["North Star Metrics & KPI Trees", "18m", "00:00 – 18:00", "Decompose Monthly Recurring Revenue (MRR) into Active Users x ARPU.", "Verify MRR = users * arpu across segments.", "segments = [{'name':'Pro','users':420,'arpu':1500}, {'name':'Team','users':95,'arpu':6500}]\n"],
+            ["Funnel Conversion & Drop-off Analysis", "20m", "00:00 – 20:10", "Compute stage-to-stage conversion rates from Visit -> Signup -> Trial -> Paid.", "Divide each stage by the previous stage.", "funnel = {'Visit': 10000, 'Signup': 2400, 'Trial': 960, 'Paid': 312}\n"],
+            ["Cohort Retention Matrix Construction", "23m", "00:00 – 23:00", "Compute Month-0, Month-1, and Month-2 retention percentages.", "Divide active cohort users by Month-0 cohort size.", "import pandas as pd\n"],
+            ["Pareto (80/20) Revenue Concentration", "19m", "00:00 – 19:15", "Sort customers by revenue descending and find what % of customers drive 80% of sales.", "Use cumsum() / sum().", "import pandas as pd\nsales = pd.Series([45000, 38000, 22000, 9000, 6000, 4000, 3000, 2000, 1000])\n"],
+            ["Anomaly & Spike Detection with Rolling Z-Score", "21m", "00:00 – 21:00", "Flag days where traffic deviates > 2.5 standard deviations from a 7-day rolling mean.", "(x - rolling_mean) / rolling_std", "import pandas as pd\n"],
+            ["Executive Data Storytelling & Takeaways", "16m", "00:00 – 16:00", "Generate an automated plain-English executive summary string from KPIs.", "Format key deltas clearly with +/- signs.", "kpis = {'rev': 485000, 'mom': 12.4, 'churn': 2.1}\n"],
+            ["Month 4 Capstone: End-to-End Business Metrics Engine", "28m", "00:00 – 28:00", "Combine funnel, Pareto 80/20, and A/B test significance into one diagnostic script.", "Bring together Pandas + SciPy stats.", "import pandas as pd\nfrom scipy import stats\n"]
+          ],
+          starterSql: "SELECT * FROM orders;"
+        },
+
+        // MONTH 5: MACHINE LEARNING ENGINEERING (Days 113–140)
+        {
+          month: 5, week: 17, subject: "Supervised Regression", instructor: "StatQuest / Krish Naik", videoId: "nk2CQITm_eo", altVideoId: "0Lt9w-BxKFQ",
+          topics: [
+            ["Train/Test Split & Preventing Data Leakage", "18m", "00:00 – 18:00", "Split features X and target y using train_test_split(test_size=0.2, random_state=42).", "from sklearn.model_selection import train_test_split", "import numpy as np\nfrom sklearn.model_selection import train_test_split\nX = np.arange(20).reshape(10, 2)\ny = np.arange(10)\n"],
+            ["Linear Regression & Coefficient Interpretation", "22m", "00:00 – 22:15", "Fit LinearRegression() on housing area/rooms and inspect .coef_ and .intercept_.", "from sklearn.linear_model import LinearRegression", "import numpy as np\nfrom sklearn.linear_model import LinearRegression\nX = np.array([[800,1],[1200,2],[1600,3],[2000,3],[2400,4]])\ny = np.array([45, 68, 92, 110, 135])\n"],
+            ["Regression Metrics: MAE, RMSE & R² Score", "19m", "00:00 – 19:00", "Evaluate predictions using mean_absolute_error, root_mean_squared_error, and r2_score.", "from sklearn.metrics import mean_absolute_error, r2_score", "from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score\ny_true = [100, 150, 200, 250]\ny_pred = [105, 142, 210, 240]\n"],
+            ["Ridge (L2) & Lasso (L1) Regularization", "21m", "00:00 – 21:20", "Compare Ridge and Lasso coefficients on noisy correlated features.", "from sklearn.linear_model import Ridge, Lasso", "import numpy as np\nfrom sklearn.linear_model import Ridge, Lasso\n"],
+            ["Polynomial Features & Bias-Variance Tradeoff", "20m", "00:00 – 20:00", "Fit a degree-2 PolynomialFeatures pipeline on curved synthetic data.", "from sklearn.preprocessing import PolynomialFeatures", "import numpy as np\nfrom sklearn.preprocessing import PolynomialFeatures\nfrom sklearn.linear_model import LinearRegression\n"],
+            ["Feature Scaling (StandardScaler & MinMaxScaler)", "17m", "00:00 – 17:10", "Fit StandardScaler ONLY on X_train and transform both X_train and X_test.", "scaler.fit_transform(X_train); scaler.transform(X_test)", "import numpy as np\nfrom sklearn.preprocessing import StandardScaler\n"],
+            ["Week 17 Capstone: House Price Prediction Pipeline", "26m", "00:00 – 26:00", "Chain StandardScaler + Ridge inside sklearn.pipeline.Pipeline and evaluate R².", "from sklearn.pipeline import make_pipeline", "import numpy as np\nfrom sklearn.pipeline import make_pipeline\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.linear_model import Ridge\n"]
+          ],
+          starterSql: "SELECT * FROM orders;"
+        },
+        {
+          month: 5, week: 18, subject: "Classification & Evaluation Metrics", instructor: "StatQuest (Josh Starmer)", videoId: "yIYKR4sgzI8", altVideoId: "4jRBRDbJemM",
+          topics: [
+            ["Logistic Regression & Sigmoid Probabilities", "20m", "00:00 – 20:00", "Train LogisticRegression() and inspect predicted probabilities via .predict_proba().", "from sklearn.linear_model import LogisticRegression", "import numpy as np\nfrom sklearn.linear_model import LogisticRegression\nX = np.array([[1,20],[2,25],[8,75],[9,85],[3,30],[7,80]])\ny = np.array([0, 0, 1, 1, 0, 1])\n"],
+            ["Confusion Matrix, Precision, Recall & F1", "22m", "00:00 – 22:15", "Compute confusion_matrix and classification_report on an imbalanced fraud sample.", "from sklearn.metrics import confusion_matrix, f1_score", "from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score\ny_true = [0,0,0,0,1,1,1,0,1,0]\ny_pred = [0,0,1,0,1,1,0,0,1,0]\n"],
+            ["ROC-AUC & Precision-Recall Curves", "21m", "00:00 – 21:00", "Calculate roc_auc_score from predicted class probabilities.", "roc_auc_score(y_true, y_probs)", "from sklearn.metrics import roc_auc_score\ny_true = [0, 0, 1, 1, 0, 1]\ny_probs = [0.12, 0.35, 0.82, 0.91, 0.44, 0.76]\n"],
+            ["Decision Threshold Tuning for Business Cost", "18m", "00:00 – 18:10", "Adjust classification threshold from 0.50 to 0.30 to maximize Recall.", "(y_probs >= 0.30).astype(int)", "import numpy as np\ny_probs = np.array([0.15, 0.32, 0.48, 0.71, 0.89])\n"],
+            ["K-Nearest Neighbors (KNN) & Distance Metrics", "17m", "00:00 – 17:00", "Train KNeighborsClassifier(n_neighbors=3) with StandardScaler.", "from sklearn.neighbors import KNeighborsClassifier", "from sklearn.neighbors import KNeighborsClassifier\n"],
+            ["Support Vector Machines (RBF Kernel)", "19m", "00:00 – 19:20", "Classify non-linear circular points using SVC(kernel='rbf', probability=True).", "from sklearn.svm import SVC", "from sklearn.svm import SVC\nfrom sklearn.datasets import make_circles\n"],
+            ["Week 18 Capstone: Customer Churn Classifier", "26m", "00:00 – 26:00", "Train a churn classifier on synthetic telecom data and report ROC-AUC & F1.", "Use make_classification + LogisticRegression.", "from sklearn.datasets import make_classification\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import LogisticRegression\nfrom sklearn.metrics import roc_auc_score\n"]
+          ],
+          starterSql: "SELECT * FROM orders;"
+        },
+        {
+          month: 5, week: 19, subject: "Trees, Ensembles & Boosting", instructor: "StatQuest (Josh Starmer)", videoId: "_L39rN6gz7Y", altVideoId: "J4Wdy0Wc_xQ",
+          topics: [
+            ["Decision Trees, Gini Impurity & Max Depth", "20m", "00:00 – 20:00", "Fit DecisionTreeClassifier(max_depth=3) and inspect feature_importances_.", "from sklearn.tree import DecisionTreeClassifier", "from sklearn.datasets import load_iris\nfrom sklearn.tree import DecisionTreeClassifier\n"],
+            ["Random Forests & Bagging", "21m", "00:00 – 21:15", "Train RandomForestClassifier(n_estimators=100, random_state=42) and check OOB score.", "Set oob_score=True inside RandomForestClassifier.", "from sklearn.datasets import load_wine\nfrom sklearn.ensemble import RandomForestClassifier\n"],
+            ["Gradient Boosting Machines (GBM)", "22m", "00:00 – 22:00", "Train GradientBoostingClassifier(learning_rate=0.1, n_estimators=100).", "from sklearn.ensemble import GradientBoostingClassifier", "from sklearn.datasets import load_breast_cancer\nfrom sklearn.ensemble import GradientBoostingClassifier\n"],
+            ["HistGradientBoosting (LightGBM-style Speed)", "19m", "00:00 – 19:10", "Train HistGradientBoostingClassifier on a dataset with native NaN values.", "HistGradientBoosting handles missing values natively.", "import numpy as np\nfrom sklearn.ensemble import HistGradientBoostingClassifier\n"],
+            ["Cross-Validation (StratifiedKFold)", "18m", "00:00 – 18:00", "Run 5-fold cross_val_score and report mean +/- std accuracy.", "from sklearn.model_selection import cross_val_score", "from sklearn.datasets import load_iris\nfrom sklearn.ensemble import RandomForestClassifier\nfrom sklearn.model_selection import cross_val_score\n"],
+            ["Hyperparameter Tuning (RandomizedSearchCV)", "23m", "00:00 – 23:20", "Tune n_estimators and max_depth using RandomizedSearchCV.", "from sklearn.model_selection import RandomizedSearchCV", "from sklearn.model_selection import RandomizedSearchCV\nfrom sklearn.ensemble import RandomForestClassifier\n"],
+            ["Week 19 Capstone: Credit Default Risk Ensemble", "28m", "00:00 – 28:00", "Compare Logistic Regression vs Random Forest vs Gradient Boosting via 5-fold CV.", "Loop over models and print mean ROC-AUC.", "from sklearn.datasets import make_classification\nfrom sklearn.model_selection import cross_val_score\n"]
+          ],
+          starterSql: "SELECT * FROM orders;"
+        },
+        {
+          month: 5, week: 20, subject: "Unsupervised ML & Pipelines", instructor: "StatQuest (Josh Starmer)", videoId: "4b5d3muPQmA", altVideoId: "FgakZw6K1QQ",
+          topics: [
+            ["K-Means Clustering & Elbow Inertia", "20m", "00:00 – 20:00", "Fit KMeans(n_clusters=3, random_state=42) and compute silhouette_score.", "from sklearn.cluster import KMeans; from sklearn.metrics import silhouette_score", "from sklearn.datasets import make_blobs\nfrom sklearn.cluster import KMeans\nfrom sklearn.metrics import silhouette_score\n"],
+            ["Hierarchical Clustering & DBSCAN", "19m", "00:00 – 19:15", "Detect arbitrary-shaped clusters and noise points (-1) using DBSCAN.", "from sklearn.cluster import DBSCAN", "from sklearn.cluster import DBSCAN\nfrom sklearn.datasets import make_moons\n"],
+            ["Principal Component Analysis (PCA)", "22m", "00:00 – 22:00", "Reduce 10 features to 2 principal components and print explained_variance_ratio_.", "from sklearn.decomposition import PCA", "import numpy as np\nfrom sklearn.decomposition import PCA\n"],
+            ["ColumnTransformer & Full Preprocessing Pipelines", "24m", "00:00 – 24:10", "Build a ColumnTransformer combining SimpleImputer + StandardScaler + OneHotEncoder.", "from sklearn.compose import ColumnTransformer", "import pandas as pd\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.preprocessing import StandardScaler, OneHotEncoder\n"],
+            ["Handling Class Imbalance (class_weight='balanced')", "18m", "00:00 – 18:00", "Compare Recall on a 95:5 imbalanced dataset with and without class_weight='balanced'.", "LogisticRegression(class_weight='balanced')", "from sklearn.datasets import make_classification\nfrom sklearn.linear_model import LogisticRegression\n"],
+            ["Feature Importance & Permutation Importance", "20m", "00:00 – 20:15", "Rank top predictive features using permutation_importance.", "from sklearn.inspection import permutation_importance", "from sklearn.inspection import permutation_importance\n"],
+            ["Month 5 Capstone: Production Sklearn Pipeline", "30m", "00:00 – 30:00", "Build an end-to-end ColumnTransformer + HistGradientBoosting pipeline with CV.", "Ensure zero leakage by keeping all transforms inside Pipeline.", "import pandas as pd\nfrom sklearn.pipeline import Pipeline\n"]
+          ],
+          starterSql: "SELECT * FROM orders;"
+        },
+
+        // MONTH 6: GENAI, RAG & CAPSTONE PORTFOLIO (Days 141–168)
+        {
+          month: 6, week: 21, subject: "LLM Foundations & Prompt Engineering", instructor: "Andrej Karpathy", videoId: "zjkBMFhNj_g", altVideoId: "bZQun8Y4L2A",
+          topics: [
+            ["Tokenization, Context Windows & Token Costs", "22m", "00:00 – 22:00", "Estimate token counts (~0.75 words/token) and API cost for a batch of support tickets.", "Approximate tokens = len(text.split()) * 1.33.", "tickets = ['How do I reset my password?', 'Export invoice CSV for Q3 GST filing']\n"],
+            ["Zero-Shot, Few-Shot & Chain-of-Thought Prompts", "19m", "00:00 – 19:15", "Construct a structured few-shot prompt template for ticket sentiment & priority routing.", "Include 2 clean input/output examples in the prompt string.", "def build_few_shot_prompt(ticket_text):\n    pass\n"],
+            ["Structured JSON Output Schemas", "20m", "00:00 – 20:00", "Validate and parse an LLM JSON extraction payload with fallback error handling.", "Use json.loads() and check required keys.", "import json\nraw_llm = '{\"intent\": \"refund\", \"confidence\": 0.94, \"order_id\": 105}'\n"],
+            ["Temperature, Top-P & Deterministic Eval", "17m", "00:00 – 17:10", "Simulate softmax probability sharpening across temperature T = 0.2 vs T = 1.2.", "logits / T before softmax.", "import numpy as np\nlogits = np.array([2.5, 1.8, 0.5])\n"],
+            ["Prompt Injection Guardrails & Input Sanitization", "18m", "00:00 – 18:00", "Write a guardrail filter detecting jailbreak phrases before passing text to an LLM.", "Check lowercased text against blocked instruction patterns.", "def is_safe_prompt(user_input: str) -> bool:\n    pass\n"],
+            ["LLM Evaluation Harnesses (Exact Match & Rubric)", "21m", "00:00 – 21:00", "Score model outputs against a golden ground-truth dataset.", "Compute accuracy and latency summary.", "eval_pairs = [('Paris', 'Paris'), ('42', '42.0'), ('Tokyo', 'Osaka')]\n"],
+            ["Week 21 Capstone: Automated Ticket Triage Prompt Engine", "25m", "00:00 – 25:00", "Build a prompt formatter + JSON schema validator + safety check pipeline.", "Combine sanitization, few-shot formatting, and schema parsing.", "def triage_pipeline(raw_ticket: str):\n    pass\n"]
+          ],
+          starterSql: "SELECT * FROM orders;"
+        },
+        {
+          month: 6, week: 22, subject: "Embeddings & RAG Systems", instructor: "Krish Naik / AssemblyAI", videoId: "T-D1OfcDW1M", altVideoId: "tcqEUSNCn8I",
+          topics: [
+            ["Dense Embeddings & Cosine Similarity", "21m", "00:00 – 21:00", "Compute cosine similarity between a query vector and 4 document vectors in NumPy.", "np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))", "import numpy as np\nq = np.array([0.8, 0.2, 0.5])\ndocs = np.array([[0.75, 0.25, 0.45], [0.1, 0.9, 0.1], [0.82, 0.18, 0.52]])\n"],
+            ["Document Chunking (Fixed vs Overlapping Windows)", "19m", "00:00 – 19:20", "Implement a sliding-window text chunker with chunk_size=120 and overlap=30.", "Step by (chunk_size - overlap) characters.", "def chunk_text(text: str, size: int = 120, overlap: int = 30) -> list[str]:\n    pass\n"],
+            ["TF-IDF & Hybrid Lexical + Semantic Retrieval", "22m", "00:00 – 22:00", "Build a TF-IDF retriever using sklearn TfidfVectorizer and rank top-2 matches.", "from sklearn.feature_extraction.text import TfidfVectorizer", "from sklearn.feature_extraction.text import TfidfVectorizer\nfrom sklearn.metrics.pairwise import cosine_similarity\n"],
+            ["Metadata Filtering & Vector Store Design", "18m", "00:00 – 18:10", "Filter candidate chunks by year >= 2026 and department before ranking similarity.", "Apply metadata filter before scoring.", "chunks = [{'text':'Q3 GST rules','year':2026}, {'text':'Old policy','year':2023}]\n"],
+            ["Context Grounding & Citation Attribution", "20m", "00:00 – 20:00", "Assemble a grounded RAG prompt with [Source 1], [Source 2] citations.", "Format retrieved chunks with explicit source IDs.", "def format_rag_context(query, top_chunks):\n    pass\n"],
+            ["RAG Faithfulness & Hallucination Checks", "21m", "00:00 – 21:15", "Verify that every numeric claim in an answer exists in the retrieved context.", "Extract numbers with re.findall(r'\\d+', text) and check subset.", "import re\n"],
+            ["Week 22 Capstone: In-Memory Hybrid RAG Search Engine", "28m", "00:00 – 28:00", "Chunk a knowledge base, index with TF-IDF cosine similarity, and return cited answers.", "Combine chunking + TfidfVectorizer + citation formatter.", "docs = ['DataForge covers Python, SQL, Pandas, Stats, ML, and GenAI over 168 days.', 'Pyodide executes Python 3.11 directly in the browser via WebAssembly.']\n"]
+          ],
+          starterSql: "SELECT * FROM orders;"
+        },
+        {
+          month: 6, week: 23, subject: "AI Agents, Tool Calling & Apps", instructor: "Krish Naik", videoId: "sal78ACtGTc", altVideoId: "J5_-l7WIO_w",
+          topics: [
+            ["Function Calling & Tool Schemas", "20m", "00:00 – 20:00", "Define a JSON tool schema for a Python SQL query executor tool.", "Include name, description, and parameters properties.", "tool_schema = {'name': 'run_sql', 'parameters': {'type': 'object', 'properties': {'query': {'type': 'string'}}}}\n"],
+            ["ReAct Agent Loop (Thought -> Action -> Observation)", "23m", "00:00 – 23:10", "Implement a deterministic tool router dispatching 'calc_gst' and 'lookup_sku'.", "Map tool names to Python functions in a registry dict.", "tools = {'calc_gst': lambda amt: round(amt * 0.18, 2)}\n"],
+            ["Multi-Step Data Analysis Agent", "22m", "00:00 – 22:00", "Chain summary stats -> anomaly check -> markdown report generation.", "Pass output of step 1 into step 2.", "data = [120, 125, 118, 130, 410, 122]\n"],
+            ["Memory Management & Conversation Summarization", "18m", "00:00 – 18:00", "Implement a sliding-window chat memory keeping system prompt + last 6 turns.", "Slice history[-6:] while preserving turn roles.", "history = [{'role':'user','text':f'msg {i}'} for i in range(12)]\n"],
+            ["Streaming UX & Latency Optimization", "17m", "00:00 – 17:15", "Simulate token-by-token streaming with a generator yielding chunks.", "Use yield word + ' '.", "def stream_words(sentence):\n    for w in sentence.split(): yield w\n"],
+            ["FastAPI / REST Microservice Contracts", "21m", "00:00 – 21:00", "Validate API request payloads and return standardized HTTP status responses.", "Check required fields and types cleanly.", "def predict_endpoint(payload: dict):\n    pass\n"],
+            ["Week 23 Capstone: Autonomous SQL + Python Analyst Agent", "28m", "00:00 – 28:00", "Route natural language questions to either a SQL generator or Python stats tool.", "Classify intent and execute the matching tool.", "def route_question(q: str):\n    pass\n"]
+          ],
+          starterSql: "SELECT * FROM orders;"
+        },
+        {
+          month: 6, week: 24, subject: "Portfolio Capstone & Interview Prep", instructor: "DataForge Career Track", videoId: "p1bfk85_2a8", altVideoId: "zjkBMFhNj_g",
+          topics: [
+            ["End-to-End Capstone Architecture & README", "20m", "00:00 – 20:00", "Generate a structured GitHub README template with problem, metrics, and stack.", "Include Problem Statement, Dataset, Approach, Results, and Reproduction steps.", "project = {'title': 'Customer Churn & LTV Engine', 'auc': 0.89, 'lift': '+14%'}\n"],
+            ["SQL Live Coding Interview Drill (Window + Joins)", "25m", "00:00 – 25:00", "Solve a 3-part SQL interview challenge: top earner per dept + MoM growth.", "Use DENSE_RANK() and LAG() inside CTEs.", "WITH ranked AS (\n  SELECT name, department, salary, DENSE_RANK() OVER(PARTITION BY department ORDER BY salary DESC) AS rk\n  FROM employees\n)\nSELECT * FROM ranked WHERE rk = 1;"],
+            ["Python & Pandas Interview Drill", "25m", "00:00 – 25:00", "Solve sessionization and rolling 7-day active user calculations in Pandas.", "Use .diff() and .cumsum() to assign session IDs.", "import pandas as pd\nts = pd.to_datetime(['2026-06-01 10:00', '2026-06-01 10:12', '2026-06-01 14:00'])\n"],
+            ["ML System Design: Churn & Recommendation", "22m", "00:00 – 22:00", "Design feature store, offline ROC-AUC, and online latency SLA specs.", "Structure data ingestion, training, serving, and drift monitoring.", "print('System Design checklist ready')\n"],
+            ["A/B Testing & Product Sense Case Study", "20m", "00:00 – 20:00", "Diagnose a novelty effect vs true conversion lift in a 14-day experiment.", "Compare Week 1 vs Week 2 lift stability.", "w1_lift, w2_lift = 0.085, 0.012\n"],
+            ["Portfolio Export & GitHub Showcase Polish", "18m", "00:00 – 18:00", "Audit all completed milestones and export your Markdown portfolio from Roadmap.", "Open Roadmap -> Export Markdown Portfolio.", "print('Ready to export Markdown portfolio!')\n"],
+            ["Day 168 Graduation: Full-Stack Data Scientist Readiness", "30m", "00:00 – 30:00", "Run final verification across Python, SQL, ML, and GenAI pipelines. Congratulations!", "Click Verify & Complete to seal Day 168!", "print('🎓 168-Day DataForge Mastery Curriculum Complete!')\n"]
+          ],
+          starterSql: "SELECT department, COUNT(*) AS staff, SUM(salary) AS payroll FROM employees GROUP BY department ORDER BY payroll DESC;"
+        }
+      ];
+
+      const allDays = [];
+      let dayCounter = 1;
+      modules.forEach(mod => {
+        mod.topics.forEach((t, idx) => {
+          const [title, duration, focus, lab, hint, starterPy] = t;
+          allDays.push({
+            day: dayCounter++,
+            month: mod.month,
+            week: mod.week,
+            subject: mod.subject,
+            instructor: mod.instructor,
+            duration,
+            title,
+            videoId: mod.videoId,
+            altVideoId: mod.altVideoId,
+            focus,
+            takeaways: [
+              `Master ${title} within ${mod.subject} (Month ${mod.month}, Week ${mod.week}).`,
+              `Apply ${mod.instructor}'s workflow directly inside the browser IDE without local setup.`,
+              `Verify your solution with live execution output and save key insights to Smart Notes.`
+            ],
+            lab,
+            hint,
+            starterPy,
+            starterSql: mod.starterSql
+          });
+        });
+      });
+      return allDays;
+    })();
+  </script>
 
   <script>
-    /* ==================== CURRICULUM FALLBACK GUARD ==================== */
-    const CURRICULUM_DATA = Array.isArray(window.CURRICULUM) && window.CURRICULUM.length > 0
-      ? window.CURRICULUM
-      : [{
-          day: 1, month: 1, week: 1, subject: "Setup Check", instructor: "DataForge", duration: "1m",
-          title: "Place curriculum.js in the same folder as index.html",
-          videoId: "k9TUPpGqYTo", altVideoId: "nLRL_NcnK-4", focus: "00:00 – 05:00",
-          takeaways: ["Ensure curriculum.js is committed alongside index.html in your GitHub repo."],
-          lab: "Verify curriculum.js is loaded.", hint: "Check browser DevTools Network tab.",
-          starterPy: "print('DataForge runtime check OK!')",
-          starterSql: "SELECT * FROM employees LIMIT 5;"
-        }];
+    const CURRICULUM_DATA = window.CURRICULUM;
 
     /* ==================== STATE & 3-LAYER STORAGE ==================== */
     const MONTH_META = [
@@ -1229,9 +1555,9 @@
     ];
 
     let appState = {
-      view: "home",           // 'home' | 'studio'
-      studioMode: "split",    // 'split' | 'theater' | 'code'
-      runtime: "py",          // 'py' | 'sql'
+      view: "home",
+      studioMode: "split",
+      runtime: "py",
       useAltVideo: false,
       noteFilter: "ALL",
       lastConsoleOutput: "",
@@ -1358,7 +1684,7 @@
       }
     }
 
-    /* ==================== NAVIGATION: BENTO HOME <-> MACOS FLOATING-DOCK STUDIO ==================== */
+    /* ==================== NAVIGATION: BENTO HOME <-> FLOATING-DOCK STUDIO ==================== */
     function switchView(viewName) {
       appState.view = viewName;
       const bento = document.getElementById("bento-view");
@@ -1422,7 +1748,7 @@
       }
     }
 
-    /* ==================== RENDERING: TOPBAR & OPTION 3 BENTO HOME ==================== */
+    /* ==================== RENDERING: TOPBAR & BENTO HOME ==================== */
     function updateTopbar() {
       const d = getDayObject(profile.currentDay);
       document.getElementById("topbar-day-label").textContent = `Day ${String(d.day).padStart(2, "0")} / ${CURRICULUM_DATA.length} • ${d.subject}`;
@@ -1437,7 +1763,6 @@
       const doneCount = doneSet.size;
       const overallPct = Math.round((doneCount / totalDays) * 100);
 
-      // 1. 6-Month Skill Progress Rings
       document.getElementById("overall-pct-label").textContent = `${overallPct}% Overall Mastery`;
       const ringsHtml = MONTH_META.map(m => {
         const monthDays = CURRICULUM_DATA.filter(d => d.month === m.month);
@@ -1468,7 +1793,6 @@
       }).join("");
       document.getElementById("skill-rings-container").innerHTML = ringsHtml;
 
-      // 2. Streak & Progress Bar
       document.getElementById("bento-streak-val").textContent = `${profile.streak} ${profile.streak === 1 ? "Day" : "Days"}`;
       document.getElementById("bento-done-count").textContent = `${doneCount} / ${totalDays} Labs Verified`;
       document.getElementById("bento-overall-bar").style.width = `${overallPct}%`;
@@ -1479,7 +1803,6 @@
         `<div class="w-dot ${idx < activeDots ? "done" : ""}">${lbl}</div>`
       ).join("");
 
-      // 3. Profile Sync & AI Status
       const hasKey = Boolean(localStorage.getItem("df_gemini_key"));
       const hasGist = Boolean(localStorage.getItem("df_gist_token"));
       document.getElementById("bento-handle-display").textContent = `@${profile.handle}`;
@@ -1488,7 +1811,6 @@
         : `<span style="color: var(--warning);">○ AI Mentor Offline (Add Free Key)</span>`;
       document.getElementById("gist-status-dot").textContent = hasGist ? "☁️ Gist Sync" : "● Local PIN";
 
-      // 4. Today's Mission Hero Card
       const currentObj = getDayObject(profile.currentDay);
       const isDone = doneSet.has(currentObj.day);
       document.getElementById("mission-eyebrow").textContent =
@@ -1501,7 +1823,6 @@
       document.getElementById("mission-subject").textContent = `📘 ${currentObj.subject}`;
       document.getElementById("mission-status-pill").textContent = isDone ? "✅ Verified Complete" : "⏳ In Progress";
 
-      // 5. Recent Smart Notes
       const recentContainer = document.getElementById("bento-recent-notes");
       if (!profile.notes.length) {
         recentContainer.innerHTML = `<div style="font-size: 12.5px; color: var(--text-muted); padding: 10px 0;">No notes saved yet. Capture formulas, SQL snippets, or ML insights below!</div>`;
@@ -1518,7 +1839,7 @@
       }
     }
 
-    /* ==================== RENDERING: OPTION 2 FLOATING-DOCK STUDIO ==================== */
+    /* ==================== RENDERING: FLOATING-DOCK STUDIO ==================== */
     function renderStudioDay() {
       updateTopbar();
       const d = getDayObject(profile.currentDay);
@@ -1541,13 +1862,9 @@
       verifyBtn.textContent = isDone ? "✅ Completed" : "✓ Verify & Complete";
       verifyBtn.classList.toggle("completed", isDone);
 
-      // Update YouTube iframe cleanly (never youtube-nocookie.com)
       loadYouTubeEmbed(d);
-
-      // Load saved draft or starter code for active runtime
       loadEditorDraft();
 
-      // Update Mentor status badge
       const hasKey = Boolean(localStorage.getItem("df_gemini_key"));
       const badge = document.getElementById("mentor-live-badge");
       badge.textContent = hasKey ? "● Live" : "Key Required";
@@ -1997,7 +2314,6 @@ Keep answers crisp, encouraging, practical, and directly grounded in the student
       const apiKey = localStorage.getItem("df_gemini_key");
 
       if (!apiKey) {
-        // Deterministic local fallback if API key not yet added
         const grouped = filtered.map(n => `- **[${n.tag} | Day ${n.day}]** ${n.text}`).join("\n");
         outBox.innerHTML = renderBasicMarkdown(`### Compiled Study Cheat-Sheet (${appState.noteFilter})\n${grouped}\n\n*Tip: Connect your free Gemini API key in Sync to enable AI synthesis & code examples.*`);
         return;
@@ -2278,7 +2594,6 @@ Keep answers crisp, encouraging, practical, and directly grounded in the student
       }
     }
 
-    /* ==================== INITIALIZE APPLICATION ==================== */
     window.addEventListener("DOMContentLoaded", () => {
       checkUrlHashApiKey();
       loadActiveProfile();
