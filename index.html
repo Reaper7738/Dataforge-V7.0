@@ -1,0 +1,2290 @@
+<!DOCTYPE html>
+<html lang="en" data-tint="obsidian">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>DataForge // Instinct OS v7.0</title>
+  <style>
+    /* ==================== LIQUID GLASS DESIGN TOKENS (4 TINTS) ==================== */
+    :root, [data-tint="obsidian"] {
+      --bg-base: #07080d;
+      --bg-mesh-1: radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.16), transparent 45%);
+      --bg-mesh-2: radial-gradient(circle at 85% 20%, rgba(139, 92, 246, 0.14), transparent 45%);
+      --bg-mesh-3: radial-gradient(circle at 50% 90%, rgba(14, 165, 233, 0.12), transparent 50%);
+      --glass-bg: rgba(17, 20, 30, 0.68);
+      --glass-bg-elevated: rgba(24, 28, 42, 0.82);
+      --glass-bg-subtle: rgba(255, 255, 255, 0.04);
+      --glass-border: rgba(255, 255, 255, 0.11);
+      --glass-specular: rgba(255, 255, 255, 0.22);
+      --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #38bdf8;
+      --accent-2: #818cf8;
+      --accent-glow: rgba(56, 189, 248, 0.28);
+      --accent-text: #041019;
+      --success: #34d399;
+      --warning: #fbbf24;
+      --danger: #f87171;
+      --code-bg: rgba(9, 11, 18, 0.85);
+      --dock-bg: rgba(15, 18, 28, 0.82);
+    }
+
+    [data-tint="arctic"] {
+      --bg-base: #e7eef8;
+      --bg-mesh-1: radial-gradient(circle at 12% 18%, rgba(56, 189, 248, 0.28), transparent 48%);
+      --bg-mesh-2: radial-gradient(circle at 88% 15%, rgba(99, 102, 241, 0.20), transparent 48%);
+      --bg-mesh-3: radial-gradient(circle at 50% 92%, rgba(14, 165, 233, 0.22), transparent 52%);
+      --glass-bg: rgba(255, 255, 255, 0.72);
+      --glass-bg-elevated: rgba(255, 255, 255, 0.88);
+      --glass-bg-subtle: rgba(15, 23, 42, 0.045);
+      --glass-border: rgba(15, 23, 42, 0.11);
+      --glass-specular: rgba(255, 255, 255, 0.95);
+      --glass-shadow: 0 18px 42px rgba(15, 23, 42, 0.10);
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --accent: #0284c7;
+      --accent-2: #4f46e5;
+      --accent-glow: rgba(2, 132, 199, 0.22);
+      --accent-text: #ffffff;
+      --success: #059669;
+      --warning: #d97706;
+      --danger: #dc2626;
+      --code-bg: rgba(241, 245, 249, 0.92);
+      --dock-bg: rgba(255, 255, 255, 0.84);
+    }
+
+    [data-tint="aurora"] {
+      --bg-base: #0a071a;
+      --bg-mesh-1: radial-gradient(circle at 18% 15%, rgba(168, 85, 247, 0.26), transparent 46%);
+      --bg-mesh-2: radial-gradient(circle at 82% 22%, rgba(45, 212, 191, 0.22), transparent 46%);
+      --bg-mesh-3: radial-gradient(circle at 48% 88%, rgba(236, 72, 153, 0.16), transparent 50%);
+      --glass-bg: rgba(20, 15, 44, 0.66);
+      --glass-bg-elevated: rgba(28, 22, 58, 0.84);
+      --glass-bg-subtle: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(196, 181, 253, 0.16);
+      --glass-specular: rgba(221, 214, 254, 0.28);
+      --glass-shadow: 0 22px 54px rgba(4, 2, 16, 0.65);
+      --text-primary: #f5f3ff;
+      --text-secondary: #c4b5fd;
+      --text-muted: #8b5cf6;
+      --accent: #2dd4bf;
+      --accent-2: #c084fc;
+      --accent-glow: rgba(45, 212, 191, 0.28);
+      --accent-text: #041513;
+      --success: #34d399;
+      --warning: #fbbf24;
+      --danger: #fb7185;
+      --code-bg: rgba(11, 8, 26, 0.86);
+      --dock-bg: rgba(22, 16, 48, 0.84);
+    }
+
+    [data-tint="emerald"] {
+      --bg-base: #051210;
+      --bg-mesh-1: radial-gradient(circle at 15% 18%, rgba(16, 185, 129, 0.22), transparent 46%);
+      --bg-mesh-2: radial-gradient(circle at 85% 20%, rgba(20, 184, 166, 0.18), transparent 46%);
+      --bg-mesh-3: radial-gradient(circle at 50% 90%, rgba(52, 211, 153, 0.14), transparent 50%);
+      --glass-bg: rgba(10, 28, 25, 0.68);
+      --glass-bg-elevated: rgba(14, 38, 34, 0.84);
+      --glass-bg-subtle: rgba(255, 255, 255, 0.045);
+      --glass-border: rgba(110, 231, 183, 0.14);
+      --glass-specular: rgba(167, 243, 208, 0.24);
+      --glass-shadow: 0 22px 54px rgba(2, 10, 8, 0.62);
+      --text-primary: #ecfdf5;
+      --text-secondary: #a7f3d0;
+      --text-muted: #6ee7b7;
+      --accent: #34d399;
+      --accent-2: #2dd4bf;
+      --accent-glow: rgba(52, 211, 153, 0.28);
+      --accent-text: #03150f;
+      --success: #34d399;
+      --warning: #fbbf24;
+      --danger: #f87171;
+      --code-bg: rgba(6, 18, 16, 0.88);
+      --dock-bg: rgba(10, 29, 26, 0.85);
+    }
+
+    /* ==================== RESET & BASE ==================== */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-base);
+      background-image: var(--bg-mesh-1), var(--bg-mesh-2), var(--bg-mesh-3);
+      background-attachment: fixed;
+      color: var(--text-primary);
+      overflow-x: hidden;
+      transition: background-color 0.35s ease, color 0.25s ease;
+    }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+    /* ==================== LIQUID GLASS PRIMITIVES ==================== */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(28px) saturate(150%);
+      -webkit-backdrop-filter: blur(28px) saturate(150%);
+      border: 1px solid var(--glass-border);
+      border-top-color: var(--glass-specular);
+      border-radius: 22px;
+      box-shadow: var(--glass-shadow);
+      transition: transform 0.22s ease, border-color 0.22s ease, background 0.3s ease;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg-subtle);
+      color: var(--text-primary);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn:hover {
+      border-color: var(--accent);
+      background: var(--glass-bg-elevated);
+      transform: translateY(-1px);
+    }
+    .btn:active { transform: translateY(0); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: var(--accent-text);
+      border: none;
+      box-shadow: 0 6px 20px var(--accent-glow);
+    }
+    .btn-primary:hover {
+      filter: brightness(1.08);
+      box-shadow: 0 8px 26px var(--accent-glow);
+    }
+    .btn-success {
+      background: rgba(52, 211, 153, 0.16);
+      border-color: rgba(52, 211, 153, 0.45);
+      color: var(--success);
+    }
+    .btn-success.completed {
+      background: var(--success);
+      color: #04150e;
+    }
+    .btn-sm { padding: 5px 10px; font-size: 12px; border-radius: 9px; }
+
+    .pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      background: var(--glass-bg-subtle);
+      border: 1px solid var(--glass-border);
+      color: var(--text-secondary);
+    }
+
+    input, textarea, select {
+      font-family: inherit;
+      background: var(--code-bg);
+      color: var(--text-primary);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 9px 12px;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--accent);
+    }
+
+    /* ==================== TOP HEADER BAR ==================== */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 20px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 15px;
+      letter-spacing: -0.02em;
+      cursor: pointer;
+    }
+    .brand-logo {
+      width: 30px;
+      height: 30px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: var(--accent-text);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      font-size: 13px;
+      box-shadow: 0 4px 14px var(--accent-glow);
+    }
+    .topbar-center {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Glass Tint Switcher Dots */
+    .tint-switcher {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: var(--glass-bg-subtle);
+      border: 1px solid var(--glass-border);
+    }
+    .tint-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s ease;
+    }
+    .tint-dot:hover { transform: scale(1.18); }
+    .tint-dot.active { border-color: var(--text-primary); transform: scale(1.15); }
+    .tint-dot[data-t="obsidian"] { background: linear-gradient(135deg, #0f172a, #38bdf8); }
+    .tint-dot[data-t="arctic"]   { background: linear-gradient(135deg, #f8fafc, #7dd3fc); }
+    .tint-dot[data-t="aurora"]   { background: linear-gradient(135deg, #3b0764, #2dd4bf); }
+    .tint-dot[data-t="emerald"]  { background: linear-gradient(135deg, #064e3b, #34d399); }
+
+    /* ==================== VIEW 1: OPTION 3 BENTO COMMAND HOME ==================== */
+    #bento-view {
+      max-width: 1340px;
+      margin: 0 auto;
+      padding: 22px 20px 96px;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px;
+    }
+    .bento-rings-card { grid-column: span 6; padding: 22px; }
+    .bento-streak-card { grid-column: span 3; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; }
+    .bento-sync-card { grid-column: span 3; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; }
+    .bento-mission-card {
+      grid-column: span 7;
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .bento-mission-card::before {
+      content: "";
+      position: absolute;
+      inset: -40% -20% auto auto;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, var(--accent-glow), transparent 70%);
+      pointer-events: none;
+    }
+    .bento-notes-card { grid-column: span 5; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; }
+
+    .card-eyebrow {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* 6-Month Progress Rings */
+    .rings-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 8px;
+    }
+    .ring-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 8px;
+      border-radius: 16px;
+      background: var(--glass-bg-subtle);
+      border: 1px solid var(--glass-border);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .ring-item:hover { transform: translateY(-2px); border-color: var(--accent); }
+    .ring-svg-wrap { position: relative; width: 68px; height: 68px; display: grid; place-items: center; }
+    .ring-svg { transform: rotate(-90deg); width: 68px; height: 68px; }
+    .ring-bg { fill: none; stroke: var(--glass-border); stroke-width: 6; }
+    .ring-fg { fill: none; stroke-width: 6; stroke-linecap: round; transition: stroke-dashoffset 0.6s ease; }
+    .ring-pct { position: absolute; font-size: 13px; font-weight: 800; }
+    .ring-label { font-size: 12px; font-weight: 700; margin-top: 6px; text-align: center; }
+    .ring-sub { font-size: 10px; color: var(--text-secondary); }
+
+    /* Streak Dots */
+    .streak-big { font-size: 36px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.1; }
+    .progress-bar-track {
+      width: 100%;
+      height: 8px;
+      border-radius: 99px;
+      background: var(--glass-bg-subtle);
+      overflow: hidden;
+      margin: 10px 0;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width 0.5s ease;
+    }
+    .week-dots { display: flex; justify-content: space-between; gap: 4px; margin-top: 8px; }
+    .w-dot {
+      flex: 1;
+      text-align: center;
+      padding: 6px 0;
+      border-radius: 10px;
+      font-size: 10px;
+      font-weight: 700;
+      background: var(--glass-bg-subtle);
+      border: 1px solid var(--glass-border);
+      color: var(--text-muted);
+    }
+    .w-dot.done {
+      background: rgba(52, 211, 153, 0.18);
+      border-color: var(--success);
+      color: var(--success);
+    }
+
+    /* ==================== VIEW 2: OPTION 2 MACOS FLOATING-DOCK STUDIO ==================== */
+    #studio-view {
+      display: none;
+      height: calc(100vh - 53px);
+      padding: 14px 16px 76px;
+      max-width: 1680px;
+      margin: 0 auto;
+    }
+    #studio-view.active { display: block; }
+
+    .studio-grid {
+      height: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1.12fr;
+      gap: 14px;
+    }
+    .studio-grid.mode-theater {
+      grid-template-columns: 1.55fr 0.85fr;
+    }
+    .studio-grid.mode-code {
+      grid-template-columns: 1fr;
+    }
+    .studio-grid.mode-code .studio-left-col {
+      display: none;
+    }
+
+    .studio-left-col, .studio-right-col {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-height: 0;
+      overflow-y: auto;
+    }
+
+    /* Video Card */
+    .video-card { padding: 14px; flex-shrink: 0; }
+    .video-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .video-frame-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #000;
+      border: 1px solid var(--glass-border);
+    }
+    .video-frame-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Lab & Takeaways Card */
+    .lab-card { padding: 16px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 12px; }
+    .takeaways-list { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
+    .takeaways-list li {
+      font-size: 12.5px;
+      line-height: 1.45;
+      color: var(--text-secondary);
+      padding-left: 14px;
+      position: relative;
+    }
+    .takeaways-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 900;
+    }
+    .lab-box {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: var(--glass-bg-subtle);
+      border: 1px solid var(--glass-border);
+    }
+    .hint-drawer {
+      margin-top: 8px;
+      padding: 9px 12px;
+      border-radius: 10px;
+      background: rgba(251, 191, 36, 0.10);
+      border: 1px solid rgba(251, 191, 36, 0.32);
+      color: var(--warning);
+      font-size: 12px;
+      display: none;
+    }
+    .hint-drawer.open { display: block; }
+
+    /* Code Editor & Console Card */
+    .ide-card {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      flex: 1.25;
+      min-height: 290px;
+    }
+    .studio-grid.mode-code .ide-card { flex: 1; }
+    .ide-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .runtime-tabs {
+      display: inline-flex;
+      background: var(--code-bg);
+      padding: 3px;
+      border-radius: 11px;
+      border: 1px solid var(--glass-border);
+    }
+    .runtime-tab {
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+    .runtime-tab.active {
+      background: var(--accent);
+      color: var(--accent-text);
+    }
+    .code-area {
+      flex: 1;
+      width: 100%;
+      min-height: 150px;
+      resize: none;
+      font-family: "JetBrains Mono", "Fira Code", "SFMono-Regular", Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.55;
+      tab-size: 4;
+      background: var(--code-bg);
+      border-radius: 14px;
+      padding: 12px;
+    }
+    .console-box {
+      margin-top: 10px;
+      height: 125px;
+      overflow-y: auto;
+      background: var(--code-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-family: "JetBrains Mono", "Fira Code", monospace;
+      font-size: 12px;
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+    .sql-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11.5px;
+    }
+    .sql-table th, .sql-table td {
+      padding: 5px 8px;
+      border-bottom: 1px solid var(--glass-border);
+      text-align: left;
+    }
+    .sql-table th { color: var(--accent); font-weight: 700; }
+
+    /* Live Instinct Mentor Card */
+    .mentor-card {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      flex: 0.95;
+      min-height: 220px;
+    }
+    .mentor-chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin: 8px 0;
+    }
+    .chip {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      background: var(--glass-bg-subtle);
+      border: 1px solid var(--glass-border);
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+    .chip:hover { border-color: var(--accent); color: var(--accent); }
+    .mentor-feed {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 8px;
+      background: var(--code-bg);
+      border-radius: 12px;
+      border: 1px solid var(--glass-border);
+      margin-bottom: 8px;
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+    .msg-user {
+      align-self: flex-end;
+      background: var(--accent);
+      color: var(--accent-text);
+      padding: 7px 11px;
+      border-radius: 12px 12px 2px 12px;
+      max-width: 85%;
+      font-weight: 600;
+    }
+    .msg-ai {
+      align-self: flex-start;
+      background: var(--glass-bg-elevated);
+      border: 1px solid var(--glass-border);
+      padding: 8px 12px;
+      border-radius: 12px 12px 12px 2px;
+      max-width: 94%;
+    }
+    .msg-ai pre {
+      background: rgba(0,0,0,0.35);
+      padding: 8px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 6px 0;
+      font-size: 11.5px;
+    }
+    .msg-ai code {
+      font-family: monospace;
+      color: var(--accent);
+    }
+    .mentor-input-row { display: flex; gap: 8px; }
+    .mentor-input-row input { flex: 1; }
+
+    /* ==================== MACOS FLOATING GLASS PILL DOCK ==================== */
+    .floating-dock {
+      position: fixed;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: var(--dock-bg);
+      backdrop-filter: blur(30px) saturate(170%);
+      -webkit-backdrop-filter: blur(30px) saturate(170%);
+      border: 1px solid var(--glass-border);
+      border-top-color: var(--glass-specular);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+    }
+    .dock-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 13px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .dock-btn:hover {
+      color: var(--text-primary);
+      background: var(--glass-bg-subtle);
+      transform: translateY(-3px) scale(1.04);
+    }
+    .dock-btn.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: var(--accent-text);
+      box-shadow: 0 4px 16px var(--accent-glow);
+    }
+    .dock-sep {
+      width: 1px;
+      height: 20px;
+      background: var(--glass-border);
+      margin: 0 2px;
+    }
+
+    /* ==================== GLASS MODALS (ONBOARDING, NOTES, ROADMAP, SYNC) ==================== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      background: rgba(3, 5, 12, 0.72);
+      backdrop-filter: blur(12px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-sheet {
+      width: 100%;
+      max-width: 880px;
+      max-height: 88vh;
+      overflow-y: auto;
+      padding: 24px;
+      background: var(--glass-bg-elevated);
+      backdrop-filter: blur(32px);
+      border: 1px solid var(--glass-border);
+      border-top-color: var(--glass-specular);
+      border-radius: 24px;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.65);
+    }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    /* Roadmap Grid */
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .day-tile {
+      padding: 12px;
+      border-radius: 14px;
+      background: var(--glass-bg-subtle);
+      border: 1px solid var(--glass-border);
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .day-tile:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .day-tile.done { border-color: rgba(52, 211, 153, 0.5); background: rgba(52, 211, 153, 0.08); }
+    .day-tile.current { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-glow); }
+
+    /* Smart Notes */
+    .tag-pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg-subtle);
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+    .tag-pill.active {
+      background: var(--accent);
+      color: var(--accent-text);
+      border-color: var(--accent);
+    }
+    .note-item {
+      padding: 12px;
+      border-radius: 14px;
+      background: var(--glass-bg-subtle);
+      border: 1px solid var(--glass-border);
+      margin-bottom: 8px;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      top: 66px;
+      right: 20px;
+      z-index: 99;
+      padding: 10px 16px;
+      border-radius: 14px;
+      background: var(--glass-bg-elevated);
+      border: 1px solid var(--accent);
+      color: var(--text-primary);
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      transform: translateY(-10px);
+      pointer-events: none;
+      transition: all 0.25s ease;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 980px) {
+      .bento-rings-card, .bento-streak-card, .bento-sync-card, .bento-mission-card, .bento-notes-card {
+        grid-column: span 12;
+      }
+      #studio-view { height: auto; min-height: calc(100vh - 53px); }
+      .studio-grid { grid-template-columns: 1fr; }
+      .floating-dock { max-width: 95vw; overflow-x: auto; padding: 6px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== TOP BAR ==================== -->
+  <header class="topbar">
+    <div class="brand" onclick="switchView('home')" title="Return to Bento Command Home">
+      <div class="brand-logo">DF</div>
+      <div>
+        <span>DataForge</span>
+        <span style="color: var(--text-muted); font-weight: 600; font-size: 12px;"> // Instinct OS v7.0</span>
+      </div>
+    </div>
+
+    <div class="topbar-center" id="topbar-day-nav">
+      <button class="btn btn-sm" onclick="changeDay(-1)">◀ Prev</button>
+      <span class="pill-badge" id="topbar-day-label" style="color: var(--text-primary); font-size: 12px;">Day 01 / 168</span>
+      <button class="btn btn-sm" onclick="changeDay(1)">Next ▶</button>
+    </div>
+
+    <div class="topbar-right">
+      <span class="pill-badge" id="topbar-streak-badge">🔥 0d</span>
+      <div class="tint-switcher" title="Switch Liquid Glass Tint">
+        <button class="tint-dot active" data-t="obsidian" onclick="setTint('obsidian')" title="Obsidian Glass"></button>
+        <button class="tint-dot" data-t="arctic" onclick="setTint('arctic')" title="Arctic Frost"></button>
+        <button class="tint-dot" data-t="aurora" onclick="setTint('aurora')" title="Midnight Aurora"></button>
+        <button class="tint-dot" data-t="emerald" onclick="setTint('emerald')" title="Emerald Deep"></button>
+      </div>
+      <button class="btn btn-sm" onclick="openModal('sync-modal')" id="topbar-profile-btn">@student</button>
+    </div>
+  </header>
+
+  <!-- ==================== VIEW 1: OPTION 3 BENTO COMMAND HOME ==================== -->
+  <main id="bento-view">
+    <!-- Tile 1: 6-Month Skill Progress Rings -->
+    <section class="glass-card bento-rings-card">
+      <div class="card-eyebrow">
+        <span>6-Month Mastery Progress Rings</span>
+        <span id="overall-pct-label" style="color: var(--text-secondary);">0% Complete</span>
+      </div>
+      <div class="rings-grid" id="skill-rings-container"></div>
+    </section>
+
+    <!-- Tile 2: Daily Streak & Completion -->
+    <section class="glass-card bento-streak-card">
+      <div>
+        <div class="card-eyebrow"><span>Daily Momentum</span><span>🔥</span></div>
+        <div class="streak-big" id="bento-streak-val">0 Days</div>
+        <div style="font-size: 12.5px; color: var(--text-secondary); margin-top: 4px;" id="bento-done-count">0 / 168 Labs Verified</div>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="bento-overall-bar" style="width: 0%;"></div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">This Week's Cadence</div>
+        <div class="week-dots" id="bento-week-dots"></div>
+      </div>
+    </section>
+
+    <!-- Tile 3: 3-Layer Profile Sync -->
+    <section class="glass-card bento-sync-card">
+      <div>
+        <div class="card-eyebrow"><span>Student Identity & Sync</span><span id="gist-status-dot">● Local</span></div>
+        <div style="font-size: 18px; font-weight: 800;" id="bento-handle-display">@student</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 3px;" id="bento-ai-status">AI Mentor: Offline (Add Free Key)</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 14px;">
+        <button class="btn btn-sm" onclick="copySyncCode()">📋 Copy Base64 Sync Code</button>
+        <button class="btn btn-sm" onclick="openModal('sync-modal')">⚙️ Sync, PIN & Gemini Key</button>
+      </div>
+    </section>
+
+    <!-- Tile 4: Today's Mission Hero Card -->
+    <section class="glass-card bento-mission-card">
+      <div>
+        <div class="card-eyebrow">
+          <span id="mission-eyebrow">TODAY'S MISSION • MONTH 1 • WEEK 1</span>
+          <span class="pill-badge" id="mission-duration">⏱ 21m</span>
+        </div>
+        <h1 style="font-size: 24px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px;" id="mission-title">
+          Day 01: Variables, Strings & F-String Formatting
+        </h1>
+        <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 14px;" id="mission-lab-preview">
+          Clean the raw messy customer record string, extract the city and spend amount, and print a formatted summary line.
+        </p>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px;">
+          <span class="pill-badge" id="mission-instructor">🎓 Corey Schafer</span>
+          <span class="pill-badge" id="mission-subject">📘 Python Foundations</span>
+          <span class="pill-badge" id="mission-status-pill">⏳ Ready to Code</span>
+        </div>
+      </div>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+        <button class="btn btn-primary" style="padding: 12px 22px; font-size: 14px;" onclick="startTodaysSession()">
+          ▶ Start Today's Session →
+        </button>
+        <button class="btn" onclick="openModal('roadmap-modal')">🗺️ Browse 168-Day Roadmap</button>
+      </div>
+    </section>
+
+    <!-- Tile 5: Recent Smart Notes -->
+    <section class="glass-card bento-notes-card">
+      <div>
+        <div class="card-eyebrow">
+          <span>Smart Notes Vault</span>
+          <button class="btn btn-sm" onclick="openModal('notes-modal')">Open Full Dock ↗</button>
+        </div>
+        <div id="bento-recent-notes" style="display: flex; flex-direction: column; gap: 8px; max-height: 155px; overflow-y: auto;"></div>
+      </div>
+      <div style="display: flex; gap: 8px; margin-top: 12px;">
+        <input type="text" id="bento-quick-note-input" placeholder="Quick note (auto-tagged #Python, #SQL...)" style="flex: 1;" onkeydown="if(event.key==='Enter') addQuickNoteFromBento()" />
+        <button class="btn btn-primary btn-sm" onclick="addQuickNoteFromBento()">+ Save</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== VIEW 2: OPTION 2 MACOS FLOATING-DOCK STUDIO ==================== -->
+  <section id="studio-view">
+    <div class="studio-grid" id="studio-grid">
+      <!-- Left Column: Video Lecture + Lab Brief -->
+      <div class="studio-left-col">
+        <div class="glass-card video-card">
+          <div class="video-header">
+            <div>
+              <span class="pill-badge" id="studio-instructor-badge">🎓 Corey Schafer</span>
+              <span class="pill-badge" id="studio-focus-badge">⏱ Focus: 00:00 – 21:15</span>
+            </div>
+            <div style="display: flex; gap: 6px; align-items: center;">
+              <button class="btn btn-sm" id="alt-video-btn" onclick="toggleAltVideo()" title="Switch to verified backup YouTube video">🔄 Alt Video</button>
+              <a class="btn btn-sm" id="yt-external-link" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">YouTube ↗</a>
+            </div>
+          </div>
+          <div class="video-frame-wrap">
+            <iframe
+              id="yt-player"
+              src=""
+              title="DataForge Video Lecture"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+
+        <div class="glass-card lab-card">
+          <div>
+            <div class="card-eyebrow">
+              <span id="studio-subject-label">MONTH 1 • PYTHON FOUNDATIONS</span>
+              <span id="studio-video-source-label" style="color: var(--text-muted);">Primary Lecture</span>
+            </div>
+            <h2 style="font-size: 18px; font-weight: 800; margin-bottom: 6px;" id="studio-day-title">Day 01: Variables & Strings</h2>
+            <ul class="takeaways-list" id="studio-takeaways"></ul>
+
+            <div class="lab-box" style="margin-top: 12px;">
+              <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--accent); margin-bottom: 4px;">
+                Hands-On Coding Lab
+              </div>
+              <div style="font-size: 13px; line-height: 1.5;" id="studio-lab-prompt"></div>
+              <div class="hint-drawer" id="studio-hint-box"></div>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <button class="btn btn-sm" onclick="toggleHint()">💡 Toggle Hint</button>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn btn-sm" onclick="openModal('notes-modal')">📝 Add Note</button>
+              <button class="btn btn-success" id="verify-complete-btn" onclick="toggleCompleteCurrentDay()">✓ Verify & Complete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Python 3.11 / SQLite Editor + Live Instinct Mentor -->
+      <div class="studio-right-col">
+        <div class="glass-card ide-card">
+          <div class="ide-toolbar">
+            <div class="runtime-tabs">
+              <button class="runtime-tab active" id="tab-py" onclick="switchRuntime('py')">🐍 Python 3.11</button>
+              <button class="runtime-tab" id="tab-sql" onclick="switchRuntime('sql')">🗄️ SQLite Analytics</button>
+            </div>
+            <div style="display: flex; gap: 6px; align-items: center;">
+              <span id="engine-status-pill" class="pill-badge">⚡ Lazy Runtime Ready</span>
+              <button class="btn btn-sm" onclick="resetStarterCode()">↺ Reset</button>
+              <button class="btn btn-primary btn-sm" onclick="runActiveCode()">▶ Run (Ctrl+Enter)</button>
+            </div>
+          </div>
+          <textarea
+            id="code-editor"
+            class="code-area"
+            spellcheck="false"
+            placeholder="Write your Python or SQL solution here..."></textarea>
+          <div class="console-box" id="console-output">Click "Run (Ctrl+Enter)" to lazy-load Python 3.11 (Pyodide) or SQLite (sql.js) and execute your code.</div>
+        </div>
+
+        <div class="glass-card mentor-card">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div class="card-eyebrow" style="margin-bottom: 0;">
+              <span>🤖 Instinct Mentor (gemini-3.8-flash)</span>
+            </div>
+            <div style="display: flex; gap: 6px; align-items: center;">
+              <span class="pill-badge" id="mentor-live-badge">Offline</span>
+              <button class="btn btn-sm" onclick="clearMentorChat()">Clear</button>
+            </div>
+          </div>
+
+          <div class="mentor-chips">
+            <button class="chip" onclick="sendMentorQuickChip('Why This Matters')">🎯 Why This Matters</button>
+            <button class="chip" onclick="sendMentorQuickChip('Explain Simply')">💡 Explain Simply</button>
+            <button class="chip" onclick="sendMentorQuickChip('Review My Code')">🔍 Review My Code</button>
+            <button class="chip" onclick="sendMentorQuickChip('Quiz Me')">⚡ Quiz Me</button>
+          </div>
+
+          <div class="mentor-feed" id="mentor-feed">
+            <div class="msg-ai">
+              👋 Ready when you are! Ask any question about today's concept, or click <strong>Review My Code</strong>—I automatically see your active Python/SQL editor code and latest console output.
+            </div>
+          </div>
+
+          <div class="mentor-input-row">
+            <input type="text" id="mentor-input" placeholder="Ask Instinct Mentor about this lesson or your code..." onkeydown="if(event.key==='Enter') sendMentorMessage()" />
+            <button class="btn btn-primary btn-sm" onclick="sendMentorMessage()">Send ↑</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MACOS FLOATING GLASS PILL DOCK ==================== -->
+  <nav class="floating-dock" aria-label="Workspace Dock">
+    <button class="dock-btn active" id="dock-home" onclick="switchView('home')">⊞ Home</button>
+    <div class="dock-sep"></div>
+    <button class="dock-btn" id="dock-split" onclick="setStudioMode('split')">◫ Split</button>
+    <button class="dock-btn" id="dock-theater" onclick="setStudioMode('theater')">🎬 Theater</button>
+    <button class="dock-btn" id="dock-code" onclick="setStudioMode('code')">💻 Code</button>
+    <div class="dock-sep"></div>
+    <button class="dock-btn" onclick="openModal('notes-modal')">📝 Notes</button>
+    <button class="dock-btn" onclick="openModal('roadmap-modal')">🗺️ Roadmap</button>
+    <button class="dock-btn" onclick="openModal('sync-modal')">☁️ Sync</button>
+  </nav>
+
+  <!-- ==================== MODAL 1: FIRST-TIME STUDENT ONBOARDING ==================== -->
+  <div class="modal-backdrop" id="onboarding-modal">
+    <div class="modal-sheet" style="max-width: 540px;">
+      <div class="modal-header">
+        <div>
+          <span class="pill-badge" style="color: var(--accent);">✨ Welcome to DataForge v7.0</span>
+          <h2 style="font-size: 20px; font-weight: 800; margin-top: 6px;">Activate Your Personal AI Studio</h2>
+        </div>
+      </div>
+
+      <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 12px;">
+        <strong>Important:</strong> Only if you connect your personal Gemini API key will <strong>Instinct Mentor</strong> (<code>gemini-3.8-flash</code>) and AI Cheat-Sheet compilation be live.
+      </p>
+
+      <div style="padding: 12px 14px; border-radius: 14px; background: rgba(52, 211, 153, 0.10); border: 1px solid rgba(52, 211, 153, 0.35); margin-bottom: 16px; font-size: 13px; line-height: 1.5;">
+        🎉 <strong>100% FREE API Key:</strong> Get your personal Gemini API key free in 30 seconds from Google AI Studio:<br />
+        <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer" style="color: var(--accent); font-weight: 700;">
+          https://aistudio.google.com/apikey ↗
+        </a>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div>
+          <label style="font-size: 12px; font-weight: 700; display: block; margin-bottom: 4px;">Personal Gemini API Key (Stored locally in your browser)</label>
+          <input type="password" id="onboard-api-key" placeholder="AIzaSy..." style="width: 100%;" />
+        </div>
+        <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 10px;">
+          <div>
+            <label style="font-size: 12px; font-weight: 700; display: block; margin-bottom: 4px;">Student Handle</label>
+            <input type="text" id="onboard-handle" placeholder="e.g., reaper7738" style="width: 100%;" />
+          </div>
+          <div>
+            <label style="font-size: 12px; font-weight: 700; display: block; margin-bottom: 4px;">4-Digit PIN</label>
+            <input type="text" id="onboard-pin" maxlength="4" pattern="[0-9]{4}" placeholder="1234" style="width: 100%;" />
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; gap: 10px;">
+        <button class="btn" onclick="skipOnboarding()">Skip for now</button>
+        <button class="btn btn-primary" onclick="completeOnboarding()">Save & Launch Studio →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: SMART NOTES DOCK ==================== -->
+  <div class="modal-backdrop" id="notes-modal" onclick="if(event.target===this) closeModal('notes-modal')">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <div>
+          <h2 style="font-size: 19px; font-weight: 800;">📝 Smart Notes & AI Cheat-Sheet Compiler</h2>
+          <p style="font-size: 12px; color: var(--text-secondary);">Auto-tagged with #Python, #SQL, #Stats, #ML, and #GenAI</p>
+        </div>
+        <button class="btn btn-sm" onclick="closeModal('notes-modal')">✕ Close</button>
+      </div>
+
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; align-items: center; justify-content: space-between;">
+        <div style="display: flex; gap: 6px; flex-wrap: wrap;" id="notes-filter-bar">
+          <button class="tag-pill active" data-filter="ALL" onclick="setNoteFilter('ALL')">All Notes</button>
+          <button class="tag-pill" data-filter="#Python" onclick="setNoteFilter('#Python')">#Python</button>
+          <button class="tag-pill" data-filter="#SQL" onclick="setNoteFilter('#SQL')">#SQL</button>
+          <button class="tag-pill" data-filter="#Stats" onclick="setNoteFilter('#Stats')">#Stats</button>
+          <button class="tag-pill" data-filter="#ML" onclick="setNoteFilter('#ML')">#ML</button>
+          <button class="tag-pill" data-filter="#GenAI" onclick="setNoteFilter('#GenAI')">#GenAI</button>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="compileAiCheatSheet()" id="compile-cheatsheet-btn">✨ AI Compile Cheat-Sheet</button>
+      </div>
+
+      <div style="display: flex; gap: 8px; margin-bottom: 14px;">
+        <textarea id="new-note-text" rows="2" placeholder="Jot down a key formula, window function pattern, or ML insight..." style="flex: 1;"></textarea>
+        <button class="btn btn-primary" onclick="saveNewNote()">+ Add Note</button>
+      </div>
+
+      <div id="ai-cheatsheet-output" style="display: none; padding: 14px; border-radius: 14px; background: var(--code-bg); border: 1px solid var(--accent); margin-bottom: 14px; font-size: 13px; line-height: 1.55;"></div>
+
+      <div id="notes-list-container" style="max-height: 44vh; overflow-y: auto;"></div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 3: 168-DAY ROADMAP & PORTFOLIO EXPORT ==================== -->
+  <div class="modal-backdrop" id="roadmap-modal" onclick="if(event.target===this) closeModal('roadmap-modal')">
+    <div class="modal-sheet" style="max-width: 1040px;">
+      <div class="modal-header">
+        <div>
+          <h2 style="font-size: 19px; font-weight: 800;">🗺️ 168-Day Data Science Mastery Roadmap</h2>
+          <p style="font-size: 12px; color: var(--text-secondary);" id="roadmap-summary-sub">6 Months • 24 Weekly Sub-Topics</p>
+        </div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button class="btn btn-primary btn-sm" onclick="exportMarkdownPortfolio()">📄 Export Markdown Portfolio</button>
+          <button class="btn btn-sm" onclick="closeModal('roadmap-modal')">✕ Close</button>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
+        <input type="text" id="roadmap-search" placeholder="Search topic, day, or instructor..." style="flex: 1; min-width: 200px;" oninput="renderRoadmap()" />
+        <select id="roadmap-month-filter" onchange="renderRoadmap()">
+          <option value="0">All 6 Months (Days 1–168)</option>
+          <option value="1">Month 1: Python & Git (Days 1–28)</option>
+          <option value="2">Month 2: SQL Analytics (Days 29–56)</option>
+          <option value="3">Month 3: NumPy & Pandas (Days 57–84)</option>
+          <option value="4">Month 4: Stats & Viz (Days 85–112)</option>
+          <option value="5">Month 5: Machine Learning (Days 113–140)</option>
+          <option value="6">Month 6: GenAI, RAG & Portfolio (Days 141–168)</option>
+        </select>
+      </div>
+
+      <div class="roadmap-grid" id="roadmap-grid"></div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 4: 3-LAYER SYNC & API SETTINGS ==================== -->
+  <div class="modal-backdrop" id="sync-modal" onclick="if(event.target===this) closeModal('sync-modal')">
+    <div class="modal-sheet" style="max-width: 640px;">
+      <div class="modal-header">
+        <div>
+          <h2 style="font-size: 19px; font-weight: 800;">☁️ 3-Layer Student Sync & AI Key</h2>
+          <p style="font-size: 12px; color: var(--text-secondary);">Profile Isolation • Base64 Sync Code • Optional GitHub Gist Cloud</p>
+        </div>
+        <button class="btn btn-sm" onclick="closeModal('sync-modal')">✕ Close</button>
+      </div>
+
+      <!-- Layer 1: Handle + 4-Digit PIN -->
+      <div style="margin-bottom: 16px; padding: 14px; border-radius: 16px; background: var(--glass-bg-subtle); border: 1px solid var(--glass-border);">
+        <div class="card-eyebrow"><span>Layer 1: Local Profile Isolation (Handle + 4-Digit PIN)</span></div>
+        <div style="display: grid; grid-template-columns: 1.5fr 1fr auto; gap: 8px;">
+          <input type="text" id="sync-handle-input" placeholder="Student Handle" />
+          <input type="text" id="sync-pin-input" maxlength="4" placeholder="4-Digit PIN" />
+          <button class="btn btn-primary btn-sm" onclick="switchStudentProfile()">Switch / Save</button>
+        </div>
+      </div>
+
+      <!-- Gemini API Key -->
+      <div style="margin-bottom: 16px; padding: 14px; border-radius: 16px; background: var(--glass-bg-subtle); border: 1px solid var(--glass-border);">
+        <div class="card-eyebrow">
+          <span>Gemini API Key (gemini-3.8-flash)</span>
+          <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: none;">Get Free Key ↗</a>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <input type="password" id="sync-gemini-key" placeholder="Paste AIzaSy... key" style="flex: 1;" />
+          <button class="btn btn-primary btn-sm" onclick="saveGeminiKeyFromModal()">Save Key</button>
+        </div>
+      </div>
+
+      <!-- Layer 2: Base64 Sync Code -->
+      <div style="margin-bottom: 16px; padding: 14px; border-radius: 16px; background: var(--glass-bg-subtle); border: 1px solid var(--glass-border);">
+        <div class="card-eyebrow"><span>Layer 2: Instant Base64 Cross-Device Sync</span></div>
+        <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+          <button class="btn btn-sm" onclick="copySyncCode()">📋 Copy Sync Code</button>
+          <button class="btn btn-primary btn-sm" onclick="importSyncCode()">📥 Paste & Restore Sync Code</button>
+        </div>
+        <textarea id="sync-base64-box" rows="2" placeholder="Paste Base64 sync code from another device here to restore progress, notes & drafts..." style="width: 100%; font-size: 11.5px;"></textarea>
+      </div>
+
+      <!-- Layer 3: Optional GitHub Gist Sync -->
+      <div style="padding: 14px; border-radius: 16px; background: var(--glass-bg-subtle); border: 1px solid var(--glass-border);">
+        <div class="card-eyebrow"><span>Layer 3: Optional GitHub Gist Auto-Cloud Sync</span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;">
+          <input type="password" id="sync-gist-token" placeholder="GitHub PAT (gist scope)" />
+          <input type="text" id="sync-gist-id" placeholder="Gist ID (auto-created if blank)" />
+        </div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button class="btn btn-sm" onclick="saveGistConfig()">💾 Save Gist Settings</button>
+          <button class="btn btn-sm" onclick="pushToGitHubGist(true)">☁️ Push Now</button>
+          <button class="btn btn-sm" onclick="pullFromGitHubGist()">⬇️ Pull from Gist</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Banner -->
+  <div class="toast" id="toast-banner"></div>
+
+  <!-- Load Decoupled 168-Day Curriculum -->
+  <script src="./curriculum.js"></script>
+
+  <script>
+    /* ==================== CURRICULUM FALLBACK GUARD ==================== */
+    const CURRICULUM_DATA = Array.isArray(window.CURRICULUM) && window.CURRICULUM.length > 0
+      ? window.CURRICULUM
+      : [{
+          day: 1, month: 1, week: 1, subject: "Setup Check", instructor: "DataForge", duration: "1m",
+          title: "Place curriculum.js in the same folder as index.html",
+          videoId: "k9TUPpGqYTo", altVideoId: "nLRL_NcnK-4", focus: "00:00 – 05:00",
+          takeaways: ["Ensure curriculum.js is committed alongside index.html in your GitHub repo."],
+          lab: "Verify curriculum.js is loaded.", hint: "Check browser DevTools Network tab.",
+          starterPy: "print('DataForge runtime check OK!')",
+          starterSql: "SELECT * FROM employees LIMIT 5;"
+        }];
+
+    /* ==================== STATE & 3-LAYER STORAGE ==================== */
+    const MONTH_META = [
+      { month: 1, name: "Python & Git", color: "#38bdf8", tag: "#Python" },
+      { month: 2, name: "SQL Analytics", color: "#818cf8", tag: "#SQL" },
+      { month: 3, name: "NumPy & Pandas", color: "#2dd4bf", tag: "#Python" },
+      { month: 4, name: "Stats & Viz", color: "#fbbf24", tag: "#Stats" },
+      { month: 5, name: "Machine Learning", color: "#f472b6", tag: "#ML" },
+      { month: 6, name: "GenAI & Portfolio", color: "#34d399", tag: "#GenAI" }
+    ];
+
+    let appState = {
+      view: "home",           // 'home' | 'studio'
+      studioMode: "split",    // 'split' | 'theater' | 'code'
+      runtime: "py",          // 'py' | 'sql'
+      useAltVideo: false,
+      noteFilter: "ALL",
+      lastConsoleOutput: "",
+      chatHistory: []
+    };
+
+    let profile = {
+      handle: "student",
+      pin: "0000",
+      tint: "obsidian",
+      currentDay: 1,
+      completedDays: [],
+      streak: 0,
+      lastActiveDate: null,
+      drafts: {},
+      notes: []
+    };
+
+    let pyodideInstance = null;
+    let pyodideLoadingPromise = null;
+    let sqliteDbInstance = null;
+    let sqliteLoadingPromise = null;
+
+    function profileStorageKey(handle, pin) {
+      const cleanHandle = (handle || "student").trim().toLowerCase().replace(/[^a-z0-9_-]/g, "") || "student";
+      const cleanPin = (pin || "0000").trim().padStart(4, "0").slice(0, 4);
+      return `df_profile_${cleanHandle}_${cleanPin}`;
+    }
+
+    function loadActiveProfile() {
+      const savedHandle = localStorage.getItem("df_active_handle") || "student";
+      const savedPin = localStorage.getItem("df_active_pin") || "0000";
+      const raw = localStorage.getItem(profileStorageKey(savedHandle, savedPin));
+      if (raw) {
+        try {
+          const parsed = JSON.parse(raw);
+          profile = { ...profile, ...parsed, handle: savedHandle, pin: savedPin };
+        } catch (e) {
+          console.warn("Profile parse fallback", e);
+        }
+      } else {
+        profile.handle = savedHandle;
+        profile.pin = savedPin;
+        saveActiveProfile(false);
+      }
+      setTint(profile.tint || "obsidian", false);
+    }
+
+    function saveActiveProfile(triggerCloudSync = true) {
+      localStorage.setItem("df_active_handle", profile.handle);
+      localStorage.setItem("df_active_pin", profile.pin);
+      localStorage.setItem(profileStorageKey(profile.handle, profile.pin), JSON.stringify(profile));
+      if (triggerCloudSync && localStorage.getItem("df_gist_token")) {
+        pushToGitHubGist(false);
+      }
+    }
+
+    function showToast(msg) {
+      const el = document.getElementById("toast-banner");
+      el.textContent = msg;
+      el.classList.add("show");
+      clearTimeout(el._timer);
+      el._timer = setTimeout(() => el.classList.remove("show"), 3200);
+    }
+
+    /* ==================== URL HASH KEY CAPTURE & ONBOARDING ==================== */
+    function checkUrlHashApiKey() {
+      const hash = window.location.hash || "";
+      const match = hash.match(/key=([^&]+)/);
+      if (match && match[1]) {
+        const key = decodeURIComponent(match[1]).trim();
+        if (key) {
+          localStorage.setItem("df_gemini_key", key);
+          history.replaceState(null, "", window.location.pathname + window.location.search);
+          showToast("🔑 Gemini API key auto-captured from URL!");
+        }
+      }
+    }
+
+    function checkFirstTimeOnboarding() {
+      const apiKey = localStorage.getItem("df_gemini_key");
+      const skipped = sessionStorage.getItem("df_onboarding_skipped");
+      if (!apiKey && !skipped) {
+        document.getElementById("onboard-handle").value = profile.handle !== "student" ? profile.handle : "";
+        document.getElementById("onboard-pin").value = profile.pin !== "0000" ? profile.pin : "";
+        openModal("onboarding-modal");
+      }
+    }
+
+    function skipOnboarding() {
+      sessionStorage.setItem("df_onboarding_skipped", "1");
+      closeModal("onboarding-modal");
+      showToast("Skipped AI setup — connect your free key anytime in Sync.");
+    }
+
+    function completeOnboarding() {
+      const key = document.getElementById("onboard-api-key").value.trim();
+      const handleInput = document.getElementById("onboard-handle").value.trim();
+      const pinInput = document.getElementById("onboard-pin").value.trim();
+
+      if (key) {
+        localStorage.setItem("df_gemini_key", key);
+      }
+      if (handleInput) {
+        const cleanPin = /^\d{4}$/.test(pinInput) ? pinInput : "0000";
+        localStorage.setItem("df_active_handle", handleInput);
+        localStorage.setItem("df_active_pin", cleanPin);
+        loadActiveProfile();
+      }
+      closeModal("onboarding-modal");
+      renderAll();
+      showToast(key ? "✅ Gemini AI Mentor Live & Profile Saved!" : "✅ Profile Saved!");
+    }
+
+    /* ==================== THEME / LIQUID GLASS TINT SWITCHER ==================== */
+    function setTint(tintName, persist = true) {
+      document.documentElement.setAttribute("data-tint", tintName);
+      document.querySelectorAll(".tint-dot").forEach(dot => {
+        dot.classList.toggle("active", dot.dataset.t === tintName);
+      });
+      if (persist) {
+        profile.tint = tintName;
+        saveActiveProfile(false);
+      }
+    }
+
+    /* ==================== NAVIGATION: BENTO HOME <-> MACOS FLOATING-DOCK STUDIO ==================== */
+    function switchView(viewName) {
+      appState.view = viewName;
+      const bento = document.getElementById("bento-view");
+      const studio = document.getElementById("studio-view");
+
+      if (viewName === "home") {
+        bento.style.display = "grid";
+        studio.classList.remove("active");
+        renderBentoHome();
+      } else {
+        bento.style.display = "none";
+        studio.classList.add("active");
+        renderStudioDay();
+      }
+      updateDockHighlight();
+    }
+
+    function startTodaysSession() {
+      switchView("studio");
+      setStudioMode("split");
+    }
+
+    function setStudioMode(mode) {
+      if (appState.view !== "studio") {
+        switchView("studio");
+      }
+      appState.studioMode = mode;
+      const grid = document.getElementById("studio-grid");
+      grid.classList.remove("mode-theater", "mode-code");
+      if (mode === "theater") grid.classList.add("mode-theater");
+      if (mode === "code") grid.classList.add("mode-code");
+      updateDockHighlight();
+    }
+
+    function updateDockHighlight() {
+      document.getElementById("dock-home").classList.toggle("active", appState.view === "home");
+      document.getElementById("dock-split").classList.toggle("active", appState.view === "studio" && appState.studioMode === "split");
+      document.getElementById("dock-theater").classList.toggle("active", appState.view === "studio" && appState.studioMode === "theater");
+      document.getElementById("dock-code").classList.toggle("active", appState.view === "studio" && appState.studioMode === "code");
+    }
+
+    function getDayObject(dayNum) {
+      return CURRICULUM_DATA.find(d => d.day === dayNum) || CURRICULUM_DATA[0];
+    }
+
+    function changeDay(delta) {
+      const next = Math.max(1, Math.min(CURRICULUM_DATA.length, profile.currentDay + delta));
+      selectDay(next, appState.view === "studio");
+    }
+
+    function selectDay(dayNum, openInStudio = true) {
+      profile.currentDay = dayNum;
+      appState.useAltVideo = false;
+      appState.lastConsoleOutput = "";
+      saveActiveProfile(false);
+      updateTopbar();
+      if (openInStudio) {
+        switchView("studio");
+      } else {
+        renderBentoHome();
+      }
+    }
+
+    /* ==================== RENDERING: TOPBAR & OPTION 3 BENTO HOME ==================== */
+    function updateTopbar() {
+      const d = getDayObject(profile.currentDay);
+      document.getElementById("topbar-day-label").textContent = `Day ${String(d.day).padStart(2, "0")} / ${CURRICULUM_DATA.length} • ${d.subject}`;
+      document.getElementById("topbar-streak-badge").textContent = `🔥 ${profile.streak}d`;
+      document.getElementById("topbar-profile-btn").textContent = `@${profile.handle}`;
+    }
+
+    function renderBentoHome() {
+      updateTopbar();
+      const totalDays = CURRICULUM_DATA.length;
+      const doneSet = new Set(profile.completedDays);
+      const doneCount = doneSet.size;
+      const overallPct = Math.round((doneCount / totalDays) * 100);
+
+      // 1. 6-Month Skill Progress Rings
+      document.getElementById("overall-pct-label").textContent = `${overallPct}% Overall Mastery`;
+      const ringsHtml = MONTH_META.map(m => {
+        const monthDays = CURRICULUM_DATA.filter(d => d.month === m.month);
+        const completedInMonth = monthDays.filter(d => doneSet.has(d.day)).length;
+        const totalInMonth = monthDays.length || 28;
+        const pct = Math.round((completedInMonth / totalInMonth) * 100);
+        const radius = 27;
+        const circumference = 2 * Math.PI * radius;
+        const offset = circumference - (pct / 100) * circumference;
+        const firstDayOfMonth = (m.month - 1) * 28 + 1;
+
+        return `
+          <div class="ring-item" onclick="selectDay(${firstDayOfMonth}, true)" title="Jump to Month ${m.month}: ${m.name}">
+            <div class="ring-svg-wrap">
+              <svg class="ring-svg" viewBox="0 0 68 68">
+                <circle class="ring-bg" cx="34" cy="34" r="${radius}"></circle>
+                <circle class="ring-fg" cx="34" cy="34" r="${radius}"
+                  stroke="${m.color}"
+                  stroke-dasharray="${circumference}"
+                  stroke-dashoffset="${offset}"></circle>
+              </svg>
+              <span class="ring-pct">${pct}%</span>
+            </div>
+            <div class="ring-label">${m.name}</div>
+            <div class="ring-sub">${completedInMonth}/${totalInMonth} days</div>
+          </div>
+        `;
+      }).join("");
+      document.getElementById("skill-rings-container").innerHTML = ringsHtml;
+
+      // 2. Streak & Progress Bar
+      document.getElementById("bento-streak-val").textContent = `${profile.streak} ${profile.streak === 1 ? "Day" : "Days"}`;
+      document.getElementById("bento-done-count").textContent = `${doneCount} / ${totalDays} Labs Verified`;
+      document.getElementById("bento-overall-bar").style.width = `${overallPct}%`;
+
+      const weekLabels = ["M", "T", "W", "T", "F", "S", "S"];
+      const activeDots = Math.min(7, profile.streak);
+      document.getElementById("bento-week-dots").innerHTML = weekLabels.map((lbl, idx) =>
+        `<div class="w-dot ${idx < activeDots ? "done" : ""}">${lbl}</div>`
+      ).join("");
+
+      // 3. Profile Sync & AI Status
+      const hasKey = Boolean(localStorage.getItem("df_gemini_key"));
+      const hasGist = Boolean(localStorage.getItem("df_gist_token"));
+      document.getElementById("bento-handle-display").textContent = `@${profile.handle}`;
+      document.getElementById("bento-ai-status").innerHTML = hasKey
+        ? `<span style="color: var(--success);">● Gemini 3.8 Flash Live</span>`
+        : `<span style="color: var(--warning);">○ AI Mentor Offline (Add Free Key)</span>`;
+      document.getElementById("gist-status-dot").textContent = hasGist ? "☁️ Gist Sync" : "● Local PIN";
+
+      // 4. Today's Mission Hero Card
+      const currentObj = getDayObject(profile.currentDay);
+      const isDone = doneSet.has(currentObj.day);
+      document.getElementById("mission-eyebrow").textContent =
+        `TODAY'S MISSION • MONTH ${currentObj.month} • WEEK ${currentObj.week}`;
+      document.getElementById("mission-duration").textContent = `⏱ ${currentObj.duration}`;
+      document.getElementById("mission-title").textContent =
+        `Day ${String(currentObj.day).padStart(2, "0")}: ${currentObj.title}`;
+      document.getElementById("mission-lab-preview").textContent = currentObj.lab;
+      document.getElementById("mission-instructor").textContent = `🎓 ${currentObj.instructor}`;
+      document.getElementById("mission-subject").textContent = `📘 ${currentObj.subject}`;
+      document.getElementById("mission-status-pill").textContent = isDone ? "✅ Verified Complete" : "⏳ In Progress";
+
+      // 5. Recent Smart Notes
+      const recentContainer = document.getElementById("bento-recent-notes");
+      if (!profile.notes.length) {
+        recentContainer.innerHTML = `<div style="font-size: 12.5px; color: var(--text-muted); padding: 10px 0;">No notes saved yet. Capture formulas, SQL snippets, or ML insights below!</div>`;
+      } else {
+        recentContainer.innerHTML = profile.notes.slice(0, 3).map(n => `
+          <div class="note-item" style="margin-bottom: 0; padding: 9px 11px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <span style="font-size: 10.5px; font-weight: 700; color: var(--accent);">Day ${n.day} • ${n.tag}</span>
+              <span style="font-size: 10px; color: var(--text-muted);">${n.date}</span>
+            </div>
+            <div style="font-size: 12.5px; color: var(--text-primary);">${escapeHtml(n.text)}</div>
+          </div>
+        `).join("");
+      }
+    }
+
+    /* ==================== RENDERING: OPTION 2 FLOATING-DOCK STUDIO ==================== */
+    function renderStudioDay() {
+      updateTopbar();
+      const d = getDayObject(profile.currentDay);
+      const isDone = profile.completedDays.includes(d.day);
+
+      document.getElementById("studio-instructor-badge").textContent = `🎓 ${d.instructor}`;
+      document.getElementById("studio-focus-badge").textContent = `⏱ Focus: ${d.focus}`;
+      document.getElementById("studio-subject-label").textContent = `MONTH ${d.month} • WEEK ${d.week} • ${d.subject.toUpperCase()}`;
+      document.getElementById("studio-day-title").textContent = `Day ${String(d.day).padStart(2, "0")}: ${d.title}`;
+      document.getElementById("studio-lab-prompt").textContent = d.lab;
+
+      document.getElementById("studio-takeaways").innerHTML = (d.takeaways || [])
+        .map(t => `<li>${escapeHtml(t)}</li>`).join("");
+
+      const hintBox = document.getElementById("studio-hint-box");
+      hintBox.textContent = `💡 Hint: ${d.hint}`;
+      hintBox.classList.remove("open");
+
+      const verifyBtn = document.getElementById("verify-complete-btn");
+      verifyBtn.textContent = isDone ? "✅ Completed" : "✓ Verify & Complete";
+      verifyBtn.classList.toggle("completed", isDone);
+
+      // Update YouTube iframe cleanly (never youtube-nocookie.com)
+      loadYouTubeEmbed(d);
+
+      // Load saved draft or starter code for active runtime
+      loadEditorDraft();
+
+      // Update Mentor status badge
+      const hasKey = Boolean(localStorage.getItem("df_gemini_key"));
+      const badge = document.getElementById("mentor-live-badge");
+      badge.textContent = hasKey ? "● Live" : "Key Required";
+      badge.style.color = hasKey ? "var(--success)" : "var(--warning)";
+    }
+
+    function loadYouTubeEmbed(dayObj) {
+      const vid = appState.useAltVideo && dayObj.altVideoId ? dayObj.altVideoId : dayObj.videoId;
+      const originParam = window.location.protocol.startsWith("http")
+        ? `&origin=${encodeURIComponent(window.location.origin)}`
+        : "";
+      const embedUrl = `https://www.youtube.com/embed/${vid}?rel=0&enablejsapi=1${originParam}`;
+      const iframe = document.getElementById("yt-player");
+      if (iframe.src !== embedUrl) {
+        iframe.src = embedUrl;
+      }
+      document.getElementById("yt-external-link").href = `https://www.youtube.com/watch?v=${vid}`;
+      document.getElementById("studio-video-source-label").textContent = appState.useAltVideo ? "Backup Lecture (Alt)" : "Primary Lecture";
+      document.getElementById("alt-video-btn").textContent = appState.useAltVideo ? "🔄 Primary Video" : "🔄 Alt Video";
+    }
+
+    function toggleAltVideo() {
+      appState.useAltVideo = !appState.useAltVideo;
+      loadYouTubeEmbed(getDayObject(profile.currentDay));
+      showToast(appState.useAltVideo ? "Switched to Backup YouTube Video" : "Switched to Primary YouTube Video");
+    }
+
+    function toggleHint() {
+      document.getElementById("studio-hint-box").classList.toggle("open");
+    }
+
+    /* ==================== VERIFY & COMPLETE + STREAK TRACKING ==================== */
+    function toggleCompleteCurrentDay() {
+      const dayNum = profile.currentDay;
+      const idx = profile.completedDays.indexOf(dayNum);
+      if (idx === -1) {
+        profile.completedDays.push(dayNum);
+        profile.completedDays.sort((a, b) => a - b);
+        updateDailyStreak();
+        showToast(`🎉 Day ${dayNum} Verified & Completed! Streak: ${profile.streak}d`);
+      } else {
+        profile.completedDays.splice(idx, 1);
+        showToast(`Day ${dayNum} marked incomplete.`);
+      }
+      saveActiveProfile(true);
+      renderStudioDay();
+    }
+
+    function updateDailyStreak() {
+      const today = new Date().toISOString().slice(0, 10);
+      if (profile.lastActiveDate === today) {
+        if (profile.streak === 0) profile.streak = 1;
+        return;
+      }
+      const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+      if (profile.lastActiveDate === yesterday) {
+        profile.streak += 1;
+      } else {
+        profile.streak = 1;
+      }
+      profile.lastActiveDate = today;
+    }
+
+    /* ==================== CODE EDITOR & AUTO-SAVE DRAFTS ==================== */
+    function draftKey(dayNum, runtime) {
+      return `d${dayNum}_${runtime}`;
+    }
+
+    function loadEditorDraft() {
+      const d = getDayObject(profile.currentDay);
+      const key = draftKey(d.day, appState.runtime);
+      const saved = profile.drafts[key];
+      const editor = document.getElementById("code-editor");
+      editor.value = saved !== undefined ? saved : (appState.runtime === "py" ? d.starterPy : d.starterSql);
+      document.getElementById("console-output").textContent = appState.runtime === "py"
+        ? "Python 3.11 ready (lazy-loads on Run). Press Ctrl+Enter to execute."
+        : "SQLite ready with preloaded 'employees' & 'orders' tables. Press Ctrl+Enter to query.";
+    }
+
+    function switchRuntime(rt) {
+      appState.runtime = rt;
+      document.getElementById("tab-py").classList.toggle("active", rt === "py");
+      document.getElementById("tab-sql").classList.toggle("active", rt === "sql");
+      loadEditorDraft();
+    }
+
+    function resetStarterCode() {
+      const d = getDayObject(profile.currentDay);
+      delete profile.drafts[draftKey(d.day, appState.runtime)];
+      saveActiveProfile(false);
+      loadEditorDraft();
+      showToast("Reset to starter code.");
+    }
+
+    document.getElementById("code-editor").addEventListener("input", (e) => {
+      const key = draftKey(profile.currentDay, appState.runtime);
+      profile.drafts[key] = e.target.value;
+      saveActiveProfile(false);
+    });
+
+    document.getElementById("code-editor").addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+        e.preventDefault();
+        runActiveCode();
+      } else if (e.key === "Tab") {
+        e.preventDefault();
+        const el = e.target;
+        const start = el.selectionStart;
+        const end = el.selectionEnd;
+        el.value = el.value.substring(0, start) + "    " + el.value.substring(end);
+        el.selectionStart = el.selectionEnd = start + 4;
+      }
+    });
+
+    /* ==================== LAZY-LOADED PYTHON 3.11 (PYODIDE) & SQLITE (SQL.JS) ==================== */
+    function loadScriptOnce(src) {
+      return new Promise((resolve, reject) => {
+        if (document.querySelector(`script[src="${src}"]`)) return resolve();
+        const s = document.createElement("script");
+        s.src = src;
+        s.onload = resolve;
+        s.onerror = () => reject(new Error(`Failed to load ${src}`));
+        document.head.appendChild(s);
+      });
+    }
+
+    async function ensurePyodide() {
+      if (pyodideInstance) return pyodideInstance;
+      if (pyodideLoadingPromise) return pyodideLoadingPromise;
+      const pill = document.getElementById("engine-status-pill");
+      pill.textContent = "⏳ Loading Python 3.11...";
+      pyodideLoadingPromise = (async () => {
+        await loadScriptOnce("https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js");
+        const py = await window.loadPyodide();
+        pyodideInstance = py;
+        pill.textContent = "🐍 Python 3.11 Ready";
+        return py;
+      })();
+      return pyodideLoadingPromise;
+    }
+
+    async function ensureSqlite() {
+      if (sqliteDbInstance) return sqliteDbInstance;
+      if (sqliteLoadingPromise) return sqliteLoadingPromise;
+      const pill = document.getElementById("engine-status-pill");
+      pill.textContent = "⏳ Loading SQLite...";
+      sqliteLoadingPromise = (async () => {
+        await loadScriptOnce("https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.js");
+        const SQL = await window.initSqlJs({
+          locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${file}`
+        });
+        const db = new SQL.Database();
+        db.run(`
+          CREATE TABLE employees (
+            emp_id INTEGER PRIMARY KEY,
+            name TEXT,
+            department TEXT,
+            role TEXT,
+            salary REAL,
+            manager_id INTEGER,
+            hire_date TEXT
+          );
+          INSERT INTO employees VALUES
+            (1, 'Aarav Sharma', 'Data', 'Lead Data Scientist', 125000, NULL, '2022-03-15'),
+            (2, 'Diya Patel', 'Data', 'Senior Data Analyst', 98000, 1, '2023-01-10'),
+            (3, 'Kabir Verma', 'Data', 'Data Analyst', 78000, 1, '2024-06-01'),
+            (4, 'Meera Nair', 'Engineering', 'Staff Data Engineer', 132000, NULL, '2021-11-20'),
+            (5, 'Rohan Joshi', 'Engineering', 'Analytics Engineer', 94000, 4, '2023-08-14'),
+            (6, 'Sneha Kulkarni', 'Sales', 'Enterprise Sales Lead', 110000, NULL, '2022-05-09'),
+            (7, 'Vikram Rao', 'Sales', 'Account Executive', 82000, 6, '2024-02-19'),
+            (8, 'Ananya Iyer', 'Sales', 'Account Executive', 76000, 6, '2024-09-01'),
+            (9, 'Dev Malhotra', 'Marketing', 'Growth Analyst', 72000, 1, '2024-04-12'),
+            (10, 'Pooja Deshmukh', 'Operations', 'BI Specialist', 68000, 4, '2025-01-15');
+
+          CREATE TABLE orders (
+            order_id INTEGER PRIMARY KEY,
+            customer_name TEXT,
+            emp_id INTEGER,
+            category TEXT,
+            region TEXT,
+            amount REAL,
+            status TEXT,
+            order_date TEXT
+          );
+          INSERT INTO orders VALUES
+            (101, 'Acme Corp', 6, 'Cloud', 'West', 14500, 'Completed', '2026-01-08'),
+            (102, 'Zenith Retail', 7, 'Electronics', 'South', 6200, 'Completed', '2026-01-19'),
+            (103, 'Nova Health', 8, 'Software', 'North', 8900, 'Completed', '2026-02-04'),
+            (104, 'Acme Corp', 6, 'Cloud', 'West', 12800, 'Completed', '2026-02-16'),
+            (105, 'Orbit Logistics', 7, 'Hardware', 'East', 3400, 'Cancelled', '2026-02-24'),
+            (106, 'Pulse FinTech', 6, 'Software', 'West', 9600, 'Completed', '2026-03-05'),
+            (107, 'Zenith Retail', 8, 'Electronics', 'South', 5400, 'Completed', '2026-03-14'),
+            (108, 'Vanguard Edu', 7, 'Software', 'North', 4100, 'Pending', '2026-03-27'),
+            (109, 'Acme Corp', 6, 'Cloud', 'West', 11200, 'Completed', '2026-04-03'),
+            (110, 'Kiran Agro', 8, 'Hardware', 'South', 2800, 'Completed', '2026-04-18'),
+            (111, 'Pulse FinTech', 6, 'Cloud', 'West', 13500, 'Completed', '2026-05-02'),
+            (112, 'Metro Mart', 7, 'Electronics', 'East', 4900, 'Completed', '2026-05-15'),
+            (113, 'Nova Health', 8, 'Software', 'North', 7500, 'Completed', '2026-05-26'),
+            (114, 'BlueWave Media', 7, 'Electronics', 'South', 3100, 'Pending', '2026-06-04'),
+            (115, 'Apex Motors', 6, 'Cloud', 'West', 10400, 'Completed', '2026-06-12');
+        `);
+        sqliteDbInstance = db;
+        pill.textContent = "🗄️ SQLite Ready";
+        return db;
+      })();
+      return sqliteLoadingPromise;
+    }
+
+    async function runActiveCode() {
+      const code = document.getElementById("code-editor").value;
+      const consoleEl = document.getElementById("console-output");
+      consoleEl.textContent = "Running...";
+
+      if (appState.runtime === "py") {
+        try {
+          const py = await ensurePyodide();
+          document.getElementById("engine-status-pill").textContent = "⚙️ Executing Python...";
+          await py.loadPackagesFromImports(code);
+          py.runPython(`
+import sys, io, os
+os.environ["MPLBACKEND"] = "Agg"
+sys.stdout = io.StringIO()
+sys.stderr = sys.stdout
+          `);
+          let result = await py.runPythonAsync(code);
+          let stdout = py.runPython("sys.stdout.getvalue()");
+          let finalOut = stdout || (result !== undefined ? String(result) : "(Executed cleanly with no stdout output)");
+          consoleEl.textContent = finalOut;
+          appState.lastConsoleOutput = finalOut;
+          document.getElementById("engine-status-pill").textContent = "🐍 Python 3.11 Ready";
+        } catch (err) {
+          const errMsg = String(err);
+          consoleEl.textContent = errMsg;
+          appState.lastConsoleOutput = errMsg;
+          document.getElementById("engine-status-pill").textContent = "⚠️ Python Error";
+        }
+      } else {
+        try {
+          const db = await ensureSqlite();
+          const results = db.exec(code);
+          if (!results || results.length === 0) {
+            const msg = "Query executed successfully (0 rows returned).";
+            consoleEl.textContent = msg;
+            appState.lastConsoleOutput = msg;
+            return;
+          }
+          const lastRes = results[results.length - 1];
+          const headers = lastRes.columns;
+          const rows = lastRes.values;
+          let html = `<table class="sql-table"><thead><tr>${headers.map(h => `<th>${escapeHtml(h)}</th>`).join("")}</tr></thead><tbody>`;
+          html += rows.map(r => `<tr>${r.map(v => `<td>${v === null ? "NULL" : escapeHtml(String(v))}</td>`).join("")}</tr>`).join("");
+          html += `</tbody></table><div style="margin-top:6px;color:var(--text-muted);font-size:11px;">${rows.length} row(s) returned</div>`;
+          consoleEl.innerHTML = html;
+          appState.lastConsoleOutput = `Columns: ${headers.join(", ")}\nRows (${rows.length}):\n` +
+            rows.slice(0, 10).map(r => r.join(" | ")).join("\n");
+        } catch (err) {
+          const errMsg = `SQLite Error: ${err.message}`;
+          consoleEl.textContent = errMsg;
+          appState.lastConsoleOutput = errMsg;
+        }
+      }
+    }
+
+    /* ==================== LIVE CODE-AWARE INSTINCT MENTOR (gemini-3.8-flash) ==================== */
+    function clearMentorChat() {
+      appState.chatHistory = [];
+      document.getElementById("mentor-feed").innerHTML =
+        `<div class="msg-ai">Chat cleared. Ask anything about Day ${profile.currentDay} or click a quick chip above!</div>`;
+    }
+
+    function sendMentorQuickChip(chipLabel) {
+      const prompts = {
+        "Why This Matters": "Why does today's topic matter in real-world data analyst and data scientist roles? Give a concrete industry example.",
+        "Explain Simply": "Explain today's core concept intuitively in plain English with a simple mental model.",
+        "Review My Code": "Review my current code in the editor and my latest console output/errors. Point out any bugs, edge cases, or cleaner Pythonic/SQL improvements.",
+        "Quiz Me": "Give me 2 concise, practical interview-style questions on today's topic and wait for my answer before revealing solutions."
+      };
+      sendMentorMessage(prompts[chipLabel] || chipLabel);
+    }
+
+    async function sendMentorMessage(overridePrompt = null) {
+      const inputEl = document.getElementById("mentor-input");
+      const userText = (overridePrompt || inputEl.value).trim();
+      if (!userText) return;
+      if (!overridePrompt) inputEl.value = "";
+
+      const feed = document.getElementById("mentor-feed");
+      feed.innerHTML += `<div class="msg-user">${escapeHtml(userText)}</div>`;
+      feed.scrollTop = feed.scrollHeight;
+
+      const apiKey = localStorage.getItem("df_gemini_key");
+      if (!apiKey) {
+        feed.innerHTML += `<div class="msg-ai">🔒 <strong>Instinct Mentor is offline.</strong> Connect your free Google AI Studio key in <a href="#" onclick="openModal('sync-modal');return false;" style="color:var(--accent);">Sync & API Settings</a> to activate live code-aware mentorship.</div>`;
+        feed.scrollTop = feed.scrollHeight;
+        return;
+      }
+
+      const d = getDayObject(profile.currentDay);
+      const activeCode = document.getElementById("code-editor").value;
+      const runtimeLabel = appState.runtime === "py" ? "Python 3.11" : "SQLite";
+
+      const systemContext = `You are Instinct Mentor, a warm, sharp Data Science & AI peer inside DataForge Instinct OS v7.0.
+Current Lesson Context:
+- Day ${d.day}/168 (Month ${d.month}, Week ${d.week}): ${d.title}
+- Subject: ${d.subject} | Instructor: ${d.instructor} | Focus: ${d.focus}
+- Takeaways: ${(d.takeaways || []).join(" ; ")}
+- Lab Prompt: ${d.lab}
+- Active Editor Runtime: ${runtimeLabel}
+- Student's Current Editor Code:
+\`\`\`${appState.runtime}
+${activeCode}
+\`\`\`
+- Latest Execution Output / Error Trace:
+\`\`\`
+${appState.lastConsoleOutput || "(Not run yet)"}
+\`\`\`
+Keep answers crisp, encouraging, practical, and directly grounded in the student's code and lesson.`;
+
+      appState.chatHistory.push({ role: "user", parts: [{ text: userText }] });
+      const recentTurns = appState.chatHistory.slice(-8);
+
+      const loadingId = `ai-msg-${Date.now()}`;
+      feed.innerHTML += `<div class="msg-ai" id="${loadingId}">⏳ Thinking with gemini-3.8-flash...</div>`;
+      feed.scrollTop = feed.scrollHeight;
+
+      try {
+        const resp = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${encodeURIComponent(apiKey)}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              systemInstruction: { parts: [{ text: systemContext }] },
+              contents: recentTurns,
+              generationConfig: { temperature: 0.35, maxOutputTokens: 900 }
+            })
+          }
+        );
+        const data = await resp.json();
+        if (!resp.ok) {
+          throw new Error(data.error?.message || `HTTP ${resp.status}`);
+        }
+        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "No response returned.";
+        appState.chatHistory.push({ role: "model", parts: [{ text: reply }] });
+        document.getElementById(loadingId).innerHTML = renderBasicMarkdown(reply);
+      } catch (err) {
+        document.getElementById(loadingId).innerHTML = `⚠️ <strong>Gemini API Error:</strong> ${escapeHtml(err.message)}`;
+      }
+      feed.scrollTop = feed.scrollHeight;
+    }
+
+    /* ==================== SMART NOTES & AI CHEAT-SHEET COMPILER ==================== */
+    function detectAutoTag(text, dayObj) {
+      const t = text.toLowerCase();
+      if (/\b(select|join|group by|window|cte|sql|having|where)\b/.test(t)) return "#SQL";
+      if (/\b(p-value|chi|anova|normal|bayes|t-test|confidence|skew|variance|stat)\b/.test(t)) return "#Stats";
+      if (/\b(regression|random forest|xgboost|svm|knn|pca|cluster|roc|auc|sklearn|pipeline)\b/.test(t)) return "#ML";
+      if (/\b(llm|rag|embedding|token|prompt|gemini|agent|streamlit|vector)\b/.test(t)) return "#GenAI";
+      if (/\b(python|pandas|numpy|dataframe|dict|list|class|git)\b/.test(t)) return "#Python";
+      const mMeta = MONTH_META.find(m => m.month === dayObj.month);
+      return mMeta ? mMeta.tag : "#Python";
+    }
+
+    function addQuickNoteFromBento() {
+      const inp = document.getElementById("bento-quick-note-input");
+      const text = inp.value.trim();
+      if (!text) return;
+      createNoteEntry(text);
+      inp.value = "";
+      renderBentoHome();
+    }
+
+    function saveNewNote() {
+      const inp = document.getElementById("new-note-text");
+      const text = inp.value.trim();
+      if (!text) return;
+      createNoteEntry(text);
+      inp.value = "";
+      renderNotesModal();
+    }
+
+    function createNoteEntry(text) {
+      const d = getDayObject(profile.currentDay);
+      const tag = detectAutoTag(text, d);
+      profile.notes.unshift({
+        id: Date.now(),
+        day: d.day,
+        tag,
+        text,
+        date: new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "short" })
+      });
+      saveActiveProfile(true);
+      showToast(`📝 Note saved & auto-tagged ${tag}`);
+    }
+
+    function deleteNote(id) {
+      profile.notes = profile.notes.filter(n => n.id !== id);
+      saveActiveProfile(true);
+      renderNotesModal();
+      if (appState.view === "home") renderBentoHome();
+    }
+
+    function setNoteFilter(tag) {
+      appState.noteFilter = tag;
+      document.querySelectorAll("#notes-filter-bar .tag-pill").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.filter === tag);
+      });
+      renderNotesModal();
+    }
+
+    function renderNotesModal() {
+      const list = appState.noteFilter === "ALL"
+        ? profile.notes
+        : profile.notes.filter(n => n.tag === appState.noteFilter);
+      const container = document.getElementById("notes-list-container");
+      if (!list.length) {
+        container.innerHTML = `<div style="color: var(--text-muted); font-size: 13px; padding: 14px 0;">No notes found for filter: ${appState.noteFilter}.</div>`;
+        return;
+      }
+      container.innerHTML = list.map(n => `
+        <div class="note-item">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <div>
+              <span class="pill-badge" style="color: var(--accent);">${n.tag}</span>
+              <span style="font-size: 11px; color: var(--text-muted); margin-left: 6px;">Day ${n.day} • ${n.date}</span>
+            </div>
+            <button class="btn btn-sm" onclick="deleteNote(${n.id})" title="Delete Note">🗑️</button>
+          </div>
+          <div style="font-size: 13px; line-height: 1.5; white-space: pre-wrap;">${escapeHtml(n.text)}</div>
+        </div>
+      `).join("");
+    }
+
+    async function compileAiCheatSheet() {
+      const outBox = document.getElementById("ai-cheatsheet-output");
+      const filtered = appState.noteFilter === "ALL"
+        ? profile.notes
+        : profile.notes.filter(n => n.tag === appState.noteFilter);
+
+      if (!filtered.length) {
+        showToast("Add at least 1 note first to compile a cheat-sheet!");
+        return;
+      }
+
+      outBox.style.display = "block";
+      outBox.innerHTML = "✨ Compiling structured revision cheat-sheet...";
+      const apiKey = localStorage.getItem("df_gemini_key");
+
+      if (!apiKey) {
+        // Deterministic local fallback if API key not yet added
+        const grouped = filtered.map(n => `- **[${n.tag} | Day ${n.day}]** ${n.text}`).join("\n");
+        outBox.innerHTML = renderBasicMarkdown(`### Compiled Study Cheat-Sheet (${appState.noteFilter})\n${grouped}\n\n*Tip: Connect your free Gemini API key in Sync to enable AI synthesis & code examples.*`);
+        return;
+      }
+
+      try {
+        const notesBlob = filtered.map(n => `[Day ${n.day} | ${n.tag}]: ${n.text}`).join("\n");
+        const resp = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${encodeURIComponent(apiKey)}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              contents: [{
+                role: "user",
+                parts: [{ text: `Organize these Data Science study notes into a concise, high-yield interview revision cheat-sheet with clean bullet points and mini syntax reminders:\n\n${notesBlob}` }]
+              }],
+              generationConfig: { temperature: 0.25, maxOutputTokens: 800 }
+            })
+          }
+        );
+        const data = await resp.json();
+        const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Unable to compile cheat-sheet.";
+        outBox.innerHTML = renderBasicMarkdown(text);
+      } catch (err) {
+        outBox.textContent = `Cheat-Sheet Error: ${err.message}`;
+      }
+    }
+
+    /* ==================== 168-DAY ROADMAP & MARKDOWN PORTFOLIO EXPORT ==================== */
+    function renderRoadmap() {
+      const query = (document.getElementById("roadmap-search").value || "").toLowerCase();
+      const monthFilter = Number(document.getElementById("roadmap-month-filter").value || 0);
+      const doneSet = new Set(profile.completedDays);
+
+      document.getElementById("roadmap-summary-sub").textContent =
+        `${doneSet.size} of ${CURRICULUM_DATA.length} Days Completed • Click any day to launch Studio`;
+
+      const filtered = CURRICULUM_DATA.filter(d => {
+        if (monthFilter && d.month !== monthFilter) return false;
+        if (!query) return true;
+        return (
+          d.title.toLowerCase().includes(query) ||
+          d.subject.toLowerCase().includes(query) ||
+          d.instructor.toLowerCase().includes(query) ||
+          String(d.day) === query
+        );
+      });
+
+      document.getElementById("roadmap-grid").innerHTML = filtered.map(d => {
+        const isDone = doneSet.has(d.day);
+        const isCurr = d.day === profile.currentDay;
+        return `
+          <div class="day-tile ${isDone ? "done" : ""} ${isCurr ? "current" : ""}" onclick="closeModal('roadmap-modal'); selectDay(${d.day}, true);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+              <span style="font-size: 11px; font-weight: 800; color: var(--accent);">DAY ${String(d.day).padStart(2, "0")} • M${d.month}</span>
+              <span style="font-size: 12px;">${isDone ? "✅" : isCurr ? "▶" : "○"}</span>
+            </div>
+            <div style="font-size: 13px; font-weight: 700; line-height: 1.35; margin-bottom: 6px;">${escapeHtml(d.title)}</div>
+            <div style="font-size: 11px; color: var(--text-secondary);">🎓 ${escapeHtml(d.instructor)} • ${d.duration}</div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function exportMarkdownPortfolio() {
+      const doneSet = new Set(profile.completedDays);
+      const pct = Math.round((doneSet.size / CURRICULUM_DATA.length) * 100);
+      let md = `# DataForge // Instinct OS v7.0 — 6-Month Data Science Portfolio\n\n`;
+      md += `- **Student Handle:** \`@${profile.handle}\`\n`;
+      md += `- **Progress:** **${doneSet.size} / ${CURRICULUM_DATA.length} Days (${pct}%)** | **Streak:** ${profile.streak} Days\n`;
+      md += `- **Exported On:** ${new Date().toLocaleDateString("en-IN", { dateStyle: "long" })}\n\n`;
+
+      MONTH_META.forEach(m => {
+        const mDays = CURRICULUM_DATA.filter(d => d.month === m.month);
+        const mDone = mDays.filter(d => doneSet.has(d.day));
+        md += `## Month ${m.month}: ${m.name} (${mDone.length}/${mDays.length} Completed)\n`;
+        mDays.forEach(d => {
+          const box = doneSet.has(d.day) ? "[x]" : "[ ]";
+          md += `- ${box} **Day ${String(d.day).padStart(2, "0")}:** ${d.title} (*${d.instructor}*)\n`;
+        });
+        md += `\n`;
+      });
+
+      if (profile.notes.length) {
+        md += `## Key Study Notes\n`;
+        profile.notes.forEach(n => {
+          md += `- **[${n.tag} | Day ${n.day}]** ${n.text}\n`;
+        });
+      }
+
+      const blob = new Blob([md], { type: "text/markdown;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `DataForge_Portfolio_${profile.handle}.md`;
+      a.click();
+      URL.revokeObjectURL(url);
+      if (navigator.clipboard) navigator.clipboard.writeText(md).catch(() => {});
+      showToast("📄 Markdown Portfolio downloaded & copied!");
+    }
+
+    /* ==================== 3-LAYER SYNC (PROFILE PIN, BASE64, GITHUB GIST) ==================== */
+    function switchStudentProfile() {
+      const handle = document.getElementById("sync-handle-input").value.trim() || "student";
+      const pin = document.getElementById("sync-pin-input").value.trim();
+      if (!/^\d{4}$/.test(pin)) {
+        showToast("⚠️ Enter a valid 4-digit numeric PIN (e.g., 1234).");
+        return;
+      }
+      localStorage.setItem("df_active_handle", handle);
+      localStorage.setItem("df_active_pin", pin);
+      loadActiveProfile();
+      renderAll();
+      showToast(`👤 Active profile switched to @${profile.handle}`);
+    }
+
+    function saveGeminiKeyFromModal() {
+      const key = document.getElementById("sync-gemini-key").value.trim();
+      if (!key) {
+        localStorage.removeItem("df_gemini_key");
+        showToast("Gemini API key removed.");
+      } else {
+        localStorage.setItem("df_gemini_key", key);
+        showToast("✅ Gemini API key saved! Instinct Mentor is live.");
+      }
+      renderAll();
+    }
+
+    function copySyncCode() {
+      const jsonStr = JSON.stringify(profile);
+      const b64 = btoa(unescape(encodeURIComponent(jsonStr)));
+      document.getElementById("sync-base64-box").value = b64;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(b64).catch(() => {});
+      }
+      showToast("📋 Base64 Sync Code copied to clipboard!");
+    }
+
+    function importSyncCode() {
+      const b64 = document.getElementById("sync-base64-box").value.trim();
+      if (!b64) {
+        showToast("⚠️ Paste a Base64 sync code first.");
+        return;
+      }
+      try {
+        const jsonStr = decodeURIComponent(escape(atob(b64)));
+        const imported = JSON.parse(jsonStr);
+        if (!imported || !Array.isArray(imported.completedDays)) {
+          throw new Error("Invalid sync payload");
+        }
+        profile = { ...profile, ...imported };
+        saveActiveProfile(false);
+        setTint(profile.tint || "obsidian", false);
+        renderAll();
+        showToast(`✅ Restored @${profile.handle} (${profile.completedDays.length} days synced)!`);
+      } catch (e) {
+        showToast("❌ Invalid Base64 sync code.");
+      }
+    }
+
+    function saveGistConfig() {
+      const token = document.getElementById("sync-gist-token").value.trim();
+      const gistId = document.getElementById("sync-gist-id").value.trim();
+      if (token) localStorage.setItem("df_gist_token", token);
+      else localStorage.removeItem("df_gist_token");
+      if (gistId) localStorage.setItem("df_gist_id", gistId);
+      else localStorage.removeItem("df_gist_id");
+      renderAll();
+      showToast("☁️ GitHub Gist settings saved.");
+    }
+
+    async function pushToGitHubGist(notify = false) {
+      const token = localStorage.getItem("df_gist_token");
+      if (!token) {
+        if (notify) showToast("⚠️ Add your GitHub PAT (gist scope) first.");
+        return;
+      }
+      const gistId = localStorage.getItem("df_gist_id");
+      const filename = `dataforge_sync_${profile.handle}.json`;
+      const payload = {
+        description: `DataForge Instinct OS v7.0 Sync (@${profile.handle})`,
+        public: false,
+        files: { [filename]: { content: JSON.stringify(profile, null, 2) } }
+      };
+      try {
+        const url = gistId ? `https://api.github.com/gists/${gistId}` : "https://api.github.com/gists";
+        const method = gistId ? "PATCH" : "POST";
+        const res = await fetch(url, {
+          method,
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/vnd.github+json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || `HTTP ${res.status}`);
+        if (data.id && !gistId) {
+          localStorage.setItem("df_gist_id", data.id);
+          const idInp = document.getElementById("sync-gist-id");
+          if (idInp) idInp.value = data.id;
+        }
+        if (notify) showToast("☁️ Pushed progress to GitHub Gist!");
+      } catch (err) {
+        if (notify) showToast(`❌ Gist Push Failed: ${err.message}`);
+      }
+    }
+
+    async function pullFromGitHubGist() {
+      const token = localStorage.getItem("df_gist_token");
+      const gistId = localStorage.getItem("df_gist_id");
+      if (!token || !gistId) {
+        showToast("⚠️ Both GitHub PAT and Gist ID are required to pull.");
+        return;
+      }
+      try {
+        const res = await fetch(`https://api.github.com/gists/${gistId}`, {
+          headers: { Authorization: `Bearer ${token}`, Accept: "application/vnd.github+json" }
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || `HTTP ${res.status}`);
+        const files = Object.values(data.files || {});
+        if (!files.length) throw new Error("Gist has no files");
+        const parsed = JSON.parse(files[0].content);
+        profile = { ...profile, ...parsed };
+        saveActiveProfile(false);
+        renderAll();
+        showToast(`⬇️ Pulled @${profile.handle} from GitHub Gist!`);
+      } catch (err) {
+        showToast(`❌ Gist Pull Failed: ${err.message}`);
+      }
+    }
+
+    /* ==================== MODAL HELPERS & SAFE MARKDOWN RENDERER ==================== */
+    function openModal(id) {
+      document.getElementById(id).classList.add("open");
+      if (id === "notes-modal") renderNotesModal();
+      if (id === "roadmap-modal") renderRoadmap();
+      if (id === "sync-modal") {
+        document.getElementById("sync-handle-input").value = profile.handle;
+        document.getElementById("sync-pin-input").value = profile.pin;
+        document.getElementById("sync-gemini-key").value = localStorage.getItem("df_gemini_key") || "";
+        document.getElementById("sync-gist-token").value = localStorage.getItem("df_gist_token") || "";
+        document.getElementById("sync-gist-id").value = localStorage.getItem("df_gist_id") || "";
+      }
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove("open");
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function renderBasicMarkdown(md) {
+      let safe = escapeHtml(md);
+      safe = safe.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => `<pre><code>${code}</code></pre>`);
+      safe = safe.replace(/`([^`]+)`/g, "<code>$1</code>");
+      safe = safe.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+      safe = safe.replace(/^### (.+)$/gm, "<strong style='font-size:14px;color:var(--accent);display:block;margin:6px 0;'>$1</strong>");
+      safe = safe.replace(/^- (.+)$/gm, "• $1");
+      safe = safe.replace(/\n/g, "<br>");
+      return safe;
+    }
+
+    function renderAll() {
+      updateTopbar();
+      renderBentoHome();
+      if (appState.view === "studio") {
+        renderStudioDay();
+      }
+    }
+
+    /* ==================== INITIALIZE APPLICATION ==================== */
+    window.addEventListener("DOMContentLoaded", () => {
+      checkUrlHashApiKey();
+      loadActiveProfile();
+      renderAll();
+      checkFirstTimeOnboarding();
+    });
+  </script>
+</body>
+</html>
