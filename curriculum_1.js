@@ -1682,8 +1682,7 @@ window.CURRICULUM = [
     lab: "Clean the dirty e-commerce batch: strip/title city names, coerce amounts, deduplicate order_id, impute missing amounts by city median, and summarize clean revenue by city.",
     hint: "Chain .assign(), .drop_duplicates(), .groupby('city')['amount'].transform('median'), and .groupby('city').agg().",
     starterPy: `import pandas as pd, numpy as np\n\nraw = pd.DataFrame({\n    "order_id": [1, 1, 2, 3, 4, 5],\n    "city": [" mumbai ", "Mumbai", "PUNE", "pune ", "Bengaluru", "Mumbai"],\n    "amount": ["4500", "4800", "3200", "N/A", "9100", "5200"]\n})\n\nclean = (\n    raw.assign(\n        city=lambda d: d["city"].str.strip().str.title(),\n        amount=lambda d: pd.to_numeric(d["amount"], errors="coerce")\n    )\n    .drop_duplicates(subset=["order_id"], keep="last")\n)\nclean["amount"] = clean["amount"].fillna(clean.groupby("city")["amount"].transform("median"))\nreport = clean.groupby("city", as_index=False).agg(orders=("order_id", "count"), revenue=("amount", "sum"))\nprint(report)`,
-    starterSql: `SELECT region, COUNT(*) AS orders, SUM(amount) AS revenue FROM orders GROUP BY region;`
-    // ==================== MONTH 4: STATISTICS, VISUALIZATION & EXPERIMENTATION (DAYS 85–112) ====================
+    starterSql: `SELECT region, COUNT(*) AS orders, SUM(amount) AS revenue FROM orders GROUP BY region;`// ==================== MONTH 4: STATISTICS, VISUALIZATION & EXPERIMENTATION (DAYS 85–112) ====================
   {
     day: 85,
     month: 4,
