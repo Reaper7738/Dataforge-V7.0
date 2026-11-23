@@ -18,7 +18,7 @@
       --bg-gradient-2: rgba(99, 102, 241, 0.14);
       --bg-gradient-3: rgba(15, 23, 42, 0.92);
       --glass-bg: rgba(15, 23, 42, 0.62);
-      --glass-bg-elevated: rgba(22, 33, 58, 0.78);
+      --glass-bg-elevated: rgba(22, 33, 58, 0.84);
       --glass-border: rgba(255, 255, 255, 0.08);
       --glass-border-hover: rgba(56, 189, 248, 0.38);
       --glass-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.09);
@@ -41,7 +41,7 @@
       --bg-gradient-2: rgba(186, 230, 253, 0.12);
       --bg-gradient-3: rgba(17, 29, 49, 0.94);
       --glass-bg: rgba(20, 34, 56, 0.66);
-      --glass-bg-elevated: rgba(28, 46, 74, 0.82);
+      --glass-bg-elevated: rgba(28, 46, 74, 0.86);
       --glass-border: rgba(186, 230, 253, 0.14);
       --glass-border-hover: rgba(125, 211, 252, 0.48);
       --glass-highlight: inset 0 1px 0 0 rgba(224, 242, 254, 0.14);
@@ -64,7 +64,7 @@
       --bg-gradient-2: rgba(45, 212, 191, 0.13);
       --bg-gradient-3: rgba(19, 15, 42, 0.94);
       --glass-bg: rgba(22, 18, 46, 0.64);
-      --glass-bg-elevated: rgba(33, 27, 66, 0.8);
+      --glass-bg-elevated: rgba(33, 27, 66, 0.85);
       --glass-border: rgba(216, 180, 254, 0.11);
       --glass-border-hover: rgba(192, 132, 252, 0.45);
       --glass-highlight: inset 0 1px 0 0 rgba(243, 232, 255, 0.1);
@@ -87,7 +87,7 @@
       --bg-gradient-2: rgba(6, 182, 212, 0.12);
       --bg-gradient-3: rgba(12, 28, 25, 0.94);
       --glass-bg: rgba(13, 31, 27, 0.64);
-      --glass-bg-elevated: rgba(19, 44, 38, 0.8);
+      --glass-bg-elevated: rgba(19, 44, 38, 0.85);
       --glass-border: rgba(167, 243, 208, 0.1);
       --glass-border-hover: rgba(52, 211, 153, 0.42);
       --glass-highlight: inset 0 1px 0 0 rgba(209, 250, 229, 0.1);
@@ -146,6 +146,159 @@
       box-shadow: var(--glass-highlight), 0 18px 40px -12px var(--accent-glow);
     }
 
+    /* ==========================================================================
+       FROSTED-GLASS SIGN-IN GATE SCREEN
+       ========================================================================== */
+    .auth-gate-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(5, 9, 18, 0.78);
+      backdrop-filter: blur(26px);
+      -webkit-backdrop-filter: blur(26px);
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+
+    .auth-gate-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 440px;
+      padding: 32px;
+      background: var(--glass-bg-elevated);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: var(--glass-highlight), 0 28px 64px -12px rgba(0, 0, 0, 0.8);
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .auth-card::before {
+      content: "";
+      position: absolute;
+      top: -70px;
+      right: -70px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-glow), transparent 70%);
+      pointer-events: none;
+    }
+
+    .auth-google-btn {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.95);
+      color: #0f172a;
+      font-weight: 700;
+      font-size: 13.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .auth-google-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 22px rgba(255, 255, 255, 0.16);
+    }
+
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .auth-divider::before,
+    .auth-divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--glass-border);
+    }
+
+    .auth-mode-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: rgba(5, 8, 17, 0.55);
+      border: 1px solid var(--glass-border);
+      border-radius: 11px;
+      padding: 3px;
+    }
+
+    .auth-mode-tab {
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      padding: 7px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+
+    .auth-mode-tab.active {
+      background: rgba(56, 189, 248, 0.16);
+      color: var(--accent-primary);
+    }
+
+    .auth-input {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 11px;
+      background: rgba(5, 8, 17, 0.72);
+      border: 1px solid var(--glass-border);
+      color: var(--text-primary);
+      font-size: 13.5px;
+      outline: none;
+    }
+
+    .auth-input:focus {
+      border-color: var(--accent-primary);
+    }
+
+    .auth-status-msg {
+      display: none;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .auth-status-msg.error {
+      display: block;
+      background: rgba(251, 113, 133, 0.12);
+      border: 1px solid rgba(251, 113, 133, 0.35);
+      color: #fda4af;
+    }
+
+    .auth-status-msg.info {
+      display: block;
+      background: rgba(52, 211, 153, 0.12);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+      color: #a7f3d0;
+    }
+
     /* Top Navigation Header */
     .topbar {
       position: sticky;
@@ -186,6 +339,7 @@
       font-size: 14px;
       color: #040812;
       box-shadow: 0 0 20px var(--accent-glow);
+      flex-shrink: 0;
     }
 
     .brand-title {
@@ -208,6 +362,26 @@
       align-items: center;
       gap: 10px;
       flex-wrap: wrap;
+    }
+
+    .sync-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 600;
+      background: rgba(52, 211, 153, 0.1);
+      border: 1px solid rgba(52, 211, 153, 0.28);
+      color: var(--success);
+    }
+
+    .sync-pill.offline {
+      background: rgba(251, 191, 36, 0.1);
+      border-color: rgba(251, 191, 36, 0.3);
+      color: var(--warning);
+      cursor: pointer;
     }
 
     .theme-pills {
@@ -1032,6 +1206,60 @@
 </head>
 <body>
 
+  <!-- ========================================================================
+       FROSTED-GLASS SIGN-IN GATE SCREEN
+       ======================================================================== -->
+  <div id="authGateOverlay" class="auth-gate-overlay">
+    <div class="auth-card">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <div class="brand-orb" style="width:42px; height:42px; font-size:16px;">DF</div>
+        <div>
+          <div style="font-size:17px; font-weight:800; letter-spacing:0.03em;">DATAFORGE <span style="color:var(--accent-primary)">//</span> INSTINCT OS</div>
+          <div class="mono" style="font-size:11px; color:var(--text-secondary);">CLOUD SYNC &amp; PERSONAL WORKSPACE</div>
+        </div>
+      </div>
+
+      <p style="font-size:13px; color:var(--text-secondary); line-height:1.5;">
+        Sign in to store your 168-day progress, streaks, Smart Notes, and code drafts privately and sync automatically across your laptop and phone.
+      </p>
+
+      <!-- Continue with Google -->
+      <button type="button" class="auth-google-btn" id="googleSignInBtn" onclick="triggerGoogleSignIn()">
+        <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
+          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+        </svg>
+        <span>Continue with Google</span>
+      </button>
+
+      <div class="auth-divider">or with email &amp; password</div>
+
+      <!-- Email / Password Tabs -->
+      <div class="auth-mode-tabs">
+        <button type="button" class="auth-mode-tab active" id="authTabSignIn" onclick="setAuthFormMode('signin')">Sign In</button>
+        <button type="button" class="auth-mode-tab" id="authTabSignUp" onclick="setAuthFormMode('signup')">Create Account</button>
+      </div>
+
+      <form onsubmit="handleEmailAuthSubmit(event)" style="display:flex; flex-direction:column; gap:10px;">
+        <input type="email" id="authEmailInput" class="auth-input" placeholder="you@example.com" required autocomplete="email" />
+        <input type="password" id="authPasswordInput" class="auth-input" placeholder="Password (min. 6 characters)" required minlength="6" autocomplete="current-password" />
+        <div style="display:flex; justify-content:flex-end;">
+          <button type="button" onclick="triggerPasswordReset()" style="background:none; border:none; color:var(--accent-primary); font-size:11.5px; cursor:pointer;">Forgot password?</button>
+        </div>
+        <button type="submit" id="authSubmitBtn" class="btn btn-primary" style="width:100%; padding:11px;">Sign In &amp; Sync</button>
+      </form>
+
+      <div id="authStatusMsg" class="auth-status-msg"></div>
+
+      <div style="border-top:1px solid var(--glass-border); padding-top:12px; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;">
+        <span style="font-size:11px; color:var(--text-muted);">Gemini API key stays private per device.</span>
+        <button type="button" class="btn" style="padding:5px 10px; font-size:11.5px;" onclick="enterOfflineGuestMode()">Continue Offline →</button>
+      </div>
+    </div>
+  </div>
+
   <!-- TOP HEADER -->
   <header class="topbar">
     <div class="topbar-inner">
@@ -1044,6 +1272,12 @@
       </div>
 
       <div class="topbar-controls">
+        <!-- Cloud Sync & User Badge -->
+        <div id="cloudStatusPill" class="sync-pill offline" onclick="openAuthGate()" title="Click to sign in or view cloud sync status">
+          <span id="cloudStatusText">● Local Mode (Sign In)</span>
+        </div>
+        <button id="signOutBtn" class="btn" style="display:none; padding:6px 11px; font-size:11.5px;" onclick="triggerSignOut()">Sign Out</button>
+
         <div class="theme-pills" role="group" aria-label="Theme Switcher">
           <button class="theme-btn active" data-theme-target="obsidian" onclick="setTheme('obsidian')">Obsidian</button>
           <button class="theme-btn" data-theme-target="arctic" onclick="setTheme('arctic')">Arctic</button>
@@ -1064,7 +1298,7 @@
     <!-- CURRICULUM LOAD-CHECK GUARD -->
     <div id="curriculumGuard" class="guard-banner">
       <div>
-        <strong>⚠️ <code>curriculum.js</code> not detected yet:</strong> Place your combined 168-day <code>curriculum.js</code> file (Steps 3 &amp; 4) in the same directory as <code>index.html</code> and reload. Running in 2-day preview mode for now.
+        <strong>⚠️ <code>curriculum.js</code> not detected yet:</strong> Place your combined 168-day <code>curriculum.js</code> file in the same directory as <code>index.html</code> and reload. Running in 2-day preview mode for now.
       </div>
       <button class="btn" onclick="location.reload()">↻ Reload Check</button>
     </div>
@@ -1345,7 +1579,7 @@
           <!-- TAB 3: SMART NOTES -->
           <div id="ws-panel-notes" class="ws-panel">
             <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;">
-              <span style="font-size:12px; color:var(--success);" id="notesSaveStatus">● Auto-saved locally</span>
+              <span style="font-size:12px; color:var(--success);" id="notesSaveStatus">● Auto-saved locally &amp; cloud synced</span>
               <div style="display:flex; gap:8px;">
                 <button class="btn" onclick="insertTimestampInNotes()">+ Insert Chapter Timestamp</button>
                 <button class="btn" onclick="exportAllNotesMarkdown()">↓ Export All Notes (.md)</button>
@@ -1357,7 +1591,7 @@
           <!-- TAB 4: AI STUDY MENTOR (GEMINI API) -->
           <div id="ws-panel-mentor" class="ws-panel">
             <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-              <input type="password" id="geminiApiKeyInput" class="search-input" style="flex:1; min-width:180px;" placeholder="Paste Gemini API Key (stored in LocalStorage)..." onchange="saveGeminiKey()" />
+              <input type="password" id="geminiApiKeyInput" class="search-input" style="flex:1; min-width:180px;" placeholder="Paste Gemini API Key (stored locally on this device)..." onchange="saveGeminiKey()" />
               <button class="btn" onclick="saveGeminiKey()">Save Key</button>
             </div>
 
@@ -1405,7 +1639,7 @@
   <!-- DECOUPLED CURRICULUM DATA FILE -->
   <script src="./curriculum.js"></script>
 
-  <!-- APPLICATION ENGINE -->
+  <!-- CORE APPLICATION ENGINE -->
   <script>
     /* ========================================================================
        1. FALLBACK PREVIEW DATA (ONLY USED IF curriculum.js IS NOT YET PRESENT)
@@ -1470,7 +1704,8 @@
       theme: "df_theme_v1",
       codeDrafts: "df_code_drafts_v1",
       notes: "df_smart_notes_v1",
-      apiKey: "df_gemini_api_key_v1"
+      apiKey: "df_gemini_api_key_v1",
+      offlineSkip: "df_offline_skip_v1"
     };
 
     const MODULE_META = [
@@ -1484,6 +1719,9 @@
 
     let CURRICULUM_DATA = [];
     let isUsingFallback = false;
+    let authFormMode = "signin";
+    let cloudSyncTimer = null;
+    let isApplyingCloudUpdate = false;
 
     const state = {
       currentView: "dashboard",
@@ -1494,7 +1732,199 @@
       notes: JSON.parse(localStorage.getItem(STORAGE_KEYS.notes) || "{}"),
       monthFilter: "all",
       useAltVideo: false,
-      activeWsTab: "python"
+      activeWsTab: "python",
+      cloudUser: null
+    };
+
+    function persistLocalState() {
+      localStorage.setItem(STORAGE_KEYS.completed, JSON.stringify(state.completedDays));
+      localStorage.setItem(STORAGE_KEYS.streak, JSON.stringify(state.streakData));
+      localStorage.setItem(STORAGE_KEYS.currentDay, String(state.currentDay));
+      localStorage.setItem(STORAGE_KEYS.codeDrafts, JSON.stringify(state.codeDrafts));
+      localStorage.setItem(STORAGE_KEYS.notes, JSON.stringify(state.notes));
+    }
+
+    function scheduleCloudSync(immediate = false) {
+      if (isApplyingCloudUpdate || !state.cloudUser || !window.FirebaseSyncBridge) return;
+      setCloudPillStatus("syncing", `⏳ Syncing (${state.cloudUser.email || "Cloud"})...`);
+      clearTimeout(cloudSyncTimer);
+      const runPush = () => {
+        window.FirebaseSyncBridge.pushState({
+          completedDays: state.completedDays,
+          streakData: state.streakData,
+          currentDay: state.currentDay,
+          codeDrafts: state.codeDrafts,
+          notes: state.notes,
+          theme: localStorage.getItem(STORAGE_KEYS.theme) || "obsidian",
+          updatedAt: Date.now()
+        });
+      };
+      if (immediate) {
+        runPush();
+      } else {
+        cloudSyncTimer = setTimeout(runPush, 900);
+      }
+    }
+
+    function setCloudPillStatus(mode, label) {
+      const pill = document.getElementById("cloudStatusPill");
+      const text = document.getElementById("cloudStatusText");
+      if (!pill || !text) return;
+      text.textContent = label;
+      if (mode === "offline") {
+        pill.classList.add("offline");
+      } else {
+        pill.classList.remove("offline");
+      }
+    }
+
+    /* ========================================================================
+       AUTH GATE UI HANDLERS
+       ======================================================================== */
+    function openAuthGate() {
+      document.getElementById("authGateOverlay").classList.remove("hidden");
+    }
+
+    function closeAuthGate() {
+      document.getElementById("authGateOverlay").classList.add("hidden");
+    }
+
+    function enterOfflineGuestMode() {
+      localStorage.setItem(STORAGE_KEYS.offlineSkip, "1");
+      closeAuthGate();
+      setCloudPillStatus("offline", "● Local Mode (Sign In)");
+    }
+
+    function setAuthFormMode(mode) {
+      authFormMode = mode;
+      document.getElementById("authTabSignIn").classList.toggle("active", mode === "signin");
+      document.getElementById("authTabSignUp").classList.toggle("active", mode === "signup");
+      document.getElementById("authSubmitBtn").textContent =
+        mode === "signin" ? "Sign In & Sync" : "Create Account & Sync";
+      showAuthStatus("", "");
+    }
+
+    function showAuthStatus(type, msg) {
+      const box = document.getElementById("authStatusMsg");
+      if (!msg) {
+        box.className = "auth-status-msg";
+        box.textContent = "";
+        return;
+      }
+      box.className = `auth-status-msg ${type}`;
+      box.textContent = msg;
+    }
+
+    async function triggerGoogleSignIn() {
+      if (!window.FirebaseSyncBridge) {
+        showAuthStatus("error", "Firebase module is still loading. Try again in 1 second or click Continue Offline.");
+        return;
+      }
+      showAuthStatus("info", "Opening Google Sign-In...");
+      try {
+        await window.FirebaseSyncBridge.signInGoogle();
+      } catch (err) {
+        showAuthStatus("error", err.message || "Google Sign-In failed.");
+      }
+    }
+
+    async function handleEmailAuthSubmit(e) {
+      e.preventDefault();
+      if (!window.FirebaseSyncBridge) {
+        showAuthStatus("error", "Firebase module not ready yet.");
+        return;
+      }
+      const email = document.getElementById("authEmailInput").value.trim();
+      const password = document.getElementById("authPasswordInput").value;
+      showAuthStatus("info", authFormMode === "signin" ? "Signing in..." : "Creating your cloud workspace...");
+      try {
+        if (authFormMode === "signin") {
+          await window.FirebaseSyncBridge.signInEmail(email, password);
+        } else {
+          await window.FirebaseSyncBridge.signUpEmail(email, password);
+        }
+      } catch (err) {
+        showAuthStatus("error", err.message || "Authentication failed.");
+      }
+    }
+
+    async function triggerPasswordReset() {
+      const email = document.getElementById("authEmailInput").value.trim();
+      if (!email) {
+        showAuthStatus("error", "Enter your email address above first, then click Forgot password.");
+        return;
+      }
+      try {
+        await window.FirebaseSyncBridge.resetPassword(email);
+        showAuthStatus("info", `Password reset email sent to ${email}.`);
+      } catch (err) {
+        showAuthStatus("error", err.message || "Could not send password reset email.");
+      }
+    }
+
+    async function triggerSignOut() {
+      if (window.FirebaseSyncBridge) {
+        await window.FirebaseSyncBridge.signOutUser();
+      }
+      localStorage.removeItem(STORAGE_KEYS.offlineSkip);
+      openAuthGate();
+    }
+
+    window.onFirebaseAuthChanged = function(user) {
+      state.cloudUser = user || null;
+      const signOutBtn = document.getElementById("signOutBtn");
+      if (user) {
+        localStorage.removeItem(STORAGE_KEYS.offlineSkip);
+        closeAuthGate();
+        signOutBtn.style.display = "inline-flex";
+        setCloudPillStatus("synced", `☁️ Synced • ${user.email || "Google User"}`);
+      } else {
+        signOutBtn.style.display = "none";
+        setCloudPillStatus("offline", "● Local Mode (Sign In)");
+        if (localStorage.getItem(STORAGE_KEYS.offlineSkip) !== "1") {
+          openAuthGate();
+        }
+      }
+    };
+
+    window.onFirebaseCloudSnapshot = function(cloudData) {
+      if (!cloudData) {
+        scheduleCloudSync(true);
+        return;
+      }
+      isApplyingCloudUpdate = true;
+      try {
+        const cloudCompleted = Array.isArray(cloudData.completedDays) ? cloudData.completedDays : [];
+        const mergedCompleted = Array.from(new Set([...state.completedDays, ...cloudCompleted])).sort((a, b) => a - b);
+        state.completedDays = mergedCompleted;
+
+        if (cloudData.streakData && (cloudData.streakData.lastDate || "") >= (state.streakData.lastDate || "")) {
+          state.streakData = cloudData.streakData;
+        }
+        if (cloudData.currentDay) {
+          state.currentDay = Number(cloudData.currentDay);
+        }
+        if (cloudData.codeDrafts && typeof cloudData.codeDrafts === "object") {
+          state.codeDrafts = { ...state.codeDrafts, ...cloudData.codeDrafts };
+        }
+        if (cloudData.notes && typeof cloudData.notes === "object") {
+          state.notes = { ...state.notes, ...cloudData.notes };
+        }
+        if (cloudData.theme) {
+          setTheme(cloudData.theme, true);
+        }
+
+        persistLocalState();
+        refreshAllViews();
+        if (state.currentView === "studio") {
+          renderStudio();
+        }
+        if (state.cloudUser) {
+          setCloudPillStatus("synced", `☁️ Synced • ${state.cloudUser.email || "Google User"}`);
+        }
+      } finally {
+        isApplyingCloudUpdate = false;
+      }
     };
 
     function initCurriculum() {
@@ -1540,12 +1970,13 @@
     /* ========================================================================
        3. THEME & NAVIGATION ENGINE
        ======================================================================== */
-    function setTheme(themeName) {
+    function setTheme(themeName, skipCloud = false) {
       document.documentElement.setAttribute("data-theme", themeName);
       localStorage.setItem(STORAGE_KEYS.theme, themeName);
       document.querySelectorAll(".theme-btn").forEach(btn => {
         btn.classList.toggle("active", btn.dataset.themeTarget === themeName);
       });
+      if (!skipCloud) scheduleCloudSync();
     }
 
     function switchView(viewName) {
@@ -1592,7 +2023,8 @@
       } else {
         state.completedDays.splice(idx, 1);
       }
-      localStorage.setItem(STORAGE_KEYS.completed, JSON.stringify(state.completedDays));
+      persistLocalState();
+      scheduleCloudSync(true);
       refreshAllViews();
     }
 
@@ -1645,7 +2077,6 @@
       document.getElementById("heroTimestampBadge").textContent =
         `▶ Start @ ${formatSeconds(lesson.startSec)}`;
 
-      // Streak & Progress
       const activeStreak =
         state.streakData.lastDate === getTodayISO() || state.streakData.lastDate === getYesterdayISO()
           ? state.streakData.count
@@ -1660,7 +2091,6 @@
       document.getElementById("overallPctText").textContent = `${doneCount} / ${totalDays} (${pct}%)`;
       document.getElementById("overallProgressBar").style.width = `${pct}%`;
 
-      // Module Rings
       const ringsContainer = document.getElementById("moduleRingsContainer");
       ringsContainer.innerHTML = MODULE_META.map(m => {
         const modLessons = CURRICULUM_DATA.filter(d => d.month === m.month);
@@ -1785,6 +2215,7 @@
       state.currentDay = dayNum;
       state.useAltVideo = false;
       localStorage.setItem(STORAGE_KEYS.currentDay, String(dayNum));
+      scheduleCloudSync();
       renderStudio();
     }
 
@@ -1808,11 +2239,9 @@
       document.getElementById("seekBtnTime").textContent = formatSeconds(lesson.startSec);
       document.getElementById("studioBridgeText").textContent = ` ${lesson.bridge || ""}`;
 
-      // Takeaways
       const ul = document.getElementById("studioTakeawaysList");
       ul.innerHTML = (lesson.takeaways || []).map(t => `<li>${escapeHTML(t)}</li>`).join("");
 
-      // Lab Brief
       const lab = lesson.lab || {
         lang: "python",
         title: "Practice Lab",
@@ -1828,7 +2257,6 @@
       hintBox.textContent = `💡 Hint: ${lab.hint || "Review the takeaways above."}`;
       hintBox.classList.remove("visible");
 
-      // Alt video button visibility
       const altBtn = document.getElementById("altVideoToggleBtn");
       if (lesson.altVideoId) {
         altBtn.style.display = "inline-flex";
@@ -1910,7 +2338,6 @@
       document.getElementById("smartNotesEditor").value =
         state.notes[lesson.day] || "";
 
-      // Auto-select matching workspace tab for the day's lab
       if (lesson.lab && lesson.lab.lang === "sql") {
         switchWorkspaceTab("sql");
       } else {
@@ -1926,6 +2353,7 @@
         delete state.codeDrafts[`sql_${lesson.day}`];
       }
       localStorage.setItem(STORAGE_KEYS.codeDrafts, JSON.stringify(state.codeDrafts));
+      scheduleCloudSync();
       loadWorkspaceDrafts(lesson);
       switchWorkspaceTab(lang);
     }
@@ -1934,8 +2362,9 @@
       const val = document.getElementById("smartNotesEditor").value;
       state.notes[state.currentDay] = val;
       localStorage.setItem(STORAGE_KEYS.notes, JSON.stringify(state.notes));
+      scheduleCloudSync();
       const status = document.getElementById("notesSaveStatus");
-      status.textContent = "● Saved just now";
+      status.textContent = state.cloudUser ? "● Saved & syncing to cloud..." : "● Saved locally";
     }
 
     function insertTimestampInNotes() {
@@ -1987,6 +2416,7 @@
       const code = document.getElementById("pythonCodeEditor").value;
       state.codeDrafts[`py_${state.currentDay}`] = code;
       localStorage.setItem(STORAGE_KEYS.codeDrafts, JSON.stringify(state.codeDrafts));
+      scheduleCloudSync();
 
       const out = document.getElementById("pythonConsoleOut");
       const btn = document.getElementById("runPythonBtn");
@@ -1995,7 +2425,6 @@
 
       try {
         const py = await getPyodideEngine();
-        // Auto-load scientific packages if referenced in user code
         const needed = [];
         if (/\bnumpy\b|\bnp\b/.test(code)) needed.push("numpy");
         if (/\bpandas\b|\bpd\b/.test(code)) needed.push("pandas");
@@ -2133,6 +2562,7 @@
       const sql = document.getElementById("sqlCodeEditor").value;
       state.codeDrafts[`sql_${state.currentDay}`] = sql;
       localStorage.setItem(STORAGE_KEYS.codeDrafts, JSON.stringify(state.codeDrafts));
+      scheduleCloudSync();
 
       const container = document.getElementById("sqlResultContainer");
       try {
@@ -2155,7 +2585,7 @@
     }
 
     /* ========================================================================
-       11. AI STUDY MENTOR (CLIENT-SIDE GEMINI API)
+       11. AI STUDY MENTOR (CLIENT-SIDE GEMINI API — LOCAL DEVICE KEY)
        ======================================================================== */
     function saveGeminiKey() {
       const val = document.getElementById("geminiApiKeyInput").value.trim();
@@ -2260,11 +2690,8 @@
           if (parsed.codeDrafts) state.codeDrafts = parsed.codeDrafts;
           if (parsed.notes) state.notes = parsed.notes;
 
-          localStorage.setItem(STORAGE_KEYS.completed, JSON.stringify(state.completedDays));
-          localStorage.setItem(STORAGE_KEYS.streak, JSON.stringify(state.streakData));
-          localStorage.setItem(STORAGE_KEYS.currentDay, String(state.currentDay));
-          localStorage.setItem(STORAGE_KEYS.codeDrafts, JSON.stringify(state.codeDrafts));
-          localStorage.setItem(STORAGE_KEYS.notes, JSON.stringify(state.notes));
+          persistLocalState();
+          scheduleCloudSync(true);
           refreshAllViews();
           renderStudio();
           alert("Backup restored successfully!");
@@ -2310,7 +2737,6 @@
         .replace(/'/g, "&#39;");
     }
 
-    // Keyboard shortcuts inside code editors (Tab indentation & Ctrl+Enter run)
     function bindEditorShortcuts() {
       ["pythonCodeEditor", "sqlCodeEditor"].forEach(id => {
         const el = document.getElementById(id);
@@ -2335,16 +2761,116 @@
        ======================================================================== */
     (function bootstrap() {
       const savedTheme = localStorage.getItem(STORAGE_KEYS.theme) || "obsidian";
-      setTheme(savedTheme);
+      setTheme(savedTheme, true);
 
       const savedKey = localStorage.getItem(STORAGE_KEYS.apiKey) || "";
       document.getElementById("geminiApiKeyInput").value = savedKey;
+
+      if (localStorage.getItem(STORAGE_KEYS.offlineSkip) === "1") {
+        closeAuthGate();
+      }
 
       initCurriculum();
       bindEditorShortcuts();
       refreshAllViews();
       renderStudio();
     })();
+  </script>
+
+  <!-- ========================================================================
+       14. FIREBASE AUTHENTICATION & FIRESTORE REAL-TIME SYNC MODULE
+       ======================================================================== -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+    import {
+      getAuth,
+      GoogleAuthProvider,
+      signInWithPopup,
+      signInWithEmailAndPassword,
+      createUserWithEmailAndPassword,
+      sendPasswordResetEmail,
+      signOut,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+    import {
+      getFirestore,
+      doc,
+      setDoc,
+      onSnapshot
+    } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+
+    const FIREBASE_CONFIG = {
+      apiKey: "AIzaSyADnrFJGqbst1z1p9p8zza9JDaRDv4gJtQ",
+      authDomain: "dataforge-107c8.firebaseapp.com",
+      projectId: "dataforge-107c8",
+      storageBucket: "dataforge-107c8.firebasestorage.app",
+      messagingSenderId: "424553853029",
+      appId: "1:424553853029:web:4edd1c6f7a21be7b4ed68c",
+      measurementId: "G-82Q53SZ1SD"
+    };
+
+    const app = initializeApp(FIREBASE_CONFIG);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    let unsubscribeSnapshot = null;
+
+    onAuthStateChanged(auth, (user) => {
+      if (unsubscribeSnapshot) {
+        unsubscribeSnapshot();
+        unsubscribeSnapshot = null;
+      }
+      if (typeof window.onFirebaseAuthChanged === "function") {
+        window.onFirebaseAuthChanged(user);
+      }
+      if (user) {
+        const userDocRef = doc(db, "users", user.uid);
+        unsubscribeSnapshot = onSnapshot(
+          userDocRef,
+          (snap) => {
+            if (typeof window.onFirebaseCloudSnapshot === "function") {
+              window.onFirebaseCloudSnapshot(snap.exists() ? snap.data() : null);
+            }
+          },
+          (err) => {
+            console.error("Firestore sync listener error:", err);
+            if (typeof window.setCloudPillStatus === "function") {
+              window.setCloudPillStatus("offline", "⚠️ Sync Permission Error");
+            }
+          }
+        );
+      }
+    });
+
+    window.FirebaseSyncBridge = {
+      async signInGoogle() {
+        const provider = new GoogleAuthProvider();
+        await signInWithPopup(auth, provider);
+      },
+      async signInEmail(email, password) {
+        await signInWithEmailAndPassword(auth, email, password);
+      },
+      async signUpEmail(email, password) {
+        await createUserWithEmailAndPassword(auth, email, password);
+      },
+      async resetPassword(email) {
+        await sendPasswordResetEmail(auth, email);
+      },
+      async signOutUser() {
+        await signOut(auth);
+      },
+      async pushState(payload) {
+        if (!auth.currentUser) return;
+        const userDocRef = doc(db, "users", auth.currentUser.uid);
+        await setDoc(
+          userDocRef,
+          { ...payload, email: auth.currentUser.email || "" },
+          { merge: true }
+        );
+        if (typeof window.setCloudPillStatus === "function") {
+          window.setCloudPillStatus("synced", `☁️ Synced • ${auth.currentUser.email || "Google User"}`);
+        }
+      }
+    };
   </script>
 </body>
 </html>
