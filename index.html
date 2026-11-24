@@ -7,6 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- CodeMirror 5 Syntax-Highlighted IDE Assets -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css">
   <style>
     /* ==========================================================================
        DATAFORGE // INSTINCT OS — LIQUID GLASS DESIGN TOKENS & MULTI-THEME ENGINE
@@ -129,7 +132,6 @@
       font-family: 'JetBrains Mono', monospace;
     }
 
-    /* Liquid Glass Surface Primitive */
     .glass-card {
       background: var(--glass-bg);
       backdrop-filter: blur(18px);
@@ -1040,6 +1042,76 @@
       border-color: var(--accent-primary);
     }
 
+    /* CodeMirror IDE Styling */
+    .CodeMirror {
+      height: auto;
+      min-height: 280px;
+      max-height: 460px;
+      background: var(--code-bg) !important;
+      color: #e2e8f0 !important;
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      font-family: 'JetBrains Mono', monospace !important;
+      font-size: 13px;
+      line-height: 1.6;
+      padding: 6px 0;
+    }
+
+    .CodeMirror-focused {
+      border-color: var(--accent-primary) !important;
+      box-shadow: 0 0 0 2px var(--accent-glow);
+    }
+
+    .CodeMirror-gutters {
+      background: rgba(255, 255, 255, 0.02) !important;
+      border-right: 1px solid var(--glass-border) !important;
+      padding-right: 4px;
+    }
+
+    .CodeMirror-linenumber {
+      color: var(--text-muted) !important;
+      font-size: 11.5px;
+    }
+
+    .CodeMirror-cursor {
+      border-left: 2px solid var(--accent-primary) !important;
+    }
+
+    .py-files-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 8px 12px;
+      border-radius: 11px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--glass-border);
+      font-size: 12px;
+    }
+
+    .py-file-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      border-radius: 7px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      color: var(--text-primary);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }
+
+    .py-file-pill button {
+      background: none;
+      border: none;
+      color: var(--accent-primary);
+      cursor: pointer;
+      font-weight: 700;
+      padding: 0 2px;
+    }
+
     .console-out {
       background: #03060d;
       border: 1px solid var(--glass-border);
@@ -1113,6 +1185,15 @@
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--glass-border);
       color: var(--text-secondary);
+    }
+
+    .msg-model-tag {
+      display: block;
+      margin-top: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      color: var(--accent-primary);
+      opacity: 0.85;
     }
 
     /* ==========================================================================
@@ -1223,7 +1304,6 @@
         Sign in to store your 168-day progress, streaks, Smart Notes, and code drafts privately and sync automatically across your laptop and phone.
       </p>
 
-      <!-- Continue with Google -->
       <button type="button" class="auth-google-btn" id="googleSignInBtn" onclick="triggerGoogleSignIn()">
         <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
           <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
@@ -1240,7 +1320,6 @@
 
       <div class="auth-divider">or with email &amp; password</div>
 
-      <!-- Email / Password Tabs -->
       <div class="auth-mode-tabs">
         <button type="button" class="auth-mode-tab active" id="authTabSignIn" onclick="setAuthFormMode('signin')">Sign In</button>
         <button type="button" class="auth-mode-tab" id="authTabSignUp" onclick="setAuthFormMode('signup')">Create Account</button>
@@ -1276,7 +1355,6 @@
       </div>
 
       <div class="topbar-controls">
-        <!-- Cloud Sync & User Badge -->
         <div id="cloudStatusPill" class="sync-pill offline" onclick="openAuthGate()" title="Click to sign in or view cloud sync status">
           <span id="cloudStatusText">● Local Mode (Sign In)</span>
         </div>
@@ -1312,7 +1390,6 @@
          ====================================================================== -->
     <section id="view-dashboard" class="view-section active">
       <div class="bento-grid">
-        <!-- Today's Scheduled Lesson Hero -->
         <div class="glass-card bento-hero">
           <div>
             <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;">
@@ -1335,7 +1412,6 @@
           </div>
         </div>
 
-        <!-- Streak & Overall Mastery Card -->
         <div class="glass-card bento-streak">
           <div>
             <span class="pill-label">MOMENTUM &amp; STREAK</span>
@@ -1353,7 +1429,6 @@
           </div>
         </div>
 
-        <!-- 6 Module Completion Rings -->
         <div class="glass-card bento-modules">
           <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
             <div>
@@ -1365,7 +1440,6 @@
           <div class="modules-ring-grid" id="moduleRingsContainer"></div>
         </div>
 
-        <!-- End-to-End Continuity Thread -->
         <div class="glass-card bento-continuity">
           <span class="pill-label">ZERO-DISCONNECT PIPELINE</span>
           <h2 style="font-size:17px; font-weight:700; margin-top:8px;">How Every Month Hands Off to the Next</h2>
@@ -1393,7 +1467,6 @@
           </div>
         </div>
 
-        <!-- Quick-Launch Sandbox Tiles -->
         <div class="glass-card bento-quick">
           <div>
             <span class="pill-label">INSTANT SANDBOXES</span>
@@ -1402,8 +1475,8 @@
 
           <div class="quick-tile" onclick="openStudioWithTab('python')">
             <div>
-              <div style="font-weight:700; font-size:14px;">🐍 Python 3.11 + NumPy/Pandas (Pyodide)</div>
-              <div style="font-size:12px; color:var(--text-secondary);">Zero-install WebAssembly CPython runtime</div>
+              <div style="font-weight:700; font-size:14px;">🐍 Python 3.12 IDE + Scientific Stack</div>
+              <div style="font-size:12px; color:var(--text-secondary);">Syntax-highlighted editor, NumPy/Pandas, Matplotlib &amp; local file I/O</div>
             </div>
             <span style="color:var(--accent-primary); font-weight:700;">Open →</span>
           </div>
@@ -1459,7 +1532,6 @@
          VIEW 3: SPLIT-PANE STUDY STUDIO
          ====================================================================== -->
     <section id="view-studio" class="view-section">
-      <!-- Top Studio Navigation Bar -->
       <div class="glass-card studio-header-bar">
         <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
           <button class="btn" onclick="navigateDay(-1)">← Prev</button>
@@ -1485,7 +1557,6 @@
             </div>
           </div>
 
-          <!-- Embedded YouTube Player -->
           <div class="video-frame-wrap">
             <iframe
               id="youtubeIframe"
@@ -1496,7 +1567,6 @@
             </iframe>
           </div>
 
-          <!-- Timestamp, Alt Video & Failsafe External Link -->
           <div class="video-controls-bar">
             <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
               <button class="btn" onclick="seekToChapterStart()" title="Reload video at exact chapter start timestamp">
@@ -1511,13 +1581,11 @@
             </a>
           </div>
 
-          <!-- Continuity Bridge Callout -->
           <div class="bridge-box">
             <strong style="color:var(--accent-primary);">🔗 Pipeline Continuity:</strong>
             <span id="studioBridgeText"></span>
           </div>
 
-          <!-- Key Takeaways -->
           <div>
             <h3 style="font-size:13.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-secondary); margin-bottom:8px;">
               Key Takeaways
@@ -1525,7 +1593,6 @@
             <ul class="takeaways-list" id="studioTakeawaysList"></ul>
           </div>
 
-          <!-- Hands-On Lab Card -->
           <div class="lab-card">
             <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px;">
               <span class="pill-label" id="studioLabPill">HANDS-ON LAB</span>
@@ -1537,27 +1604,44 @@
           </div>
         </div>
 
-        <!-- RIGHT PANE: PYTHON, SQL, SMART NOTES & GEMINI MENTOR -->
+        <!-- RIGHT PANE: PYTHON IDE, SQL, SMART NOTES & GEMINI MENTOR -->
         <div class="glass-card studio-pane">
           <div class="workspace-tabs">
-            <button class="ws-tab active" data-ws-tab="python" onclick="switchWorkspaceTab('python')">🐍 Python (Pyodide)</button>
+            <button class="ws-tab active" data-ws-tab="python" onclick="switchWorkspaceTab('python')">🐍 Python 3.12 IDE</button>
             <button class="ws-tab" data-ws-tab="sql" onclick="switchWorkspaceTab('sql')">🗄️ SQLite (sql.js)</button>
             <button class="ws-tab" data-ws-tab="notes" onclick="switchWorkspaceTab('notes')">📝 Smart Notes</button>
             <button class="ws-tab" data-ws-tab="mentor" onclick="switchWorkspaceTab('mentor')">✨ AI Study Mentor</button>
           </div>
 
-          <!-- TAB 1: PYTHON PYODIDE -->
+          <!-- TAB 1: PYTHON PYODIDE IDE -->
           <div id="ws-panel-python" class="ws-panel active">
             <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;">
-              <span style="font-size:12px; color:var(--text-secondary);">Shortcut: <kbd class="mono">Ctrl + Enter</kbd> to execute</span>
-              <div style="display:flex; gap:8px;">
-                <button class="btn" onclick="resetStarterCode('python')">↺ Reset Starter</button>
+              <span style="font-size:12px; color:var(--text-secondary);">
+                <kbd class="mono">Ctrl+Enter</kbd> Run • <kbd class="mono">Ctrl+/</kbd> Comment
+              </span>
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <label class="btn" style="margin:0; padding:6px 11px; font-size:12px;" title="Upload local CSV, Excel, JSON, or TXT files to Python working directory">
+                  + Upload File
+                  <input type="file" id="pyUploadInput" multiple style="display:none" onchange="uploadFilesToPyodide(event)" />
+                </label>
+                <button class="btn" onclick="resetStarterCode('python')">↺ Reset</button>
                 <button class="btn btn-primary" id="runPythonBtn" onclick="runPythonCode()">▶ Run Python</button>
               </div>
             </div>
+
+            <!-- Local Files Bar (Only shows files you upload or generate) -->
+            <div id="pyWorkspaceFilesBar" class="py-files-bar" style="display:none;">
+              <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;" id="pyFilePillsContainer"></div>
+            </div>
+
             <textarea id="pythonCodeEditor" class="code-editor" spellcheck="false" placeholder="# Write Python code here..."></textarea>
-            <div style="font-size:11.5px; font-weight:700; color:var(--text-secondary);">STDOUT / CONSOLE OUTPUT</div>
-            <pre id="pythonConsoleOut" class="console-out">Ready. Click "Run Python" to initialize Pyodide WebAssembly runtime.</pre>
+
+            <div style="display:flex; align-items:center; justify-content:space-between;">
+              <span style="font-size:11.5px; font-weight:700; color:var(--text-secondary);">STDOUT / INTERACTIVE CONSOLE</span>
+              <button class="btn" style="padding:3px 9px; font-size:11px;" onclick="clearPythonConsole()">Clear</button>
+            </div>
+            <pre id="pythonConsoleOut" class="console-out">Ready. Click "Run Python" to start Python 3.12.</pre>
+            <div id="pythonPlotOut" style="display:flex; flex-direction:column; gap:10px;"></div>
           </div>
 
           <!-- TAB 2: SQLITE (sql.js) -->
@@ -1598,22 +1682,30 @@
               onblur="flushNotesToCloud()"></textarea>
           </div>
 
-          <!-- TAB 4: AI STUDY MENTOR (GEMINI API WITH AUTO-FAILOVER) -->
+          <!-- TAB 4: AI STUDY MENTOR -->
           <div id="ws-panel-mentor" class="ws-panel">
             <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-              <input type="password" id="geminiApiKeyInput" class="search-input" style="flex:1; min-width:180px;" placeholder="Paste Gemini API Key from Google AI Studio..." onchange="saveGeminiKey()" />
-              <button class="btn" onclick="saveGeminiKey()">Save Key</button>
+              <input type="password" id="geminiApiKeyInput" class="search-input" style="flex:1; min-width:160px;" placeholder="Paste Gemini API Key..." onchange="saveGeminiKey()" />
+              <select id="geminiModelSelect" class="day-select" style="padding:8px 10px; font-size:12px;" onchange="saveGeminiModel()" title="Preferred Model">
+                <option value="auto">Auto (Free-Tier Failover)</option>
+                <option value="gemini-4-hydrogen">Gemini 4 Hydrogen</option>
+                <option value="gemini-3.5-flash-lite">Gemini 3.5 Flash-Lite</option>
+                <option value="gemini-3.6-flash">Gemini 3.6 Flash</option>
+                <option value="gemini-3.8-flash">Gemini 3.8 Flash</option>
+                <option value="gemma-4-26b-a4b-it">Gemma 4 26B (Backup)</option>
+              </select>
+              <button class="btn" onclick="saveGeminiKey()">Save</button>
             </div>
 
             <div style="display:flex; gap:6px; flex-wrap:wrap;">
-              <button class="filter-pill" onclick="askMentorPreset('Explain today\'s core concept in simple, intuitive terms with a real-world e-commerce example.')">💡 Explain Simply</button>
+              <button class="filter-pill" onclick="askMentorPreset('Explain today\'s core concept in simple, intuitive terms with a real-world example.')">💡 Explain Simply</button>
               <button class="filter-pill" onclick="askMentorPreset('Review my current code in the editor and point out any bugs, edge cases, or cleaner Pythonic/SQL patterns.')">🔍 Review My Code</button>
               <button class="filter-pill" onclick="askMentorPreset('Give me a subtle step-by-step hint for today\'s hands-on lab without spoiling the full answer.')">🧩 Subtle Hint</button>
               <button class="filter-pill" onclick="askMentorPreset('Ask me 1 realistic Data Analyst / Data Scientist interview question based on today\'s topic.')">🎯 Interview Q</button>
             </div>
 
             <div id="mentorChatHistory" class="mentor-messages">
-              <div class="msg-bubble msg-ai">👋 Hi! I'm your DataForge AI Mentor (powered by Gemini Flash with automatic model failover). Paste your Google AI Studio key above and ask any question about today's lesson or code.</div>
+              <div class="msg-bubble msg-ai">👋 Hi! I'm your DataForge AI Mentor (using Gemini 4 Hydrogen &amp; 3.5 Flash-Lite with automatic failover). Paste your Google AI Studio key above and ask any question about today's lesson or code.</div>
             </div>
 
             <div style="display:flex; gap:8px;">
@@ -1645,6 +1737,14 @@
       <span>✅</span><span class="dock-label">Toggle Done</span>
     </button>
   </nav>
+
+  <!-- CodeMirror 5 Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/sql/sql.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/comment/comment.min.js"></script>
 
   <!-- DECOUPLED CURRICULUM DATA FILE -->
   <script src="./curriculum.js"></script>
@@ -1715,6 +1815,7 @@
       codeDrafts: "df_code_drafts_v1",
       notes: "df_smart_notes_v1",
       apiKey: "df_gemini_api_key_v1",
+      modelPref: "df_gemini_model_v1",
       offlineSkip: "df_offline_skip_v1"
     };
 
@@ -1734,6 +1835,9 @@
     let hasPendingCloudPush = false;
     let isApplyingCloudUpdate = false;
     let lastLocalPushAt = 0;
+
+    let cmPython = null;
+    let cmSql = null;
 
     const state = {
       currentView: "dashboard",
@@ -1916,7 +2020,6 @@
         scheduleCloudSync(true);
         return;
       }
-      // Ignore echo snapshots triggered right after our own local write
       if (Date.now() - lastLocalPushAt < 3000) return;
 
       isApplyingCloudUpdate = true;
@@ -1944,7 +2047,6 @@
         persistLocalState();
         refreshAllViews();
         if (state.currentView === "studio") {
-          // Preserve active tab & never reload playing video on background sync
           renderStudio(true);
         }
         if (state.cloudUser) {
@@ -2019,7 +2121,10 @@
 
       if (viewName === "dashboard") renderDashboard();
       if (viewName === "roadmap") renderRoadmap();
-      if (viewName === "studio") renderStudio(false);
+      if (viewName === "studio") {
+        renderStudio(false);
+        refreshCodeEditors();
+      }
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
@@ -2342,8 +2447,83 @@
     }
 
     /* ========================================================================
-       8. WORKSPACE TABS, DRAFTS & SMART NOTES
+       8. CODEMIRROR IDE HELPERS, WORKSPACE TABS & SMART NOTES
        ======================================================================== */
+    function initCodeMirrorEditors() {
+      if (typeof window.CodeMirror !== "function") return;
+
+      const pyArea = document.getElementById("pythonCodeEditor");
+      cmPython = window.CodeMirror.fromTextArea(pyArea, {
+        mode: "python",
+        theme: "material-darker",
+        lineNumbers: true,
+        matchBrackets: true,
+        autoCloseBrackets: true,
+        indentUnit: 4,
+        tabSize: 4,
+        indentWithTabs: false,
+        extraKeys: {
+          "Ctrl-Enter": () => runPythonCode(),
+          "Cmd-Enter": () => runPythonCode(),
+          "Ctrl-/": "toggleComment",
+          "Cmd-/": "toggleComment",
+          "Tab": (cm) => {
+            if (cm.somethingSelected()) {
+              cm.indentSelection("add");
+            } else {
+              cm.replaceSelection("    ", "end");
+            }
+          }
+        }
+      });
+
+      const sqlArea = document.getElementById("sqlCodeEditor");
+      cmSql = window.CodeMirror.fromTextArea(sqlArea, {
+        mode: "text/x-sql",
+        theme: "material-darker",
+        lineNumbers: true,
+        matchBrackets: true,
+        autoCloseBrackets: true,
+        indentUnit: 2,
+        tabSize: 2,
+        extraKeys: {
+          "Ctrl-Enter": () => runSqlQuery(),
+          "Cmd-Enter": () => runSqlQuery(),
+          "Ctrl-/": "toggleComment",
+          "Cmd-/": "toggleComment"
+        }
+      });
+    }
+
+    function refreshCodeEditors() {
+      setTimeout(() => {
+        if (cmPython) cmPython.refresh();
+        if (cmSql) cmSql.refresh();
+      }, 20);
+    }
+
+    function getPythonEditorValue() {
+      return cmPython ? cmPython.getValue() : document.getElementById("pythonCodeEditor").value;
+    }
+
+    function setPythonEditorValue(val) {
+      document.getElementById("pythonCodeEditor").value = val;
+      if (cmPython && cmPython.getValue() !== val) {
+        cmPython.setValue(val);
+      }
+    }
+
+    function getSqlEditorValue() {
+      return cmSql ? cmSql.getValue() : document.getElementById("sqlCodeEditor").value;
+    }
+
+    function setSqlEditorValue(val) {
+      document.getElementById("sqlCodeEditor").value = val;
+      if (cmSql && cmSql.getValue() !== val) {
+        cmSql.setValue(val);
+      }
+    }
+
     function switchWorkspaceTab(tabName) {
       state.activeWsTab = tabName;
       document.querySelectorAll(".ws-tab").forEach(btn => {
@@ -2352,6 +2532,7 @@
       document.querySelectorAll(".ws-panel").forEach(p => p.classList.remove("active"));
       const activePanel = document.getElementById(`ws-panel-${tabName}`);
       if (activePanel) activePanel.classList.add("active");
+      refreshCodeEditors();
     }
 
     function loadWorkspaceDrafts(lesson, preserveTab = false) {
@@ -2360,26 +2541,25 @@
       const defaultPy =
         lesson.lab && lesson.lab.lang === "python"
           ? lesson.lab.starterCode
-          : `# Day ${lesson.day}: ${lesson.title}\nimport numpy as np\nimport pandas as pd\n\nprint("ShopPulse Python Workspace Ready!")\n`;
+          : `# Day ${lesson.day}: ${lesson.title}\nimport numpy as np\nimport pandas as pd\n\nprint("Python 3.12 Workspace Ready!")\n`;
 
       const defaultSql =
         lesson.lab && lesson.lab.lang === "sql"
           ? lesson.lab.starterCode
           : `-- Day ${lesson.day}: ShopPulse SQLite Sandbox\nSELECT * FROM orders LIMIT 5;\n`;
 
-      const activeId = document.activeElement ? document.activeElement.id : "";
+      const pyFocused = cmPython ? cmPython.hasFocus() : document.activeElement?.id === "pythonCodeEditor";
+      const sqlFocused = cmSql ? cmSql.hasFocus() : document.activeElement?.id === "sqlCodeEditor";
+      const notesFocused = document.activeElement?.id === "smartNotesEditor";
 
-      if (activeId !== "pythonCodeEditor") {
-        document.getElementById("pythonCodeEditor").value =
-          state.codeDrafts[pyKey] !== undefined ? state.codeDrafts[pyKey] : defaultPy;
+      if (!pyFocused) {
+        setPythonEditorValue(state.codeDrafts[pyKey] !== undefined ? state.codeDrafts[pyKey] : defaultPy);
       }
-      if (activeId !== "sqlCodeEditor") {
-        document.getElementById("sqlCodeEditor").value =
-          state.codeDrafts[sqlKey] !== undefined ? state.codeDrafts[sqlKey] : defaultSql;
+      if (!sqlFocused) {
+        setSqlEditorValue(state.codeDrafts[sqlKey] !== undefined ? state.codeDrafts[sqlKey] : defaultSql);
       }
-      if (activeId !== "smartNotesEditor") {
-        document.getElementById("smartNotesEditor").value =
-          state.notes[lesson.day] || "";
+      if (!notesFocused) {
+        document.getElementById("smartNotesEditor").value = state.notes[lesson.day] || "";
       }
 
       if (!preserveTab) {
@@ -2388,6 +2568,8 @@
         } else {
           switchWorkspaceTab("python");
         }
+      } else {
+        refreshCodeEditors();
       }
     }
 
@@ -2440,7 +2622,7 @@
     }
 
     /* ========================================================================
-       9. IN-BROWSER PYTHON RUNTIME (PYODIDE WEBASSEMBLY)
+       9. IN-BROWSER PYTHON 3.12 RUNTIME (PYODIDE — CLEAN FS + PC-LIKE IDE)
        ======================================================================== */
     let pyodideInstance = null;
     let pyodideLoadingPromise = null;
@@ -2450,50 +2632,232 @@
       if (pyodideLoadingPromise) return pyodideLoadingPromise;
 
       const out = document.getElementById("pythonConsoleOut");
-      out.textContent = "⏳ Loading Python 3.11 WebAssembly runtime (first run takes ~4-6s)...";
+      out.textContent = "⏳ Booting Python 3.12 runtime (first run takes ~4-6s)...";
 
       pyodideLoadingPromise = (async () => {
         await loadExternalScript("https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js");
         const py = await window.loadPyodide({
           indexURL: "https://cdn.jsdelivr.net/pyodide/v0.26.4/full/"
         });
+
+        // Bridge stdin and input() to browser prompts
+        py.setStdin({
+          stdin: () => {
+            const val = window.prompt("Python stdin:");
+            return val === null ? null : val + "\n";
+          }
+        });
+
+        await py.loadPackage("micropip");
+        await py.runPythonAsync(`
+import builtins, asyncio, warnings, js, micropip
+
+def _browser_input(prompt_text=""):
+    val = js.prompt(str(prompt_text))
+    if val is None:
+        raise EOFError("Input cancelled by user")
+    return val
+builtins.input = _browser_input
+
+warnings.filterwarnings("ignore", message=".*non-GUI backend.*")
+
+_orig_asyncio_run = asyncio.run
+def _browser_asyncio_run(coro, **kwargs):
+    try:
+        loop = asyncio.get_running_loop()
+        return loop.create_task(coro)
+    except RuntimeError:
+        return _orig_asyncio_run(coro, **kwargs)
+asyncio.run = _browser_asyncio_run
+
+try:
+    await micropip.install("pyodide-http")
+    import pyodide_http
+    pyodide_http.patch_all()
+except Exception:
+    pass
+        `);
+
         pyodideInstance = py;
+        refreshPyodideFileList();
         return py;
       })();
 
       return pyodideLoadingPromise;
     }
 
+    async function uploadFilesToPyodide(event) {
+      const files = Array.from(event.target.files || []);
+      if (files.length === 0) return;
+      const out = document.getElementById("pythonConsoleOut");
+      try {
+        const py = await getPyodideEngine();
+        for (const file of files) {
+          const buf = await file.arrayBuffer();
+          py.FS.writeFile(file.name, new Uint8Array(buf));
+        }
+        refreshPyodideFileList();
+        out.style.color = "#a7f3d0";
+        out.textContent = `✓ Uploaded ${files.map(f => f.name).join(", ")} into Python working directory.`;
+      } catch (err) {
+        out.style.color = "#fda4af";
+        out.textContent = "File upload error: " + String(err);
+      } finally {
+        event.target.value = "";
+      }
+    }
+
+    function refreshPyodideFileList() {
+      if (!pyodideInstance) return;
+      const bar = document.getElementById("pyWorkspaceFilesBar");
+      const container = document.getElementById("pyFilePillsContainer");
+      try {
+        const entries = pyodideInstance.FS.readdir(".")
+          .filter(name => !name.startsWith(".") && pyodideInstance.FS.isFile(pyodideInstance.FS.stat(name).mode));
+
+        if (entries.length === 0) {
+          bar.style.display = "none";
+          container.innerHTML = "";
+          return;
+        }
+
+        bar.style.display = "flex";
+        container.innerHTML = `<span style="color:var(--text-secondary); font-weight:600;">📁 Files:</span>` +
+          entries.map(fname => {
+            const safeName = escapeHTML(fname);
+            const encodedName = encodeURIComponent(fname);
+            return `
+              <span class="py-file-pill">
+                <span>${safeName}</span>
+                <button type="button" title="Download to PC" onclick="downloadPyodideFile('${encodedName}')">↓</button>
+                <button type="button" title="Remove file" style="color:var(--danger);" onclick="deletePyodideFile('${encodedName}')">×</button>
+              </span>
+            `;
+          }).join("");
+      } catch (_) {
+        bar.style.display = "none";
+      }
+    }
+
+    function downloadPyodideFile(encodedName) {
+      if (!pyodideInstance) return;
+      const fname = decodeURIComponent(encodedName);
+      const data = pyodideInstance.FS.readFile(fname);
+      const blob = new Blob([data], { type: "application/octet-stream" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = fname;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function deletePyodideFile(encodedName) {
+      if (!pyodideInstance) return;
+      const fname = decodeURIComponent(encodedName);
+      pyodideInstance.FS.unlink(fname);
+      refreshPyodideFileList();
+    }
+
+    function clearPythonConsole() {
+      document.getElementById("pythonConsoleOut").textContent = "";
+      document.getElementById("pythonPlotOut").innerHTML = "";
+    }
+
     async function runPythonCode() {
-      const code = document.getElementById("pythonCodeEditor").value;
+      const code = getPythonEditorValue();
       state.codeDrafts[`py_${state.currentDay}`] = code;
       localStorage.setItem(STORAGE_KEYS.codeDrafts, JSON.stringify(state.codeDrafts));
       scheduleCloudSync();
 
       const out = document.getElementById("pythonConsoleOut");
+      const plotOut = document.getElementById("pythonPlotOut");
       const btn = document.getElementById("runPythonBtn");
       btn.disabled = true;
       btn.textContent = "⏳ Running...";
+      if (plotOut) plotOut.innerHTML = "";
 
       try {
         const py = await getPyodideEngine();
-        const needed = [];
-        if (/\bnumpy\b|\bnp\b/.test(code)) needed.push("numpy");
-        if (/\bpandas\b|\bpd\b/.test(code)) needed.push("pandas");
-        if (/\bscipy\b/.test(code)) needed.push("scipy");
-        if (/\bsklearn\b/.test(code)) needed.push("scikit-learn");
-        if (needed.length > 0) {
-          out.textContent = `⏳ Loading packages (${needed.join(", ")})...`;
-          await py.loadPackage(needed);
+
+        out.textContent = "⏳ Resolving imported packages...";
+        await py.loadPackagesFromImports(code);
+
+        // Auto-load openpyxl if pandas read_excel/to_excel is used
+        if (/\.xlsx\b|read_excel|to_excel/.test(code)) {
+          await py.loadPackagesFromImports("import openpyxl");
         }
 
         let buffer = "";
         py.setStdout({ batched: (msg) => { buffer += msg + "\n"; } });
         py.setStderr({ batched: (msg) => { buffer += "[STDERR] " + msg + "\n"; } });
 
-        await py.runPythonAsync(code);
+        // Execute with PC-like interactive REPL last-expression evaluation
+        const executeWithRepl = async (sourceCode) => {
+          py.globals.set("__user_code__", sourceCode);
+          return await py.runPythonAsync(`
+import ast as _ast
+_tree = _ast.parse(__user_code__, mode="exec")
+_last_val = None
+if _tree.body and isinstance(_tree.body[-1], _ast.Expr):
+    _last_expr = _ast.Expression(_tree.body.pop().value)
+    if _tree.body:
+        exec(compile(_tree, "<editor>", "exec"), globals())
+    _last_val = eval(compile(_last_expr, "<editor>", "eval"), globals())
+else:
+    exec(compile(_tree, "<editor>", "exec"), globals())
+repr(_last_val) if _last_val is not None else ""
+          `);
+        };
+
+        let lastExprRepr = "";
+        try {
+          lastExprRepr = await executeWithRepl(code);
+        } catch (runErr) {
+          const missingMatch = String(runErr).match(/ModuleNotFoundError: No module named '([^']+)'/);
+          if (missingMatch) {
+            const pkgName = missingMatch[1].split(".")[0];
+            out.textContent = `⏳ Installing '${pkgName}' from PyPI...`;
+            await py.runPythonAsync(`import micropip; await micropip.install("${pkgName}")`);
+            buffer = "";
+            lastExprRepr = await executeWithRepl(code);
+          } else {
+            throw runErr;
+          }
+        }
+
+        if (lastExprRepr) {
+          buffer += lastExprRepr + "\n";
+        }
+
+        // Render any Matplotlib figures created during this run as PNG images
+        const plotImages = await py.runPythonAsync(`
+import sys, io, base64
+_imgs = []
+if "matplotlib.pyplot" in sys.modules:
+    import matplotlib.pyplot as _plt
+    for _num in _plt.get_fignums():
+        _fig = _plt.figure(_num)
+        _buf = io.BytesIO()
+        _fig.savefig(_buf, format="png", bbox_inches="tight", dpi=130)
+        _buf.seek(0)
+        _imgs.append("data:image/png;base64," + base64.b64encode(_buf.read()).decode("utf-8"))
+    _plt.close("all")
+_imgs
+        `);
+
+        const imgList = plotImages && typeof plotImages.toJs === "function" ? plotImages.toJs() : [];
+        if (plotOut && imgList.length > 0) {
+          plotOut.innerHTML = imgList.map(src =>
+            `<img src="${src}" alt="Matplotlib Output" style="max-width:100%; border-radius:12px; border:1px solid var(--glass-border); background:#fff;" />`
+          ).join("");
+        }
+
+        refreshPyodideFileList();
         out.style.color = "#a7f3d0";
-        out.textContent = buffer.trim() || "(Executed successfully with no stdout output)";
+        out.textContent = buffer.trim() || (imgList.length > 0 ? "(Rendered figure below)" : "(Executed successfully with no stdout output)");
       } catch (err) {
         out.style.color = "#fda4af";
         out.textContent = String(err);
@@ -2611,7 +2975,7 @@
     }
 
     async function runSqlQuery() {
-      const sql = document.getElementById("sqlCodeEditor").value;
+      const sql = getSqlEditorValue();
       state.codeDrafts[`sql_${state.currentDay}`] = sql;
       localStorage.setItem(STORAGE_KEYS.codeDrafts, JSON.stringify(state.codeDrafts));
       scheduleCloudSync();
@@ -2637,11 +3001,16 @@
     }
 
     /* ========================================================================
-       11. AI STUDY MENTOR (GEMINI API WITH AUTO-FAILOVER & MODEL DISCOVERY)
+       11. AI STUDY MENTOR (FREE-TIER GEMINI 4 HYDROGEN & 3.5 FLASH-LITE FAILOVER)
        ======================================================================== */
     function saveGeminiKey() {
       const val = document.getElementById("geminiApiKeyInput").value.trim();
       localStorage.setItem(STORAGE_KEYS.apiKey, val);
+    }
+
+    function saveGeminiModel() {
+      const val = document.getElementById("geminiModelSelect").value;
+      localStorage.setItem(STORAGE_KEYS.modelPref, val);
     }
 
     function askMentorPreset(promptText) {
@@ -2659,6 +3028,7 @@
         localStorage.setItem(STORAGE_KEYS.apiKey, boxVal);
       }
       const apiKey = (localStorage.getItem(STORAGE_KEYS.apiKey) || "").trim();
+      const preferredModel = document.getElementById("geminiModelSelect").value || "auto";
       const history = document.getElementById("mentorChatHistory");
 
       appendMentorBubble(userPrompt, "user");
@@ -2672,8 +3042,8 @@
       const lesson = getLesson(state.currentDay);
       const currentCode =
         lesson.lab && lesson.lab.lang === "sql"
-          ? document.getElementById("sqlCodeEditor").value
-          : document.getElementById("pythonCodeEditor").value;
+          ? getSqlEditorValue()
+          : getPythonEditorValue();
       const takeawaysText = Array.isArray(lesson.takeaways) ? lesson.takeaways.join("; ") : "";
 
       const systemContext =
@@ -2702,6 +3072,7 @@
         if (resp.ok) {
           return {
             ok: true,
+            model: cleanId,
             text: data.candidates?.[0]?.content?.parts?.[0]?.text || "No response text returned."
           };
         }
@@ -2711,22 +3082,39 @@
         };
       }
 
+      function renderReply(res) {
+        loadingEl.textContent = res.text;
+        const tag = document.createElement("span");
+        tag.className = "msg-model-tag";
+        tag.textContent = `⚡ ${res.model}`;
+        loadingEl.appendChild(tag);
+        history.scrollTop = history.scrollHeight;
+      }
+
       try {
-        const tried = new Set();
-        const primaryCandidates = [
+        const freeTierPool = [
+          "gemini-4-hydrogen",
+          "gemini-3.5-flash-lite",
+          "gemini-3.6-flash",
+          "gemini-3.1-flash-lite",
+          "gemini-3-flash-preview",
           "gemini-3.8-flash",
-          "gemini-3.8-flash-lite",
-          "gemini-3.0-flash",
-          "gemini-2.5-flash-lite"
+          "gemma-4-26b-a4b-it"
         ];
+
+        const queue =
+          preferredModel !== "auto"
+            ? [preferredModel, ...freeTierPool.filter(m => m !== preferredModel)]
+            : freeTierPool;
+
+        const tried = new Set();
         let lastErrorMsg = "Unknown Gemini API error";
 
-        for (const modelName of primaryCandidates) {
+        for (const modelName of queue) {
           tried.add(modelName);
           const res = await tryGenerate(modelName);
           if (res.ok) {
-            loadingEl.textContent = res.text;
-            history.scrollTop = history.scrollHeight;
+            renderReply(res);
             return;
           }
           lastErrorMsg = res.message;
@@ -2740,17 +3128,16 @@
         );
         if (listResp.ok) {
           const listData = await listResp.json();
+          const skipPattern = /embedding|imagen|veo|aqa|tts|live|image|transcribe|robotics|computer-use|customtools|2\.5-|carbon|neon|argon|pro-preview/i;
           const discovered = (listData.models || [])
             .filter(m => Array.isArray(m.supportedGenerationMethods) && m.supportedGenerationMethods.includes("generateContent"))
             .map(m => m.name.replace(/^models\//, ""))
-            .filter(name => /gemini/i.test(name) && !/embedding|imagen|veo|aqa/i.test(name) && !tried.has(name))
-            .sort((a, b) => (/flash/i.test(b) ? 1 : 0) - (/flash/i.test(a) ? 1 : 0));
+            .filter(name => /(gemini|gemma)/i.test(name) && !skipPattern.test(name) && !tried.has(name));
 
-          for (const modelName of discovered.slice(0, 4)) {
+          for (const modelName of discovered.slice(0, 5)) {
             const res = await tryGenerate(modelName);
             if (res.ok) {
-              loadingEl.textContent = res.text;
-              history.scrollTop = history.scrollHeight;
+              renderReply(res);
               return;
             }
             lastErrorMsg = res.message;
@@ -2849,7 +3236,8 @@
         .replace(/'/g, "&#39;");
     }
 
-    function bindEditorShortcuts() {
+    function bindFallbackEditorShortcuts() {
+      if (cmPython && cmSql) return;
       ["pythonCodeEditor", "sqlCodeEditor"].forEach(id => {
         const el = document.getElementById(id);
         el.addEventListener("keydown", e => {
@@ -2885,12 +3273,16 @@
       const savedKey = localStorage.getItem(STORAGE_KEYS.apiKey) || "";
       document.getElementById("geminiApiKeyInput").value = savedKey;
 
+      const savedModel = localStorage.getItem(STORAGE_KEYS.modelPref) || "auto";
+      document.getElementById("geminiModelSelect").value = savedModel;
+
       if (localStorage.getItem(STORAGE_KEYS.offlineSkip) === "1") {
         closeAuthGate();
       }
 
+      initCodeMirrorEditors();
       initCurriculum();
-      bindEditorShortcuts();
+      bindFallbackEditorShortcuts();
       refreshAllViews();
       renderStudio(false);
     })();
