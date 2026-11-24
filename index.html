@@ -1726,30 +1726,31 @@
             <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
               <input type="password" id="geminiApiKeyInput" class="search-input" style="flex:1; min-width:160px;" placeholder="Paste Gemini API Key..." onchange="saveGeminiKey()" />
               <select id="geminiModelSelect" class="day-select" style="padding:8px 10px; font-size:12px;" onchange="saveGeminiModel()" title="Preferred Model">
-                <option value="auto">Auto (Gemini 3.1 / 3 Flash Failover)</option>
+                <option value="auto">Auto (Free-Tier Flash Failover)</option>
                 <option value="gemini-3.1-flash-lite">Gemini 3.1 Flash-Lite</option>
-                <option value="gemini-3.1-flash-lite-preview">Gemini 3.1 Flash-Lite Preview</option>
-                <option value="gemini-3-flash-preview">Gemini 3 Flash Preview</option>
-                <option value="gemini-2.5-flash">Gemini 2.5 Flash (Backup)</option>
-                <option value="gemini-2.5-flash-lite">Gemini 2.5 Flash-Lite (Backup)</option>
+                <option value="gemini-3.8-flash">Gemini 3.8 Flash</option>
+                <option value="gemini-3.5-flash-lite">Gemini 3.5 Flash-Lite</option>
+                <option value="gemini-3.5-flash">Gemini 3.5 Flash</option>
+                <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+                <option value="gemma-4-26b-a4b-it">Gemma 4 26B (Backup)</option>
               </select>
               <button class="btn" onclick="saveGeminiKey()">Save</button>
             </div>
 
             <div style="display:flex; gap:6px; flex-wrap:wrap;">
-              <button class="filter-pill" onclick="askMentorPreset('Explain today\'s core concept in simple, intuitive terms with a real-world example.')">💡 Explain Simply</button>
-              <button class="filter-pill" onclick="askMentorPreset('Review my current code in the editor and point out any bugs, edge cases, or cleaner Pythonic/SQL patterns.')">🔍 Review My Code</button>
-              <button class="filter-pill" onclick="askMentorPreset('Give me a subtle step-by-step hint for today\'s hands-on lab without spoiling the full answer.')">🧩 Subtle Hint</button>
-              <button class="filter-pill" onclick="askMentorPreset('Ask me 1 realistic Data Analyst / Data Scientist interview question based on today\'s topic.')">🎯 Interview Q</button>
+              <button class="filter-pill" onclick="askMentorPreset('Explain today\'s core lesson concept in simple, intuitive terms with a clear example.', true)">💡 Explain Lesson</button>
+              <button class="filter-pill" onclick="askMentorPreset('Review my current code in the editor and point out any bugs, edge cases, or cleaner Pythonic/SQL patterns.', true)">🔍 Review My Code</button>
+              <button class="filter-pill" onclick="askMentorPreset('Give me a subtle step-by-step hint for today\'s hands-on lab without spoiling the full answer.', true)">🧩 Lab Hint</button>
+              <button class="filter-pill" onclick="askMentorPreset('Ask me 1 realistic Data Analyst / Data Scientist interview question based on today\'s topic.', true)">🎯 Interview Q</button>
             </div>
 
             <div id="mentorChatHistory" class="mentor-messages">
-              <div class="msg-bubble msg-ai">👋 Hi! I'm your DataForge AI Mentor (powered by Gemini 3.1 Flash-Lite &amp; 3 Flash with automatic failover). Paste your Google AI Studio key above and ask any question about today's lesson or code.</div>
+              <div class="msg-bubble msg-ai">👋 Hi! I'm your DataForge AI Mentor. Paste your Google AI Studio key above and ask any general Data Science/Python/SQL question, or click a lesson button above for code &amp; lab help.</div>
             </div>
 
             <div style="display:flex; gap:8px;">
-              <input type="text" id="mentorPromptInput" class="search-input" style="flex:1;" placeholder="Ask about today's concept, error trace, or math..." onkeydown="if(event.key==='Enter') sendMentorMessage()" />
-              <button class="btn btn-primary" onclick="sendMentorMessage()">Send</button>
+              <input type="text" id="mentorPromptInput" class="search-input" style="flex:1;" placeholder="Ask any Python, SQL, ML, or lesson question..." onkeydown="if(event.key==='Enter') sendMentorMessage(false)" />
+              <button class="btn btn-primary" onclick="sendMentorMessage(false)">Send</button>
             </div>
           </div>
         </div>
@@ -3187,7 +3188,7 @@ _imgs
     }
 
     /* ========================================================================
-11. AI STUDY MENTOR (GEMINI 3.1 FLASH-LITE / 3 FLASH AUTO-FAILOVER)
+11. AI STUDY MENTOR (FREE-TIER FLASH FAILOVER + CONTEXT-SCOPED PROMPTING)
        ======================================================================== */
     let mentorInFlight = false;
 
@@ -3201,12 +3202,12 @@ _imgs
       localStorage.setItem(STORAGE_KEYS.modelPref, val);
     }
 
-    function askMentorPreset(promptText) {
+    function askMentorPreset(promptText, includeLessonContext = true) {
       document.getElementById("mentorPromptInput").value = promptText;
-      sendMentorMessage();
+      sendMentorMessage(includeLessonContext);
     }
 
-    async function sendMentorMessage() {
+    async function sendMentorMessage(forceLessonContext = false) {
       if (mentorInFlight) return;
 
       const input = document.getElementById("mentorPromptInput");
@@ -3232,19 +3233,33 @@ _imgs
       mentorInFlight = true;
 
       const lesson = getLesson(state.currentDay);
-      const currentCode =
-        lesson.lab && lesson.lab.lang === "sql"
-          ? getSqlEditorValue()
-          : getPythonEditorValue();
-      const takeawaysText = Array.isArray(lesson.takeaways) ? lesson.takeaways.join("; ") : "";
+      const wantsLessonContext =
+        forceLessonContext ||
+        /\b(this lesson|this chapter|today'?s|my code|editor|lab|hint|shoppulse|review my)\b/i.test(userPrompt);
 
-      const systemContext =
-        `You are a concise, practical Data Science & AI Mentor helping a student on Day ${lesson.day} (${lesson.module}): "${lesson.title}" taught by ${lesson.instructor} (${lesson.duration}). ` +
-        `Key takeaways: ${takeawaysText}. ` +
-        `Continuity context: ${lesson.bridge}. ` +
-        `Lab prompt: ${lesson.lab ? lesson.lab.prompt : ""}. ` +
-        `Student's current editor code:\n\`\`\`\n${currentCode}\n\`\`\`\n` +
-        `Answer clearly, directly, and concisely with runnable examples when helpful.`;
+      let promptPayload = "";
+      if (wantsLessonContext) {
+        const currentCode =
+          lesson.lab && lesson.lab.lang === "sql"
+            ? getSqlEditorValue()
+            : getPythonEditorValue();
+        const takeawaysText = Array.isArray(lesson.takeaways) ? lesson.takeaways.join("; ") : "";
+
+        promptPayload =
+          `You are a concise, practical Data Science & AI Mentor helping a student on Day ${lesson.day} (${lesson.module}): "${lesson.title}" taught by ${lesson.instructor}.\n` +
+          `Key takeaways: ${takeawaysText}.\n` +
+          `Lab prompt: ${lesson.lab ? lesson.lab.prompt : ""}.\n` +
+          `Student's current editor code:\n\`\`\`\n${currentCode}\n\`\`\`\n` +
+          `Rule: Only mention the ShopPulse dataset if the student's question or code directly relates to the lab.\n\n` +
+          `Student Question: ${userPrompt}`;
+      } else {
+        promptPayload =
+          `You are a concise, practical Data Science, Python, SQL, and AI Mentor. ` +
+          `The student is currently studying "${lesson.title}" (${lesson.module}). ` +
+          `Answer their question directly using standard, general examples. ` +
+          `IMPORTANT: Do NOT reference "ShopPulse" or force any e-commerce case study into your answer unless the student explicitly asks about it.\n\n` +
+          `Student Question: ${userPrompt}`;
+      }
 
       const loadingEl = appendMentorBubble("⏳ Connecting to Gemini...", "ai");
 
@@ -3268,7 +3283,7 @@ _imgs
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
-                contents: [{ parts: [{ text: `${systemContext}\n\nStudent Question: ${userPrompt}` }] }]
+                contents: [{ parts: [{ text: promptPayload }] }]
               })
             },
             10000
@@ -3289,11 +3304,13 @@ _imgs
           }
           return {
             ok: false,
+            model: cleanId,
             message: data.error?.message || `HTTP ${resp.status}`
           };
         } catch (err) {
           return {
             ok: false,
+            model: cleanId,
             message: err.name === "AbortError" ? `Timed out after 10s (${cleanId})` : err.message
           };
         }
@@ -3312,6 +3329,9 @@ _imgs
         const freeTierPool = [
           "gemini-3.1-flash-lite",
           "gemini-3.1-flash-lite-preview",
+          "gemini-3.8-flash",
+          "gemini-3.5-flash-lite",
+          "gemini-3.5-flash",
           "gemini-3-flash-preview",
           "gemini-2.5-flash",
           "gemini-2.5-flash-lite",
@@ -3325,7 +3345,7 @@ _imgs
             : freeTierPool;
 
         const tried = new Set();
-        let lastErrorMsg = "Unknown Gemini API error";
+        let primaryFlashError = "";
 
         for (const modelName of queue) {
           tried.add(modelName);
@@ -3334,13 +3354,15 @@ _imgs
             renderReply(res);
             return;
           }
-          lastErrorMsg = res.message;
-          if (/API key not valid|API_KEY_INVALID/i.test(lastErrorMsg)) {
-            throw new Error(lastErrorMsg);
+          if (!primaryFlashError) {
+            primaryFlashError = `[${res.model}] ${res.message}`;
+          }
+          if (/API key not valid|API_KEY_INVALID/i.test(res.message)) {
+            throw new Error(res.message);
           }
         }
 
-        loadingEl.textContent = "⏳ Discovering active models on your API key...";
+        loadingEl.textContent = "⏳ Checking other Flash/Gemma models on your key...";
         const listResp = await fetchWithTimeout(
           `https://generativelanguage.googleapis.com/v1beta/models?key=${encodeURIComponent(apiKey)}`,
           {},
@@ -3348,23 +3370,25 @@ _imgs
         );
         if (listResp.ok) {
           const listData = await listResp.json();
-          const skipPattern = /embedding|imagen|veo|aqa|tts|live|image|transcribe|robotics|computer-use|customtools/i;
+          const skipPattern = /embedding|imagen|veo|aqa|tts|live|image|transcribe|robotics|computer-use|customtools|-pro\b|\bpro\b/i;
           const discovered = (listData.models || [])
             .filter(m => Array.isArray(m.supportedGenerationMethods) && m.supportedGenerationMethods.includes("generateContent"))
             .map(m => m.name.replace(/^models\//, ""))
-            .filter(name => /(gemini|gemma)/i.test(name) && !skipPattern.test(name) && !tried.has(name));
+            .filter(name => /(flash|gemma)/i.test(name) && !skipPattern.test(name) && !tried.has(name));
 
-          for (const modelName of discovered.slice(0, 5)) {
+          for (const modelName of discovered.slice(0, 4)) {
             const res = await tryGenerate(modelName);
             if (res.ok) {
               renderReply(res);
               return;
             }
-            lastErrorMsg = res.message;
           }
         }
 
-        throw new Error(lastErrorMsg);
+        const extraTip = /limit:\s*0/i.test(primaryFlashError)
+          ? "\n\n💡 Tip: 'limit: 0' means this Google Cloud project has no Free Tier quota enabled. Go to https://aistudio.google.com/apikey and click 'Create API key in new project' to get an active Free Tier key."
+          : "";
+        throw new Error((primaryFlashError || "All free-tier models hit quota limits.") + extraTip);
       } catch (err) {
         loadingEl.textContent = `❌ Gemini API Error: ${err.message}`;
       } finally {
