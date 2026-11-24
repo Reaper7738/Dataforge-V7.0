@@ -1598,7 +1598,7 @@
               onblur="flushNotesToCloud()"></textarea>
           </div>
 
-          <!-- TAB 4: AI STUDY MENTOR (GEMINI API) -->
+          <!-- TAB 4: AI STUDY MENTOR (GEMINI API WITH AUTO-FAILOVER) -->
           <div id="ws-panel-mentor" class="ws-panel">
             <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
               <input type="password" id="geminiApiKeyInput" class="search-input" style="flex:1; min-width:180px;" placeholder="Paste Gemini API Key from Google AI Studio..." onchange="saveGeminiKey()" />
@@ -1613,7 +1613,7 @@
             </div>
 
             <div id="mentorChatHistory" class="mentor-messages">
-              <div class="msg-bubble msg-ai">👋 Hi! I'm your DataForge AI Mentor (powered by Gemini 3.8 Flash). Paste your Google AI Studio key above and ask any question about today's lesson or code.</div>
+              <div class="msg-bubble msg-ai">👋 Hi! I'm your DataForge AI Mentor (powered by Gemini Flash with automatic model failover). Paste your Google AI Studio key above and ask any question about today's lesson or code.</div>
             </div>
 
             <div style="display:flex; gap:8px;">
@@ -2637,7 +2637,7 @@
     }
 
     /* ========================================================================
-       11. AI STUDY MENTOR (GEMINI 3.8 FLASH — LOCAL DEVICE KEY)
+       11. AI STUDY MENTOR (GEMINI API WITH AUTO-FAILOVER & MODEL DISCOVERY)
        ======================================================================== */
     function saveGeminiKey() {
       const val = document.getElementById("geminiApiKeyInput").value.trim();
@@ -2685,34 +2685,78 @@
         `Answer clearly, directly, and concisely with runnable examples when helpful.`;
 
       const loadingEl = appendMentorBubble("⏳ Thinking...", "ai");
-      const candidateModels = ["gemini-3.8-flash", "gemini-3.0-flash", "gemini-2.5-flash"];
+
+      async function tryGenerate(modelId) {
+        const cleanId = modelId.replace(/^models\//, "");
+        const resp = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(cleanId)}:generateContent?key=${encodeURIComponent(apiKey)}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: `${systemContext}\n\nStudent Question: ${userPrompt}` }] }]
+            })
+          }
+        );
+        const data = await resp.json();
+        if (resp.ok) {
+          return {
+            ok: true,
+            text: data.candidates?.[0]?.content?.parts?.[0]?.text || "No response text returned."
+          };
+        }
+        return {
+          ok: false,
+          message: data.error?.message || `HTTP ${resp.status}`
+        };
+      }
 
       try {
+        const tried = new Set();
+        const primaryCandidates = [
+          "gemini-3.8-flash",
+          "gemini-3.8-flash-lite",
+          "gemini-3.0-flash",
+          "gemini-2.5-flash-lite"
+        ];
         let lastErrorMsg = "Unknown Gemini API error";
-        for (const modelName of candidateModels) {
-          const resp = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${encodeURIComponent(apiKey)}`,
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                contents: [{ parts: [{ text: `${systemContext}\n\nStudent Question: ${userPrompt}` }] }]
-              })
-            }
-          );
-          const data = await resp.json();
-          if (resp.ok) {
-            const reply =
-              data.candidates?.[0]?.content?.parts?.[0]?.text || "No response text returned.";
-            loadingEl.textContent = reply;
+
+        for (const modelName of primaryCandidates) {
+          tried.add(modelName);
+          const res = await tryGenerate(modelName);
+          if (res.ok) {
+            loadingEl.textContent = res.text;
             history.scrollTop = history.scrollHeight;
             return;
           }
-          lastErrorMsg = data.error?.message || `HTTP ${resp.status}`;
-          if (!/no longer available|not found|not supported/i.test(lastErrorMsg)) {
-            break;
+          lastErrorMsg = res.message;
+          if (/API key not valid|API_KEY_INVALID/i.test(lastErrorMsg)) {
+            throw new Error(lastErrorMsg);
           }
         }
+
+        const listResp = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models?key=${encodeURIComponent(apiKey)}`
+        );
+        if (listResp.ok) {
+          const listData = await listResp.json();
+          const discovered = (listData.models || [])
+            .filter(m => Array.isArray(m.supportedGenerationMethods) && m.supportedGenerationMethods.includes("generateContent"))
+            .map(m => m.name.replace(/^models\//, ""))
+            .filter(name => /gemini/i.test(name) && !/embedding|imagen|veo|aqa/i.test(name) && !tried.has(name))
+            .sort((a, b) => (/flash/i.test(b) ? 1 : 0) - (/flash/i.test(a) ? 1 : 0));
+
+          for (const modelName of discovered.slice(0, 4)) {
+            const res = await tryGenerate(modelName);
+            if (res.ok) {
+              loadingEl.textContent = res.text;
+              history.scrollTop = history.scrollHeight;
+              return;
+            }
+            lastErrorMsg = res.message;
+          }
+        }
+
         throw new Error(lastErrorMsg);
       } catch (err) {
         loadingEl.textContent = `❌ Gemini API Error: ${err.message}`;
