@@ -715,7 +715,7 @@
     }
 
     /* ==========================================================================
-       VIEW 2: 3-COLUMN ROADMAP GRID
+       VIEW 2: 3-COLUMN ROADMAP MATRIX
        ========================================================================== */
     .roadmap-toolbar {
       display: flex;
@@ -1726,12 +1726,12 @@
             <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
               <input type="password" id="geminiApiKeyInput" class="search-input" style="flex:1; min-width:160px;" placeholder="Paste Gemini API Key..." onchange="saveGeminiKey()" />
               <select id="geminiModelSelect" class="day-select" style="padding:8px 10px; font-size:12px;" onchange="saveGeminiModel()" title="Preferred Model">
-                <option value="auto">Auto (Free-Tier Failover)</option>
-                <option value="gemini-4-hydrogen">Gemini 4 Hydrogen</option>
-                <option value="gemini-3.5-flash-lite">Gemini 3.5 Flash-Lite</option>
-                <option value="gemini-3.6-flash">Gemini 3.6 Flash</option>
-                <option value="gemini-3.8-flash">Gemini 3.8 Flash</option>
-                <option value="gemma-4-26b-a4b-it">Gemma 4 26B (Backup)</option>
+                <option value="auto">Auto (Gemini 3.1 / 3 Flash Failover)</option>
+                <option value="gemini-3.1-flash-lite">Gemini 3.1 Flash-Lite</option>
+                <option value="gemini-3.1-flash-lite-preview">Gemini 3.1 Flash-Lite Preview</option>
+                <option value="gemini-3-flash-preview">Gemini 3 Flash Preview</option>
+                <option value="gemini-2.5-flash">Gemini 2.5 Flash (Backup)</option>
+                <option value="gemini-2.5-flash-lite">Gemini 2.5 Flash-Lite (Backup)</option>
               </select>
               <button class="btn" onclick="saveGeminiKey()">Save</button>
             </div>
@@ -1744,7 +1744,7 @@
             </div>
 
             <div id="mentorChatHistory" class="mentor-messages">
-              <div class="msg-bubble msg-ai">👋 Hi! I'm your DataForge AI Mentor (using Gemini 4 Hydrogen &amp; 3.5 Flash-Lite with automatic failover). Paste your Google AI Studio key above and ask any question about today's lesson or code.</div>
+              <div class="msg-bubble msg-ai">👋 Hi! I'm your DataForge AI Mentor (powered by Gemini 3.1 Flash-Lite &amp; 3 Flash with automatic failover). Paste your Google AI Studio key above and ask any question about today's lesson or code.</div>
             </div>
 
             <div style="display:flex; gap:8px;">
@@ -2025,7 +2025,7 @@
         await window.FirebaseSyncBridge.resetPassword(email);
         showAuthStatus("info", `Password reset email sent to ${email}.`);
       } catch (err) {
-        showAuthStatus("error", err.message || "Could not send password reset email.");
+        showAuthStatus("error", "Could not send password reset email.");
       }
     }
 
@@ -3187,8 +3187,10 @@ _imgs
     }
 
     /* ========================================================================
-11. AI STUDY MENTOR (FREE-TIER GEMINI 4 HYDROGEN & 3.5 FLASH-LITE FAILOVER)
+11. AI STUDY MENTOR (GEMINI 3.1 FLASH-LITE / 3 FLASH AUTO-FAILOVER)
        ======================================================================== */
+    let mentorInFlight = false;
+
     function saveGeminiKey() {
       const val = document.getElementById("geminiApiKeyInput").value.trim();
       localStorage.setItem(STORAGE_KEYS.apiKey, val);
@@ -3205,6 +3207,8 @@ _imgs
     }
 
     async function sendMentorMessage() {
+      if (mentorInFlight) return;
+
       const input = document.getElementById("mentorPromptInput");
       const userPrompt = input.value.trim();
       if (!userPrompt) return;
@@ -3225,6 +3229,8 @@ _imgs
         return;
       }
 
+      mentorInFlight = true;
+
       const lesson = getLesson(state.currentDay);
       const currentCode =
         lesson.lab && lesson.lab.lang === "sql"
@@ -3240,32 +3246,57 @@ _imgs
         `Student's current editor code:\n\`\`\`\n${currentCode}\n\`\`\`\n` +
         `Answer clearly, directly, and concisely with runnable examples when helpful.`;
 
-      const loadingEl = appendMentorBubble("⏳ Thinking...", "ai");
+      const loadingEl = appendMentorBubble("⏳ Connecting to Gemini...", "ai");
+
+      async function fetchWithTimeout(url, options = {}, timeoutMs = 10000) {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), timeoutMs);
+        try {
+          return await fetch(url, { ...options, signal: controller.signal });
+        } finally {
+          clearTimeout(timer);
+        }
+      }
 
       async function tryGenerate(modelId) {
         const cleanId = modelId.replace(/^models\//, "");
-        const resp = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(cleanId)}:generateContent?key=${encodeURIComponent(apiKey)}`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              contents: [{ parts: [{ text: `${systemContext}\n\nStudent Question: ${userPrompt}` }] }]
-            })
+        loadingEl.textContent = `⏳ Trying ${cleanId}...`;
+        try {
+          const resp = await fetchWithTimeout(
+            `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(cleanId)}:generateContent?key=${encodeURIComponent(apiKey)}`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                contents: [{ parts: [{ text: `${systemContext}\n\nStudent Question: ${userPrompt}` }] }]
+              })
+            },
+            10000
+          );
+
+          const rawText = await resp.text();
+          let data = {};
+          try {
+            data = JSON.parse(rawText);
+          } catch (_) {}
+
+          if (resp.ok) {
+            return {
+              ok: true,
+              model: cleanId,
+              text: data.candidates?.[0]?.content?.parts?.[0]?.text || "No response text returned."
+            };
           }
-        );
-        const data = await resp.json();
-        if (resp.ok) {
           return {
-            ok: true,
-            model: cleanId,
-            text: data.candidates?.[0]?.content?.parts?.[0]?.text || "No response text returned."
+            ok: false,
+            message: data.error?.message || `HTTP ${resp.status}`
+          };
+        } catch (err) {
+          return {
+            ok: false,
+            message: err.name === "AbortError" ? `Timed out after 10s (${cleanId})` : err.message
           };
         }
-        return {
-          ok: false,
-          message: data.error?.message || `HTTP ${resp.status}`
-        };
       }
 
       function renderReply(res) {
@@ -3279,17 +3310,17 @@ _imgs
 
       try {
         const freeTierPool = [
-          "gemini-4-hydrogen",
-          "gemini-3.5-flash-lite",
-          "gemini-3.6-flash",
           "gemini-3.1-flash-lite",
+          "gemini-3.1-flash-lite-preview",
           "gemini-3-flash-preview",
-          "gemini-3.8-flash",
-          "gemma-4-26b-a4b-it"
+          "gemini-2.5-flash",
+          "gemini-2.5-flash-lite",
+          "gemma-4-26b-a4b-it",
+          "gemma-3-27b-it"
         ];
 
         const queue =
-          preferredModel !== "auto"
+          preferredModel !== "auto" && freeTierPool.includes(preferredModel)
             ? [preferredModel, ...freeTierPool.filter(m => m !== preferredModel)]
             : freeTierPool;
 
@@ -3309,12 +3340,15 @@ _imgs
           }
         }
 
-        const listResp = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models?key=${encodeURIComponent(apiKey)}`
+        loadingEl.textContent = "⏳ Discovering active models on your API key...";
+        const listResp = await fetchWithTimeout(
+          `https://generativelanguage.googleapis.com/v1beta/models?key=${encodeURIComponent(apiKey)}`,
+          {},
+          8000
         );
         if (listResp.ok) {
           const listData = await listResp.json();
-          const skipPattern = /embedding|imagen|veo|aqa|tts|live|image|transcribe|robotics|computer-use|customtools|2\.5-|carbon|neon|argon|pro-preview/i;
+          const skipPattern = /embedding|imagen|veo|aqa|tts|live|image|transcribe|robotics|computer-use|customtools/i;
           const discovered = (listData.models || [])
             .filter(m => Array.isArray(m.supportedGenerationMethods) && m.supportedGenerationMethods.includes("generateContent"))
             .map(m => m.name.replace(/^models\//, ""))
@@ -3333,8 +3367,10 @@ _imgs
         throw new Error(lastErrorMsg);
       } catch (err) {
         loadingEl.textContent = `❌ Gemini API Error: ${err.message}`;
+      } finally {
+        mentorInFlight = false;
+        history.scrollTop = history.scrollHeight;
       }
-      history.scrollTop = history.scrollHeight;
     }
 
     function appendMentorBubble(text, role) {
@@ -3459,8 +3495,11 @@ _imgs
       const savedKey = localStorage.getItem(STORAGE_KEYS.apiKey) || "";
       document.getElementById("geminiApiKeyInput").value = savedKey;
 
+      const modelSelect = document.getElementById("geminiModelSelect");
       const savedModel = localStorage.getItem(STORAGE_KEYS.modelPref) || "auto";
-      document.getElementById("geminiModelSelect").value = savedModel;
+      const hasOption = Array.from(modelSelect.options).some(o => o.value === savedModel);
+      modelSelect.value = hasOption ? savedModel : "auto";
+      if (!hasOption) localStorage.setItem(STORAGE_KEYS.modelPref, "auto");
 
       if (localStorage.getItem(STORAGE_KEYS.offlineSkip) === "1") {
         closeAuthGate();
