@@ -1791,7 +1791,7 @@
   <!-- CORE APPLICATION ENGINE -->
   <script>
     /* ========================================================================
-       1. FALLBACK PREVIEW DATA (ONLY USED IF curriculum.js IS NOT YET PRESENT)
+1. FALLBACK PREVIEW DATA (ONLY USED IF curriculum.js IS NOT YET PRESENT)
        ======================================================================== */
     const FALLBACK_CURRICULUM = [
       {
@@ -1844,7 +1844,7 @@
     ];
 
     /* ========================================================================
-       2. STATE & LOCALSTORAGE PERSISTENCE
+2. STATE & LOCALSTORAGE PERSISTENCE
        ======================================================================== */
     const STORAGE_KEYS = {
       completed: "df_completed_days_v1",
@@ -2137,7 +2137,7 @@
     }
 
     /* ========================================================================
-       3. THEME & NAVIGATION ENGINE
+3. THEME & NAVIGATION ENGINE
        ======================================================================== */
     function setTheme(themeName, skipCloud = false) {
       document.documentElement.setAttribute("data-theme", themeName);
@@ -2184,7 +2184,7 @@
     }
 
     /* ========================================================================
-       4. COMPLETION & STREAK LOGIC
+4. COMPLETION & STREAK LOGIC
        ======================================================================== */
     function toggleDayComplete(dayNum, event) {
       if (event) event.stopPropagation();
@@ -2229,7 +2229,7 @@
     }
 
     /* ========================================================================
-       5. RENDER: BENTO HOME DASHBOARD
+5. RENDER: BENTO HOME DASHBOARD
        ======================================================================== */
     function renderDashboard() {
       const todayDay = getNextScheduledDay();
@@ -2297,7 +2297,7 @@
     }
 
     /* ========================================================================
-       6. RENDER: 3-COLUMN ROADMAP MATRIX
+6. RENDER: 3-COLUMN ROADMAP MATRIX
        ======================================================================== */
     function setMonthFilter(monthVal) {
       state.monthFilter = monthVal;
@@ -2372,7 +2372,7 @@
     }
 
     /* ========================================================================
-       7. RENDER: SPLIT-PANE STUDY STUDIO
+7. RENDER: SPLIT-PANE STUDY STUDIO
        ======================================================================== */
     function populateDayDropdown() {
       const sel = document.getElementById("studioDaySelect");
@@ -2486,7 +2486,7 @@
     }
 
     /* ========================================================================
-       8. CODEMIRROR IDE HELPERS, WORKSPACE TABS & SMART NOTES
+8. CODEMIRROR IDE HELPERS, WORKSPACE TABS & SMART NOTES
        ======================================================================== */
     function initCodeMirrorEditors() {
       if (typeof window.CodeMirror !== "function") return;
@@ -2661,7 +2661,7 @@
     }
 
     /* ========================================================================
-       9. IN-BROWSER PYTHON 3.12 RUNTIME (PC-STYLE INLINE CONSOLE + CLEAN FS)
+9. IN-BROWSER PYTHON 3.12 RUNTIME (PC-STYLE INLINE CONSOLE + CLEAN FS)
        ======================================================================== */
     let pyodideInstance = null;
     let pyodideLoadingPromise = null;
@@ -2975,19 +2975,24 @@ except Exception:
         const executeWithRepl = async (sourceCode) => {
           py.globals.set("__user_code__", sourceCode);
           return await py.runPythonAsync(`
-_raw_tree = ast.parse(__user_code__, mode="exec")
+_flags = ast.PyCF_ALLOW_TOP_LEVEL_AWAIT
+_raw_tree = ast.parse(__user_code__, filename="<editor>", mode="exec")
 _transformer = _InputTransformer(_raw_tree)
 _tree = ast.fix_missing_locations(_transformer.visit(_raw_tree))
 _last_val = None
 if _tree.body and isinstance(_tree.body[-1], ast.Expr):
     _last_expr = ast.fix_missing_locations(ast.Expression(_tree.body.pop().value))
     if _tree.body:
-        exec(compile(_tree, "<editor>", "exec"), globals())
-    _last_val = eval(compile(_last_expr, "<editor>", "eval"), globals())
+        _body_coro = eval(compile(_tree, "<editor>", "exec", flags=_flags), globals())
+        if inspect.isawaitable(_body_coro):
+            await _body_coro
+    _last_val = eval(compile(_last_expr, "<editor>", "eval", flags=_flags), globals())
     if inspect.isawaitable(_last_val):
         _last_val = await _last_val
 else:
-    exec(compile(_tree, "<editor>", "exec"), globals())
+    _body_coro = eval(compile(_tree, "<editor>", "exec", flags=_flags), globals())
+    if inspect.isawaitable(_body_coro):
+        await _body_coro
 repr(_last_val) if _last_val is not None else ""
           `);
         };
@@ -3049,7 +3054,7 @@ _imgs
     }
 
     /* ========================================================================
-       10. IN-BROWSER SQLITE SANDBOX (sql.js PRE-SEEDED WITH SHOPPULSE DB)
+10. IN-BROWSER SQLITE SANDBOX (sql.js PRE-SEEDED WITH SHOPPULSE DB)
        ======================================================================== */
     let sqlDbInstance = null;
     let sqlLoadingPromise = null;
@@ -3182,7 +3187,7 @@ _imgs
     }
 
     /* ========================================================================
-       11. AI STUDY MENTOR (FREE-TIER GEMINI 4 HYDROGEN & 3.5 FLASH-LITE FAILOVER)
+11. AI STUDY MENTOR (FREE-TIER GEMINI 4 HYDROGEN & 3.5 FLASH-LITE FAILOVER)
        ======================================================================== */
     function saveGeminiKey() {
       const val = document.getElementById("geminiApiKeyInput").value.trim();
@@ -3343,7 +3348,7 @@ _imgs
     }
 
     /* ========================================================================
-       12. JSON BACKUP EXPORT / IMPORT & UTILITIES
+12. JSON BACKUP EXPORT / IMPORT & UTILITIES
        ======================================================================== */
     function exportProgressJSON() {
       const payload = {
@@ -3445,7 +3450,7 @@ _imgs
     });
 
     /* ========================================================================
-       13. BOOTSTRAP APPLICATION
+13. BOOTSTRAP APPLICATION
        ======================================================================== */
     (function bootstrap() {
       const savedTheme = localStorage.getItem(STORAGE_KEYS.theme) || "obsidian";
@@ -3470,7 +3475,7 @@ _imgs
   </script>
 
   <!-- ========================================================================
-       14. FIREBASE AUTHENTICATION & FIRESTORE REAL-TIME SYNC MODULE
+14. FIREBASE AUTHENTICATION & FIRESTORE REAL-TIME SYNC MODULE
        ======================================================================== -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
