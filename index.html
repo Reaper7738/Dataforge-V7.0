@@ -179,7 +179,7 @@
       border-radius: 24px;
       display: flex;
       flex-direction: column;
-      gap: 18px;
+      gap: 16px;
       position: relative;
       overflow: hidden;
     }
@@ -1234,6 +1234,10 @@
         <span>Continue with Google</span>
       </button>
 
+      <div style="font-size:11px; color:var(--text-muted); text-align:center; margin-top:-6px;">
+        On iPhone/iPad Safari? Use Email &amp; Password below for instant sign-in.
+      </div>
+
       <div class="auth-divider">or with email &amp; password</div>
 
       <!-- Email / Password Tabs -->
@@ -1585,13 +1589,19 @@
                 <button class="btn" onclick="exportAllNotesMarkdown()">↓ Export All Notes (.md)</button>
               </div>
             </div>
-            <textarea id="smartNotesEditor" class="code-editor" style="font-family:'Inter',sans-serif; min-height:360px;" placeholder="Write structured takeaways, SQL patterns, formulas, or interview notes for this day..." oninput="saveCurrentDayNotes()"></textarea>
+            <textarea
+              id="smartNotesEditor"
+              class="code-editor"
+              style="font-family:'Inter',sans-serif; min-height:360px;"
+              placeholder="Write structured takeaways, SQL patterns, formulas, or interview notes for this day..."
+              oninput="saveCurrentDayNotes()"
+              onblur="flushNotesToCloud()"></textarea>
           </div>
 
           <!-- TAB 4: AI STUDY MENTOR (GEMINI API) -->
           <div id="ws-panel-mentor" class="ws-panel">
             <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-              <input type="password" id="geminiApiKeyInput" class="search-input" style="flex:1; min-width:180px;" placeholder="Paste Gemini API Key (stored locally on this device)..." onchange="saveGeminiKey()" />
+              <input type="password" id="geminiApiKeyInput" class="search-input" style="flex:1; min-width:180px;" placeholder="Paste Gemini API Key from Google AI Studio..." onchange="saveGeminiKey()" />
               <button class="btn" onclick="saveGeminiKey()">Save Key</button>
             </div>
 
@@ -1603,7 +1613,7 @@
             </div>
 
             <div id="mentorChatHistory" class="mentor-messages">
-              <div class="msg-bubble msg-ai">👋 Hi! I'm your DataForge AI Mentor. Save your Gemini API key above and click any quick prompt or ask a question about today's lesson or code.</div>
+              <div class="msg-bubble msg-ai">👋 Hi! I'm your DataForge AI Mentor (powered by Gemini 3.8 Flash). Paste your Google AI Studio key above and ask any question about today's lesson or code.</div>
             </div>
 
             <div style="display:flex; gap:8px;">
@@ -1721,7 +1731,9 @@
     let isUsingFallback = false;
     let authFormMode = "signin";
     let cloudSyncTimer = null;
+    let hasPendingCloudPush = false;
     let isApplyingCloudUpdate = false;
+    let lastLocalPushAt = 0;
 
     const state = {
       currentView: "dashboard",
@@ -1748,7 +1760,11 @@
       if (isApplyingCloudUpdate || !state.cloudUser || !window.FirebaseSyncBridge) return;
       setCloudPillStatus("syncing", `⏳ Syncing (${state.cloudUser.email || "Cloud"})...`);
       clearTimeout(cloudSyncTimer);
+      hasPendingCloudPush = true;
+
       const runPush = () => {
+        hasPendingCloudPush = false;
+        lastLocalPushAt = Date.now();
         window.FirebaseSyncBridge.pushState({
           completedDays: state.completedDays,
           streakData: state.streakData,
@@ -1756,13 +1772,21 @@
           codeDrafts: state.codeDrafts,
           notes: state.notes,
           theme: localStorage.getItem(STORAGE_KEYS.theme) || "obsidian",
-          updatedAt: Date.now()
+          updatedAt: lastLocalPushAt
+        }).then(() => {
+          const notesStatus = document.getElementById("notesSaveStatus");
+          if (notesStatus) {
+            notesStatus.textContent = "● Saved locally & cloud synced";
+          }
+        }).catch((err) => {
+          console.error("Cloud push failed:", err);
         });
       };
+
       if (immediate) {
         runPush();
       } else {
-        cloudSyncTimer = setTimeout(runPush, 900);
+        cloudSyncTimer = setTimeout(runPush, 800);
       }
     }
 
@@ -1892,6 +1916,9 @@
         scheduleCloudSync(true);
         return;
       }
+      // Ignore echo snapshots triggered right after our own local write
+      if (Date.now() - lastLocalPushAt < 3000) return;
+
       isApplyingCloudUpdate = true;
       try {
         const cloudCompleted = Array.isArray(cloudData.completedDays) ? cloudData.completedDays : [];
@@ -1901,7 +1928,7 @@
         if (cloudData.streakData && (cloudData.streakData.lastDate || "") >= (state.streakData.lastDate || "")) {
           state.streakData = cloudData.streakData;
         }
-        if (cloudData.currentDay) {
+        if (cloudData.currentDay && state.currentView !== "studio") {
           state.currentDay = Number(cloudData.currentDay);
         }
         if (cloudData.codeDrafts && typeof cloudData.codeDrafts === "object") {
@@ -1917,7 +1944,8 @@
         persistLocalState();
         refreshAllViews();
         if (state.currentView === "studio") {
-          renderStudio();
+          // Preserve active tab & never reload playing video on background sync
+          renderStudio(true);
         }
         if (state.cloudUser) {
           setCloudPillStatus("synced", `☁️ Synced • ${state.cloudUser.email || "Google User"}`);
@@ -1991,7 +2019,7 @@
 
       if (viewName === "dashboard") renderDashboard();
       if (viewName === "roadmap") renderRoadmap();
-      if (viewName === "studio") renderStudio();
+      if (viewName === "studio") renderStudio(false);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
@@ -2216,7 +2244,7 @@
       state.useAltVideo = false;
       localStorage.setItem(STORAGE_KEYS.currentDay, String(dayNum));
       scheduleCloudSync();
-      renderStudio();
+      renderStudio(false);
     }
 
     function navigateDay(delta) {
@@ -2225,7 +2253,7 @@
       selectDay(CURRICULUM_DATA[nextIdx].day);
     }
 
-    function renderStudio() {
+    function renderStudio(preserveTab = false) {
       const lesson = getLesson(state.currentDay);
       populateDayDropdown();
 
@@ -2255,7 +2283,9 @@
       document.getElementById("studioLabPrompt").textContent = lab.prompt;
       const hintBox = document.getElementById("studioLabHintBox");
       hintBox.textContent = `💡 Hint: ${lab.hint || "Review the takeaways above."}`;
-      hintBox.classList.remove("visible");
+      if (!preserveTab) {
+        hintBox.classList.remove("visible");
+      }
 
       const altBtn = document.getElementById("altVideoToggleBtn");
       if (lesson.altVideoId) {
@@ -2266,7 +2296,7 @@
       }
 
       loadVideoPlayer(lesson);
-      loadWorkspaceDrafts(lesson);
+      loadWorkspaceDrafts(lesson, preserveTab);
       renderStudioCompletionState();
     }
 
@@ -2288,17 +2318,23 @@
       const embedUrl = `https://www.youtube.com/embed/${encodeURIComponent(activeId)}?start=${start}&rel=0&modestbranding=1`;
       const externalUrl = `https://www.youtube.com/watch?v=${encodeURIComponent(activeId)}&t=${start}s`;
 
-      document.getElementById("youtubeIframe").src = embedUrl;
+      const iframe = document.getElementById("youtubeIframe");
+      if (iframe.dataset.loadedUrl !== embedUrl) {
+        iframe.dataset.loadedUrl = embedUrl;
+        iframe.src = embedUrl;
+      }
       document.getElementById("youtubeExternalLink").href = externalUrl;
     }
 
     function seekToChapterStart() {
+      const iframe = document.getElementById("youtubeIframe");
+      iframe.dataset.loadedUrl = "";
       loadVideoPlayer(getLesson(state.currentDay));
     }
 
     function toggleAltVideo() {
       state.useAltVideo = !state.useAltVideo;
-      renderStudio();
+      renderStudio(true);
     }
 
     function toggleLabHint() {
@@ -2318,7 +2354,7 @@
       if (activePanel) activePanel.classList.add("active");
     }
 
-    function loadWorkspaceDrafts(lesson) {
+    function loadWorkspaceDrafts(lesson, preserveTab = false) {
       const pyKey = `py_${lesson.day}`;
       const sqlKey = `sql_${lesson.day}`;
       const defaultPy =
@@ -2331,17 +2367,27 @@
           ? lesson.lab.starterCode
           : `-- Day ${lesson.day}: ShopPulse SQLite Sandbox\nSELECT * FROM orders LIMIT 5;\n`;
 
-      document.getElementById("pythonCodeEditor").value =
-        state.codeDrafts[pyKey] !== undefined ? state.codeDrafts[pyKey] : defaultPy;
-      document.getElementById("sqlCodeEditor").value =
-        state.codeDrafts[sqlKey] !== undefined ? state.codeDrafts[sqlKey] : defaultSql;
-      document.getElementById("smartNotesEditor").value =
-        state.notes[lesson.day] || "";
+      const activeId = document.activeElement ? document.activeElement.id : "";
 
-      if (lesson.lab && lesson.lab.lang === "sql") {
-        switchWorkspaceTab("sql");
-      } else {
-        switchWorkspaceTab("python");
+      if (activeId !== "pythonCodeEditor") {
+        document.getElementById("pythonCodeEditor").value =
+          state.codeDrafts[pyKey] !== undefined ? state.codeDrafts[pyKey] : defaultPy;
+      }
+      if (activeId !== "sqlCodeEditor") {
+        document.getElementById("sqlCodeEditor").value =
+          state.codeDrafts[sqlKey] !== undefined ? state.codeDrafts[sqlKey] : defaultSql;
+      }
+      if (activeId !== "smartNotesEditor") {
+        document.getElementById("smartNotesEditor").value =
+          state.notes[lesson.day] || "";
+      }
+
+      if (!preserveTab) {
+        if (lesson.lab && lesson.lab.lang === "sql") {
+          switchWorkspaceTab("sql");
+        } else {
+          switchWorkspaceTab("python");
+        }
       }
     }
 
@@ -2354,7 +2400,7 @@
       }
       localStorage.setItem(STORAGE_KEYS.codeDrafts, JSON.stringify(state.codeDrafts));
       scheduleCloudSync();
-      loadWorkspaceDrafts(lesson);
+      loadWorkspaceDrafts(lesson, true);
       switchWorkspaceTab(lang);
     }
 
@@ -2362,9 +2408,15 @@
       const val = document.getElementById("smartNotesEditor").value;
       state.notes[state.currentDay] = val;
       localStorage.setItem(STORAGE_KEYS.notes, JSON.stringify(state.notes));
-      scheduleCloudSync();
+      scheduleCloudSync(false);
       const status = document.getElementById("notesSaveStatus");
-      status.textContent = state.cloudUser ? "● Saved & syncing to cloud..." : "● Saved locally";
+      status.textContent = state.cloudUser ? "● Saved locally & syncing to cloud..." : "● Saved locally";
+    }
+
+    function flushNotesToCloud() {
+      if (hasPendingCloudPush) {
+        scheduleCloudSync(true);
+      }
     }
 
     function insertTimestampInNotes() {
@@ -2585,7 +2637,7 @@
     }
 
     /* ========================================================================
-       11. AI STUDY MENTOR (CLIENT-SIDE GEMINI API — LOCAL DEVICE KEY)
+       11. AI STUDY MENTOR (GEMINI 3.8 FLASH — LOCAL DEVICE KEY)
        ======================================================================== */
     function saveGeminiKey() {
       const val = document.getElementById("geminiApiKeyInput").value.trim();
@@ -2602,6 +2654,10 @@
       const userPrompt = input.value.trim();
       if (!userPrompt) return;
 
+      const boxVal = document.getElementById("geminiApiKeyInput").value.trim();
+      if (boxVal) {
+        localStorage.setItem(STORAGE_KEYS.apiKey, boxVal);
+      }
       const apiKey = (localStorage.getItem(STORAGE_KEYS.apiKey) || "").trim();
       const history = document.getElementById("mentorChatHistory");
 
@@ -2618,34 +2674,46 @@
         lesson.lab && lesson.lab.lang === "sql"
           ? document.getElementById("sqlCodeEditor").value
           : document.getElementById("pythonCodeEditor").value;
+      const takeawaysText = Array.isArray(lesson.takeaways) ? lesson.takeaways.join("; ") : "";
 
       const systemContext =
-        `You are a concise, practical Data Science & AI Mentor helping a student on Day ${lesson.day} (${lesson.module}): "${lesson.title}". ` +
+        `You are a concise, practical Data Science & AI Mentor helping a student on Day ${lesson.day} (${lesson.module}): "${lesson.title}" taught by ${lesson.instructor} (${lesson.duration}). ` +
+        `Key takeaways: ${takeawaysText}. ` +
         `Continuity context: ${lesson.bridge}. ` +
         `Lab prompt: ${lesson.lab ? lesson.lab.prompt : ""}. ` +
         `Student's current editor code:\n\`\`\`\n${currentCode}\n\`\`\`\n` +
         `Answer clearly, directly, and concisely with runnable examples when helpful.`;
 
       const loadingEl = appendMentorBubble("⏳ Thinking...", "ai");
+      const candidateModels = ["gemini-3.8-flash", "gemini-3.0-flash", "gemini-2.5-flash"];
 
       try {
-        const resp = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(apiKey)}`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              contents: [{ parts: [{ text: `${systemContext}\n\nStudent Question: ${userPrompt}` }] }]
-            })
+        let lastErrorMsg = "Unknown Gemini API error";
+        for (const modelName of candidateModels) {
+          const resp = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${encodeURIComponent(apiKey)}`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                contents: [{ parts: [{ text: `${systemContext}\n\nStudent Question: ${userPrompt}` }] }]
+              })
+            }
+          );
+          const data = await resp.json();
+          if (resp.ok) {
+            const reply =
+              data.candidates?.[0]?.content?.parts?.[0]?.text || "No response text returned.";
+            loadingEl.textContent = reply;
+            history.scrollTop = history.scrollHeight;
+            return;
           }
-        );
-        const data = await resp.json();
-        if (!resp.ok) {
-          throw new Error(data.error?.message || `HTTP ${resp.status}`);
+          lastErrorMsg = data.error?.message || `HTTP ${resp.status}`;
+          if (!/no longer available|not found|not supported/i.test(lastErrorMsg)) {
+            break;
+          }
         }
-        const reply =
-          data.candidates?.[0]?.content?.parts?.[0]?.text || "No response text returned.";
-        loadingEl.textContent = reply;
+        throw new Error(lastErrorMsg);
       } catch (err) {
         loadingEl.textContent = `❌ Gemini API Error: ${err.message}`;
       }
@@ -2693,7 +2761,7 @@
           persistLocalState();
           scheduleCloudSync(true);
           refreshAllViews();
-          renderStudio();
+          renderStudio(false);
           alert("Backup restored successfully!");
         } catch (err) {
           alert("Invalid backup JSON file: " + err.message);
@@ -2756,6 +2824,13 @@
       });
     }
 
+    window.addEventListener("beforeunload", () => {
+      persistLocalState();
+      if (hasPendingCloudPush) {
+        scheduleCloudSync(true);
+      }
+    });
+
     /* ========================================================================
        13. BOOTSTRAP APPLICATION
        ======================================================================== */
@@ -2773,7 +2848,7 @@
       initCurriculum();
       bindEditorShortcuts();
       refreshAllViews();
-      renderStudio();
+      renderStudio(false);
     })();
   </script>
 
@@ -2827,6 +2902,7 @@
         unsubscribeSnapshot = onSnapshot(
           userDocRef,
           (snap) => {
+            if (snap.metadata.hasPendingWrites) return;
             if (typeof window.onFirebaseCloudSnapshot === "function") {
               window.onFirebaseCloudSnapshot(snap.exists() ? snap.data() : null);
             }
