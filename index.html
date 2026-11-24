@@ -454,6 +454,12 @@
       color: var(--success);
     }
 
+    .btn-danger {
+      background: rgba(251, 113, 133, 0.14);
+      border-color: rgba(251, 113, 133, 0.4);
+      color: #fda4af;
+    }
+
     .container {
       max-width: 1480px;
       margin: 0 auto;
@@ -1118,12 +1124,44 @@
       border-radius: 12px;
       padding: 12px 14px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
+      font-size: 12.5px;
+      line-height: 1.6;
       color: #a7f3d0;
-      min-height: 110px;
-      max-height: 260px;
+      min-height: 125px;
+      max-height: 290px;
       overflow: auto;
       white-space: pre-wrap;
+      cursor: text;
+    }
+
+    /* PC-Style Inline Terminal Stdin Prompt */
+    .stdin-inline-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
+    .stdin-prompt-text {
+      color: var(--accent-primary);
+      font-weight: 600;
+      white-space: pre-wrap;
+    }
+
+    .stdin-inline-input {
+      flex: 1;
+      min-width: 140px;
+      background: rgba(56, 189, 248, 0.08);
+      border: none;
+      border-bottom: 1.5px solid var(--accent-primary);
+      border-radius: 4px 4px 0 0;
+      color: var(--text-primary);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      padding: 2px 6px;
+      outline: none;
+      caret-color: var(--accent-primary);
     }
 
     .sql-table-wrap {
@@ -1475,8 +1513,8 @@
 
           <div class="quick-tile" onclick="openStudioWithTab('python')">
             <div>
-              <div style="font-weight:700; font-size:14px;">🐍 Python 3.12 IDE + Scientific Stack</div>
-              <div style="font-size:12px; color:var(--text-secondary);">Syntax-highlighted editor, NumPy/Pandas, Matplotlib &amp; local file I/O</div>
+              <div style="font-weight:700; font-size:14px;">🐍 Python 3.12 IDE + Inline Terminal</div>
+              <div style="font-size:12px; color:var(--text-secondary);">Syntax-highlighted editor, inline input(), NumPy/Pandas &amp; Matplotlib</div>
             </div>
             <span style="color:var(--accent-primary); font-weight:700;">Open →</span>
           </div>
@@ -1625,6 +1663,7 @@
                   <input type="file" id="pyUploadInput" multiple style="display:none" onchange="uploadFilesToPyodide(event)" />
                 </label>
                 <button class="btn" onclick="resetStarterCode('python')">↺ Reset</button>
+                <button class="btn btn-danger" id="stopPythonBtn" style="display:none;" onclick="cancelActiveConsoleInput()">⏹ Stop</button>
                 <button class="btn btn-primary" id="runPythonBtn" onclick="runPythonCode()">▶ Run Python</button>
               </div>
             </div>
@@ -1637,10 +1676,10 @@
             <textarea id="pythonCodeEditor" class="code-editor" spellcheck="false" placeholder="# Write Python code here..."></textarea>
 
             <div style="display:flex; align-items:center; justify-content:space-between;">
-              <span style="font-size:11.5px; font-weight:700; color:var(--text-secondary);">STDOUT / INTERACTIVE CONSOLE</span>
+              <span style="font-size:11.5px; font-weight:700; color:var(--text-secondary);">STDOUT / INTERACTIVE TERMINAL</span>
               <button class="btn" style="padding:3px 9px; font-size:11px;" onclick="clearPythonConsole()">Clear</button>
             </div>
-            <pre id="pythonConsoleOut" class="console-out">Ready. Click "Run Python" to start Python 3.12.</pre>
+            <div id="pythonConsoleOut" class="console-out" onclick="focusActiveStdinInput()">Ready. Click "Run Python" to start Python 3.12.</div>
             <div id="pythonPlotOut" style="display:flex; flex-direction:column; gap:10px;"></div>
           </div>
 
@@ -2622,10 +2661,95 @@
     }
 
     /* ========================================================================
-       9. IN-BROWSER PYTHON 3.12 RUNTIME (PYODIDE — CLEAN FS + PC-LIKE IDE)
+       9. IN-BROWSER PYTHON 3.12 RUNTIME (PC-STYLE INLINE CONSOLE + CLEAN FS)
        ======================================================================== */
     let pyodideInstance = null;
     let pyodideLoadingPromise = null;
+    let activeStdinResolver = null;
+    let activeStdinRejecter = null;
+    let activeConsoleBuffer = "";
+
+    function renderConsoleSnapshot() {
+      const out = document.getElementById("pythonConsoleOut");
+      out.style.color = "#a7f3d0";
+      out.textContent = activeConsoleBuffer;
+      out.scrollTop = out.scrollHeight;
+    }
+
+    function focusActiveStdinInput() {
+      const inp = document.querySelector("#pythonConsoleOut .stdin-inline-input");
+      if (inp) inp.focus();
+    }
+
+    function cancelActiveConsoleInput() {
+      if (activeStdinRejecter) {
+        const rejecter = activeStdinRejecter;
+        activeStdinResolver = null;
+        activeStdinRejecter = null;
+        rejecter(new Error("KeyboardInterrupt"));
+      }
+    }
+
+    window._pyRequestInlineInput = function(promptText) {
+      return new Promise((resolve, reject) => {
+        const out = document.getElementById("pythonConsoleOut");
+        out.style.color = "#a7f3d0";
+        out.innerHTML = "";
+
+        if (activeConsoleBuffer) {
+          const preText = document.createElement("span");
+          preText.textContent = activeConsoleBuffer;
+          out.appendChild(preText);
+        }
+
+        const row = document.createElement("div");
+        row.className = "stdin-inline-row";
+
+        const label = document.createElement("span");
+        label.className = "stdin-prompt-text";
+        label.textContent = promptText || "";
+
+        const input = document.createElement("input");
+        input.type = "text";
+        input.className = "stdin-inline-input";
+        input.autocomplete = "off";
+        input.spellcheck = false;
+        input.setAttribute("aria-label", "Python console input");
+
+        row.appendChild(label);
+        row.appendChild(input);
+        out.appendChild(row);
+        out.scrollTop = out.scrollHeight;
+
+        activeStdinResolver = (val) => {
+          activeStdinResolver = null;
+          activeStdinRejecter = null;
+          activeConsoleBuffer += `${promptText || ""}${val}\n`;
+          renderConsoleSnapshot();
+          resolve(val);
+        };
+
+        activeStdinRejecter = (err) => {
+          activeStdinResolver = null;
+          activeStdinRejecter = null;
+          activeConsoleBuffer += `${promptText || ""}^C\n`;
+          renderConsoleSnapshot();
+          reject(err);
+        };
+
+        input.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            if (activeStdinResolver) activeStdinResolver(input.value);
+          } else if (e.ctrlKey && e.key.toLowerCase() === "c") {
+            e.preventDefault();
+            cancelActiveConsoleInput();
+          }
+        });
+
+        setTimeout(() => input.focus(), 10);
+      });
+    };
 
     async function getPyodideEngine() {
       if (pyodideInstance) return pyodideInstance;
@@ -2640,24 +2764,62 @@
           indexURL: "https://cdn.jsdelivr.net/pyodide/v0.26.4/full/"
         });
 
-        // Bridge stdin and input() to browser prompts
-        py.setStdin({
-          stdin: () => {
-            const val = window.prompt("Python stdin:");
-            return val === null ? null : val + "\n";
-          }
-        });
-
         await py.loadPackage("micropip");
         await py.runPythonAsync(`
-import builtins, asyncio, warnings, js, micropip
+import sys, ast, inspect, asyncio, warnings, js, micropip
 
-def _browser_input(prompt_text=""):
-    val = js.prompt(str(prompt_text))
-    if val is None:
-        raise EOFError("Input cancelled by user")
-    return val
-builtins.input = _browser_input
+async def _async_input(prompt_text=""):
+    sys.stdout.flush()
+    try:
+        val = await js._pyRequestInlineInput(str(prompt_text))
+        return str(val)
+    except Exception as exc:
+        if "KeyboardInterrupt" in str(exc):
+            raise KeyboardInterrupt("Execution interrupted by user")
+        raise EOFError("Input cancelled")
+
+class _InputTransformer(ast.NodeTransformer):
+    def __init__(self, tree):
+        self.async_funcs = set()
+        changed = True
+        while changed:
+            changed = False
+            for node in ast.walk(tree):
+                if isinstance(node, ast.FunctionDef) and node.name not in self.async_funcs:
+                    for sub in ast.walk(node):
+                        if isinstance(sub, ast.Call) and isinstance(sub.func, ast.Name):
+                            if sub.func.id == "input" or sub.func.id in self.async_funcs:
+                                self.async_funcs.add(node.name)
+                                changed = True
+                                break
+
+    def visit_FunctionDef(self, node):
+        self.generic_visit(node)
+        if node.name in self.async_funcs:
+            new_node = ast.AsyncFunctionDef(
+                name=node.name,
+                args=node.args,
+                body=node.body,
+                decorator_list=node.decorator_list,
+                returns=node.returns,
+                type_comment=getattr(node, "type_comment", None),
+            )
+            return ast.copy_location(new_node, node)
+        return node
+
+    def visit_Call(self, node):
+        self.generic_visit(node)
+        if isinstance(node.func, ast.Name):
+            if node.func.id == "input":
+                new_call = ast.Call(
+                    func=ast.Name(id="_async_input", ctx=ast.Load()),
+                    args=node.args,
+                    keywords=node.keywords,
+                )
+                return ast.copy_location(ast.Await(value=new_call), node)
+            if node.func.id in self.async_funcs:
+                return ast.copy_location(ast.Await(value=node), node)
+        return node
 
 warnings.filterwarnings("ignore", message=".*non-GUI backend.*")
 
@@ -2762,11 +2924,14 @@ except Exception:
     }
 
     function clearPythonConsole() {
+      cancelActiveConsoleInput();
+      activeConsoleBuffer = "";
       document.getElementById("pythonConsoleOut").textContent = "";
       document.getElementById("pythonPlotOut").innerHTML = "";
     }
 
     async function runPythonCode() {
+      cancelActiveConsoleInput();
       const code = getPythonEditorValue();
       state.codeDrafts[`py_${state.currentDay}`] = code;
       localStorage.setItem(STORAGE_KEYS.codeDrafts, JSON.stringify(state.codeDrafts));
@@ -2774,38 +2939,53 @@ except Exception:
 
       const out = document.getElementById("pythonConsoleOut");
       const plotOut = document.getElementById("pythonPlotOut");
-      const btn = document.getElementById("runPythonBtn");
-      btn.disabled = true;
-      btn.textContent = "⏳ Running...";
+      const runBtn = document.getElementById("runPythonBtn");
+      const stopBtn = document.getElementById("stopPythonBtn");
+
+      runBtn.disabled = true;
+      runBtn.textContent = "⏳ Running...";
+      stopBtn.style.display = "inline-flex";
+      activeConsoleBuffer = "";
       if (plotOut) plotOut.innerHTML = "";
 
       try {
         const py = await getPyodideEngine();
 
+        out.style.color = "#a7f3d0";
         out.textContent = "⏳ Resolving imported packages...";
         await py.loadPackagesFromImports(code);
 
-        // Auto-load openpyxl if pandas read_excel/to_excel is used
         if (/\.xlsx\b|read_excel|to_excel/.test(code)) {
           await py.loadPackagesFromImports("import openpyxl");
         }
 
-        let buffer = "";
-        py.setStdout({ batched: (msg) => { buffer += msg + "\n"; } });
-        py.setStderr({ batched: (msg) => { buffer += "[STDERR] " + msg + "\n"; } });
+        py.setStdout({
+          batched: (msg) => {
+            activeConsoleBuffer += msg + "\n";
+            if (!activeStdinResolver) renderConsoleSnapshot();
+          }
+        });
+        py.setStderr({
+          batched: (msg) => {
+            activeConsoleBuffer += "[STDERR] " + msg + "\n";
+            if (!activeStdinResolver) renderConsoleSnapshot();
+          }
+        });
 
-        // Execute with PC-like interactive REPL last-expression evaluation
         const executeWithRepl = async (sourceCode) => {
           py.globals.set("__user_code__", sourceCode);
           return await py.runPythonAsync(`
-import ast as _ast
-_tree = _ast.parse(__user_code__, mode="exec")
+_raw_tree = ast.parse(__user_code__, mode="exec")
+_transformer = _InputTransformer(_raw_tree)
+_tree = ast.fix_missing_locations(_transformer.visit(_raw_tree))
 _last_val = None
-if _tree.body and isinstance(_tree.body[-1], _ast.Expr):
-    _last_expr = _ast.Expression(_tree.body.pop().value)
+if _tree.body and isinstance(_tree.body[-1], ast.Expr):
+    _last_expr = ast.fix_missing_locations(ast.Expression(_tree.body.pop().value))
     if _tree.body:
         exec(compile(_tree, "<editor>", "exec"), globals())
     _last_val = eval(compile(_last_expr, "<editor>", "eval"), globals())
+    if inspect.isawaitable(_last_val):
+        _last_val = await _last_val
 else:
     exec(compile(_tree, "<editor>", "exec"), globals())
 repr(_last_val) if _last_val is not None else ""
@@ -2821,7 +3001,7 @@ repr(_last_val) if _last_val is not None else ""
             const pkgName = missingMatch[1].split(".")[0];
             out.textContent = `⏳ Installing '${pkgName}' from PyPI...`;
             await py.runPythonAsync(`import micropip; await micropip.install("${pkgName}")`);
-            buffer = "";
+            activeConsoleBuffer = "";
             lastExprRepr = await executeWithRepl(code);
           } else {
             throw runErr;
@@ -2829,12 +3009,11 @@ repr(_last_val) if _last_val is not None else ""
         }
 
         if (lastExprRepr) {
-          buffer += lastExprRepr + "\n";
+          activeConsoleBuffer += lastExprRepr + "\n";
         }
 
-        // Render any Matplotlib figures created during this run as PNG images
         const plotImages = await py.runPythonAsync(`
-import sys, io, base64
+import io, base64
 _imgs = []
 if "matplotlib.pyplot" in sys.modules:
     import matplotlib.pyplot as _plt
@@ -2857,13 +3036,15 @@ _imgs
 
         refreshPyodideFileList();
         out.style.color = "#a7f3d0";
-        out.textContent = buffer.trim() || (imgList.length > 0 ? "(Rendered figure below)" : "(Executed successfully with no stdout output)");
+        out.textContent = activeConsoleBuffer.trim() || (imgList.length > 0 ? "(Rendered figure below)" : "(Executed successfully with no stdout output)");
       } catch (err) {
         out.style.color = "#fda4af";
-        out.textContent = String(err);
+        const prefix = activeConsoleBuffer ? activeConsoleBuffer + "\n" : "";
+        out.textContent = prefix + String(err);
       } finally {
-        btn.disabled = false;
-        btn.textContent = "▶ Run Python";
+        runBtn.disabled = false;
+        runBtn.textContent = "▶ Run Python";
+        stopBtn.style.display = "none";
       }
     }
 
