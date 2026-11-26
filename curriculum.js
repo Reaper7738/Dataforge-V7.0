@@ -6,100 +6,148 @@ window.CURRICULUM = [
     day: 1,
     month: 1,
     module: "M1: Python & Git",
-    title: "Python Environment, Variables & Types",
-    instructor: "Bro Code",
-    duration: "14m",
-    videoId: "LKFrQXaoSMQ",
-    altVideoId: "I72uD8ED73U",
+    title: "Python Zero-to-One: Syntax Anatomy, Variables & Types",
+    instructor: "Programming with Mosh",
+    duration: "20m",
+    videoId: "kqtD5dpn9C8",
+    altVideoId: "LKFrQXaoSMQ",
     startSec: 0,
-    bridge: "Launches our continuous ShopPulse pipeline by modeling product SKUs, INR prices, and inventory counts.",
+    bridge: "Launches our continuous ShopPulse pipeline from absolute zero by learning how Python reads lines and stores product data.",
     takeaways: [
-      "Distinguish int, float, str, and bool primitives and inspect types dynamically.",
-      "Format clean monetary and inventory logs using Python f-strings.",
-      "Follow snake_case naming rules and avoid shadowing built-in Python names."
+      "Vocabulary: a variable is a named box, '=' is the assignment operator, and int / float / str / bool are data types.",
+      "Functions like print() and type() take inputs (arguments) inside parentheses () and perform an action.",
+      "Type conversion functions—int(), float(), str(), bool()—convert values between types so math and text never collide."
     ],
     lab: {
       lang: "python",
-      title: "ShopPulse Catalog Item Calculator",
-      prompt: "Compute subtotal, 18% GST, and total payable INR for 3 units of a Mechanical Keyboard priced at 4999.0 INR.",
-      hint: "Multiply unit_price by quantity, compute gst = subtotal * 0.18, and format with :.2f.",
-      starterCode: "sku = 'SP-101'\nproduct_name = 'Mechanical Keyboard Pro'\nunit_price_inr = 4999.0\nquantity = 3\ngst_rate = 0.18\n\nsubtotal = unit_price_inr * quantity\ngst_amount = subtotal * gst_rate\ntotal_payable = subtotal + gst_amount\n\nprint(f'{sku} | {product_name} | Total: INR {total_payable:,.2f}')\n"
+      title: "Anatomy of a ShopPulse Product Record",
+      prompt: "Read the labeled syntax parts, then fill in the 2 TODO lines to compute gst_amount and total_payable.",
+      hint: "Multiply subtotal by gst_rate for gst_amount, then add subtotal + gst_amount.",
+      starterCode: "# 1. VARIABLES & DATA TYPES (name = value)\nsku = 'SP-101'              # str (string: text inside quotes)\nunit_price_inr = 4999.0     # float (decimal number)\nquantity = 3                # int (integer: whole number)\ngst_rate = 0.18             # float\n\n# 2. EXPRESSIONS & OPERATORS (* for multiply, + for add)\nsubtotal = unit_price_inr * quantity\n\n# TODO 1: Multiply subtotal by gst_rate and store in gst_amount\ngst_amount = ___\n\n# TODO 2: Add subtotal and gst_amount and store in total_payable\ntotal_payable = ___\n\n# 3. FUNCTION CALL (print) with an f-string\nprint(f'{sku} | Subtotal: {subtotal} | Total: INR {total_payable:,.2f}')\n"
     }
   },
   {
     day: 2,
     month: 1,
     module: "M1: Python & Git",
-    title: "Control Flow & While/For Loops",
-    instructor: "Bro Code",
-    duration: "7m",
-    videoId: "rRTjPnVooxE",
+    title: "Strings, Zero-Based Indexing & Text Methods",
+    instructor: "Programming with Mosh",
+    duration: "12m",
+    videoId: "kqtD5dpn9C8",
     altVideoId: "LKFrQXaoSMQ",
-    startSec: 0,
-    bridge: "Scales Day 1 single-item calculations across batches of incoming ShopPulse orders with conditional discount rules.",
+    startSec: 1125,
+    bridge: "Demystifies dot-notation methods (city.strip()) and square-bracket indexing (sku[0:2]) used across all data cleaning.",
     takeaways: [
-      "Use if/elif/else branches to apply tiered cart discounts and shipping rules.",
-      "Iterate over order batches with for loops and guard termination in while loops.",
-      "Apply break and continue to skip cancelled or zero-value transactions."
+      "Vocabulary: a method is a function attached to an object via a dot (city.strip()), whereas len(city) is a standalone function.",
+      "Python uses zero-based indexing: index [0] is the first character, [-1] is the last, and [0:2] slices indices 0 and 1.",
+      "Strings are immutable—methods like .upper() and .title() return a brand-new string rather than modifying the original."
     ],
     lab: {
       lang: "python",
-      title: "Batch Order Revenue & Discount Scanner",
-      prompt: "Loop through a list of order totals in INR, skip cancelled (negative) entries, and apply a 10% discount on orders above 5000 INR.",
-      hint: "Use continue for values <= 0 and multiply values > 5000 by 0.90.",
-      starterCode: "raw_orders_inr = [6498.0, -500.0, 2499.0, 8999.0, 0.0, 1499.0]\nnet_revenue = 0.0\nvalid_count = 0\n\nfor amount in raw_orders_inr:\n    if amount <= 0:\n        continue\n    final_amt = amount * 0.90 if amount > 5000 else amount\n    net_revenue += final_amt\n    valid_count += 1\n\nprint(f'Valid Orders: {valid_count} | Net Revenue: INR {net_revenue:,.2f}')\n"
+      title: "Cleaning Dirty SKU & City Strings",
+      prompt: "Fill in the 3 TODO lines using string methods (.strip(), .title(), .upper()) and slicing to clean raw inputs.",
+      hint: "Chain raw_city.strip().title(), use raw_sku.strip().upper(), and slice clean_sku[0:2].",
+      starterCode: "raw_city = '   navi mumbai  '\nraw_sku = '  sp-402-blk '\n\n# TODO 1: Remove outer spaces with .strip() and capitalize words with .title()\nclean_city = ___\n\n# TODO 2: Remove outer spaces and convert raw_sku to uppercase with .upper()\nclean_sku = ___\n\n# TODO 3: Extract the first 2 characters ('SP') using slice [0:2]\nprefix = ___\n\nprint(f'City: {clean_city} | SKU: {clean_sku} | Prefix: {prefix} | Len: {len(clean_sku)}')\n"
     }
   },
   {
     day: 3,
     month: 1,
     module: "M1: Python & Git",
-    title: "Functions, Scope & Return Values",
-    instructor: "Bro Code",
-    duration: "11m",
-    videoId: "89cGQjB5R4M",
-    altVideoId: "I72uD8ED73U",
-    startSec: 0,
-    bridge: "Refactors Day 2 inline loops into reusable, testable pricing functions that our later ETL pipeline can import.",
+    title: "Comparison Operators & Decision Logic (if / elif / else)",
+    instructor: "Programming with Mosh",
+    duration: "15m",
+    videoId: "kqtD5dpn9C8",
+    altVideoId: "rRTjPnVooxE",
+    startSec: 1500,
+    bridge: "Builds crystal-clear mental models for boolean conditions (True/False) and indented decision trees.",
     takeaways: [
-      "Encapsulate business logic in pure functions with clear parameters and return values.",
-      "Understand local vs global variable scope to prevent accidental side effects.",
-      "Provide sensible default arguments for tax rates and currency rounding."
+      "Vocabulary: '=' assigns a value (x = 5), while '==' compares two values (x == 5) and returns a bool (True or False).",
+      "Logical operators (and, or, not) combine multiple comparisons into a single True/False condition.",
+      "A colon ':' ends the if/elif/else header line, and 4 spaces of indentation mark which lines belong inside that branch."
     ],
     lab: {
       lang: "python",
-      title: "Reusable Net Invoice Function",
-      prompt: "Write calculate_invoice(amount_inr, discount_pct=0.0, gst_pct=0.18) returning the rounded final invoice amount.",
-      hint: "Apply discount first: discounted = amount_inr * (1 - discount_pct), then add GST.",
-      starterCode: "def calculate_invoice(amount_inr, discount_pct=0.0, gst_pct=0.18):\n    discounted = amount_inr * (1.0 - discount_pct)\n    total = discounted * (1.0 + gst_pct)\n    return round(total, 2)\n\nprint('Standard:', calculate_invoice(2499.0))\nprint('Gold Tier:', calculate_invoice(8999.0, discount_pct=0.10))\n"
+      title: "ShopPulse Shipping & Tier Fee Router",
+      prompt: "Complete the if / elif / else conditions to set shipping_fee_inr based on order_total and is_prime.",
+      hint: "Use is_prime or order_total >= 3000 for 0.0, elif order_total >= 1000 for 49.0, else 99.0.",
+      starterCode: "order_total = 1850.0\nis_prime = False\n\n# TODO: Free shipping (0.0) if is_prime OR order_total >= 3000; 49.0 if >= 1000; else 99.0\nif ___:\n    shipping_fee_inr = 0.0\nelif ___:\n    shipping_fee_inr = 49.0\nelse:\n    shipping_fee_inr = 99.0\n\nprint(f'Order: INR {order_total} | Shipping: INR {shipping_fee_inr}')\n"
     }
   },
   {
     day: 4,
     month: 1,
     module: "M1: Python & Git",
-    title: "Flexible Signatures: *args & **kwargs",
-    instructor: "Bro Code",
-    duration: "15m",
-    videoId: "Vh__2V2tXUM",
-    altVideoId: "89cGQjB5R4M",
-    startSec: 0,
-    bridge: "Prepares our ingestion functions to accept variable-length item bundles (*args) and optional metadata tags (**kwargs).",
+    title: "Lists, Tuples & Sequence Indexing/Slicing",
+    instructor: "Programming with Mosh",
+    duration: "12m",
+    videoId: "kqtD5dpn9C8",
+    altVideoId: "C7ZZuuwrsVc",
+    startSec: 2520,
+    bridge: "Gives you full command of Python's two ordered sequences—mutable lists [...] and locked tuples (...)—before looping.",
     takeaways: [
-      "Pack variable positional arguments into a tuple using *args.",
-      "Capture arbitrary keyword metadata into a dictionary using **kwargs.",
-      "Unpack lists and dicts cleanly when forwarding arguments across helper functions."
+      "Vocabulary: a list [10, 20, 30] is mutable (you can .append() or overwrite items); a tuple (10, 20, 30) is immutable (locked).",
+      "Each slot in a sequence is an element accessed by its integer index: items[0] is first, items[-1] is last.",
+      "Use len(items) to count elements, sum(items) to total numbers, and 'value in items' to check membership."
     ],
     lab: {
       lang: "python",
-      title: "Dynamic Cart Bundler",
-      prompt: "Create build_order_summary(order_id, *item_prices, **meta) that sums variable item prices and prints customer metadata.",
-      hint: "Use sum(item_prices) for *args and meta.get('city', 'Unknown') for **kwargs.",
-      starterCode: "def build_order_summary(order_id, *item_prices, **meta):\n    subtotal = round(sum(item_prices), 2)\n    city = meta.get('city', 'N/A')\n    tier = meta.get('tier', 'Standard')\n    return {'order_id': order_id, 'items': len(item_prices), 'subtotal_inr': subtotal, 'city': city, 'tier': tier}\n\nprint(build_order_summary(1001, 4999.0, 1499.0, 799.0, city='Mumbai', tier='Gold'))\n"
+      title: "Cart Basket List Operations & Tuple Constants",
+      prompt: "Append 1299.0 to basket_inr, access the first and last prices via indexing, and print the basket sum.",
+      hint: "Use basket_inr.append(1299.0), basket_inr[0], and basket_inr[-1].",
+      starterCode: "GST_SLABS = (0.05, 0.12, 0.18)          # tuple (immutable)\nbasket_inr = [4999.0, 1499.0, 799.0]    # list (mutable)\n\n# TODO 1: Add 1299.0 to the end of basket_inr using .append()\n___\n\n# TODO 2: Access the first element [0] and last element [-1]\nfirst_item = ___\nlast_item = ___\n\nprint('Items:', len(basket_inr), '| First:', first_item, '| Last:', last_item)\nprint('Basket Sum: INR', sum(basket_inr), '| Standard GST:', GST_SLABS[-1])\n"
     }
   },
   {
     day: 5,
+    month: 1,
+    module: "M1: Python & Git",
+    title: "Loops Deep-Dive: for, while & range()",
+    instructor: "Programming with Mosh",
+    duration: "10m",
+    videoId: "kqtD5dpn9C8",
+    altVideoId: "rRTjPnVooxE",
+    startSec: 2340,
+    bridge: "Connects Day 3 conditionals and Day 4 lists into step-by-step accumulator loops you can read and write from scratch.",
+    takeaways: [
+      "Vocabulary: in 'for price in prices:', 'prices' is the iterable list and 'price' is the loop variable holding one item per pass.",
+      "The accumulator pattern starts with a counter/total before the loop (total = 0) and updates it inside (total += price).",
+      "Use continue to skip an unwanted item in the current pass, and break to exit the loop early."
+    ],
+    lab: {
+      lang: "python",
+      title: "Accumulator Loop Over ShopPulse Order Prices",
+      prompt: "Complete the for loop to sum and count only orders greater than 2000 INR.",
+      hint: "Inside 'for p in prices:', check 'if p > 2000:' and update high_total and high_count.",
+      starterCode: "prices = [1499.0, 4999.0, 799.0, 8999.0, 2499.0]\nhigh_total = 0.0\nhigh_count = 0\n\n# TODO: If p > 2000, add p to high_total and add 1 to high_count\nfor p in prices:\n    ___\n\nprint(f'Orders > 2000 INR: {high_count} | Combined Total: INR {high_total:.2f}')\n"
+    }
+  },
+  {
+    day: 6,
+    month: 1,
+    module: "M1: Python & Git",
+    title: "Functions, Parameters, Scope & Return Values",
+    instructor: "Bro Code",
+    duration: "11m",
+    videoId: "89cGQjB5R4M",
+    altVideoId: "I72uD8ED73U",
+    startSec: 0,
+    bridge: "Refactors inline loops into reusable, testable pricing functions that our later ETL pipeline can import.",
+    takeaways: [
+      "Vocabulary: parameters are placeholder names inside def func(param); arguments are actual values passed when calling func(val).",
+      "return sends a computed value back to the caller; print() only displays text on screen.",
+      "Variables created inside a function have local scope and vanish once the function finishes."
+    ],
+    lab: {
+      lang: "python",
+      title: "Reusable Net Invoice & Margin Function",
+      prompt: "Complete calculate_invoice(amount_inr, discount_pct=0.0, gst_pct=0.18) returning the rounded final invoice amount.",
+      hint: "discounted = amount_inr * (1.0 - discount_pct); total = discounted * (1.0 + gst_pct); return round(total, 2).",
+      starterCode: "def calculate_invoice(amount_inr, discount_pct=0.0, gst_pct=0.18):\n    # TODO: Apply discount_pct, then add gst_pct, and return rounded to 2 decimals\n    ___\n\nprint('Standard:', calculate_invoice(2499.0))\nprint('Gold Tier:', calculate_invoice(8999.0, discount_pct=0.10))\n"
+    }
+  },
+  {
+    day: 7,
     month: 1,
     module: "M1: Python & Git",
     title: "Dictionaries & Hash-Map Lookups",
@@ -108,22 +156,22 @@ window.CURRICULUM = [
     videoId: "u0yr9B3nH8c",
     altVideoId: "C7ZZuuwrsVc",
     startSec: 0,
-    bridge: "Models ShopPulse product catalogs and JSON records as O(1) hash maps using safe dictionary accessors.",
+    bridge: "Models ShopPulse product catalogs and JSON records as O(1) key-value hash maps using safe dictionary accessors.",
     takeaways: [
-      "Use .get(key, default) and .setdefault() to avoid KeyError crashes on sparse records.",
-      "Merge configuration dictionaries cleanly with the | union operator.",
-      "Iterate over .items(), .keys(), and .values() without redundant lookups."
+      "Vocabulary: a dictionary {'SP-101': 4999.0} maps unique keys to values inside curly braces {}.",
+      "Use catalog.get(key, default) instead of catalog[key] to avoid KeyError crashes when a SKU is missing.",
+      "Loop over both keys and values simultaneously using 'for key, val in my_dict.items():'."
     ],
     lab: {
       lang: "python",
-      title: "O(1) SKU Catalog Lookup & Stock Updater",
-      prompt: "Build a SKU-indexed catalog dictionary, safely query a missing SKU with .get(), and update stock counts.",
-      hint: "Use catalog.get(sku, {'name': 'Unknown', 'stock': 0}) for safe fallback lookups.",
-      starterCode: "catalog = {\n    'SP-101': {'name': 'Mechanical Keyboard', 'price': 4999.0, 'stock': 14},\n    'SP-102': {'name': 'Ergonomic Mouse', 'price': 1499.0, 'stock': 32},\n}\n\nfor sku in ['SP-101', 'SP-999']:\n    item = catalog.get(sku, {'name': 'Unlisted SKU', 'price': 0.0, 'stock': 0})\n    print(sku, '->', item['name'], '| Stock:', item['stock'])\n"
+      title: "O(1) SKU Catalog Lookup & Iteration",
+      prompt: "Fill in the TODO lines to safely look up 'SP-999' with .get() and loop through catalog.items().",
+      hint: "Use catalog.get('SP-999', {'name': 'Unlisted SKU', 'stock': 0}) and catalog.items().",
+      starterCode: "catalog = {\n    'SP-101': {'name': 'Mechanical Keyboard', 'price': 4999.0, 'stock': 14},\n    'SP-102': {'name': 'Ergonomic Mouse', 'price': 1499.0, 'stock': 32},\n}\n\n# TODO 1: Safely look up 'SP-999' with fallback {'name': 'Unlisted SKU', 'stock': 0}\nmissing_item = ___\nprint('Lookup SP-999 ->', missing_item['name'])\n\n# TODO 2: Iterate over catalog.items()\nfor sku, info in ___:\n    print(f\"{sku}: {info['name']} (Stock: {info['stock']})\")\n"
     }
   },
   {
-    day: 6,
+    day: 8,
     month: 1,
     module: "M1: Python & Git",
     title: "Sets & O(1) Membership Optimization",
@@ -134,20 +182,20 @@ window.CURRICULUM = [
     startSec: 0,
     bridge: "Uses set algebra to deduplicate customer IDs and compute repeat vs churned buyers before we even touch SQL.",
     takeaways: [
-      "Replace O(n) list membership scans with O(1) hash-set lookups.",
-      "Compute customer overlap, new signups, and churn using &, |, and - set operators.",
-      "Deduplicate raw event streams while preserving data integrity."
+      "Vocabulary: a set {101, 102, 103} is an unordered collection of strictly unique items with instant O(1) lookup.",
+      "Compute customer overlap (&), combined union (|), and difference (-) directly with set operators.",
+      "Convert a list with duplicates into unique IDs via set(my_list)."
     ],
     lab: {
       lang: "python",
       title: "Cohort Overlap & Churn Detector via Sets",
       prompt: "Given Jan and Feb active customer ID sets, compute retained buyers, new Feb buyers, and churned Jan buyers.",
       hint: "Retained = jan & feb, New = feb - jan, Churned = jan - feb.",
-      starterCode: "jan_buyers = {101, 102, 103, 104, 105}\nfeb_buyers = {102, 104, 106, 107}\n\nretained = jan_buyers & feb_buyers\nnew_feb = feb_buyers - jan_buyers\nchurned = jan_buyers - feb_buyers\n\nprint('Retained:', sorted(retained))\nprint('New in Feb:', sorted(new_feb))\nprint('Churned:', sorted(churned))\n"
+      starterCode: "jan_buyers = {101, 102, 103, 104, 105}\nfeb_buyers = {102, 104, 106, 107}\n\n# TODO: Use &, -, and - set operators\nretained = ___\nnew_feb = ___\nchurned = ___\n\nprint('Retained:', sorted(retained))\nprint('New in Feb:', sorted(new_feb))\nprint('Churned:', sorted(churned))\n"
     }
   },
   {
-    day: 7,
+    day: 9,
     month: 1,
     module: "M1: Python & Git",
     title: "List, Dict & Set Comprehensions",
@@ -156,22 +204,22 @@ window.CURRICULUM = [
     videoId: "HmZSlcZASGw",
     altVideoId: "C7ZZuuwrsVc",
     startSec: 0,
-    bridge: "Transforms multi-line filtering loops from Day 2 into concise, readable one-pass data transformations.",
+    bridge: "Transforms multi-line filtering loops from Day 5 into concise, readable one-line data transformations.",
     takeaways: [
-      "Write clean list, dict, and set comprehensions with inline filter predicates.",
-      "Know when a comprehension improves clarity versus when a standard loop is more readable.",
-      "Normalize strings and build lookup tables in a single expression."
+      "Vocabulary: a comprehension [expr for item in iterable if cond] builds a new collection in one readable expression.",
+      "Read comprehensions in three parts: (1) output expression, (2) for-loop source, (3) optional if-filter.",
+      "Fall back to a standard multi-line loop whenever logic requires multiple branches or side effects."
     ],
     lab: {
       lang: "python",
       title: "One-Pass Order Normalization",
-      prompt: "Use a dict comprehension to map order_id -> rounded INR total for all 'Delivered' orders.",
+      prompt: "Complete the dict comprehension mapping order_id -> rounded INR total for all 'Delivered' orders.",
       hint: "{o['id']: round(o['total'], 2) for o in orders if o['status'] == 'Delivered'}",
-      starterCode: "orders = [\n    {'id': 1001, 'status': 'Delivered', 'total': 6498.456},\n    {'id': 1002, 'status': 'Cancelled', 'total': 1499.00},\n    {'id': 1003, 'status': 'Delivered', 'total': 8999.123},\n]\n\ndelivered_totals = {o['id']: round(o['total'], 2) for o in orders if o['status'] == 'Delivered'}\nprint(delivered_totals)\n"
+      starterCode: "orders = [\n    {'id': 1001, 'status': 'Delivered', 'total': 6498.456},\n    {'id': 1002, 'status': 'Cancelled', 'total': 1499.00},\n    {'id': 1003, 'status': 'Delivered', 'total': 8999.123},\n]\n\n# TODO: Map o['id'] -> round(o['total'], 2) ONLY when o['status'] == 'Delivered'\ndelivered_totals = {___ for o in orders if ___}\nprint(delivered_totals)\n"
     }
   },
   {
-    day: 8,
+    day: 10,
     month: 1,
     module: "M1: Python & Git",
     title: "Pythonic Idioms & Built-in Features",
@@ -182,20 +230,20 @@ window.CURRICULUM = [
     startSec: 0,
     bridge: "Equips your data scripts with enumerate, zip, any/all, and generator expressions for memory-safe iteration.",
     takeaways: [
-      "Pair parallel columns safely with zip() and track row indices with enumerate().",
-      "Validate dataset invariants concisely using any() and all().",
+      "Pair parallel columns safely with zip(names, prices) and track row numbers with enumerate(..., start=1).",
+      "Validate dataset invariants concisely using all() (every check True) and any() (at least one True).",
       "Use generator expressions inside sum() or max() to avoid materializing temporary lists."
     ],
     lab: {
       lang: "python",
       title: "Parallel Column Alignment & Data Quality Check",
-      prompt: "Zip product names with prices, verify all prices are positive using all(), and print ranked items via enumerate().",
-      hint: "Use all(p > 0 for p in prices) and enumerate(zip(names, prices), start=1).",
-      starterCode: "products = ['Keyboard', 'Mouse', 'USB-C Hub', 'Headphones']\nprices = [4999.0, 1499.0, 2499.0, 8999.0]\n\nis_valid = all(p > 0 for p in prices)\nprint('All prices positive:', is_valid)\n\nfor idx, (name, price) in enumerate(zip(products, prices), start=1):\n    print(f'{idx}. {name}: INR {price:.2f}')\n"
+      prompt: "Verify all prices are positive using all(), then pair products and prices with zip() inside enumerate().",
+      hint: "Use all(p > 0 for p in prices).",
+      starterCode: "products = ['Keyboard', 'Mouse', 'USB-C Hub', 'Headphones']\nprices = [4999.0, 1499.0, 2499.0, 8999.0]\n\n# TODO: Verify every price in prices is > 0 using all()\nis_valid = ___\nprint('All prices positive:', is_valid)\n\nfor idx, (name, price) in enumerate(zip(products, prices), start=1):\n    print(f'{idx}. {name}: INR {price:.2f}')\n"
     }
   },
   {
-    day: 9,
+    day: 11,
     month: 1,
     module: "M1: Python & Git",
     title: "Clean Code Habits & Type Hints",
@@ -204,22 +252,22 @@ window.CURRICULUM = [
     videoId: "I72uD8ED73U",
     altVideoId: "C7ZZuuwrsVc",
     startSec: 0,
-    bridge: "Adds static type annotations and guard clauses so your ShopPulse ingestion codebase scales without silent type bugs.",
+    bridge: "Adds static type annotations and guard clauses so your ShopPulse ingestion codebase scales without silent bugs.",
     takeaways: [
-      "Annotate function signatures with list[dict], float, and optional return types.",
-      "Flatten deeply nested if-blocks using early-return guard clauses.",
+      "Annotate function signatures with list[float], dict[str, int], and return types (-> float).",
+      "Flatten deeply nested if-blocks using early-return guard clauses at the top of a function.",
       "Separate pure data transformation logic from I/O side effects."
     ],
     lab: {
       lang: "python",
       title: "Type-Annotated Revenue Aggregator",
-      prompt: "Add full Python type hints and an empty-list guard clause to compute average order value (AOV).",
-      hint: "Check if not amounts: return 0.0 at the top of the function.",
-      starterCode: "def compute_aov(amounts: list[float]) -> float:\n    if not amounts:\n        return 0.0\n    return round(sum(amounts) / len(amounts), 2)\n\nprint('AOV:', compute_aov([6498.0, 2499.0, 8999.0]))\nprint('Empty:', compute_aov([]))\n"
+      prompt: "Add an empty-list guard clause so compute_aov([]) returns 0.0 instead of raising ZeroDivisionError.",
+      hint: "Check 'if not amounts: return 0.0' before dividing by len(amounts).",
+      starterCode: "def compute_aov(amounts: list[float]) -> float:\n    # TODO: Return 0.0 immediately if amounts is empty\n    ___\n    return round(sum(amounts) / len(amounts), 2)\n\nprint('AOV:', compute_aov([6498.0, 2499.0, 8999.0]))\nprint('Empty:', compute_aov([]))\n"
     }
   },
   {
-    day: 10,
+    day: 12,
     month: 1,
     module: "M1: Python & Git",
     title: "Defensive Code: Exception Handling",
@@ -230,20 +278,20 @@ window.CURRICULUM = [
     startSec: 0,
     bridge: "Protects your ingestion pipeline from crashing when third-party vendor feeds send malformed numbers or missing keys.",
     takeaways: [
-      "Catch specific exceptions (ValueError, KeyError, ZeroDivisionError) rather than bare except.",
-      "Use try/except/else/finally blocks to guarantee resource cleanup.",
+      "Vocabulary: an Exception is a runtime error object (ValueError, KeyError) that halts execution unless caught.",
+      "Catch specific exceptions in try/except blocks rather than bare except clauses.",
       "Quarantine corrupt rows with diagnostic messages instead of halting batch jobs."
     ],
     lab: {
       lang: "python",
       title: "Resilient Price Parser",
       prompt: "Parse a list of messy string prices into floats, catching ValueError and logging bad entries.",
-      hint: "Wrap float(raw) in try/except ValueError inside a loop.",
-      starterCode: "raw_prices = ['4999.0', '1499.50', 'N/A', '2499.0', 'corrupt']\nclean_prices: list[float] = []\n\nfor raw in raw_prices:\n    try:\n        clean_prices.append(float(raw))\n    except ValueError:\n        print(f'[WARN] Skipping invalid price token: {raw}')\n\nprint('Parsed:', clean_prices)\n"
+      hint: "Wrap clean_prices.append(float(raw)) inside try: and catch except ValueError:.",
+      starterCode: "raw_prices = ['4999.0', '1499.50', 'N/A', '2499.0', 'corrupt']\nclean_prices: list[float] = []\n\nfor raw in raw_prices:\n    try:\n        # TODO: Convert raw to float and append to clean_prices\n        ___\n    except ValueError:\n        print(f'[WARN] Skipping invalid price token: {raw}')\n\nprint('Parsed:', clean_prices)\n"
     }
   },
   {
-    day: 11,
+    day: 13,
     month: 1,
     module: "M1: Python & Git",
     title: "Writing Structured Logs & Output Files",
@@ -254,9 +302,9 @@ window.CURRICULUM = [
     startSec: 0,
     bridge: "Persists cleaned batch summaries to disk using context managers (with open) so audit trails survive script restarts.",
     takeaways: [
-      "Always use 'with open(..., encoding=\"utf-8\")' so file handles close deterministically.",
-      "Differentiate write mode ('w') from append mode ('a') for incremental logs.",
-      "Format delimiter-separated audit records cleanly."
+      "Vocabulary: a context manager ('with open(...) as f:') closes the file automatically even if an error occurs.",
+      "Differentiate write mode ('w') from append mode ('a') and read mode ('r').",
+      "Format delimiter-separated audit records cleanly with encoding='utf-8'."
     ],
     lab: {
       lang: "python",
@@ -267,7 +315,7 @@ window.CURRICULUM = [
     }
   },
   {
-    day: 12,
+    day: 14,
     month: 1,
     module: "M1: Python & Git",
     title: "Reading & Parsing Raw Text/CSV Files",
@@ -278,9 +326,9 @@ window.CURRICULUM = [
     startSec: 0,
     bridge: "Reads raw CSV exports from legacy store systems using Python's standard csv.DictReader before we introduce Pandas.",
     takeaways: [
+      "Vocabulary: a module ('import csv') is a reusable Python file of built-in or third-party tools.",
       "Parse header-driven CSV files cleanly with csv.DictReader and io.StringIO.",
-      "Strip whitespace and cast string fields into numeric types during ingestion.",
-      "Handle missing optional columns gracefully."
+      "Cast string fields into numeric types during ingestion."
     ],
     lab: {
       lang: "python",
@@ -291,7 +339,7 @@ window.CURRICULUM = [
     }
   },
   {
-    day: 13,
+    day: 15,
     month: 1,
     module: "M1: Python & Git",
     title: "Serializing & Parsing JSON Payloads",
@@ -315,7 +363,7 @@ window.CURRICULUM = [
     }
   },
   {
-    day: 14,
+    day: 16,
     month: 1,
     module: "M1: Python & Git",
     title: "Fetching Live REST API Data (requests)",
@@ -339,10 +387,10 @@ window.CURRICULUM = [
     }
   },
   {
-    day: 15,
+    day: 17,
     month: 1,
     module: "M1: Python & Git",
-    title: "OOP Part 1: Classes & Data Models",
+    title: "OOP Part 1: Classes, __init__ & Domain Models",
     instructor: "Bro Code",
     duration: "30m",
     videoId: "IbMDCwVm63M",
@@ -350,9 +398,9 @@ window.CURRICULUM = [
     startSec: 0,
     bridge: "Upgrades loose dictionaries into strongly structured Product and Order classes with built-in validation methods.",
     takeaways: [
+      "Vocabulary: a class is a blueprint, an object/instance is built from it, and 'self' refers to that specific instance.",
       "Define clean __init__ constructors and instance attributes.",
-      "Attach domain methods (like apply_discount or margin) directly to data entities.",
-      "Differentiate class-level constants from per-instance state."
+      "Attach domain methods (like gross_margin_pct) directly to data entities."
     ],
     lab: {
       lang: "python",
@@ -363,20 +411,20 @@ window.CURRICULUM = [
     }
   },
   {
-    day: 16,
+    day: 18,
     month: 1,
     module: "M1: Python & Git",
-    title: "OOP Part 2: Inheritance & Composition",
+    title: "OOP Part 2: Inheritance, Composition & @property",
     instructor: "Bro Code",
-    duration: "30m",
+    duration: "35m",
     videoId: "IbMDCwVm63M",
-    altVideoId: "I72uD8ED73U",
+    altVideoId: "C7ZZuuwrsVc",
     startSec: 1800,
-    bridge: "Models specialized data connectors (CSVConnector, APIConnector) inheriting from a shared BaseConnector contract.",
+    bridge: "Models specialized data connectors (APIConnector) and validated @property attributes without boilerplate.",
     takeaways: [
-      "Share common connection and logging logic via parent base classes and super().",
-      "Prefer composition (an Order has-a list of LineItems) over deep inheritance trees.",
-      "Avoid duplicate boilerplate across multiple ingestion sources."
+      "Share common connection logic via parent base classes and super().__init__().",
+      "Use @property getters to expose computed attributes cleanly without parentheses.",
+      "Design interchangeable pipeline connectors that share a common .extract() method."
     ],
     lab: {
       lang: "python",
@@ -387,58 +435,10 @@ window.CURRICULUM = [
     }
   },
   {
-    day: 17,
-    month: 1,
-    module: "M1: Python & Git",
-    title: "OOP Part 3: Polymorphism & Duck Typing",
-    instructor: "Bro Code",
-    duration: "30m",
-    videoId: "IbMDCwVm63M",
-    altVideoId: "C7ZZuuwrsVc",
-    startSec: 3600,
-    bridge: "Lets our ETL runner call .extract() uniformly across CSV, JSON, and API connectors without if/else type checks.",
-    takeaways: [
-      "Design interchangeable pipeline steps that share a common method interface.",
-      "Leverage Python duck typing to swap live API sources with local fixtures during testing.",
-      "Keep orchestration loops agnostic to underlying storage formats."
-    ],
-    lab: {
-      lang: "python",
-      title: "Polymorphic Pipeline Runner",
-      prompt: "Create CSVSource and JSONSource classes, each implementing extract() -> list[dict], and run them in a single loop.",
-      hint: "Iterate over sources = [CSVSource(), JSONSource()] and extend a master records list.",
-      starterCode: "class CSVSource:\n    def extract(self) -> list[dict]:\n        return [{'order_id': 1001, 'source': 'csv'}]\n\nclass JSONSource:\n    def extract(self) -> list[dict]:\n        return [{'order_id': 1002, 'source': 'json'}]\n\nall_records = []\nfor src in [CSVSource(), JSONSource()]:\n    all_records.extend(src.extract())\n\nprint('Unified Batch:', all_records)\n"
-    }
-  },
-  {
-    day: 18,
-    month: 1,
-    module: "M1: Python & Git",
-    title: "OOP Part 4: @property & Magic Methods",
-    instructor: "Bro Code",
-    duration: "35m",
-    videoId: "IbMDCwVm63M",
-    altVideoId: "I72uD8ED73U",
-    startSec: 5400,
-    bridge: "Adds @property validation guards (preventing negative prices) and clean __repr__ / __len__ dunder methods.",
-    takeaways: [
-      "Use @property getters and setters to enforce domain invariants transparently.",
-      "Implement __repr__ for unambiguous debugging logs and __len__ for container objects.",
-      "Protect internal state without breaking clean attribute syntax."
-    ],
-    lab: {
-      lang: "python",
-      title: "Validated OrderCart with @property & __len__",
-      prompt: "Implement OrderCart with __len__ returning item count and a @property total_inr computing the cart sum.",
-      hint: "Define def __len__(self): return len(self.items) and @property def total_inr(self).",
-      starterCode: "class OrderCart:\n    def __init__(self, order_id: int):\n        self.order_id = order_id\n        self.items: list[tuple[str, float]] = []\n\n    def add(self, sku: str, price: float) -> None:\n        if price < 0:\n            raise ValueError('Price cannot be negative')\n        self.items.append((sku, price))\n\n    def __len__(self) -> int:\n        return len(self.items)\n\n    @property\n    def total_inr(self) -> float:\n        return round(sum(p for _, p in self.items), 2)\n\ncart = OrderCart(1005)\ncart.add('SP-101', 4999.0)\ncart.add('SP-105', 799.0)\nprint(f'Items: {len(cart)} | Total: INR {cart.total_inr}')\n"
-    }
-  },
-  {
     day: 19,
     month: 1,
     module: "M1: Python & Git",
-    title: "Unit Testing ETL Functions",
+    title: "Unit Testing ETL Functions with Assertions",
     instructor: "NeuralNine",
     duration: "26m",
     videoId: "UL0opWf3DeM",
@@ -468,7 +468,7 @@ window.CURRICULUM = [
     videoId: "-F6wVOlsEAM",
     altVideoId: "UL0opWf3DeM",
     startSec: 0,
-    bridge: "Uses unittest.mock to test our Day 14 API client offline against simulated HTTP 200 and HTTP 503 responses.",
+    bridge: "Uses unittest.mock to test our Day 16 API client offline against simulated HTTP responses.",
     takeaways: [
       "Isolate external HTTP or database calls with unittest.mock.MagicMock and patch.",
       "Simulate rate limits (429) and server timeouts without hitting live endpoints.",
@@ -484,30 +484,6 @@ window.CURRICULUM = [
   },
   {
     day: 21,
-    month: 1,
-    module: "M1: Python & Git",
-    title: "Test-Driven Development (TDD) Workflow",
-    instructor: "NeuralNine",
-    duration: "16m",
-    videoId: "Y6Q3ZWXIvms",
-    altVideoId: "UL0opWf3DeM",
-    startSec: 0,
-    bridge: "Applies Red-Green-Refactor to build a bulletproof SKU deduplicator before committing code to Git.",
-    takeaways: [
-      "Write a failing specification test first (Red), implement minimal code to pass (Green), then clean up (Refactor).",
-      "Use TDD to clarify edge-case requirements before writing complex parsing logic.",
-      "Build confidence to refactor aggressively without breaking contracts."
-    ],
-    lab: {
-      lang: "python",
-      title: "TDD Order-Preserving Deduplicator",
-      prompt: "Implement deduplicate_skus(skus) so all TDD assertions pass while preserving first-seen order.",
-      hint: "Track seen items in a set while appending unseen items to a result list.",
-      starterCode: "def deduplicate_skus(skus: list[str]) -> list[str]:\n    seen: set[str] = set()\n    unique: list[str] = []\n    for s in skus:\n        if s not in seen:\n            seen.add(s)\n            unique.append(s)\n    return unique\n\nassert deduplicate_skus(['SP-1', 'SP-2', 'SP-1', 'SP-3', 'SP-2']) == ['SP-1', 'SP-2', 'SP-3']\nassert deduplicate_skus([]) == []\nprint('TDD assertions green!')\n"
-    }
-  },
-  {
-    day: 22,
     month: 1,
     module: "M1: Python & Git",
     title: "Git Basics: Init, Stage, Commit & History",
@@ -531,7 +507,7 @@ window.CURRICULUM = [
     }
   },
   {
-    day: 23,
+    day: 22,
     month: 1,
     module: "M1: Python & Git",
     title: "Git Branching & Merging Feature Work",
@@ -549,13 +525,13 @@ window.CURRICULUM = [
     lab: {
       lang: "python",
       title: "Branch Naming & Conventional Commit Validator",
-      prompt: "Write a validator verifying branch names start with feat/, fix/, or docs/ and commit messages follow conventional prefixes.",
-      hint: "Use tuple prefixes with str.startswith(('feat/', 'fix/', 'docs/')).",
+      prompt: "Write a validator verifying branch names start with feat/, fix/, or docs/.",
+      hint: "Use tuple prefixes with str.startswith(('feat/', 'fix/', 'docs/', 'chore/')).",
       starterCode: "def validate_branch(name: str) -> bool:\n    return name.startswith(('feat/', 'fix/', 'docs/', 'chore/'))\n\nfor b in ['feat/sqlite-ingest', 'random-test', 'fix/null-price']:\n    print(f'{b:22s} -> valid={validate_branch(b)}')\n"
     }
   },
   {
-    day: 24,
+    day: 23,
     month: 1,
     module: "M1: Python & Git",
     title: "GitHub Remotes, Pull Requests & Forks",
@@ -579,7 +555,7 @@ window.CURRICULUM = [
     }
   },
   {
-    day: 25,
+    day: 24,
     month: 1,
     module: "M1: Python & Git",
     title: "Resolving Merge Conflicts & Rebasing",
@@ -603,7 +579,7 @@ window.CURRICULUM = [
     }
   },
   {
-    day: 26,
+    day: 25,
     month: 1,
     module: "M1: Python & Git",
     title: "Git Stash, Reset & Tagging Releases",
@@ -627,6 +603,30 @@ window.CURRICULUM = [
     }
   },
   {
+    day: 26,
+    month: 1,
+    module: "M1: Python & Git",
+    title: "Flexible Function Signatures: *args & **kwargs",
+    instructor: "Bro Code",
+    duration: "15m",
+    videoId: "Vh__2V2tXUM",
+    altVideoId: "89cGQjB5R4M",
+    startSec: 0,
+    bridge: "Equips your ingestion helpers to accept variable-length item bundles (*args) and optional metadata tags (**kwargs).",
+    takeaways: [
+      "Pack variable positional arguments into a tuple using *args.",
+      "Capture arbitrary keyword metadata into a dictionary using **kwargs.",
+      "Unpack lists and dicts cleanly when forwarding arguments across helper functions."
+    ],
+    lab: {
+      lang: "python",
+      title: "Dynamic Cart Bundler",
+      prompt: "Create build_order_summary(order_id, *item_prices, **meta) that sums variable item prices and prints metadata.",
+      hint: "Use sum(item_prices) for *args and meta.get('city', 'N/A') for **kwargs.",
+      starterCode: "def build_order_summary(order_id, *item_prices, **meta):\n    subtotal = round(sum(item_prices), 2)\n    city = meta.get('city', 'N/A')\n    tier = meta.get('tier', 'Standard')\n    return {'order_id': order_id, 'items': len(item_prices), 'subtotal_inr': subtotal, 'city': city, 'tier': tier}\n\nprint(build_order_summary(1001, 4999.0, 1499.0, 799.0, city='Mumbai', tier='Gold'))\n"
+    }
+  },
+  {
     day: 27,
     month: 1,
     module: "M1: Python & Git",
@@ -636,7 +636,7 @@ window.CURRICULUM = [
     videoId: "JVQNywo4AbU",
     altVideoId: "r4MLHHLctKw",
     startSec: 0,
-    bridge: "Combines functions, classes, JSON parsing, exception handling, and assertions into a unified Month 1 ingestion pipeline.",
+    bridge: "Combines functions, JSON parsing, exception handling, and assertions into a unified Month 1 ingestion pipeline.",
     takeaways: [
       "Assemble an end-to-end Extract-Validate-Transform pipeline in clean modular Python.",
       "Log rejected records separately from valid normalized output.",
@@ -645,7 +645,7 @@ window.CURRICULUM = [
     lab: {
       lang: "python",
       title: "Capstone 1A: Complete JSON Order Normalizer",
-      prompt: "Process a raw JSON feed of ShopPulse orders: filter valid Delivered orders, compute GST, and output summary metrics.",
+      prompt: "Process a raw JSON feed of ShopPulse orders: filter valid Delivered orders and output summary metrics.",
       hint: "Parse JSON, validate total_inr > 0, and aggregate total revenue and order count.",
       starterCode: "import json\n\nraw_feed = '''[\n  {\"order_id\": 1001, \"city\": \"Mumbai\", \"status\": \"Delivered\", \"total_inr\": 6498.0},\n  {\"order_id\": 1002, \"city\": \"Bengaluru\", \"status\": \"Delivered\", \"total_inr\": 8999.0},\n  {\"order_id\": 1003, \"city\": \"Delhi\", \"status\": \"Cancelled\", \"total_inr\": 1499.0},\n  {\"order_id\": 1004, \"city\": \"Pune\", \"status\": \"Delivered\", \"total_inr\": -50.0}\n]'''\n\norders = json.loads(raw_feed)\nvalid = [o for o in orders if o['status'] == 'Delivered' and o['total_inr'] > 0]\nrevenue = sum(o['total_inr'] for o in valid)\nassert len(valid) == 2\nprint(f'Capstone 1A Verified -> Valid Orders: {len(valid)} | Revenue: INR {revenue:,.2f}')\n"
     }
@@ -732,7 +732,7 @@ window.CURRICULUM = [
     videoId: "cMUJFau5Wvg",
     altVideoId: "TDKoTItCVMU",
     startSec: 0,
-    bridge: "Translates Day 7 Python list-comprehension filters into push-down SQL WHERE predicates.",
+    bridge: "Translates Python list-comprehension filters into push-down SQL WHERE predicates.",
     takeaways: [
       "Combine AND, OR, and NOT with explicit parentheses to avoid operator-precedence bugs.",
       "Filter sets with IN, closed ranges with BETWEEN, and text patterns with LIKE.",
@@ -741,8 +741,8 @@ window.CURRICULUM = [
     lab: {
       lang: "sql",
       title: "High-Value Delivered Orders Filter",
-      prompt: "Find all Delivered orders in Mumbai or Bengaluru with total_inr between 2500 and 10000.",
-      hint: "Join orders with customers or filter orders WHERE status = 'Delivered' AND total_inr BETWEEN 2500 AND 10000.",
+      prompt: "Find all Delivered orders with total_inr between 2500 and 10000.",
+      hint: "Filter orders WHERE status = 'Delivered' AND total_inr BETWEEN 2500 AND 10000.",
       starterCode: "SELECT order_id, customer_id, order_date, total_inr\nFROM orders\nWHERE status = 'Delivered'\n  AND total_inr BETWEEN 2500 AND 10000;\n"
     }
   },
@@ -1068,7 +1068,7 @@ window.CURRICULUM = [
     videoId: "nJIEIzF7tDw",
     altVideoId: "QNfnuK-1YYY",
     startSec: 2100,
-    bridge: "Uses short-circuiting EXISTS / NOT EXISTS predicates to isolate customers who have never left a product review.",
+    bridge: "Uses short-circuiting EXISTS / NOT EXISTS predicates to isolate customers or products without related records.",
     takeaways: [
       "Understand how correlated subqueries evaluate once per outer candidate row.",
       "Prefer EXISTS / NOT EXISTS over NOT IN when NULL values may appear in the subquery.",
@@ -1869,8 +1869,8 @@ window.CURRICULUM = [
     lab: {
       lang: "python",
       title: "KPI Threshold & Promo Spike Annotator",
-      prompt: "Detect days exceeding the 90th-percentile revenue threshold and generate structured annotation coordinates.",
-      hint: "Compute thresh = np.percentile(rev, 90) and filter rows above thresh.",
+      prompt: "Detect days exceeding the 85th-percentile revenue threshold and generate structured annotation coordinates.",
+      hint: "Compute thresh = np.percentile(rev, 85) and filter rows above thresh.",
       starterCode: "import pandas as pd\nimport numpy as np\n\ndf = pd.DataFrame({\n    'date': ['2026-03-01', '2026-03-02', '2026-03-03', '2026-03-04', '2026-03-05'],\n    'rev': [4500.0, 4800.0, 12900.0, 5100.0, 4900.0]\n})\nthresh = np.percentile(df['rev'], 85)\nspikes = df[df['rev'] >= thresh]\nprint(f'Threshold: INR {thresh:.2f}\\nAnnotated Spikes:\\n', spikes)\n"
     }
   },
@@ -1965,7 +1965,7 @@ window.CURRICULUM = [
     lab: {
       lang: "python",
       title: "Automated EDA Health Report Function",
-      prompt: "Write an eda_profile(df) function returning row count, duplicate count, null count, and numeric column means.",
+      prompt: "Write an eda_profile(df) function returning row count, duplicate count, null count, and column count.",
       hint: "Combine len(df), df.duplicated().sum(), and df.isna().sum().sum().",
       starterCode: "import pandas as pd\n\ndef eda_profile(df: pd.DataFrame) -> dict:\n    return {\n        'rows': len(df),\n        'cols': df.shape[1],\n        'duplicates': int(df.duplicated().sum()),\n        'total_nulls': int(df.isna().sum().sum())\n    }\n\nsample = pd.DataFrame({'id': [1, 2, 2], 'val': [100.0, None, None]})\nprint(eda_profile(sample))\n"
     }
@@ -2020,2023 +2020,2023 @@ window.CURRICULUM = [
   }
 ];
 // DataForge // Instinct OS - Decoupled 168-Day Curriculum (Part 2 of 2: Days 85-168)
-// Paste directly beneath Part 1 (Days 1-84) in curriculum.js.
+// Paste directly below Part 1 in curriculum.js. Pure ASCII-safe strings.
 
 window.CURRICULUM.push(
   {
     day: 85,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "Bridge 3->4: PMF, PDF & CDF Probability Foundations",
+    module: "M4: Math & Stats",
+    title: "Probability Foundations: PMF, PDF & CDF",
     instructor: "StatQuest",
-    duration: "11m",
-    videoId: "YXLVjCKVP7U",
-    altVideoId: "oI3hZJqXJuc",
+    duration: "6m",
+    videoId: "oI3hZJqXJuc",
+    altVideoId: "J8jNoF-K8E8",
     startSec: 0,
-    bridge: "Formalizes the empirical histograms from Month 3 EDA into exact Probability Mass, Density, and Cumulative Distribution functions.",
+    bridge: "Formalizes Day 84 EDA histograms into Probability Mass Functions (discrete clicks) and Probability Density Functions (continuous revenue).",
     takeaways: [
-      "Distinguish discrete PMF probabilities P(X = k) from continuous PDF densities where area equals probability.",
-      "Compute tail probabilities P(X <= x) and quantiles directly with Cumulative Distribution Functions (CDF).",
-      "Recognize why individual continuous point probabilities equal zero."
+      "Vocabulary: PMF gives exact probabilities for discrete outcomes; PDF gives density over continuous intervals where area equals probability.",
+      "The Cumulative Distribution Function CDF(x) = P(X <= x) answers 'what fraction of orders are at or below x INR?'",
+      "Total probability across all possible outcomes always sums or integrates to 1.0."
     ],
     lab: {
       lang: "python",
-      title: "Bridge 3->4: Normal & Binomial CDF Tail Evaluator",
-      prompt: "Use scipy.stats.norm to compute the probability that a ShopPulse order (mean=3500, sd=900) exceeds 5000 INR.",
-      hint: "Use 1 - stats.norm.cdf(5000, loc=3500, scale=900) or stats.norm.sf(5000, loc=3500, scale=900).",
-      starterCode: "from scipy import stats\n\nprob_over_5k = stats.norm.sf(5000, loc=3500, scale=900)\nprob_between = stats.norm.cdf(4500, loc=3500, scale=900) - stats.norm.cdf(2500, loc=3500, scale=900)\nprint(f'P(Order > 5000 INR): {prob_over_5k:.4f}')\nprint(f'P(2500 <= Order <= 4500): {prob_between:.4f}')\n"
+      title: "Empirical PMF & CDF of ShopPulse Basket Sizes",
+      prompt: "Compute the discrete PMF and cumulative CDF across order item counts [1, 1, 2, 1, 3, 2, 1, 4, 2, 1].",
+      hint: "Use pd.Series(items).value_counts(normalize=True).sort_index() for PMF and .cumsum() for CDF.",
+      starterCode: "import pandas as pd\n\nitems_per_order = [1, 1, 2, 1, 3, 2, 1, 4, 2, 1]\ns = pd.Series(items_per_order)\npmf = s.value_counts(normalize=True).sort_index()\ncdf = pmf.cumsum()\n\nprint(pd.DataFrame({'pmf': pmf, 'cdf': cdf}))\n"
     }
   },
   {
     day: 86,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "Binomial Distribution for Checkout Conversions",
+    module: "M4: Math & Stats",
+    title: "Discrete Distributions: Bernoulli, Binomial & Poisson",
     instructor: "StatQuest",
-    duration: "12m",
+    duration: "10m",
     videoId: "J8jNoF-K8E8",
-    altVideoId: "YXLVjCKVP7U",
+    altVideoId: "oI3hZJqXJuc",
     startSec: 0,
-    bridge: "Models n independent checkout sessions with conversion probability p to compute exact A/B test tail likelihoods.",
+    bridge: "Models checkout conversions with Binomial(n, p) and hourly order arrivals with Poisson(lambda) to size server and inventory capacity.",
     takeaways: [
-      "Identify the four Binomial conditions: fixed trials n, independent events, two outcomes, constant probability p.",
-      "Compute exact k-success probabilities via binom.pmf(k, n, p).",
-      "Evaluate extreme conversion spikes using survival probabilities binom.sf(k - 1, n, p)."
+      "Bernoulli(p) models a single conversion trial; Binomial(n, p) models k conversions out of n visitors.",
+      "Poisson(lambda) models rare event counts arriving per fixed time window (e.g., orders per hour).",
+      "Check mean == variance as a quick sanity test for Poisson arrival assumptions."
     ],
     lab: {
       lang: "python",
-      title: "Exact Binomial Conversion Probability",
-      prompt: "Given n=200 checkout visitors and baseline p=0.08, compute the probability of observing 24 or more conversions.",
-      hint: "Use stats.binom.sf(23, n=200, p=0.08).",
-      starterCode: "from scipy import stats\n\np_spike = stats.binom.sf(23, n=200, p=0.08)\nexpected = 200 * 0.08\nprint(f'Expected Conversions: {expected:.1f} | P(X >= 24): {p_spike:.4f}')\n"
+      title: "Simulating Hourly Order Arrivals & Conversion Counts",
+      prompt: "Simulate 1,000 hours of order arrivals (lambda=14 orders/hr) using Poisson and find the 95th-percentile peak load.",
+      hint: "Use rng.poisson(lam=14, size=1000) and np.percentile(arrivals, 95).",
+      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\nhourly_orders = rng.poisson(lam=14, size=1000)\n\nprint(f'Mean arrivals/hr: {hourly_orders.mean():.2f}')\nprint(f'95th-pct peak load: {np.percentile(hourly_orders, 95):.0f} orders/hr')\n"
     }
   },
   {
     day: 87,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "Poisson Distribution for Order Arrivals & Traffic",
+    module: "M4: Math & Stats",
+    title: "Continuous Distributions: Normal, Log-Normal & Z-Scores",
     instructor: "StatQuest",
-    duration: "10m",
-    videoId: "BbLfVtuagent",
-    altVideoId: "J8jNoF-K8E8",
+    duration: "12m",
+    videoId: "J8jNoF-K8E8",
+    altVideoId: "rzFX5NWojp0",
     startSec: 0,
-    bridge: "Models hourly order arrival rates (lambda) so ShopPulse engineering can size server capacity and detect outages.",
+    bridge: "Standardizes metrics onto a common Z-score scale and applies log transforms to tame right-skewed order values.",
     takeaways: [
-      "Model rare or independent event counts per fixed interval using rate parameter lambda.",
-      "Note the defining Poisson property: Mean = Variance = lambda.",
-      "Detect traffic drops or flash-sale surges using Poisson tail probabilities."
+      "Vocabulary: a Z-score = (x - mean) / std measures how many standard deviations an observation sits from the mean.",
+      "Revenue and session duration follow Log-Normal right-skewed shapes; np.log1p(x) restores symmetry.",
+      "In a Normal distribution, ~68% of values fall within 1 std and ~95% within 2 std."
     ],
     lab: {
       lang: "python",
-      title: "Hourly Order Arrival Anomaly Detector",
-      prompt: "If ShopPulse averages lambda=18 orders/hour, compute the probability of receiving 30+ orders in a peak hour.",
-      hint: "Use stats.poisson.sf(29, mu=18).",
-      starterCode: "from scipy import stats\n\np_surge = stats.poisson.sf(29, mu=18)\nprint(f'P(Orders >= 30 | lambda=18): {p_surge:.5f}')\n"
+      title: "Z-Score Anomaly Detector on Order Values",
+      prompt: "Compute Z-scores for ShopPulse daily revenue figures and flag days with |Z| > 2.0 as anomalies.",
+      hint: "z = (rev - rev.mean()) / rev.std(ddof=1); flag np.abs(z) > 2.0.",
+      starterCode: "import numpy as np\n\ndaily_rev = np.array([4800, 5100, 4950, 5200, 4700, 5050, 14900, 4900], dtype=float)\nz_scores = (daily_rev - daily_rev.mean()) / daily_rev.std(ddof=1)\n\nfor day_idx, (val, z) in enumerate(zip(daily_rev, z_scores), start=1):\n    flag = 'ANOMALY' if abs(z) > 2.0 else 'OK'\n    print(f'Day {day_idx}: INR {val:7.0f} | Z = {z:+.2f} | {flag}')\n"
     }
   },
   {
     day: 88,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "Normal Distribution, Z-Scores & Empirical Rule",
+    module: "M4: Math & Stats",
+    title: "Law of Large Numbers & Central Limit Theorem (CLT)",
     instructor: "StatQuest",
-    duration: "12m",
+    duration: "9m",
     videoId: "rzFX5NWojp0",
-    altVideoId: "YXLVjCKVP7U",
+    altVideoId: "XNgt7F6FqDU",
     startSec: 0,
-    bridge: "Standardizes heterogeneous metrics onto a unit-free Z-score scale (mean=0, sd=1) for anomaly detection and feature scaling.",
+    bridge: "Proves why sample means become Normally distributed even when raw order revenue is heavily skewed—enabling A/B test math.",
     takeaways: [
-      "Convert raw measurements into standard deviations from the mean via Z = (x - mu) / sigma.",
-      "Apply the 68-95-99.7 rule to spot extreme latency or basket anomalies.",
-      "Connect Z-scores directly to StandardScaler in Month 5 Scikit-Learn pipelines."
+      "The Central Limit Theorem states that the sampling distribution of the mean approaches Normal as sample size n grows.",
+      "Standard Error SE = std / sqrt(n) shrinks as sample size increases, tightening measurement precision.",
+      "Quadrupling sample size cuts standard error in half."
     ],
     lab: {
       lang: "python",
-      title: "Vectorized Z-Score Outlier Flagging",
-      prompt: "Compute Z-scores for a NumPy array of API response latencies (ms) and flag entries with |Z| > 2.5.",
-      hint: "z = (lat - lat.mean()) / lat.std(); outliers = lat[np.abs(z) > 2.5].",
-      starterCode: "import numpy as np\n\nlatencies_ms = np.array([112, 118, 105, 121, 115, 119, 108, 490, 114, 116], dtype=float)\nz_scores = (latencies_ms - latencies_ms.mean()) / latencies_ms.std()\nprint('Z-scores:', np.round(z_scores, 2))\nprint('Outliers (|Z| > 2.5):', latencies_ms[np.abs(z_scores) > 2.5])\n"
+      title: "Monte Carlo Demonstration of the Central Limit Theorem",
+      prompt: "Draw 2,000 sample means (each of size n=40) from a skewed exponential distribution and verify their mean and SE.",
+      hint: "Sample matrix (2000, 40) with rng.exponential(scale=3000, size=(2000, 40)) and take .mean(axis=1).",
+      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\nsamples = rng.exponential(scale=3000.0, size=(2000, 40))\nsample_means = samples.mean(axis=1)\n\nprint(f'Grand Mean of Means: INR {sample_means.mean():.2f} (True: 3000.00)')\nprint(f'Empirical SE: INR {sample_means.std():.2f} (Theory 3000/sqrt(40): {3000/np.sqrt(40):.2f})')\n"
     }
   },
   {
     day: 89,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "Central Limit Theorem (CLT) & Sampling Distributions",
-    instructor: "3Blue1Brown",
-    duration: "18m",
-    videoId: "zeJD6dqJ5lo",
-    altVideoId: "YAlJCEDH2uY",
+    module: "M4: Math & Stats",
+    title: "Bayes Theorem & Conditional Probability",
+    instructor: "StatQuest",
+    duration: "11m",
+    videoId: "oI3hZJqXJuc",
+    altVideoId: "0oc49DyA3hU",
     startSec: 0,
-    bridge: "Explains why sample means of heavily skewed ShopPulse revenue data become normally distributed as sample size n grows.",
+    bridge: "Updates churn and fraud probabilities dynamically as new customer behavioral signals arrive.",
     takeaways: [
-      "Understand why the sampling distribution of the mean approaches Normal regardless of population skew.",
-      "Compute Standard Error SE = sigma / sqrt(n) and see why 4x sample size halves uncertainty.",
-      "Bridge raw skewed data to parametric Z and t confidence intervals."
+      "Bayes rule: P(A|B) = P(B|A) * P(A) / P(B) updates prior beliefs with observed likelihood.",
+      "Base-rate neglect causes false alarms when rare events (like payment fraud) are scored without prior weighting.",
+      "Sequential Bayesian updating powers spam filters, recommender scoring, and A/B test calculators."
     ],
     lab: {
       lang: "python",
-      title: "Monte Carlo Central Limit Theorem Simulation",
-      prompt: "Draw 2,000 sample means (each of size n=40) from a skewed exponential distribution and verify normality.",
-      hint: "Generate (2000, 40) exponential draws and take .mean(axis=1).",
-      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\nsample_means = rng.exponential(scale=1000.0, size=(2000, 40)).mean(axis=1)\nprint(f'Mean of Sample Means: {sample_means.mean():.2f} (True: 1000.0)')\nprint(f'Empirical SE: {sample_means.std():.2f} | Theoretical SE: {1000.0 / np.sqrt(40):.2f}')\n"
+      title: "Bayesian Payment Fraud Posterior Calculator",
+      prompt: "Given 2% base fraud rate, 90% detector sensitivity, and 5% false positive rate, compute P(Fraud | Flagged).",
+      hint: "p_flagged = p_f * sens + (1 - p_f) * fpr; posterior = (sens * p_f) / p_flagged.",
+      starterCode: "p_fraud = 0.02\nsensitivity = 0.90\nfalse_pos_rate = 0.05\n\np_flagged = (p_fraud * sensitivity) + ((1.0 - p_fraud) * false_pos_rate)\nposterior = (sensitivity * p_fraud) / p_flagged\nprint(f'Posterior P(Fraud | Flagged): {posterior * 100:.2f}%')\n"
     }
   },
   {
     day: 90,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "Confidence Intervals & Margin of Error",
+    module: "M4: Math & Stats",
+    title: "Confidence Intervals & Standard Error",
     instructor: "StatQuest",
-    duration: "12m",
+    duration: "10m",
     videoId: "TqOeMYtOc1w",
-    altVideoId: "YAlJCEDH2uY",
+    altVideoId: "XNgt7F6FqDU",
     startSec: 0,
-    bridge: "Replaces fragile single-number KPI estimates with calibrated 95% confidence intervals for executive reporting.",
+    bridge: "Replaces single-number KPI point estimates with honest 95% confidence ranges for executive reporting.",
     takeaways: [
-      "Construct 95% confidence intervals using sample mean +/- t_crit * SE.",
-      "Interpret confidence intervals properly as long-run capture frequency rather than posterior probability.",
-      "Compare overlapping vs separated intervals across experiment arms."
+      "Compute a 95% confidence interval for a sample mean as mean +/- 1.96 * (std / sqrt(n)).",
+      "For conversion proportions, SE = sqrt(p * (1 - p) / n).",
+      "Report confidence bounds alongside point estimates so stakeholders see estimation uncertainty."
     ],
     lab: {
       lang: "python",
-      title: "95% Confidence Interval for Average Order Value",
-      prompt: "Compute the 95% t-confidence interval for a sample of 35 ShopPulse order values.",
-      hint: "Use stats.t.interval(0.95, df=len(x)-1, loc=x.mean(), scale=stats.sem(x)).",
-      starterCode: "import numpy as np\nfrom scipy import stats\n\nrng = np.random.default_rng(10)\norders = rng.normal(loc=4200, scale=850, size=35)\nci_low, ci_high = stats.t.interval(0.95, df=len(orders)-1, loc=orders.mean(), scale=stats.sem(orders))\nprint(f'Sample Mean: INR {orders.mean():.2f} | 95% CI: [INR {ci_low:.2f}, INR {ci_high:.2f}]')\n"
+      title: "95% Confidence Interval for Checkout Conversion Rate",
+      prompt: "Compute the 95% CI for a campaign with 420 conversions out of 4,000 visitors.",
+      hint: "p = 420 / 4000; se = np.sqrt(p * (1 - p) / 4000); ci = (p - 1.96*se, p + 1.96*se).",
+      starterCode: "import numpy as np\n\nn = 4000\nk = 420\np = k / n\nse = np.sqrt(p * (1.0 - p) / n)\nlow, high = p - 1.96 * se, p + 1.96 * se\nprint(f'Conversion Rate: {p*100:.2f}% | 95% CI: [{low*100:.2f}%, {high*100:.2f}%]')\n"
     }
   },
   {
     day: 91,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "Non-Parametric Bootstrap Resampling",
+    module: "M4: Math & Stats",
+    title: "Bootstrap Resampling for Non-Normal Metrics",
     instructor: "StatQuest",
     duration: "11m",
-    videoId: "Xz0x-8-cgaQ",
+    videoId: "XNgt7F6FqDU",
     altVideoId: "TqOeMYtOc1w",
     startSec: 0,
-    bridge: "Computes confidence intervals for medians, 95th percentiles, and ratios where closed-form formulas fail.",
+    bridge: "Estimates confidence intervals for medians, 90th percentiles, and skewed LTV where analytical formulas break down.",
     takeaways: [
-      "Resample observed data with replacement B=5,000 times to approximate the sampling distribution.",
-      "Extract percentile bootstrap intervals [2.5%, 97.5%] for skewed revenue medians.",
-      "Make zero parametric normality assumptions."
+      "Resample your observed dataset WITH replacement B=5,000 times to build an empirical sampling distribution.",
+      "Extract 2.5th and 97.5th percentiles of bootstrap replicates for a non-parametric 95% CI.",
+      "Bootstrap works reliably for medians, ratios, and heavy-tailed revenue distributions."
     ],
     lab: {
       lang: "python",
-      title: "5,000-Iteration Bootstrap CI for Median Basket",
-      prompt: "Bootstrap the median of a right-skewed order array 5,000 times and print the 95% confidence interval.",
-      hint: "Use rng.choice(data, size=(5000, len(data)), replace=True) and np.median(..., axis=1).",
-      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\ndata = np.array([1499, 1899, 2298, 2499, 2799, 3298, 4999, 6498, 8999, 19500], dtype=float)\nboots = rng.choice(data, size=(5000, len(data)), replace=True)\nboot_medians = np.median(boots, axis=1)\nci = np.percentile(boot_medians, [2.5, 97.5])\nprint(f'Observed Median: {np.median(data):.2f} | 95% Bootstrap CI: [{ci[0]:.2f}, {ci[1]:.2f}]')\n"
+      title: "Bootstrap 95% CI for Median Order Value",
+      prompt: "Run 3,000 bootstrap resamples on skewed ShopPulse orders to compute the 95% CI of the median.",
+      hint: "Draw rng.choice(orders, size=(3000, len(orders)), replace=True) and take np.median(..., axis=1).",
+      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\norders = np.array([1499, 1799, 2298, 2499, 2899, 3298, 4999, 6498, 8999, 18500], dtype=float)\nboot_samples = rng.choice(orders, size=(3000, len(orders)), replace=True)\nboot_medians = np.median(boot_samples, axis=1)\nci_low, ci_high = np.percentile(boot_medians, [2.5, 97.5])\nprint(f'Observed Median: INR {np.median(orders):.2f} | Bootstrap 95% CI: [{ci_low:.2f}, {ci_high:.2f}]')\n"
     }
   },
   {
     day: 92,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "Hypothesis Testing, Null Models & p-Values",
+    module: "M4: Math & Stats",
+    title: "Hypothesis Testing: Null Hypothesis, Alpha & Errors",
     instructor: "StatQuest",
-    duration: "11m",
-    videoId: "5koKbTCySjU",
-    altVideoId: "0oc49DyA3hU",
+    duration: "10m",
+    videoId: "0oc49DyA3hU",
+    altVideoId: "vemZtEM63GY",
     startSec: 0,
-    bridge: "Formalizes the decision rule for evaluating whether a product change beat random noise.",
+    bridge: "Structures product launch decisions around formal H0 vs H1 hypotheses and explicit Type I / Type II error budgets.",
     takeaways: [
-      "Frame clear Null (H0: no effect) and Alternative (H1: real lift) hypotheses before looking at results.",
-      "Interpret a p-value accurately: P(data as extreme | H0 is true), NOT P(H0 is true).",
-      "Separate statistical significance (p < alpha) from practical business significance."
+      "Formulate H0 (no difference between Control and Variant) and H1 (meaningful lift exists) before peeking at data.",
+      "Type I error (alpha, usually 0.05) is a false positive launch; Type II error (beta, usually 0.20) is missing a real win.",
+      "Statistical power (1 - beta = 0.80) measures your experiment's probability of detecting a true effect."
     ],
     lab: {
       lang: "python",
-      title: "Two-Sided Permutation p-Value Simulator",
-      prompt: "Run a 5,000-shuffle permutation test comparing two checkout variants and compute the empirical p-value.",
-      hint: "Shuffle combined outcomes, split into two groups, and count how often |diff| >= observed_diff.",
-      starterCode: "import numpy as np\n\nrng = np.random.default_rng(7)\nctrl = rng.binomial(1, 0.08, size=500)\ntreat = rng.binomial(1, 0.12, size=500)\nobs_diff = abs(treat.mean() - ctrl.mean())\n\ncombined = np.concatenate([ctrl, treat])\ncount_extreme = 0\nfor _ in range(5000):\n    perm = rng.permutation(combined)\n    if abs(perm[500:].mean() - perm[:500].mean()) >= obs_diff:\n        count_extreme += 1\n\nprint(f'Observed Lift: {obs_diff*100:.2f}% | Permutation p-value: {count_extreme/5000:.4f}')\n"
+      title: "Simulating False Positive Rate (Alpha) Under H0",
+      prompt: "Simulate 2,000 A/A tests where Control and Variant have identical true conversion p=0.10 and measure how often |Z| > 1.96.",
+      hint: "Compare two binomial draws of n=1000, p=0.10 across 2,000 runs and check false alarm fraction.",
+      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\nn = 1000\np0 = 0.10\np_a = rng.binomial(n, p0, size=2000) / n\np_b = rng.binomial(n, p0, size=2000) / n\np_pool = (p_a + p_b) / 2.0\nse = np.sqrt(p_pool * (1 - p_pool) * (2 / n))\nz = (p_b - p_a) / np.where(se == 0, 1, se)\nfalse_positives = np.mean(np.abs(z) > 1.96)\nprint(f'Empirical Type I Error Rate: {false_positives * 100:.2f}% (Target alpha: 5.00%)')\n"
     }
   },
   {
     day: 93,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "Type I/II Errors, Statistical Power & Sample Size",
+    module: "M4: Math & Stats",
+    title: "Interpreting p-Values & Statistical vs Practical Significance",
     instructor: "StatQuest",
-    duration: "10m",
-    videoId: "Rsc5znwR5FA",
-    altVideoId: "5koKbTCySjU",
+    duration: "11m",
+    videoId: "vemZtEM63GY",
+    altVideoId: "0oc49DyA3hU",
     startSec: 0,
-    bridge: "Calculates required sample size per arm before launching an A/B test so experiments are neither underpowered nor wasteful.",
+    bridge: "Prevents costly engineering rollouts on tiny 0.01% lifts that look 'significant' purely due to huge sample sizes.",
     takeaways: [
-      "Balance false positives (alpha = 0.05) against false negatives (beta = 0.20, Power = 80%).",
-      "Understand how Minimum Detectable Effect (MDE) drives required sample size inversely squared.",
-      "Commit to fixed sample horizons to avoid peeking inflation."
+      "A p-value is P(data at least this extreme | H0 is true), NOT the probability that H0 is true.",
+      "Always pair p-values with absolute lift, relative lift %, and confidence intervals.",
+      "Require Minimum Detectable Effect (MDE) clearance before shipping UI changes."
     ],
     lab: {
       lang: "python",
-      title: "A/B Test Sample Size Per Arm Calculator",
-      prompt: "Compute required visitors per arm to detect a +2.0% lift over an 8.0% baseline conversion at 80% power and alpha=0.05.",
-      hint: "Use normal approximation: n = 2 * ((z_alpha + z_beta)**2 * p_bar * (1 - p_bar)) / (p2 - p1)**2.",
-      starterCode: "import numpy as np\nfrom scipy import stats\n\np1, p2 = 0.08, 0.10\np_bar = (p1 + p2) / 2\nz_alpha = stats.norm.ppf(1 - 0.05 / 2)\nz_beta = stats.norm.ppf(0.80)\nn_per_arm = int(np.ceil(2 * ((z_alpha + z_beta) ** 2) * p_bar * (1 - p_bar) / ((p2 - p1) ** 2)))\nprint(f'Required Sample Size per Arm: {n_per_arm:,} visitors')\n"
+      title: "Two-Proportion Z-Test & Practical Lift Evaluator",
+      prompt: "Compute Z-statistic, two-sided p-value approximation, and relative lift for Control (82/1000) vs Variant (108/1000).",
+      hint: "Use math.erfc(abs(z) / math.sqrt(2)) for exact two-sided Normal p-value without external libraries.",
+      starterCode: "import math\n\nn_c, k_c = 1000, 82\nn_v, k_v = 1000, 108\np_c, p_v = k_c / n_c, k_v / n_v\np_pool = (k_c + k_v) / (n_c + n_v)\nse = math.sqrt(p_pool * (1 - p_pool) * (1/n_c + 1/n_v))\nz = (p_v - p_c) / se\np_val = math.erfc(abs(z) / math.sqrt(2))\n\nprint(f'Control: {p_c*100:.2f}% | Variant: {p_v*100:.2f}% | Rel Lift: {((p_v-p_c)/p_c)*100:.1f}%')\nprint(f'Z = {z:.3f} | p-value = {p_val:.4f}')\n"
     }
   },
   {
     day: 94,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "One-Sample & Two-Sample Welch's t-Tests",
+    module: "M4: Math & Stats",
+    title: "Comparing Continuous Means: Welch's t-Test & Mann-Whitney",
     instructor: "StatQuest",
-    duration: "14m",
-    videoId: "0Pd3dc1GcHc",
-    altVideoId: "5koKbTCySjU",
+    duration: "12m",
+    videoId: "0oc49DyA3hU",
+    altVideoId: "vemZtEM63GY",
     startSec: 0,
-    bridge: "Compares continuous revenue-per-user across A/B variants without assuming equal group variances.",
+    bridge: "Tests whether a new free-shipping threshold increases Average Order Value (AOV) without assuming equal group variances.",
     takeaways: [
-      "Default to Welch's two-sample t-test (equal_var=False) over Student's t-test.",
-      "Verify sample size robustness against skewed revenue distributions.",
-      "Report t-statistic, p-value, and mean difference together."
+      "Default to Welch's t-test (unequal variances) rather than Student's equal-variance t-test.",
+      "Use non-parametric rank tests (Mann-Whitney U) or bootstrap tests when revenue contains extreme outliers.",
+      "Check both mean AOV and median basket size before declaring a winner."
     ],
     lab: {
       lang: "python",
-      title: "Welch's t-Test on Variant Basket Revenue",
-      prompt: "Run scipy.stats.ttest_ind(..., equal_var=False) comparing Control vs Variant basket values.",
-      hint: "t_stat, p_val = stats.ttest_ind(variant_b, control, equal_var=False).",
-      starterCode: "import numpy as np\nfrom scipy import stats\n\nrng = np.random.default_rng(21)\ncontrol = rng.normal(3200, 750, size=400)\nvariant_b = rng.normal(3360, 820, size=400)\n\nt_stat, p_val = stats.ttest_ind(variant_b, control, equal_var=False)\nprint(f'Mean Lift: INR {variant_b.mean() - control.mean():.2f} | t={t_stat:.3f}, p={p_val:.4f}')\n"
+      title: "Welch's Two-Sample t-Statistic Calculator",
+      prompt: "Compute Welch's t-statistic comparing Control vs Variant order values in pure NumPy.",
+      hint: "se = np.sqrt(s1**2 / n1 + s2**2 / n2); t_stat = (m2 - m1) / se.",
+      starterCode: "import numpy as np\n\nctrl = np.array([2499, 2799, 3100, 2298, 2950, 2600, 3400, 2850], dtype=float)\nvar_b = np.array([3298, 3899, 4100, 2999, 4500, 3650, 4200, 3950], dtype=float)\n\nse = np.sqrt(ctrl.var(ddof=1)/len(ctrl) + var_b.var(ddof=1)/len(var_b))\nt_stat = (var_b.mean() - ctrl.mean()) / se\nprint(f'Ctrl Mean: INR {ctrl.mean():.2f} | Var Mean: INR {var_b.mean():.2f} | Welch t = {t_stat:.3f}')\n"
     }
   },
   {
     day: 95,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "Comparing Proportions: Z-Test & Chi-Square Test",
+    module: "M4: Math & Stats",
+    title: "Categorical Independence: Chi-Square Test",
     instructor: "StatQuest",
-    duration: "13m",
-    videoId: "7_cs1YlZoug",
-    altVideoId: "0Pd3dc1GcHc",
+    duration: "11m",
+    videoId: "vemZtEM63GY",
+    altVideoId: "0oc49DyA3hU",
     startSec: 0,
-    bridge: "Evaluates categorical conversion funnels and multi-variant contingency tables using Chi-Square independence tests.",
+    bridge: "Tests whether conversion or cancellation rates differ significantly across 3+ cities or payment methods simultaneously.",
     takeaways: [
-      "Build 2x2 conversion contingency tables (Converted vs Not Converted x Control vs Treatment).",
-      "Run scipy.stats.chi2_contingency() and check expected cell counts >= 5.",
-      "Verify Sample Ratio Mismatch (SRM) with a Chi-Square goodness-of-fit check first."
+      "Compare Observed contingency table counts against Expected independence counts via sum((O - E)**2 / E).",
+      "Verify that expected cell frequencies are at least 5 before trusting Chi-Square approximations.",
+      "Follow up significant global tests with pairwise segment comparisons."
     ],
     lab: {
       lang: "python",
-      title: "Chi-Square Conversion & SRM Audit",
-      prompt: "Run chi2_contingency on a 2x2 checkout conversion table (Control: 164/2000, Variant: 208/2000).",
-      hint: "Pass [[164, 1836], [208, 1792]] into stats.chi2_contingency().",
-      starterCode: "from scipy import stats\n\ntable = [\n    [164, 2000 - 164],\n    [208, 2000 - 208]\n]\nchi2, p_val, dof, _ = stats.chi2_contingency(table)\nprint(f'Chi2={chi2:.3f}, dof={dof}, p-value={p_val:.4f}')\n"
+      title: "Chi-Square Contingency Statistic Across Cities",
+      prompt: "Compute expected counts and Chi-Square statistic for a 3x2 (City x Converted/Not) contingency matrix.",
+      hint: "expected = np.outer(obs.sum(axis=1), obs.sum(axis=0)) / obs.sum().",
+      starterCode: "import numpy as np\n\n# Rows: Mumbai, Bengaluru, Delhi | Cols: Converted, Not Converted\nobs = np.array([\n    [120, 880],\n    [145, 855],\n    [95,  905]\n], dtype=float)\n\nexpected = np.outer(obs.sum(axis=1), obs.sum(axis=0)) / obs.sum()\nchi2 = np.sum((obs - expected) ** 2 / expected)\nprint(f'Chi-Square Statistic (df=2): {chi2:.3f}')\n"
     }
   },
   {
     day: 96,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "Multi-Arm Experiments: ANOVA & Multiple Testing (FDR)",
+    module: "M4: Math & Stats",
+    title: "Multiple Testing Corrections: Bonferroni & Benjamini-Hochberg",
     instructor: "StatQuest",
-    duration: "14m",
-    videoId: "NF5_btOaCig",
-    altVideoId: "7_cs1YlZoug",
+    duration: "9m",
+    videoId: "vemZtEM63GY",
+    altVideoId: "0oc49DyA3hU",
     startSec: 0,
-    bridge: "Prevents false-positive inflation when testing 3+ checkout designs or slicing metrics across 10 cities simultaneously.",
+    bridge: "Stops p-hacking when slicing A/B test results across 10 cities, devices, and user tiers at once.",
     takeaways: [
-      "Run One-Way ANOVA (f_oneway) before pairwise post-hoc comparisons across 3+ arms.",
-      "Understand why running 20 tests at alpha=0.05 yields ~64% chance of at least one false positive.",
-      "Apply Bonferroni or Benjamini-Hochberg FDR corrections to p-values."
+      "Running 20 independent tests at alpha=0.05 produces 1 false positive on average purely by chance.",
+      "Bonferroni adjusts threshold to alpha / m; Benjamini-Hochberg controls False Discovery Rate (FDR).",
+      "Distinguish pre-registered primary metrics from exploratory subgroup slices."
     ],
     lab: {
       lang: "python",
-      title: "One-Way ANOVA Across 3 Checkout Variants",
-      prompt: "Compare basket revenue across Control, One-Click UPI, and Express Card arms using stats.f_oneway().",
-      hint: "f_stat, p_val = stats.f_oneway(arm_a, arm_b, arm_c).",
-      starterCode: "import numpy as np\nfrom scipy import stats\n\nrng = np.random.default_rng(99)\narm_a = rng.normal(3100, 700, 300)\narm_b = rng.normal(3380, 720, 300)\narm_c = rng.normal(3150, 690, 300)\n\nf_stat, p_val = stats.f_oneway(arm_a, arm_b, arm_c)\nprint(f'ANOVA F={f_stat:.3f}, p-value={p_val:.5f}')\n"
+      title: "Benjamini-Hochberg FDR Adjustment Filter",
+      prompt: "Given 5 subgroup p-values, apply Benjamini-Hochberg step-up thresholds at FDR=0.05 to see which survive.",
+      hint: "Sort p-values ascending; threshold for rank i (1..m) is (i / m) * 0.05.",
+      starterCode: "import numpy as np\n\np_vals = np.array([0.004, 0.018, 0.039, 0.120, 0.450])\nm = len(p_vals)\nfor rank, p in enumerate(np.sort(p_vals), start=1):\n    bh_thresh = (rank / m) * 0.05\n    print(f'Rank {rank}: p={p:.3f} vs BH_thresh={bh_thresh:.3f} -> Significant={p <= bh_thresh}')\n"
     }
   },
   {
     day: 97,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "Non-Parametric Rank Tests: Mann-Whitney U",
+    module: "M4: Math & Stats",
+    title: "A/B Experiment Design: Power & Sample Size Sizing",
     instructor: "StatQuest",
-    duration: "9m",
-    videoId: "bt1_17c3G0A",
-    altVideoId: "0Pd3dc1GcHc",
+    duration: "10m",
+    videoId: "TqOeMYtOc1w",
+    altVideoId: "0oc49DyA3hU",
     startSec: 0,
-    bridge: "Tests heavily skewed whale-dominated revenue distributions reliably when extreme outliers distort t-tests.",
+    bridge: "Calculates exact required traffic per variant before launching an experiment so tests neither under-power nor drag on.",
     takeaways: [
-      "Use Mann-Whitney U (ranksum) when extreme outliers violate mean-based assumptions.",
-      "Interpret rank dominance cleanly alongside median differences.",
-      "Combine Mann-Whitney U with bootstrap median CIs for bulletproof revenue readouts."
+      "Compute sample size per arm using baseline conversion p1, target p2, alpha=0.05 (Z=1.96), and power=0.80 (Z=0.84).",
+      "Estimate experiment runtime in days by dividing required sample size by daily eligible traffic.",
+      "Never stop an experiment early just because p < 0.05 on Day 2 (peeking bias)."
     ],
     lab: {
       lang: "python",
-      title: "Mann-Whitney U Test on Skewed Whale Revenue",
-      prompt: "Run scipy.stats.mannwhitneyu on two heavy-tailed order arrays containing extreme corporate orders.",
-      hint: "u_stat, p_val = stats.mannwhitneyu(treat, ctrl, alternative='two-sided').",
-      starterCode: "import numpy as np\nfrom scipy import stats\n\nctrl = np.array([1200, 1499, 1800, 2100, 2400, 2600, 45000])\ntreat = np.array([1900, 2300, 2700, 3100, 3400, 3900, 4200])\n\nu_stat, p_val = stats.mannwhitneyu(treat, ctrl, alternative='two-sided')\nprint(f'Mann-Whitney U={u_stat}, p-value={p_val:.4f}')\n"
+      title: "A/B Test Sample Size & Runtime Calculator",
+      prompt: "Compute required users per variant to detect a lift from 8.0% to 9.6% conversion (20% relative lift) at 80% power.",
+      hint: "n_per_arm = ((1.96 + 0.84)**2 * (p1*(1-p1) + p2*(1-p2))) / (p2 - p1)**2.",
+      starterCode: "import math\n\np1 = 0.080\np2 = 0.096\nz_alpha = 1.96\nz_beta = 0.84\n\nn_per_arm = math.ceil(((z_alpha + z_beta) ** 2 * (p1 * (1 - p1) + p2 * (1 - p2))) / ((p2 - p1) ** 2))\ndaily_traffic = 1200\nprint(f'Required users per variant: {n_per_arm:,} | Est. runtime: {math.ceil((2 * n_per_arm) / daily_traffic)} days')\n"
     }
   },
   {
     day: 98,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "Bayesian A/B Testing: Beta-Binomial Updating",
-    instructor: "3Blue1Brown",
-    duration: "15m",
-    videoId: "HZGCoVF3YvM",
-    altVideoId: "U_85TaXbeIo",
+    module: "M4: Math & Stats",
+    title: "A/B Guardrails, Novelty Effects & SRM Checks",
+    instructor: "StatQuest",
+    duration: "10m",
+    videoId: "0oc49DyA3hU",
+    altVideoId: "TqOeMYtOc1w",
     startSec: 0,
-    bridge: "Computes intuitive direct probabilities like P(Variant B beats Control) using conjugate Beta priors.",
+    bridge: "Audits experiment telemetry for Sample Ratio Mismatch (SRM) bugs before trusting any lift number.",
     takeaways: [
-      "Update a Beta(alpha, beta) prior with k conversions and (n - k) non-conversions to get Beta(alpha+k, beta+n-k).",
-      "Sample posterior draws via Monte Carlo to compute P(p_B > p_A) and Expected Loss.",
-      "Communicate experiment risk clearly to product managers."
+      "Run a Sample Ratio Mismatch (SRM) Chi-Square check on assignment counts (50/50 split) first.",
+      "Track guardrail metrics (page latency, cancellation rate, refund rate) alongside primary conversion.",
+      "Watch for short-lived novelty spikes that decay after week 1."
     ],
     lab: {
       lang: "python",
-      title: "Beta-Binomial Bayesian A/B Win Probability",
-      prompt: "Compute P(Variant B > Control) via 50,000 posterior Beta draws given Control (82/1000) and Variant B (106/1000).",
-      hint: "Sample rng.beta(1 + k, 1 + n - k, size=50000) for both arms and compare (b_samples > a_samples).mean().",
-      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\npost_a = rng.beta(1 + 82, 1 + 1000 - 82, size=50000)\npost_b = rng.beta(1 + 106, 1 + 1000 - 106, size=50000)\n\nprob_b_wins = (post_b > post_a).mean()\nexpected_lift = (post_b - post_a).mean() * 100\nprint(f'P(B > A): {prob_b_wins*100:.2f}% | Expected Lift: +{expected_lift:.2f}%')\n"
+      title: "Automated Sample Ratio Mismatch (SRM) Gatekeeper",
+      prompt: "Check if observed Control (5,210) vs Variant (4,790) traffic split violates an expected 50/50 split (chi2 > 3.84).",
+      hint: "expected = total / 2; chi2 = ((c - expected)**2 + (v - expected)**2) / expected.",
+      starterCode: "ctrl_n, var_n = 5210, 4790\nexpected = (ctrl_n + var_n) / 2.0\nchi2 = ((ctrl_n - expected) ** 2 + (var_n - expected) ** 2) / expected\nprint(f'SRM Chi2: {chi2:.2f} -> Telemetry Valid: {chi2 < 3.84}')\n"
     }
   },
   {
     day: 99,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "Linear Algebra for Data: Vectors, Dot Products & Span",
-    instructor: "3Blue1Brown",
+    module: "M4: Math & Stats",
+    title: "Variance Reduction: CUPED & Pre-Experiment Covariates",
+    instructor: "StatQuest",
     duration: "11m",
-    videoId: "LyGKycYT2v0",
-    altVideoId: "fNk_zzaMoSs",
+    videoId: "9yl6-HEY7_s",
+    altVideoId: "TqOeMYtOc1w",
     startSec: 0,
-    bridge: "Builds geometric intuition for dot products, cosine similarity (used later in RAG embeddings), and linear projections.",
+    bridge: "Shrinks A/B test variance by 25-40% using pre-experiment user spend as a covariate—cutting experiment runtime in half.",
     takeaways: [
-      "Interpret dot products geometrically as projection length times magnitude.",
-      "Compute cosine similarity between feature vectors and document embeddings.",
-      "Understand linear independence and rank of feature matrices."
+      "CUPED adjusts post-experiment metric Y using pre-experiment covariate X: Y_cuped = Y - theta * (X - mean(X)).",
+      "Optimal theta = Cov(Y, X) / Var(X), which removes pre-existing user heterogeneity.",
+      "Lower variance tightens confidence intervals without changing the unbiased treatment lift."
     ],
     lab: {
       lang: "python",
-      title: "Cosine Similarity Between Customer Feature Vectors",
-      prompt: "Compute the dot product and cosine similarity between two normalized customer preference vectors.",
-      hint: "cos_sim = (a @ b) / (np.linalg.norm(a) * np.linalg.norm(b)).",
-      starterCode: "import numpy as np\n\na = np.array([5.0, 1.0, 4.0])\nb = np.array([4.8, 1.2, 3.9])\ncos_sim = (a @ b) / (np.linalg.norm(a) * np.linalg.norm(b))\nprint(f'Dot Product: {a @ b:.2f} | Cosine Similarity: {cos_sim:.4f}')\n"
+      title: "CUPED Variance Reduction Simulator",
+      prompt: "Compute theta = Cov(Y, X) / Var(X) and measure the percentage variance reduction achieved by Y_cuped.",
+      hint: "theta = np.cov(y, x)[0, 1] / np.var(x, ddof=1); y_cuped = y - theta * (x - x.mean()).",
+      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\npre_spend = rng.normal(3000, 800, size=500)\npost_spend = 0.75 * pre_spend + rng.normal(800, 400, size=500)\n\ntheta = np.cov(post_spend, pre_spend)[0, 1] / np.var(pre_spend, ddof=1)\ny_cuped = post_spend - theta * (pre_spend - pre_spend.mean())\n\nvar_reduction = 100 * (1 - np.var(y_cuped, ddof=1) / np.var(post_spend, ddof=1))\nprint(f'Theta: {theta:.3f} | Variance Reduced by: {var_reduction:.1f}%')\n"
     }
   },
   {
     day: 100,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "Matrices, Transformations & Eigenvalues",
-    instructor: "3Blue1Brown",
-    duration: "17m",
-    videoId: "PFDu9oVAE-g",
-    altVideoId: "kYB8IZa5AuE",
+    module: "M4: Math & Stats",
+    title: "Correlation vs Causation & Confounding Bias",
+    instructor: "StatQuest",
+    duration: "9m",
+    videoId: "9yl6-HEY7_s",
+    altVideoId: "oI3hZJqXJuc",
     startSec: 0,
-    bridge: "Unlocks covariance matrices, Principal Component Analysis (PCA), and neural network linear layers.",
+    bridge: "Protects executive strategy from spurious correlations and Simpson's Paradox in observational data.",
     takeaways: [
-      "View matrices as linear transformations stretching and rotating feature space.",
-      "Understand eigenvectors as invariant directions and eigenvalues as variance/stretch factors.",
-      "Compute covariance matrices and eigendecompositions with np.linalg.eigh()."
+      "Contrast Pearson linear correlation r with Spearman rank correlation rho on skewed data.",
+      "Identify confounders (like user loyalty tier) that drive both feature adoption and spend.",
+      "Always stratify observational metrics by key user segments before making causal claims."
     ],
     lab: {
       lang: "python",
-      title: "Covariance Matrix & Eigenvalue Variance Share",
-      prompt: "Compute the covariance matrix of a standardized 2D dataset and inspect its eigenvalues.",
-      hint: "cov = np.cov(X.T); eigvals, eigvecs = np.linalg.eigh(cov).",
-      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\nx1 = rng.normal(0, 1, 500)\nx2 = 0.85 * x1 + rng.normal(0, 0.3, 500)\nX = np.column_stack([x1, x2])\n\neigvals, _ = np.linalg.eigh(np.cov(X.T))\nexplained = eigvals[::-1] / eigvals.sum()\nprint('Eigenvalues:', np.round(eigvals[::-1], 3))\nprint('Variance Explained:', np.round(explained * 100, 1), '%')\n"
+      title: "Pearson vs Spearman Correlation on Skewed Data",
+      prompt: "Compare Pearson and Spearman rank correlation when a single whale order skews a small sample.",
+      hint: "Compute np.corrcoef(x, y)[0, 1] and pd.Series(x).corr(pd.Series(y), method='spearman').",
+      starterCode: "import numpy as np\nimport pandas as pd\n\nsessions = pd.Series([2, 4, 6, 8, 10, 12])\nspend = pd.Series([1200, 2100, 3200, 4100, 5200, 48000])\n\nprint(f'Pearson r  : {sessions.corr(spend, method=\"pearson\"):.3f}')\nprint(f'Spearman r : {sessions.corr(spend, method=\"spearman\"):.3f}')\n"
     }
   },
   {
     day: 101,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "Calculus Intuition: Derivatives & Chain Rule",
+    module: "M4: Math & Stats",
+    title: "Linear Algebra for ML: Vectors, Dot Products & Norms",
     instructor: "3Blue1Brown",
-    duration: "17m",
-    videoId: "YG15m2VwSjA",
-    altVideoId: "WUvTyaaNkzM",
+    duration: "14m",
+    videoId: "aircAruvnKk",
+    altVideoId: "IHZwWFHWa-w",
     startSec: 0,
-    bridge: "Explains partial derivatives and the Chain Rule—the mathematical engine powering gradient descent and backpropagation.",
+    bridge: "Builds geometric intuition for feature vectors, L2 Euclidean norms, and dot products used in ML and LLM embeddings.",
     takeaways: [
-      "Interpret derivatives as local sensitivity (slope) of loss with respect to model weights.",
-      "Apply the Chain Rule to propagate error gradients through nested composite functions.",
-      "Verify analytical gradients numerically using finite differences."
+      "Every customer or product row in ML is a point/vector in n-dimensional feature space.",
+      "Dot product a . b measures alignment; L2 norm ||a|| measures vector magnitude.",
+      "Cosine similarity normalizes dot products by vector norms to measure pure directional similarity."
     ],
     lab: {
       lang: "python",
-      title: "Numerical vs Analytical Derivative Verifier",
-      prompt: "Verify that the numerical central-difference gradient of f(w) = (3w - 12)^2 at w=5 matches analytical 6*(3w - 12).",
-      hint: "num_grad = (f(w + eps) - f(w - eps)) / (2 * eps).",
-      starterCode: "def f(w: float) -> float:\n    return (3 * w - 12) ** 2\n\nw = 5.0\neps = 1e-6\nnum_grad = (f(w + eps) - f(w - eps)) / (2 * eps)\nana_grad = 6 * (3 * w - 12)\nprint(f'Numerical: {num_grad:.6f} | Analytical: {ana_grad:.6f}')\n"
+      title: "Customer Feature Vector Norms & Cosine Similarity",
+      prompt: "Compute Euclidean distance and cosine similarity between two 4-feature ShopPulse customer vectors.",
+      hint: "cos_sim = np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)).",
+      starterCode: "import numpy as np\n\ncust_a = np.array([5.0, 24000.0, 180.0, 4.8])\ncust_b = np.array([4.0, 21000.0, 165.0, 4.7])\n\neuclid = np.linalg.norm(cust_a - cust_b)\ncos_sim = np.dot(cust_a, cust_b) / (np.linalg.norm(cust_a) * np.linalg.norm(cust_b))\nprint(f'Euclidean Dist: {euclid:.2f} | Cosine Similarity: {cos_sim:.6f}')\n"
     }
   },
   {
     day: 102,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "Gradient Descent Optimization from Scratch",
-    instructor: "StatQuest",
-    duration: "23m",
-    videoId: "sDv4f4s2SB8",
+    module: "M4: Math & Stats",
+    title: "Matrices, Linear Transformations & Matrix Multiplication",
+    instructor: "3Blue1Brown",
+    duration: "15m",
+    videoId: "aircAruvnKk",
     altVideoId: "IHZwWFHWa-w",
-    startSec: 0,
-    bridge: "Implements iterative gradient descent on Mean Squared Error loss before we call Scikit-Learn's .fit() in Month 5.",
+    startSec: 840,
+    bridge: "Views dataset transformations, linear models, and neural network layers as matrix-vector projections.",
     takeaways: [
-      "Update parameters opposite the gradient: w = w - lr * grad.",
-      "Observe how learning rates that are too large diverge while tiny rates crawl.",
-      "Watch MSE loss converge smoothly across training epochs."
+      "Verify matrix dimension compatibility: (m x n) @ (n x k) -> (m x k).",
+      "Understand transpose X.T and how X.T @ X forms feature covariance/Gram matrices.",
+      "Compute batch predictions y_hat = X @ w + b in one vectorized matrix operation."
     ],
     lab: {
       lang: "python",
-      title: "1D Linear Regression via Pure Gradient Descent",
-      prompt: "Fit y = w * x + b to synthetic revenue data over 200 gradient descent steps and print learned w and b.",
-      hint: "Compute pred = w * x + b; dw = (2/n) * np.sum((pred - y) * x); db = (2/n) * np.sum(pred - y).",
-      starterCode: "import numpy as np\n\nx = np.array([1.0, 2.0, 3.0, 4.0, 5.0])\ny = np.array([1500.0, 3000.0, 4500.0, 6000.0, 7500.0])\nw, b, lr = 0.0, 0.0, 0.05\n\nfor _ in range(300):\n    pred = w * x + b\n    dw = (2 / len(x)) * np.sum((pred - y) * x)\n    db = (2 / len(x)) * np.sum(pred - y)\n    w -= lr * dw\n    b -= lr * db\n\nprint(f'Learned Slope w={w:.2f} (True 1500), Intercept b={b:.2f}')\n"
+      title: "Batch Linear Scoring via Matrix Multiplication",
+      prompt: "Score 4 customers across 3 normalized features using weight vector w and intercept b via X @ w + b.",
+      hint: "preds = X @ w + b.",
+      starterCode: "import numpy as np\n\nX = np.array([\n    [0.8, 0.9, 0.2],\n    [0.2, 0.3, 0.8],\n    [0.9, 0.8, 0.1],\n    [0.4, 0.4, 0.6]\n])\nw = np.array([15000.0, 12000.0, -5000.0])\nb = 2000.0\n\npredicted_ltv = X @ w + b\nprint('Predicted Customer LTV (INR):', np.round(predicted_ltv, 2))\n"
     }
   },
   {
     day: 103,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "Correlation vs Causation & Confounding Bias",
+    module: "M4: Math & Stats",
+    title: "Eigenvalues, Eigenvectors & Covariance Intuition",
     instructor: "StatQuest",
-    duration: "11m",
-    videoId: "xZ_z8KWkhXE",
-    altVideoId: "ROpbdO-gJyI",
+    duration: "21m",
+    videoId: "FgakZw6K1QQ",
+    altVideoId: "9yl6-HEY7_s",
     startSec: 0,
-    bridge: "Guards your executive readouts against spurious correlations, Simpson's Paradox, and survivorship bias.",
+    bridge: "Reveals how Principal Component Analysis (PCA) finds directions of maximum variance to compress correlated features.",
     takeaways: [
-      "Distinguish Pearson linear correlation from monotonic Spearman rank correlation.",
-      "Identify hidden confounding variables that drive both treatment and outcome.",
-      "Understand why randomization in A/B tests eliminates confounding bias."
+      "Eigenvectors identify principal axes of variance; eigenvalues measure variance magnitude along each axis.",
+      "Always standardize features (mean=0, std=1) before computing covariance for PCA.",
+      "Explained variance ratio tells you how much signal top k components retain."
     ],
     lab: {
       lang: "python",
-      title: "Pearson vs Spearman Correlation Comparison",
-      prompt: "Compare Pearson r and Spearman rho on a non-linear exponential spend curve.",
-      hint: "Use stats.pearsonr(x, y) and stats.spearmanr(x, y).",
-      starterCode: "import numpy as np\nfrom scipy import stats\n\nx = np.arange(1, 15, dtype=float)\ny = np.exp(0.45 * x)\n\nr, _ = stats.pearsonr(x, y)\nrho, _ = stats.spearmanr(x, y)\nprint(f'Pearson r: {r:.4f} | Spearman rho: {rho:.4f}')\n"
+      title: "PCA Explained Variance via NumPy Eigendecomposition",
+      prompt: "Standardize a 2-feature correlated matrix, compute its covariance eigenvalues, and print explained variance %.",
+      hint: "vals, vecs = np.linalg.eigh(np.cov(X_std.T)); ratio = vals[::-1] / vals.sum().",
+      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\nx1 = rng.normal(0, 1, 200)\nx2 = 0.9 * x1 + rng.normal(0, 0.3, 200)\nX = np.column_stack([x1, x2])\nX_std = (X - X.mean(axis=0)) / X.std(axis=0)\n\nvals, _ = np.linalg.eigh(np.cov(X_std.T))\nexplained = (vals[::-1] / vals.sum()) * 100\nprint(f'PC1 Variance: {explained[0]:.1f}% | PC2 Variance: {explained[1]:.1f}%')\n"
     }
   },
   {
     day: 104,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "Ordinary Least Squares (OLS) & R-Squared",
-    instructor: "StatQuest",
-    duration: "27m",
-    videoId: "nk2CQITm_eo",
-    altVideoId: "zITIFTsivN8",
+    module: "M4: Math & Stats",
+    title: "Derivatives, Gradients & Chain Rule Intuition",
+    instructor: "3Blue1Brown",
+    duration: "21m",
+    videoId: "IHZwWFHWa-w",
+    altVideoId: "sDv4f4s2SB8",
     startSec: 0,
-    bridge: "Connects Month 4 statistical inference directly to Month 5 supervised regression modeling.",
+    bridge: "Explains how gradient vectors point uphill and why stepping in the negative gradient direction minimizes ML loss.",
     takeaways: [
-      "Interpret slope coefficients, standard errors, p-values, and R-squared variance explained.",
-      "Understand why Adjusted R-squared penalizes useless predictor variables.",
-      "Inspect model fit cleanly using scipy.stats.linregress()."
+      "A partial derivative measures how loss changes when nudging one weight while holding others fixed.",
+      "The gradient vector nabla L points in the direction of steepest ascent; -nabla L points steepest downhill.",
+      "The chain rule propagates error gradients backward through nested functions."
     ],
     lab: {
       lang: "python",
-      title: "OLS Regression: Ad Spend vs Weekly Orders",
-      prompt: "Fit an OLS regression predicting weekly orders from marketing spend and print slope, intercept, and R-squared.",
-      hint: "res = stats.linregress(ad_spend, orders); r2 = res.rvalue ** 2.",
-      starterCode: "import numpy as np\nfrom scipy import stats\n\nad_spend_k = np.array([10, 15, 20, 25, 30, 35, 40], dtype=float)\nweekly_orders = np.array([125, 168, 210, 248, 295, 332, 385], dtype=float)\n\nres = stats.linregress(ad_spend_k, weekly_orders)\nprint(f'Slope: {res.slope:.2f} orders/1k INR | Intercept: {res.intercept:.2f} | R2: {res.rvalue**2:.4f} | p={res.pvalue:.2e}')\n"
+      title: "Numerical vs Analytical Gradient Verification",
+      prompt: "Verify the analytical derivative 2*(w - 4.5) of f(w) = (w - 4.5)**2 against central finite differences.",
+      hint: "num_grad = (f(w + eps) - f(w - eps)) / (2 * eps).",
+      starterCode: "def f(w):\n    return (w - 4.5) ** 2\n\nw = 2.0\neps = 1e-6\nnum_grad = (f(w + eps) - f(w - eps)) / (2 * eps)\nana_grad = 2 * (w - 4.5)\nprint(f'Numerical: {num_grad:.6f} | Analytical: {ana_grad:.6f}')\n"
     }
   },
   {
     day: 105,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "Regression Diagnostics: Residuals & Homoscedasticity",
+    module: "M4: Math & Stats",
+    title: "Gradient Descent Optimization From Scratch",
     instructor: "StatQuest",
-    duration: "14m",
-    videoId: "zITIFTsivN8",
-    altVideoId: "nk2CQITm_eo",
+    duration: "23m",
+    videoId: "sDv4f4s2SB8",
+    altVideoId: "IHZwWFHWa-w",
     startSec: 0,
-    bridge: "Checks residual patterns, autocorrelation, and variance stability so your predictive models generalize reliably.",
+    bridge: "Implements iterative parameter updates w = w - lr * grad in pure NumPy—demystifying how every ML model trains.",
     takeaways: [
-      "Verify that OLS residuals center around zero with constant variance (homoscedasticity).",
-      "Detect non-linear curvature when residual plots show U-shaped patterns.",
-      "Spot high-leverage outliers that distort slope estimates."
+      "Learning rate (lr) controls step size: too large diverges, too small crawls slowly.",
+      "Contrast Batch GD, Stochastic GD (SGD), and Mini-Batch GD.",
+      "Monitor loss decay across epochs to confirm smooth convergence."
     ],
     lab: {
       lang: "python",
-      title: "OLS Residual Diagnostic Audit",
-      prompt: "Compute residuals (y - y_hat) for an OLS fit and check residual mean, std, and max absolute error.",
-      hint: "y_hat = res.intercept + res.slope * x; residuals = y - y_hat.",
-      starterCode: "import numpy as np\nfrom scipy import stats\n\nx = np.array([10, 15, 20, 25, 30, 35, 40], dtype=float)\ny = np.array([125, 168, 210, 248, 295, 332, 385], dtype=float)\nres = stats.linregress(x, y)\nresiduals = y - (res.intercept + res.slope * x)\nprint(f'Residual Mean: {residuals.mean():.4f} | RMSE: {np.sqrt(np.mean(residuals**2)):.2f}')\n"
+      title: "1D Linear Fit via Pure NumPy Gradient Descent",
+      prompt: "Fit slope w and intercept b on ShopPulse order data using 300 steps of Mean Squared Error gradient descent.",
+      hint: "err = (w * x + b) - y; dw = (2/n) * np.sum(err * x); db = (2/n) * np.sum(err).",
+      starterCode: "import numpy as np\n\nx = np.array([1.0, 2.0, 3.0, 4.0, 5.0])\ny = np.array([2500.0, 4800.0, 7100.0, 9400.0, 11700.0])\nw, b, lr = 0.0, 0.0, 0.05\n\nfor _ in range(300):\n    err = (w * x + b) - y\n    w -= lr * (2 / len(x)) * np.sum(err * x)\n    b -= lr * (2 / len(x)) * np.sum(err)\n\nprint(f'Learned w = {w:.2f} (True 2300) | b = {b:.2f} (True 200)')\n"
     }
   },
   {
     day: 106,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "A/B Pitfalls: Peeking, SRM & Novelty Effects",
-    instructor: "Ronny Kohavi",
-    duration: "25m",
-    videoId: "f0Z5102N7hM",
-    altVideoId: "5koKbTCySjU",
+    module: "M4: Math & Stats",
+    title: "Maximum Likelihood Estimation (MLE) & Cross-Entropy Loss",
+    instructor: "StatQuest",
+    duration: "12m",
+    videoId: "oI3hZJqXJuc",
+    altVideoId: "yIYKR4sgzI8",
     startSec: 0,
-    bridge: "Protects real-world experimentation programs from telemetry bugs, Sample Ratio Mismatch, and early-peeking false positives.",
+    bridge: "Connects probability theory directly to ML loss functions: MSE comes from Gaussian MLE, and Log-Loss comes from Bernoulli MLE.",
     takeaways: [
-      "Always run an SRM check (50/50 split verification) before trusting any A/B metric.",
-      "Never stop an experiment early just because p dipped below 0.05 on Day 2.",
-      "Account for novelty effects and guardrail metrics (page latency, refund rate)."
+      "MLE selects model parameters that maximize the probability of observing the training labels.",
+      "Binary Cross-Entropy (Log-Loss) heavily penalizes confident wrong predictions.",
+      "Clip predicted probabilities to [1e-15, 1 - 1e-15] to prevent log(0) errors."
     ],
     lab: {
       lang: "python",
-      title: "Sample Ratio Mismatch (SRM) Automated Gate",
-      prompt: "Use scipy.stats.chisquare to test whether a 50,420 vs 49,580 traffic split exhibits Sample Ratio Mismatch (p < 0.001).",
-      hint: "stat, p_val = stats.chisquare([50420, 49580], f_exp=[50000, 50000]).",
-      starterCode: "from scipy import stats\n\nobserved = [50420, 49580]\nexpected = [50000, 50000]\nstat, p_val = stats.chisquare(observed, f_exp=expected)\nprint(f'SRM Chi2={stat:.2f}, p-value={p_val:.5f} | SRM Alert={p_val < 0.001}')\n"
+      title: "Binary Cross-Entropy (Log-Loss) Evaluator",
+      prompt: "Compute Binary Cross-Entropy loss comparing well-calibrated vs overconfident wrong predictions.",
+      hint: "bce = -np.mean(y * np.log(p) + (1 - y) * np.log(1 - p)).",
+      starterCode: "import numpy as np\n\ndef log_loss(y_true, y_prob):\n    p = np.clip(y_prob, 1e-15, 1 - 1e-15)\n    return -np.mean(y_true * np.log(p) + (1 - y_true) * np.log(1 - p))\n\ny = np.array([1, 0, 1, 0])\ngood_probs = np.array([0.85, 0.15, 0.80, 0.20])\nbad_probs = np.array([0.85, 0.15, 0.05, 0.20])\nprint(f'Calibrated Log-Loss: {log_loss(y, good_probs):.4f} | Overconfident Error Log-Loss: {log_loss(y, bad_probs):.4f}')\n"
     }
   },
   {
     day: 107,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "Variance Reduction in A/B Tests (CUPED)",
-    instructor: "Statsig",
+    module: "M4: Math & Stats",
+    title: "Information Theory: Entropy, KL Divergence & Gini",
+    instructor: "StatQuest",
     duration: "14m",
-    videoId: "A19m472wP3w",
-    altVideoId: "f0Z5102N7hM",
+    videoId: "_L39rN6gz7Y",
+    altVideoId: "oI3hZJqXJuc",
     startSec: 0,
-    bridge: "Uses pre-experiment user spend covariates to shrink A/B variance by 30-50% and reach decisions faster.",
+    bridge: "Explains how Decision Trees score split purity (Entropy/Gini) and how drift monitors detect distribution shift (KL/PSI).",
     takeaways: [
-      "Subtract theta * (X_pre - mean(X_pre)) from experiment outcome Y where theta = Cov(Y, X_pre) / Var(X_pre).",
-      "Keep treatment assignment strictly independent of pre-experiment covariates.",
-      "Achieve tighter confidence intervals without increasing user traffic."
+      "Shannon Entropy -sum(p * log2(p)) peaks at uniform uncertainty and hits 0 for pure classes.",
+      "Gini impurity 1 - sum(p**2) provides a fast log-free split criterion for CART trees.",
+      "KL Divergence and Population Stability Index (PSI) measure drift between training and live feature distributions."
     ],
     lab: {
       lang: "python",
-      title: "CUPED Variance Reduction Benchmark",
-      prompt: "Compute theta = cov(Y, X_pre)/var(X_pre) and compare standard error before vs after CUPED adjustment.",
-      hint: "y_cuped = y - theta * (x_pre - x_pre.mean()).",
-      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\nx_pre = rng.normal(3000, 800, 1000)\ny = 0.75 * x_pre + rng.normal(800, 400, 1000)\n\ntheta = np.cov(y, x_pre)[0, 1] / np.var(x_pre)\ny_cuped = y - theta * (x_pre - x_pre.mean())\nprint(f'Raw Std: {y.std():.2f} -> CUPED Std: {y_cuped.std():.2f} ({100*(1 - y_cuped.var()/y.var()):.1f}% variance cut)')\n"
+      title: "Node Entropy & Gini Impurity Calculator",
+      prompt: "Compare Shannon Entropy and Gini Impurity across a mixed node [0.5, 0.5] vs a pure node [0.95, 0.05].",
+      hint: "entropy = -np.sum(p * np.log2(p)); gini = 1 - np.sum(p ** 2).",
+      starterCode: "import numpy as np\n\ndef impurity(probs):\n    p = np.array(probs, dtype=float)\n    ent = -np.sum(p * np.log2(p))\n    gini = 1.0 - np.sum(p ** 2)\n    return round(float(ent), 4), round(float(gini), 4)\n\nprint('50/50 Split (Entropy, Gini):', impurity([0.5, 0.5]))\nprint('95/05 Split (Entropy, Gini):', impurity([0.95, 0.05]))\n"
     }
   },
   {
     day: 108,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "Capstone 4A: Full A/B Experiment Readout Engine",
+    module: "M4: Math & Stats",
+    title: "Bias-Variance Tradeoff & Overfitting Diagnostics",
     instructor: "StatQuest",
-    duration: "15m",
-    videoId: "5koKbTCySjU",
-    altVideoId: "f0Z5102N7hM",
+    duration: "7m",
+    videoId: "fSytzGwwBVw",
+    altVideoId: "7ArmBVF2dCs",
     startSec: 0,
-    bridge: "Combines SRM gating, conversion Z/Chi-Square tests, Welch revenue t-tests, and bootstrap CIs into an automated Ship/Hold decision report.",
+    bridge: "Establishes the fundamental ML diagnostic framework: comparing training error vs validation error across model complexity.",
     takeaways: [
-      "Execute a complete experiment readout: SRM Gate -> Primary Conversion -> Secondary AOV Guardrail -> Decision.",
-      "Report relative lift, 95% CI, and p-value in a clean executive summary.",
-      "Document ship criteria clearly for stakeholders."
+      "High bias (underfitting) yields poor accuracy on both training and validation splits.",
+      "High variance (overfitting) memorizes training noise while failing on unseen validation data.",
+      "Regularization, simpler models, and more training data tame high variance."
     ],
     lab: {
       lang: "python",
-      title: "Capstone 4A: Automated Ship/Hold Readout Pipeline",
-      prompt: "Evaluate Control vs One-Click Checkout across SRM, conversion rate, and AOV, and print a structured Ship recommendation.",
-      hint: "Verify SRM p >= 0.001 and conversion Chi-Square p < 0.05 before recommending SHIP.",
-      starterCode: "import numpy as np\nfrom scipy import stats\n\nn_c, conv_c = 2500, 205\nn_t, conv_t = 2510, 256\n_, srm_p = stats.chisquare([n_c, n_t])\n_, conv_p, _, _ = stats.chi2_contingency([[conv_c, n_c - conv_c], [conv_t, n_t - conv_t]])\nlift_pct = ((conv_t / n_t) - (conv_c / n_c)) / (conv_c / n_c) * 100\n\ndecision = 'SHIP' if (srm_p >= 0.001 and conv_p < 0.05 and lift_pct > 0) else 'HOLD'\nprint(f'SRM p={srm_p:.4f} | Lift=+{lift_pct:.1f}% | Conv p={conv_p:.4f} | Decision: {decision}')\n"
+      title: "Polynomial Degree Overfitting Curve Demo",
+      prompt: "Fit polynomial degrees 1, 3, and 9 on noisy revenue data using np.polyfit and compare train vs test MSE.",
+      hint: "coeffs = np.polyfit(x_train, y_train, deg); preds = np.polyval(coeffs, x_test).",
+      starterCode: "import numpy as np\n\nrng = np.random.default_rng(7)\nx_tr = np.linspace(0, 5, 12)\ny_tr = 2.5 * x_tr + 1.0 + rng.normal(0, 1.2, size=12)\nx_te = np.linspace(0.2, 4.8, 20)\ny_te = 2.5 * x_te + 1.0 + rng.normal(0, 1.2, size=20)\n\nfor deg in [1, 3, 9]:\n    c = np.polyfit(x_tr, y_tr, deg)\n    tr_mse = np.mean((np.polyval(c, x_tr) - y_tr) ** 2)\n    te_mse = np.mean((np.polyval(c, x_te) - y_te) ** 2)\n    print(f'Degree {deg}: Train MSE={tr_mse:.2f} | Test MSE={te_mse:.2f}')\n"
     }
   },
   {
     day: 109,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "Bridge 4->5: Train/Test Split & Data Leakage Prevention",
+    module: "M4: Math & Stats",
+    title: "Regression Evaluation Metrics: MAE, RMSE, R2 & MAPE",
     instructor: "StatQuest",
-    duration: "14m",
-    videoId: "fSytzGwwBVw",
-    altVideoId: "EuBBz3bI-aA",
+    duration: "10m",
+    videoId: "7ArmBVF2dCs",
+    altVideoId: "fSytzGwwBVw",
     startSec: 0,
-    bridge: "Hands off Month 4 statistical inference directly to Month 5 Machine Learning by shifting from in-sample p-values to out-of-sample generalization.",
+    bridge: "Selects business-aligned error metrics for predicting customer LTV and daily demand in Month 5.",
     takeaways: [
-      "Split data into train and test sets BEFORE fitting scalers, encoders, or imputers.",
-      "Understand why fitting preprocessing on the full dataset leaks test distribution statistics.",
-      "Use stratified splits (stratify=y) on imbalanced churn datasets."
+      "MAE measures average error in original INR units and resists extreme outliers.",
+      "RMSE penalizes large errors quadratically; R2 measures variance explained relative to predicting the mean.",
+      "Avoid MAPE when actual target values can equal or approach zero."
     ],
     lab: {
       lang: "python",
-      title: "Bridge 4->5: Leakage-Free Stratified Split",
-      prompt: "Split a synthetic ShopPulse customer dataset into 80/20 train/test sets using train_test_split(..., stratify=y).",
-      hint: "from sklearn.model_selection import train_test_split.",
-      starterCode: "import numpy as np\nfrom sklearn.model_selection import train_test_split\n\nrng = np.random.default_rng(42)\nX = rng.normal(size=(200, 4))\ny = np.array([0]*160 + [1]*40)\n\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)\nprint(f'Train churn rate: {y_train.mean():.2f} | Test churn rate: {y_test.mean():.2f}')\n"
+      title: "Regression Metrics Suite (MAE, RMSE, R2)",
+      prompt: "Implement MAE, RMSE, and R2 in pure NumPy to evaluate predicted vs actual customer LTV.",
+      hint: "r2 = 1 - np.sum((y - y_hat)**2) / np.sum((y - y.mean())**2).",
+      starterCode: "import numpy as np\n\ny_true = np.array([6500, 9000, 2300, 11500, 4800], dtype=float)\ny_pred = np.array([6200, 8600, 2700, 10800, 5100], dtype=float)\n\nmae = np.mean(np.abs(y_true - y_pred))\nrmse = np.sqrt(np.mean((y_true - y_pred) ** 2))\nr2 = 1.0 - np.sum((y_true - y_pred) ** 2) / np.sum((y_true - y_true.mean()) ** 2)\nprint(f'MAE: INR {mae:.2f} | RMSE: INR {rmse:.2f} | R2: {r2:.4f}')\n"
     }
   },
   {
     day: 110,
     month: 4,
-    module: "M4: Stats & A/B",
-    title: "Bridge 4->5: Bias-Variance Tradeoff & Cross-Validation",
+    module: "M4: Math & Stats",
+    title: "Classification Metrics: Confusion Matrix, Precision, Recall & F1",
     instructor: "StatQuest",
-    duration: "7m",
-    videoId: "EuBBz3bI-aA",
-    altVideoId: "fSytzGwwBVw",
+    duration: "12m",
+    videoId: "Kdsp6soqA7o",
+    altVideoId: "4jRBRDbJemM",
     startSec: 0,
-    bridge: "Completes Month 4 by connecting model complexity (underfitting vs overfitting) to k-fold cross-validation.",
+    bridge: "Shows why raw accuracy fails on imbalanced churn/fraud problems and how Precision vs Recall trade off business costs.",
     takeaways: [
-      "Diagnose high bias (underfitting both train and test) vs high variance (low train error, high test error).",
-      "Evaluate model stability across k=5 folds with cross_val_score().",
-      "Enter Month 5 ready to build production Scikit-Learn pipelines."
+      "Precision = TP / (TP + FP) answers 'of flagged churners, how many actually churned?'",
+      "Recall = TP / (TP + FN) answers 'of all true churners, how many did we catch?'",
+      "F1 Score is the harmonic mean of Precision and Recall."
     ],
     lab: {
       lang: "python",
-      title: "Bridge 4->5: 5-Fold Cross-Validation Baseline",
-      prompt: "Evaluate a Ridge regression baseline across 5 CV folds and print mean and std R-squared.",
-      hint: "scores = cross_val_score(Ridge(), X, y, cv=5, scoring='r2').",
-      starterCode: "import numpy as np\nfrom sklearn.linear_model import Ridge\nfrom sklearn.model_selection import cross_val_score\n\nrng = np.random.default_rng(42)\nX = rng.normal(size=(150, 3))\ny = 3.5 * X[:, 0] - 2.0 * X[:, 1] + rng.normal(0, 0.5, 150)\n\nscores = cross_val_score(Ridge(alpha=1.0), X, y, cv=5, scoring='r2')\nprint(f'5-Fold R2: {scores.mean():.4f} +/- {scores.std():.4f}')\n"
+      title: "Churn Classifier Confusion Matrix & F1 Calculator",
+      prompt: "Compute TP, FP, FN, Precision, Recall, and F1 from binary churn labels and predictions.",
+      hint: "tp = np.sum((y == 1) & (pred == 1)); f1 = 2 * prec * rec / (prec + rec).",
+      starterCode: "import numpy as np\n\ny_true = np.array([1, 0, 0, 1, 0, 0, 1, 0, 0, 1])\ny_pred = np.array([1, 0, 1, 1, 0, 0, 0, 0, 0, 1])\n\ntp = np.sum((y_true == 1) & (y_pred == 1))\nfp = np.sum((y_true == 0) & (y_pred == 1))\nfn = np.sum((y_true == 1) & (y_pred == 0))\nprec = tp / (tp + fp)\nrec = tp / (tp + fn)\nf1 = 2 * prec * rec / (prec + rec)\nprint(f'Precision: {prec:.3f} | Recall: {rec:.3f} | F1: {f1:.3f}')\n"
     }
   },
   {
     day: 111,
-    month: 5,
-    module: "M5: Machine Learning",
-    title: "Bridge 4->5: Scikit-Learn Estimator API & Pipelines",
-    instructor: "Data School",
-    duration: "14m",
-    videoId: "0B5eIE_1vpU",
-    altVideoId: "fSytzGwwBVw",
+    month: 4,
+    module: "M4: Math & Stats",
+    title: "Capstone 4A: ShopPulse Checkout A/B Experiment Analyzer",
+    instructor: "StatQuest",
+    duration: "11m",
+    videoId: "vemZtEM63GY",
+    altVideoId: "TqOeMYtOc1w",
     startSec: 0,
-    bridge: "Wraps Day 109 leakage-free preprocessing and Day 104 regression into a single unified Scikit-Learn Pipeline.",
+    bridge: "Combines SRM validation, conversion lift Z-tests, 95% confidence intervals, and ship/hold decision rules into one reusable analyzer.",
     takeaways: [
-      "Master the consistent .fit(X, y), .transform(X), and .predict(X) estimator contract.",
-      "Chain SimpleImputer, StandardScaler, and estimators inside sklearn.pipeline.Pipeline.",
-      "Guarantee identical transformations at training and inference time."
+      "Gate every experiment decision on passing SRM telemetry checks first.",
+      "Report conversion rates, relative lift, 95% CI, and p-value in one automated executive verdict.",
+      "Archive experiment results cleanly to inform ML feature selection in Month 5."
     ],
     lab: {
       lang: "python",
-      title: "Leakage-Free Imputer + Scaler + Ridge Pipeline",
-      prompt: "Build a Pipeline with SimpleImputer(strategy='median'), StandardScaler(), and Ridge() and evaluate on test data.",
-      hint: "pipe = make_pipeline(SimpleImputer(strategy='median'), StandardScaler(), Ridge()).",
-      starterCode: "import numpy as np\nfrom sklearn.pipeline import make_pipeline\nfrom sklearn.impute import SimpleImputer\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.linear_model import Ridge\n\nX_train = np.array([[1.0, 100.0], [2.0, np.nan], [3.0, 300.0], [4.0, 400.0]])\ny_train = np.array([1500.0, 2900.0, 4600.0, 6100.0])\nX_test = np.array([[5.0, 500.0]])\n\npipe = make_pipeline(SimpleImputer(strategy='median'), StandardScaler(), Ridge())\npipe.fit(X_train, y_train)\nprint('Predicted Revenue:', np.round(pipe.predict(X_test), 2))\n"
+      title: "Capstone 4A: End-to-End A/B Decision Engine",
+      prompt: "Run SRM check, two-proportion Z-test, 95% lift CI, and output SHIP / HOLD recommendation.",
+      hint: "Verify SRM chi2 < 3.84 and p_val < 0.05 before recommending SHIP.",
+      starterCode: "import math\n\ndef evaluate_ab(n_c, k_c, n_v, k_v):\n    exp_n = (n_c + n_v) / 2.0\n    srm_chi2 = ((n_c - exp_n)**2 + (n_v - exp_n)**2) / exp_n\n    p_c, p_v = k_c / n_c, k_v / n_v\n    p_pool = (k_c + k_v) / (n_c + n_v)\n    se = math.sqrt(p_pool * (1 - p_pool) * (1/n_c + 1/n_v))\n    z = (p_v - p_c) / se\n    p_val = math.erfc(abs(z) / math.sqrt(2))\n    decision = 'SHIP' if (srm_chi2 < 3.84 and p_val < 0.05 and p_v > p_c) else 'HOLD'\n    return {'srm_ok': srm_chi2 < 3.84, 'lift_pct': round(((p_v-p_c)/p_c)*100, 2), 'p_val': round(p_val, 4), 'decision': decision}\n\nprint(evaluate_ab(5012, 411, 4988, 514))\n"
     }
   },
   {
     day: 112,
-    month: 5,
-    module: "M5: Machine Learning",
-    title: "ColumnTransformer for Mixed Numeric & Categorical Data",
-    instructor: "Data School",
-    duration: "14m",
-    videoId: "irHhDIYMe3c",
-    altVideoId: "0B5eIE_1vpU",
+    month: 4,
+    module: "M4: Math & Stats",
+    title: "Bridge 4->5: Train/Validation Split & Data Leakage Prevention",
+    instructor: "StatQuest",
+    duration: "7m",
+    videoId: "fSytzGwwBVw",
+    altVideoId: "7ArmBVF2dCs",
     startSec: 0,
-    bridge: "Routes ShopPulse numerical columns (tenure, basket) and categorical columns (city, tier) cleanly without manual get_dummies drift.",
+    bridge: "Hands off Month 4 directly to Month 5 by enforcing strict train/test isolation so scalers and encoders never peek at test rows.",
     takeaways: [
-      "Route numeric and categorical subsets independently via ColumnTransformer.",
-      "Configure OneHotEncoder(handle_unknown='ignore') so unseen cities at inference never crash production.",
-      "Inspect engineered feature names via preprocessor.get_feature_names_out()."
+      "Fit scalers, imputers, and encoders strictly on training data, then .transform() validation and test splits.",
+      "Use time-ordered splits for temporal forecasting and stratified splits for imbalanced classification.",
+      "Eliminate target leakage columns (like post-churn refund flags) before model training."
     ],
     lab: {
       lang: "python",
-      title: "Mixed-Schema ColumnTransformer Pipeline",
-      prompt: "Build a ColumnTransformer scaling ['tenure', 'orders'] and one-hot encoding ['city'] with handle_unknown='ignore'.",
-      hint: "ColumnTransformer([('num', StandardScaler(), ['tenure', 'orders']), ('cat', OneHotEncoder(handle_unknown='ignore'), ['city'])]).",
-      starterCode: "import pandas as pd\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.preprocessing import StandardScaler, OneHotEncoder\n\ndf = pd.DataFrame({\n    'tenure': [30, 120, 240],\n    'orders': [1, 4, 9],\n    'city': ['Mumbai', 'Bengaluru', 'Pune']\n})\nct = ColumnTransformer([\n    ('num', StandardScaler(), ['tenure', 'orders']),\n    ('cat', OneHotEncoder(handle_unknown='ignore'), ['city'])\n])\nX_trans = ct.fit_transform(df)\nprint('Output shape:', X_trans.shape)\nprint('Features:', ct.get_feature_names_out())\n"
+      title: "Bridge 4->5: Leakage-Free StandardScaler Split",
+      prompt: "Split customer features into 80% train / 20% test, fit mean/std ONLY on train, and transform both splits.",
+      hint: "Compute mu = X_train.mean(axis=0) and sigma = X_train.std(axis=0); apply to X_test.",
+      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\nX = rng.normal(loc=[5, 12000], scale=[2, 4000], size=(100, 2))\nidx = rng.permutation(len(X))\nX_train, X_test = X[idx[:80]], X[idx[80:]]\n\nmu = X_train.mean(axis=0)\nsigma = X_train.std(axis=0)\nX_train_scaled = (X_train - mu) / sigma\nX_test_scaled = (X_test - mu) / sigma\nprint('Train scaled mean:', np.round(X_train_scaled.mean(axis=0), 4))\nprint('Test scaled mean :', np.round(X_test_scaled.mean(axis=0), 4))\n"
     }
   },
   {
     day: 113,
     month: 5,
     module: "M5: Machine Learning",
-    title: "Regularized Regression: Ridge (L2) & Lasso (L1)",
+    title: "ML Workflow & Ordinary Least Squares (OLS) Regression",
     instructor: "StatQuest",
-    duration: "14m",
-    videoId: "Q81RR3yKn30",
-    altVideoId: "NGf0voTMlcs",
+    duration: "27m",
+    videoId: "7ArmBVF2dCs",
+    altVideoId: "Q81RR3yKn30",
     startSec: 0,
-    bridge: "Prevents overfitting on correlated features by shrinking weights (Ridge) or driving noisy coefficients to exact zero (Lasso).",
+    bridge: "Launches Month 5 predictive modeling by fitting closed-form OLS linear regression to forecast ShopPulse customer LTV.",
     takeaways: [
-      "Understand how L2 penalty (alpha * sum(w^2)) stabilizes collinear features.",
-      "Use L1 penalty (alpha * sum(|w|)) for automatic sparse feature selection.",
-      "Always standardize features before applying Ridge or Lasso regularization."
+      "Solve linear regression analytically via normal equations or QR decomposition (np.linalg.lstsq).",
+      "Interpret regression coefficients as marginal INR impact holding other features constant.",
+      "Always benchmark ML models against a simple baseline predictor first."
     ],
     lab: {
       lang: "python",
-      title: "Lasso Sparse Feature Selection on Noisy Predictors",
-      prompt: "Fit Lasso(alpha=0.2) on 5 features where only the first 2 carry true signal and inspect learned coef_.",
-      hint: "Check np.round(model.coef_, 3) to see noise weights shrink toward zero.",
-      starterCode: "import numpy as np\nfrom sklearn.linear_model import Lasso\n\nrng = np.random.default_rng(42)\nX = rng.normal(size=(200, 5))\ny = 4.0 * X[:, 0] - 2.5 * X[:, 1] + rng.normal(0, 0.3, 200)\n\nmodel = Lasso(alpha=0.2).fit(X, y)\nprint('Learned Coefficients:', np.round(model.coef_, 3))\n"
+      title: "Closed-Form Multi-Feature LTV Linear Regression",
+      prompt: "Fit weights on [orders_count, tenure_months, avg_basket_inr] using np.linalg.lstsq to predict customer LTV.",
+      hint: "Add an intercept column of ones via np.column_stack([np.ones(len(X)), X]) and call np.linalg.lstsq(X_b, y, rcond=None)[0].",
+      starterCode: "import numpy as np\n\nX = np.array([\n    [2, 3, 3000],\n    [5, 10, 4200],\n    [1, 1, 2200],\n    [6, 12, 4800],\n    [3, 5, 3500]\n], dtype=float)\ny = np.array([6400, 22500, 2300, 30500, 11200], dtype=float)\n\nX_b = np.column_stack([np.ones(len(X)), X])\nw, _, _, _ = np.linalg.lstsq(X_b, y, rcond=None)\npreds = X_b @ w\nprint('Weights (intercept, orders, tenure, basket):', np.round(w, 2))\nprint('RMSE:', round(float(np.sqrt(np.mean((y - preds) ** 2))), 2))\n"
     }
   },
   {
     day: 114,
     month: 5,
     module: "M5: Machine Learning",
-    title: "Logistic Regression & Log-Odds for Churn Prediction",
+    title: "Regularization: Ridge (L2), Lasso (L1) & ElasticNet",
     instructor: "StatQuest",
-    duration: "9m",
-    videoId: "yIYKR4sgzI8",
-    altVideoId: "vN5cNN2-HWE",
+    duration: "20m",
+    videoId: "Q81RR3yKn30",
+    altVideoId: "NGf0voTMlcs",
     startSec: 0,
-    bridge: "Shifts from predicting continuous revenue to predicting calibrated churn probabilities P(churn=1 | x) via the sigmoid function.",
+    bridge: "Prevents correlated features from exploding regression weights by adding L2 shrinkage and L1 feature-selection penalties.",
     takeaways: [
-      "Map linear log-odds into calibrated [0, 1] probabilities using the sigmoid curve.",
-      "Extract class probabilities with .predict_proba(X)[:, 1] rather than hard 0.5 thresholds.",
-      "Interpret feature log-odds coefficients for business explainability."
+      "Ridge (L2) adds alpha * sum(w**2) to shrink collinear weights smoothly without zeroing them out.",
+      "Lasso (L1) adds alpha * sum(|w|) to drive weak feature weights to exact zero.",
+      "Standardize input features before applying L1 or L2 regularization penalties."
     ],
     lab: {
       lang: "python",
-      title: "ShopPulse Customer Churn Probability Scorer",
-      prompt: "Train LogisticRegression on days_since_last_order and support_tickets and output churn probabilities.",
-      hint: "Use clf.predict_proba(X_test)[:, 1].",
-      starterCode: "import numpy as np\nfrom sklearn.linear_model import LogisticRegression\n\n# [days_inactive, support_tickets]\nX = np.array([[5, 0], [12, 0], [45, 2], [60, 3], [8, 1], [55, 2]])\ny = np.array([0, 0, 1, 1, 0, 1])\n\nclf = LogisticRegression().fit(X, y)\nprobs = clf.predict_proba(np.array([[10, 0], [50, 2]]))[:, 1]\nprint('Churn Probabilities [Active User, At-Risk User]:', np.round(probs, 3))\n"
+      title: "Closed-Form Ridge (L2) Regression Solver",
+      prompt: "Solve Ridge regression w = inv(X.T @ X + alpha * I) @ X.T @ y on standardized features and inspect weight shrinkage.",
+      hint: "Use np.linalg.solve(X.T @ X + alpha * np.eye(X.shape[1]), X.T @ y).",
+      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\nX = rng.normal(0, 1, (50, 3))\nX[:, 1] = X[:, 0] + rng.normal(0, 0.05, 50)\ny = 4.0 * X[:, 0] - 2.0 * X[:, 2] + rng.normal(0, 0.5, 50)\n\nfor alpha in [0.0, 1.0, 25.0]:\n    w = np.linalg.solve(X.T @ X + alpha * np.eye(3), X.T @ y)\n    print(f'Alpha {alpha:4.1f} -> Weights: {np.round(w, 3)}')\n"
     }
   },
   {
     day: 115,
     month: 5,
     module: "M5: Machine Learning",
-    title: "Classification Metrics: Precision, Recall, F1 & ROC-AUC",
+    title: "Logistic Regression & Calibrated Probabilities",
     instructor: "StatQuest",
-    duration: "14m",
-    videoId: "4jRBRDbJemM",
-    altVideoId: "Kdsp6soqA7o",
+    duration: "18m",
+    videoId: "yIYKR4sgzI8",
+    altVideoId: "4jRBRDbJemM",
     startSec: 0,
-    bridge: "Aligns model evaluation with business costs (retention coupon cost vs lost customer LTV) instead of misleading raw accuracy.",
+    bridge: "Models binary churn probabilities P(churn=1 | X) by passing linear log-odds through the sigmoid function.",
     takeaways: [
-      "Compute Confusion Matrix, Precision, Recall, and F1-score cleanly.",
-      "Prefer Precision-Recall AUC (PR-AUC) over ROC-AUC when positive churn/fraud classes are rare.",
-      "Tune probability decision thresholds to maximize net retention profit."
+      "Sigmoid(z) = 1 / (1 + exp(-z)) maps real-valued log-odds cleanly into (0, 1) probabilities.",
+      "Positive feature weights increase log-odds of the positive class; negative weights reduce them.",
+      "Train weights by minimizing Binary Cross-Entropy via gradient descent."
     ],
     lab: {
       lang: "python",
-      title: "Threshold Tuning & Precision/Recall Tradeoff",
-      prompt: "Compare precision_score and recall_score at probability thresholds 0.50 vs 0.30.",
-      hint: "preds = (y_prob >= thresh).astype(int).",
-      starterCode: "import numpy as np\nfrom sklearn.metrics import precision_score, recall_score, roc_auc_score\n\ny_true = np.array([0, 0, 1, 0, 1, 1, 0, 1])\ny_prob = np.array([0.12, 0.25, 0.42, 0.35, 0.78, 0.61, 0.18, 0.38])\n\nfor th in [0.50, 0.35]:\n    preds = (y_prob >= th).astype(int)\n    print(f'Thresh {th:.2f} -> Precision: {precision_score(y_true, preds):.2f} | Recall: {recall_score(y_true, preds):.2f}')\nprint(f'ROC-AUC: {roc_auc_score(y_true, y_prob):.3f}')\n"
+      title: "Logistic Regression Training Loop from Scratch",
+      prompt: "Train a binary churn classifier using sigmoid + gradient descent on [days_since_last_order, support_tickets].",
+      hint: "probs = 1 / (1 + np.exp(-(X_b @ w))); grad = (X_b.T @ (probs - y)) / len(y).",
+      starterCode: "import numpy as np\n\nX = np.array([[5, 0], [12, 0], [45, 2], [60, 3], [8, 0], [55, 2]], dtype=float)\nX_std = (X - X.mean(axis=0)) / X.std(axis=0)\nX_b = np.column_stack([np.ones(len(X)), X_std])\ny = np.array([0, 0, 1, 1, 0, 1], dtype=float)\n\nw = np.zeros(3)\nfor _ in range(400):\n    probs = 1.0 / (1.0 + np.exp(-(X_b @ w)))\n    w -= 0.1 * (X_b.T @ (probs - y)) / len(y)\n\nprint('Predicted Churn Probs:', np.round(1.0 / (1.0 + np.exp(-(X_b @ w))), 3))\n"
     }
   },
   {
     day: 116,
     month: 5,
     module: "M5: Machine Learning",
-    title: "Decision Trees, Gini Impurity & Information Gain",
+    title: "ROC-AUC, PR-AUC & Business Decision Threshold Tuning",
     instructor: "StatQuest",
-    duration: "17m",
-    videoId: "_L39rN6gz7Y",
-    altVideoId: "7VeUPuFGJHk",
+    duration: "16m",
+    videoId: "4jRBRDbJemM",
+    altVideoId: "Kdsp6soqA7o",
     startSec: 0,
-    bridge: "Introduces non-linear axis-aligned rule splits that naturally capture feature interactions without manual polynomial terms.",
+    bridge: "Replaces naive 0.50 probability cutoffs with cost-optimized decision thresholds tailored to retention campaign ROI.",
     takeaways: [
-      "Understand how recursive splits minimize Gini impurity or Shannon entropy.",
-      "Control tree overfitting via max_depth, min_samples_leaf, and ccp_alpha pruning.",
-      "Recognize why single deep trees suffer high variance."
+      "ROC-AUC measures ranking discrimination across all thresholds; PR-AUC focuses on positive-class precision under severe imbalance.",
+      "Optimize decision thresholds against business payoff matrices (retention coupon cost vs saved LTV).",
+      "Never assume 0.50 is the optimal classification cutoff."
     ],
     lab: {
       lang: "python",
-      title: "Depth-Constrained Decision Tree Classifier",
-      prompt: "Compare train vs test accuracy of an unconstrained tree (max_depth=None) vs pruned tree (max_depth=3).",
-      hint: "Fit DecisionTreeClassifier(max_depth=d, random_state=42) for d in [None, 3].",
-      starterCode: "from sklearn.datasets import make_classification\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.tree import DecisionTreeClassifier\n\nX, y = make_classification(n_samples=400, n_features=8, random_state=42)\nX_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.25, random_state=42)\n\nfor d in [None, 3]:\n    dt = DecisionTreeClassifier(max_depth=d, random_state=42).fit(X_tr, y_tr)\n    print(f'max_depth={str(d):4s} -> Train Acc: {dt.score(X_tr, y_tr):.3f} | Test Acc: {dt.score(X_te, y_te):.3f}')\n"
+      title: "Profit-Maximizing Churn Threshold Optimizer",
+      prompt: "Sweep thresholds from 0.20 to 0.80 to maximize net campaign profit (INR 1,500 saved per TP minus INR 200 coupon per flag).",
+      hint: "net_profit = tp * 1500 - (tp + fp) * 200.",
+      starterCode: "import numpy as np\n\ny_true = np.array([1, 0, 1, 0, 0, 1, 0, 0, 1, 0])\nprobs = np.array([0.82, 0.45, 0.65, 0.15, 0.25, 0.52, 0.10, 0.35, 0.74, 0.18])\n\nfor t in [0.30, 0.50, 0.70]:\n    preds = (probs >= t).astype(int)\n    tp = np.sum((y_true == 1) & (preds == 1))\n    fp = np.sum((y_true == 0) & (preds == 1))\n    profit = tp * 1500 - (tp + fp) * 200\n    print(f'Threshold {t:.2f} -> TP={tp}, FP={fp} | Net Profit: INR {profit}')\n"
     }
   },
   {
     day: 117,
     month: 5,
     module: "M5: Machine Learning",
-    title: "Random Forests: Bootstrap Aggregation & Feature Subsampling",
+    title: "Decision Trees: Splits, Information Gain & Pruning",
     instructor: "StatQuest",
-    duration: "10m",
-    videoId: "J4Wdy0Wc_xQ",
-    altVideoId: "_L39rN6gz7Y",
+    duration: "18m",
+    videoId: "_L39rN6gz7Y",
+    altVideoId: "J4Wdy0Wc_xQ",
     startSec: 0,
-    bridge: "Slashes single-tree variance by averaging hundreds of decorrelated trees trained on bootstrap samples.",
+    bridge: "Captures non-linear feature interactions automatically via greedy recursive partitioning.",
     takeaways: [
-      "Combine bagging (bootstrap sampling) with random feature subsets (max_features='sqrt') to decorrelate trees.",
-      "Use out-of-bag (oob_score=True) validation for built-in generalization estimates.",
-      "Establish a strong tabular baseline before moving to gradient boosting."
+      "Trees choose feature thresholds that maximize impurity reduction (Information Gain / Gini decrease).",
+      "Unconstrained trees memorize training rows to 100% purity and overfit badly.",
+      "Control tree complexity via max_depth, min_samples_leaf, and cost-complexity pruning."
     ],
     lab: {
       lang: "python",
-      title: "Random Forest with Out-of-Bag (OOB) Validation",
-      prompt: "Train a 150-tree RandomForestClassifier with oob_score=True and compare oob_score_ to test accuracy.",
-      hint: "rf = RandomForestClassifier(n_estimators=150, oob_score=True, random_state=42).",
-      starterCode: "from sklearn.datasets import make_classification\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.ensemble import RandomForestClassifier\n\nX, y = make_classification(n_samples=500, n_features=10, random_state=42)\nX_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.2, random_state=42)\n\nrf = RandomForestClassifier(n_estimators=150, oob_score=True, random_state=42).fit(X_tr, y_tr)\nprint(f'OOB Score: {rf.oob_score_:.3f} | Test Acc: {rf.score(X_te, y_te):.3f}')\n"
+      title: "Greedy Best-Threshold Split Finder",
+      prompt: "Scan candidate split thresholds on days_inactive to find the split minimizing weighted Gini impurity.",
+      hint: "Compute weighted Gini = (n_left/n)*gini_left + (n_right/n)*gini_right for each split.",
+      starterCode: "import numpy as np\n\nx = np.array([5, 10, 14, 30, 45, 60])\ny = np.array([0, 0, 0, 1, 1, 1])\n\ndef gini(labels):\n    if len(labels) == 0:\n        return 0.0\n    p = np.mean(labels)\n    return 1.0 - (p**2 + (1 - p)**2)\n\nfor thresh in [12, 22, 38]:\n    left, right = y[x <= thresh], y[x > thresh]\n    w_gini = (len(left)/len(y))*gini(left) + (len(right)/len(y))*gini(right)\n    print(f'Split <= {thresh:2d} -> Weighted Gini: {w_gini:.4f}')\n"
     }
   },
   {
     day: 118,
     month: 5,
     module: "M5: Machine Learning",
-    title: "Gradient Boosting Machines (GBM) Intuition",
+    title: "Random Forests, Bagging & Out-of-Bag Error",
     instructor: "StatQuest",
-    duration: "21m",
-    videoId: "3CC4N4z3GJc",
-    altVideoId: "2xudPOBz-vs",
+    duration: "10m",
+    videoId: "J4Wdy0Wc_xQ",
+    altVideoId: "_L39rN6gz7Y",
     startSec: 0,
-    bridge: "Transitions from parallel bagging to sequential residual-fitting trees that dominate tabular benchmarks.",
+    bridge: "Reduces high decision-tree variance by averaging hundreds of bootstrap-sampled, feature-subsampled trees.",
     takeaways: [
-      "Understand how each shallow weak learner fits the negative gradient (pseudo-residuals) of previous trees.",
-      "Balance learning_rate (shrinkage) against n_estimators and max_depth.",
-      "Use HistGradientBoostingClassifier in Scikit-Learn for native missing-value support and speed."
+      "Bagging trains trees on bootstrap samples; feature subsampling (max_features='sqrt') decorrelates trees.",
+      "Out-of-Bag (OOB) rows (~36.8% left out of each bootstrap draw) provide free built-in validation.",
+      "Random Forests require minimal feature scaling and resist outliers gracefully."
     ],
     lab: {
       lang: "python",
-      title: "HistGradientBoosting vs Random Forest Benchmark",
-      prompt: "Compare 5-fold cross-validated accuracy between RandomForestClassifier and HistGradientBoostingClassifier.",
-      hint: "from sklearn.ensemble import HistGradientBoostingClassifier.",
-      starterCode: "from sklearn.datasets import make_classification\nfrom sklearn.model_selection import cross_val_score\nfrom sklearn.ensemble import RandomForestClassifier, HistGradientBoostingClassifier\n\nX, y = make_classification(n_samples=600, n_features=12, n_informative=6, random_state=42)\nfor name, clf in [('RandomForest', RandomForestClassifier(random_state=42)), ('HistGBM', HistGradientBoostingClassifier(random_state=42))]:\n    sc = cross_val_score(clf, X, y, cv=5).mean()\n    print(f'{name:14s} 5-Fold Acc: {sc:.4f}')\n"
+      title: "Bootstrap Ensemble Variance Reduction Demo",
+      prompt: "Average 50 noisy tree predictors and verify that ensemble MSE is substantially lower than single-model MSE.",
+      hint: "Generate (50, n) noisy predictions around true y and compare single-row MSE vs .mean(axis=0) MSE.",
+      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\ny_true = np.array([0.1, 0.2, 0.8, 0.9, 0.3, 0.7])\ntree_preds = np.clip(y_true + rng.normal(0, 0.22, size=(50, len(y_true))), 0, 1)\n\nsingle_mse = np.mean((tree_preds[0] - y_true) ** 2)\nforest_mse = np.mean((tree_preds.mean(axis=0) - y_true) ** 2)\nprint(f'Single Tree MSE: {single_mse:.4f} | 50-Tree Ensemble MSE: {forest_mse:.4f}')\n"
     }
   },
   {
     day: 119,
     month: 5,
     module: "M5: Machine Learning",
-    title: "XGBoost & LightGBM: Regularized Tree Boosting",
+    title: "Gradient Boosting Machines (GBM) Intuition",
     instructor: "StatQuest",
-    duration: "24m",
-    videoId: "OtD8wVaFm6E",
-    altVideoId: "3CC4N4z3GJc",
+    duration: "21m",
+    videoId: "3CC4N4z3GJc",
+    altVideoId: "OtD8wVaFm6E",
     startSec: 0,
-    bridge: "Explains second-order Hessian split gains, L1/L2 leaf regularization, and early stopping in modern GBDT engines.",
+    bridge: "Builds additive weak learners sequentially—each new shallow tree predicts and corrects the residual errors of prior trees.",
     takeaways: [
-      "Understand similarity score gain, gamma pruning threshold, and lambda leaf regularization.",
-      "Prevent overfitting with early_stopping_rounds on a held-out validation split.",
-      "Tune subsample and colsample_bytree to improve tree diversity."
+      "Unlike independent Random Forest trees, Gradient Boosting fits trees sequentially on pseudo-residuals.",
+      "Learning rate (shrinkage) scales each tree's contribution so more trees generalize better.",
+      "Shallow trees (max_depth=3..6) capture clean interactions without memorizing noise."
     ],
     lab: {
       lang: "python",
-      title: "Early-Stopped Gradient Boosting Tuning",
-      prompt: "Train HistGradientBoostingClassifier with early_stopping=True and inspect n_iter_ used before stopping.",
-      hint: "hgb = HistGradientBoostingClassifier(max_iter=300, early_stopping=True, random_state=42).",
-      starterCode: "from sklearn.datasets import make_classification\nfrom sklearn.ensemble import HistGradientBoostingClassifier\n\nX, y = make_classification(n_samples=800, n_features=10, random_state=42)\nhgb = HistGradientBoostingClassifier(max_iter=300, learning_rate=0.05, early_stopping=True, random_state=42)\nhgb.fit(X, y)\nprint(f'Stopped at iteration {hgb.n_iter_} / 300 | Validation score: {hgb.validation_score_[-1]:.4f}')\n"
+      title: "Sequential Residual Boosting Step-by-Step",
+      prompt: "Simulate 4 boosting rounds starting from mean prediction, updating predictions by lr * residual_fit.",
+      hint: "Start pred = np.full_like(y, y.mean()); at each round residual = y - pred; pred += lr * residual.",
+      starterCode: "import numpy as np\n\ny = np.array([2500.0, 4800.0, 8900.0, 11400.0])\npred = np.full_like(y, y.mean())\nlr = 0.4\n\nfor step in range(1, 5):\n    residual = y - pred\n    pred = pred + lr * residual\n    rmse = np.sqrt(np.mean((y - pred) ** 2))\n    print(f'Round {step}: RMSE = INR {rmse:.2f}')\n"
     }
   },
   {
     day: 120,
     month: 5,
     module: "M5: Machine Learning",
-    title: "Hyperparameter Search & Time-Series Cross-Validation",
-    instructor: "Data School",
-    duration: "14m",
-    videoId: "Gol_qOgRqfA",
-    altVideoId: "0B5eIE_1vpU",
+    title: "XGBoost & LightGBM Architecture & Regularization",
+    instructor: "StatQuest",
+    duration: "24m",
+    videoId: "OtD8wVaFm6E",
+    altVideoId: "3CC4N4z3GJc",
     startSec: 0,
-    bridge: "Automates model tuning safely—and enforces TimeSeriesSplit so future sales never leak into past training folds.",
+    bridge: "Explains why XGBoost and LightGBM dominate tabular business datasets via second-order gradients, histogram binning, and native null routing.",
     takeaways: [
-      "Prefer RandomizedSearchCV over exhaustive GridSearchCV in multi-dimensional spaces.",
-      "Use TimeSeriesSplit (expanding window CV) on chronological revenue and demand datasets.",
-      "Inspect best_params_ and best_score_ systematically."
+      "XGBoost uses second-order Taylor approximations (gradients + hessians) and L1/L2 leaf weight penalties.",
+      "Histogram-based binning groups continuous features into 256 buckets for massive training speedups.",
+      "Early stopping halts training automatically when validation loss stops improving."
     ],
     lab: {
       lang: "python",
-      title: "TimeSeriesSplit Expanding Window Validation",
-      prompt: "Generate 4 chronological train/test index splits using TimeSeriesSplit(n_splits=4) and print fold sizes.",
-      hint: "tscv = TimeSeriesSplit(n_splits=4); iterate over tscv.split(X).",
-      starterCode: "import numpy as np\nfrom sklearn.model_selection import TimeSeriesSplit\n\nX = np.arange(100).reshape(-1, 1)\ntscv = TimeSeriesSplit(n_splits=4)\nfor fold, (tr_idx, te_idx) in enumerate(tscv.split(X), 1):\n    print(f'Fold {fold}: Train [0..{tr_idx[-1]}] ({len(tr_idx)} rows) -> Test [{te_idx[0]}..{te_idx[-1]}] ({len(te_idx)} rows)')\n"
+      title: "Second-Order Newton Gain Score Calculator (XGBoost Split)",
+      prompt: "Compute XGBoost split gain using gradient sums G and hessian sums H with regularization lambda=1.0.",
+      hint: "score(G, H) = (G**2) / (H + reg_lambda); gain = 0.5 * (score_L + score_R - score_parent).",
+      starterCode: "def xgb_gain(G_L, H_L, G_R, H_R, reg_lambda=1.0):\n    score = lambda g, h: (g ** 2) / (h + reg_lambda)\n    return 0.5 * (score(G_L, H_L) + score(G_R, H_R) - score(G_L + G_R, H_L + H_R))\n\nprint('Split Gain:', round(xgb_gain(G_L=4.2, H_L=5.0, G_R=-3.8, H_R=5.0), 4))\n"
     }
   },
   {
     day: 121,
     month: 5,
     module: "M5: Machine Learning",
-    title: "Model Explainability: Permutation Importance & SHAP",
-    instructor: "StatQuest",
+    title: "Feature Engineering: Categorical Encodings & Interactions",
+    instructor: "Krish Naik",
     duration: "18m",
-    videoId: "VB9uV-x0gtg",
-    altVideoId: "J4Wdy0Wc_xQ",
+    videoId: "pqNCD_5r0IU",
+    altVideoId: "fSytzGwwBVw",
     startSec: 0,
-    bridge: "Opens the black box so you can explain to ShopPulse leadership exactly why a customer was flagged as high churn risk.",
+    bridge: "Transforms raw SQL/Pandas columns (cities, signup dates, RFM ratios) into high-signal tabular features.",
     takeaways: [
-      "Prefer permutation_importance on held-out test data over biased split-count impurity importance.",
-      "Understand Shapley additive explanations (SHAP) for per-customer local attributions.",
-      "Detect subtle target leakage when one feature exhibits suspiciously high importance."
+      "Use One-Hot Encoding for low-cardinality categories and out-of-fold Target/Frequency Encoding for high cardinality.",
+      "Create domain ratio features (spend_per_order, days_between_orders, discount_affinity).",
+      "Compute out-of-fold target encodings strictly inside CV folds to prevent target leakage."
     ],
     lab: {
       lang: "python",
-      title: "Held-Out Permutation Feature Importance",
-      prompt: "Compute permutation_importance on a fitted RandomForestClassifier and rank features by mean score drop.",
-      hint: "res = permutation_importance(clf, X_test, y_test, n_repeats=10, random_state=42).",
-      starterCode: "import numpy as np\nfrom sklearn.datasets import make_classification\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.ensemble import RandomForestClassifier\nfrom sklearn.inspection import permutation_importance\n\nX, y = make_classification(n_samples=400, n_features=5, n_informative=2, n_redundant=0, random_state=42)\nX_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.25, random_state=42)\nrf = RandomForestClassifier(random_state=42).fit(X_tr, y_tr)\n\nimp = permutation_importance(rf, X_te, y_te, n_repeats=10, random_state=42)\nfor idx in np.argsort(imp.importances_mean)[::-1]:\n    print(f'Feature {idx}: importance={imp.importances_mean[idx]:.4f}')\n"
+      title: "RFM & Behavioral Feature Engineering Builder",
+      prompt: "Engineer frequency, monetary_aov, and recency_ratio features from raw ShopPulse customer metrics.",
+      hint: "aov = total_spend / orders; recency_ratio = days_since_last / tenure_days.",
+      starterCode: "import pandas as pd\n\ndf = pd.DataFrame({\n    'customer_id': [1, 2, 3],\n    'orders': [4, 1, 6],\n    'total_spend': [16800.0, 2298.0, 31200.0],\n    'days_since_last': [12, 85, 8],\n    'tenure_days': [120, 90, 210]\n})\n\ndf['aov_inr'] = (df['total_spend'] / df['orders']).round(2)\ndf['inactivity_ratio'] = (df['days_since_last'] / df['tenure_days']).round(3)\nprint(df[['customer_id', 'aov_inr', 'inactivity_ratio']])\n"
     }
   },
   {
     day: 122,
     month: 5,
     module: "M5: Machine Learning",
-    title: "Unsupervised Learning: K-Means & Silhouette Analysis",
+    title: "Production Pipelines: Scikit-Learn Pipeline & ColumnTransformer",
     instructor: "StatQuest",
-    duration: "9m",
-    videoId: "4b5d3muPQmA",
-    altVideoId: "4r_5b3_8N_8",
+    duration: "10m",
+    videoId: "fSytzGwwBVw",
+    altVideoId: "pqNCD_5r0IU",
     startSec: 0,
-    bridge: "Discovers natural ShopPulse customer personas (Whales, Bargain Hunters, Dormant) from RFM features without labels.",
+    bridge: "Bundles preprocessing and model inference into one atomic, serializable object that eliminates training-serving skew.",
     takeaways: [
-      "Always standardize RFM features before running Euclidean-distance K-Means.",
-      "Select cluster count k using both Elbow inertia and Silhouette scores.",
-      "Profile cluster centroids back in original INR units for marketing teams."
+      "Route numeric columns through imputers/scalers and categorical columns through encoders via ColumnTransformer.",
+      "Serialize the entire Pipeline artifact so production APIs call pipeline.predict(raw_df) directly.",
+      "Guarantee zero data leakage during cross-validation."
     ],
     lab: {
       lang: "python",
-      title: "RFM Customer Segmentation with Silhouette Selection",
-      prompt: "Cluster standardized customer RFM data for k=2, 3, 4 and print the silhouette_score for each k.",
-      hint: "Score KMeans(n_clusters=k, n_init=10, random_state=42).fit_predict(X_scaled).",
-      starterCode: "import numpy as np\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.cluster import KMeans\nfrom sklearn.metrics import silhouette_score\n\nrng = np.random.default_rng(42)\nX = np.vstack([\n    rng.normal([10, 12, 25000], [3, 2, 3000], (40, 3)),\n    rng.normal([45, 4, 6500], [8, 1, 1200], (40, 3)),\n    rng.normal([150, 1, 1800], [20, 0.5, 500], (40, 3))\n])\nX_scaled = StandardScaler().fit_transform(X)\n\nfor k in [2, 3, 4]:\n    labels = KMeans(n_clusters=k, n_init=10, random_state=42).fit_predict(X_scaled)\n    print(f'k={k} -> Silhouette Score: {silhouette_score(X_scaled, labels):.4f}')\n"
+      title: "Custom Preprocessing Transformer Class (fit / transform)",
+      prompt: "Implement a clean Standardizer class with .fit(X) and .transform(X) methods mirroring Scikit-Learn's API.",
+      hint: "Store self.mean_ and self.std_ in fit(), then return (X - self.mean_) / self.std_ in transform().",
+      starterCode: "import numpy as np\n\nclass SimpleScaler:\n    def fit(self, X):\n        self.mean_ = X.mean(axis=0)\n        self.std_ = X.std(axis=0)\n        return self\n\n    def transform(self, X):\n        return (X - self.mean_) / self.std_\n\nscaler = SimpleScaler().fit(np.array([[10.0, 200.0], [20.0, 400.0]]))\nprint(scaler.transform(np.array([[15.0, 300.0]])))\n"
     }
   },
   {
     day: 123,
     month: 5,
     module: "M5: Machine Learning",
-    title: "Dimensionality Reduction: PCA & Variance Explained",
+    title: "Cross-Validation Strategies: Stratified, Group & TimeSeriesSplit",
     instructor: "StatQuest",
-    duration: "22m",
-    videoId: "FgakZw6K1QQ",
-    altVideoId: "PFDu9oVAE-g",
+    duration: "7m",
+    videoId: "fSytzGwwBVw",
+    altVideoId: "7ArmBVF2dCs",
     startSec: 0,
-    bridge: "Compresses correlated behavioral features into orthogonal principal components for 2D visualization and noise removal.",
+    bridge: "Matches validation splitting geometry to real-world deployment: GroupKFold by customer_id and TimeSeriesSplit by date.",
     takeaways: [
-      "Standardize features prior to PCA so high-magnitude INR columns do not dominate variance.",
-      "Select component count via cumulative explained_variance_ratio_ >= 0.90.",
-      "Connect PCA eigenvectors directly to Day 100 linear algebra."
+      "Use StratifiedKFold for classification so every fold preserves the exact positive class ratio.",
+      "Use GroupKFold when multiple rows belong to the same customer_id so user history never leaks across folds.",
+      "Use expanding-window TimeSeriesSplit for temporal forecasting tasks."
     ],
     lab: {
       lang: "python",
-      title: "PCA Cumulative Variance Compression",
-      prompt: "Fit PCA on a 6-feature standardized dataset and print cumulative variance explained per component.",
-      hint: "np.cumsum(pca.explained_variance_ratio_).",
-      starterCode: "import numpy as np\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.decomposition import PCA\n\nrng = np.random.default_rng(42)\nbase = rng.normal(size=(200, 2))\nX = np.hstack([base, base @ np.array([[1.2, -0.5], [0.4, 0.9]]), rng.normal(0, 0.2, (200, 2))])\nX_scaled = StandardScaler().fit_transform(X)\n\npca = PCA().fit(X_scaled)\nprint('Cumulative Variance Explained:', np.round(np.cumsum(pca.explained_variance_ratio_) * 100, 1), '%')\n"
+      title: "Expanding-Window Time-Series Fold Generator",
+      prompt: "Generate 3 expanding-window train/validation index splits over 12 chronological months.",
+      hint: "Train on [:k], validate on [k:k+2] for k in [6, 8, 10].",
+      starterCode: "months = [f'2026-{m:02d}' for m in range(1, 13)]\nfor fold, cutoff in enumerate([6, 8, 10], start=1):\n    print(f'Fold {fold} | Train: {months[:cutoff]} -> Val: {months[cutoff:cutoff+2]}')\n"
     }
   },
   {
     day: 124,
     month: 5,
     module: "M5: Machine Learning",
-    title: "Anomaly & Fraud Detection with Isolation Forest",
+    title: "Hyperparameter Tuning: Grid, Random & Bayesian Search",
     instructor: "StatQuest",
-    duration: "15m",
-    videoId: "5p8B2Ik8jo0",
-    altVideoId: "rzFX5NWojp0",
+    duration: "10m",
+    videoId: "fSytzGwwBVw",
+    altVideoId: "OtD8wVaFm6E",
     startSec: 0,
-    bridge: "Detects anomalous payment velocity and fraudulent high-value orders without requiring historical fraud labels.",
+    bridge: "Searches hyperparameter spaces efficiently using randomized and Bayesian surrogate optimization instead of brute-force grids.",
     takeaways: [
-      "Understand why anomalies isolate in fewer random tree splits (shorter average path length).",
-      "Configure contamination rate to match expected fraud prevalence.",
-      "Combine Isolation Forest scores with business velocity rules."
+      "RandomizedSearch explores continuous distributions far more efficiently than coarse Cartesian grids.",
+      "Bayesian optimization (Optuna) models prior trial scores to focus evaluations on promising regions.",
+      "Always hold out a final untouched test set after hyperparameter selection."
     ],
     lab: {
       lang: "python",
-      title: "Unsupervised Order Fraud Detector",
-      prompt: "Fit IsolationForest(contamination=0.05) on normal orders + 3 injected anomalies and inspect predictions (-1 = anomaly).",
-      hint: "iso = IsolationForest(contamination=0.05, random_state=42).fit(X); iso.predict(X).",
-      starterCode: "import numpy as np\nfrom sklearn.ensemble import IsolationForest\n\nrng = np.random.default_rng(42)\nnormal = rng.normal([3500, 2], [800, 1], (57, 2))\nfraud = np.array([[48000, 15], [52000, 18], [41000, 14]])\nX = np.vstack([normal, fraud])\n\niso = IsolationForest(contamination=0.05, random_state=42).fit(X)\npreds = iso.predict(X)\nprint('Flagged anomaly indices:', np.where(preds == -1)[0])\n"
+      title: "Random Hyperparameter Search Over Regularization Alpha",
+      prompt: "Sample 8 log-uniform alpha candidates between 1e-3 and 1e2 and select the lowest validation MSE.",
+      hint: "alphas = 10 ** rng.uniform(-3, 2, size=8).",
+      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\nalphas = np.sort(10 ** rng.uniform(-3, 2, size=8))\n# Simulated validation loss curve peaking around alpha ~ 1.5\nval_losses = 0.42 + 0.08 * (np.log10(alphas) - 0.18) ** 2\nbest_idx = int(np.argmin(val_losses))\nprint(f'Best Alpha: {alphas[best_idx]:.4f} | Val Loss: {val_losses[best_idx]:.4f}')\n"
     }
   },
   {
     day: 125,
     month: 5,
     module: "M5: Machine Learning",
-    title: "Classical NLP Baseline: TF-IDF & Sentiment Pipeline",
-    instructor: "codebasics",
-    duration: "14m",
-    videoId: "h2kBNEShsiE",
+    title: "Handling Class Imbalance: Class Weights & Calibration",
+    instructor: "StatQuest",
+    duration: "12m",
+    videoId: "Kdsp6soqA7o",
     altVideoId: "yIYKR4sgzI8",
     startSec: 0,
-    bridge: "Transforms raw ShopPulse product reviews into sparse TF-IDF matrices for a fast, interpretable linear classifier before Month 6 Transformers.",
+    bridge: "Trains accurate fraud and rare-churn models when positive events represent only 1-5% of traffic.",
     takeaways: [
-      "Understand Term Frequency-Inverse Document Frequency weighting and n-gram ranges (1, 2).",
-      "Build a TfidfVectorizer + LogisticRegression text pipeline in 5 lines of Scikit-Learn.",
-      "Always benchmark heavy deep learning NLP against a clean TF-IDF baseline."
+      "Prefer class_weight='balanced' and threshold tuning before synthetic oversampling (SMOTE).",
+      "Apply SMOTE strictly inside training folds—never before train/validation splitting.",
+      "Recalibrate predicted probabilities (Platt scaling / isotonic) whenever training class priors are altered."
     ],
     lab: {
       lang: "python",
-      title: "ShopPulse Review Sentiment Classifier (TF-IDF)",
-      prompt: "Train a TfidfVectorizer(ngram_range=(1,2)) + LogisticRegression pipeline on product reviews and score new reviews.",
-      hint: "pipe = make_pipeline(TfidfVectorizer(ngram_range=(1, 2)), LogisticRegression()).",
-      starterCode: "from sklearn.pipeline import make_pipeline\nfrom sklearn.feature_extraction.text import TfidfVectorizer\nfrom sklearn.linear_model import LogisticRegression\n\nreviews = [\n    'Crisp switches and solid build quality',\n    'ANC blocks traffic noise completely',\n    'Stopped working after two days terrible',\n    'Cheap plastic and constant disconnects',\n    'Fast charging and great battery life',\n    'Overheats badly and poor support'\n]\nlabels = [1, 1, 0, 0, 1, 0]\n\npipe = make_pipeline(TfidfVectorizer(ngram_range=(1, 2)), LogisticRegression()).fit(reviews, labels)\ntest_revs = ['Great battery and solid quality', 'Terrible plastic stopped working']\nprint('Predictions (1=Pos, 0=Neg):', pipe.predict(test_revs))\n"
+      title: "Balanced Inverse-Frequency Class Weight Calculator",
+      prompt: "Compute balanced class weights n_samples / (n_classes * np.bincount(y)) for a 95% / 5% imbalanced target.",
+      hint: "weights = len(y) / (2 * np.bincount(y)).",
+      starterCode: "import numpy as np\n\ny = np.array([0]*95 + [1]*5)\ncounts = np.bincount(y)\nweights = len(y) / (2.0 * counts)\nprint(f'Class 0 weight: {weights[0]:.3f} | Class 1 weight: {weights[1]:.3f}')\n"
     }
   },
   {
     day: 126,
     month: 5,
     module: "M5: Machine Learning",
-    title: "Capstone 5A: End-to-End Customer Churn Pipeline",
-    instructor: "Data School",
-    duration: "15m",
-    videoId: "irHhDIYMe3c",
-    altVideoId: "0B5eIE_1vpU",
+    title: "Unsupervised Clustering: K-Means & Elbow/Silhouette",
+    instructor: "StatQuest",
+    duration: "9m",
+    videoId: "4b5d3muPQmA",
+    altVideoId: "FgakZw6K1QQ",
     startSec: 0,
-    bridge: "Integrates ColumnTransformer, Gradient Boosting, cross-validation, and threshold tuning into a production-ready churn scorer.",
+    bridge: "Discovers natural RFM customer personas (VIP Whales, At-Risk Sleepers, Bargain Hunters) without labeled targets.",
     takeaways: [
-      "Combine numeric imputation/scaling, categorical encoding, and gradient boosting in one Pipeline.",
-      "Evaluate out-of-fold ROC-AUC and business retention ROI.",
-      "Serialize model artifacts cleanly for downstream API serving."
+      "Standardize all features before distance-based clustering so high-magnitude INR columns do not dominate.",
+      "Evaluate cluster cohesion and separation via inertia (Elbow curve) and Silhouette score.",
+      "Profile cluster centroids in original business units so marketing teams can act on each segment."
     ],
     lab: {
       lang: "python",
-      title: "Capstone 5A: Complete Churn Prediction Pipeline",
-      prompt: "Build and cross-validate a full ColumnTransformer + HistGradientBoostingClassifier pipeline on mixed customer features.",
-      hint: "Combine ColumnTransformer with HistGradientBoostingClassifier inside make_pipeline().",
-      starterCode: "import numpy as np\nimport pandas as pd\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.ensemble import HistGradientBoostingClassifier\nfrom sklearn.pipeline import make_pipeline\nfrom sklearn.model_selection import cross_val_score\n\nrng = np.random.default_rng(42)\nn = 300\ndf = pd.DataFrame({\n    'recency_days': rng.integers(1, 180, n),\n    'orders': rng.integers(1, 15, n),\n    'city': rng.choice(['Mumbai', 'Bengaluru', 'Delhi', 'Pune'], n)\n})\ny = ((df['recency_days'] > 90) & (df['orders'] < 4)).astype(int)\n\nct = ColumnTransformer([\n    ('num', StandardScaler(), ['recency_days', 'orders']),\n    ('cat', OneHotEncoder(handle_unknown='ignore', sparse_output=False), ['city'])\n])\npipe = make_pipeline(ct, HistGradientBoostingClassifier(random_state=42))\nauc = cross_val_score(pipe, df, y, cv=5, scoring='roc_auc').mean()\nprint(f'Capstone 5A 5-Fold ROC-AUC: {auc:.4f}')\n"
+      title: "2-Cluster K-Means Segmentation From Scratch",
+      prompt: "Run 10 iterations of Lloyd's K-Means algorithm on standardized [orders, spend] vectors.",
+      hint: "Assign each point to nearest centroid via np.argmin(dists, axis=1), then recompute cluster means.",
+      starterCode: "import numpy as np\n\nX = np.array([[1.0, 2200.0], [2.0, 3100.0], [1.0, 1900.0], [8.0, 34000.0], [9.0, 39000.0], [7.0, 29000.0]])\nX_std = (X - X.mean(axis=0)) / X.std(axis=0)\ncentroids = X_std[[0, 3]].copy()\n\nfor _ in range(10):\n    dists = np.linalg.norm(X_std[:, None, :] - centroids[None, :, :], axis=2)\n    labels = np.argmin(dists, axis=1)\n    for k in range(2):\n        centroids[k] = X_std[labels == k].mean(axis=0)\n\nprint('Cluster Assignments:', labels)\n"
     }
   },
   {
     day: 127,
     month: 5,
     module: "M5: Machine Learning",
-    title: "Bridge 5->6: From Logistic Regression to a Neural Unit",
-    instructor: "3Blue1Brown",
-    duration: "19m",
-    videoId: "aircAruvnKk",
-    altVideoId: "IHZwWFHWa-w",
+    title: "Dimensionality Reduction: PCA & UMAP Intuition",
+    instructor: "StatQuest",
+    duration: "21m",
+    videoId: "FgakZw6K1QQ",
+    altVideoId: "4b5d3muPQmA",
     startSec: 0,
-    bridge: "Hands off Month 5 classical ML to Month 6 Deep Learning by showing that a single neuron with sigmoid activation IS logistic regression.",
+    bridge: "Projects high-dimensional customer and embedding spaces down to 2D/3D for cluster visualization and noise compression.",
     takeaways: [
-      "See how stacking linear layers (W @ x + b) with non-linear activations (ReLU, GELU) creates universal function approximators.",
-      "Understand forward pass tensor shapes (batch_size, in_features) -> (batch_size, out_features).",
-      "Prepare for PyTorch tensors and autograd in Month 6."
+      "PCA finds orthogonal linear projections maximizing variance; UMAP preserves local neighborhood topology.",
+      "Choose number of PCA components to retain 90-95% cumulative explained variance.",
+      "Fit PCA strictly on training data before transforming validation/test matrices."
     ],
     lab: {
       lang: "python",
-      title: "Bridge 5->6: Multi-Layer Perceptron Forward Pass in NumPy",
-      prompt: "Implement a 2-layer neural network forward pass (Linear -> ReLU -> Linear -> Sigmoid) in pure NumPy.",
-      hint: "h = np.maximum(0, X @ W1 + b1); out = 1 / (1 + np.exp(-(h @ W2 + b2))).",
-      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\nX = rng.normal(size=(4, 3))\nW1, b1 = rng.normal(0, 0.5, (3, 8)), np.zeros(8)\nW2, b2 = rng.normal(0, 0.5, (8, 1)), np.zeros(1)\n\nh = np.maximum(0, X @ W1 + b1)\nprobs = 1.0 / (1.0 + np.exp(-(h @ W2 + b2)))\nprint('Output Probabilities shape:', probs.shape)\nprint(np.round(probs.ravel(), 4))\n"
+      title: "2D Principal Component Projection via SVD",
+      prompt: "Project standardized 4-feature customer vectors onto their top 2 principal components using np.linalg.svd.",
+      hint: "U, S, Vt = np.linalg.svd(X_std, full_matrices=False); X_2d = X_std @ Vt[:2].T.",
+      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\nX = rng.normal(0, 1, (8, 4))\nX_std = (X - X.mean(axis=0)) / X.std(axis=0)\nU, S, Vt = np.linalg.svd(X_std, full_matrices=False)\nX_2d = X_std @ Vt[:2].T\nprint('Projected 2D Shape:', X_2d.shape)\nprint(np.round(X_2d[:3], 3))\n"
     }
   },
   {
     day: 128,
     month: 5,
     module: "M5: Machine Learning",
-    title: "Bridge 5->6: Backpropagation & Chain Rule in Computation Graphs",
-    instructor: "3Blue1Brown",
-    duration: "14m",
-    videoId: "tIeHLnjs5U8",
-    altVideoId: "Ilg3gGewQ5U",
+    title: "Time-Series Forecasting with Tabular Lag & Calendar Features",
+    instructor: "StatQuest",
+    duration: "15m",
+    videoId: "7ArmBVF2dCs",
+    altVideoId: "fSytzGwwBVw",
     startSec: 0,
-    bridge: "Completes Month 5 by tracing exact reverse-mode automatic differentiation through a multi-layer computation graph.",
+    bridge: "Connects Day 73 Pandas .shift()/.rolling() features to regression models to forecast next-week ShopPulse demand.",
     takeaways: [
-      "Trace local upstream-times-local derivatives backward through addition and multiplication nodes.",
-      "Understand vanishing vs exploding gradients and why ReLU/LayerNorm stabilize deep networks.",
-      "Enter Month 6 ready to write idiomatic PyTorch training loops."
+      "Transform univariate time series into supervised tabular rows using lags (t-1, t-7), rolling means, and day-of-week flags.",
+      "Compute rolling features strictly on past observations (shift(1) before rolling) to prevent target leakage.",
+      "Evaluate forecasts against a seasonal naive baseline (y_hat_t = y_{t-7})."
     ],
     lab: {
       lang: "python",
-      title: "Bridge 5->6: Manual Backprop on a 2-Node Graph",
-      prompt: "Compute forward loss L = (w * x - y)^2 and exact backward gradients dL/dw and dL/dx.",
-      hint: "err = w * x - y; dL_dw = 2 * err * x; dL_dx = 2 * err * w.",
-      starterCode: "x, w, y = 3.0, 1.5, 6.0\npred = w * x\nerr = pred - y\nloss = err ** 2\n\ndL_dw = 2 * err * x\ndL_dx = 2 * err * w\nprint(f'Loss: {loss:.2f} | dL/dw: {dL_dw:.2f} | dL/dx: {dL_dx:.2f}')\n"
+      title: "Leakage-Free Lag & Rolling Feature Matrix for Forecasting",
+      prompt: "Build lag_1, lag_2, and shifted rolling_3_mean features on a 10-day revenue series and drop NaN warmup rows.",
+      hint: "Use s.shift(1).rolling(3).mean() so current day y_t never enters its own feature row.",
+      starterCode: "import pandas as pd\n\nrev = pd.Series([4100, 4400, 4800, 5200, 6900, 7400, 4600, 4900, 5300, 7200], dtype=float)\ndf = pd.DataFrame({\n    'y': rev,\n    'lag_1': rev.shift(1),\n    'lag_2': rev.shift(2),\n    'prev_3d_avg': rev.shift(1).rolling(3).mean().round(2)\n}).dropna()\nprint(df)\n"
     }
   },
   {
     day: 129,
-    month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Bridge 5->6: PyTorch Tensors, Autograd & GPU Basics",
-    instructor: "Daniel Bourke",
-    duration: "45m",
-    videoId: "V_xro1bcAuA",
-    altVideoId: "aircAruvnKk",
+    month: 5,
+    module: "M5: Machine Learning",
+    title: "Model Explainability: Permutation Importance & SHAP Values",
+    instructor: "StatQuest",
+    duration: "14m",
+    videoId: "J4Wdy0Wc_xQ",
+    altVideoId: "OtD8wVaFm6E",
     startSec: 0,
-    bridge: "Translates Day 127-128 NumPy matrix math and manual backprop into hardware-accelerated tensors and automatic differentiation.",
+    bridge: "Opens black-box tree ensembles so product and finance teams see exactly which features drive each customer's risk score.",
     takeaways: [
-      "Create tensors, inspect .shape / .dtype / .device, and perform broadcasted matrix ops.",
-      "Understand requires_grad=True and how loss.backward() populates .grad attributes.",
-      "Remember to zero gradients before each optimizer step."
+      "Permutation importance measures how much validation score drops when a single feature column is randomly shuffled.",
+      "SHAP values decompose every individual prediction into additive feature contributions summing from base value to output.",
+      "Audit top features to catch subtle data leakage bugs."
     ],
     lab: {
       lang: "python",
-      title: "Tensor Broadcasting & Autograd Simulation",
-      prompt: "Implement a lightweight Value autograd node in pure Python supporting + and * backward passes.",
-      hint: "Store _backward closures on each Value node and traverse in reverse topological order.",
-      starterCode: "class Scalar:\n    def __init__(self, val, children=()):\n        self.val = float(val)\n        self.grad = 0.0\n        self._backward = lambda: None\n        self._prev = set(children)\n\n    def __mul__(self, other):\n        out = Scalar(self.val * other.val, (self, other))\n        def _backward():\n            self.grad += other.val * out.grad\n            other.grad += self.val * out.grad\n        out._backward = _backward\n        return out\n\nw, x = Scalar(1.5), Scalar(3.0)\ny = w * x\ny.grad = 1.0\ny._backward()\nprint(f'y={y.val} | dy/dw={w.grad} | dy/dx={x.grad}')\n"
+      title: "Permutation Feature Importance From Scratch",
+      prompt: "Measure validation MSE degradation when shuffling feature 0 vs feature 1 on a trained linear predictor.",
+      hint: "Shuffle one column of X_val with rng.permutation and compute new MSE minus baseline MSE.",
+      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\nX_val = rng.normal(0, 1, (100, 2))\nw = np.array([5.0, 0.2])\ny_val = X_val @ w + rng.normal(0, 0.5, 100)\nbase_mse = np.mean((X_val @ w - y_val) ** 2)\n\nfor col in range(2):\n    X_perm = X_val.copy()\n    X_perm[:, col] = rng.permutation(X_perm[:, col])\n    perm_mse = np.mean((X_perm @ w - y_val) ** 2)\n    print(f'Feature {col} Importance (MSE increase): +{perm_mse - base_mse:.3f}')\n"
     }
   },
   {
     day: 130,
-    month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "PyTorch nn.Module, Loss Functions & Training Loops",
-    instructor: "Daniel Bourke",
-    duration: "45m",
-    videoId: "V_xro1bcAuA",
-    altVideoId: "tIeHLnjs5U8",
-    startSec: 7200,
-    bridge: "Establishes the canonical 5-step training loop (forward -> loss -> zero_grad -> backward -> step) used across all neural architectures.",
+    month: 5,
+    module: "M5: Machine Learning",
+    title: "Model Drift Monitoring: PSI & Data Quality Alerts",
+    instructor: "StatQuest",
+    duration: "10m",
+    videoId: "oI3hZJqXJuc",
+    altVideoId: "fSytzGwwBVw",
+    startSec: 0,
+    bridge: "Detects silent production decay when live customer traffic shifts away from historical training distributions.",
     takeaways: [
-      "Subclass nn.Module and define layers in __init__ and tensor flow in forward().",
-      "Pair BCEWithLogitsLoss for binary classification and CrossEntropyLoss for multi-class.",
-      "Switch cleanly between model.train() and model.eval() with torch.inference_mode()."
+      "Population Stability Index (PSI) compares binned baseline vs live distributions: PSI < 0.10 stable, > 0.25 major drift.",
+      "Monitor both feature covariate drift and prediction score drift.",
+      "Trigger automated retraining pipelines when PSI or calibration error breaches SLA thresholds."
     ],
     lab: {
       lang: "python",
-      title: "2-Layer Neural Churn Classifier with Mini-Batch GD",
-      prompt: "Train a 2-layer MLP with ReLU and Binary Cross-Entropy loss on synthetic churn features using NumPy.",
-      hint: "Compute BCE loss = -np.mean(y*np.log(p+1e-8) + (1-y)*np.log(1-p+1e-8)) and update weights.",
-      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\nX = rng.normal(size=(100, 3))\ny = (X[:, 0] + X[:, 1] > 0).astype(float).reshape(-1, 1)\nW1, W2 = rng.normal(0, 0.3, (3, 6)), rng.normal(0, 0.3, (6, 1))\n\nfor epoch in range(200):\n    h = np.maximum(0, X @ W1)\n    p = 1 / (1 + np.exp(-(h @ W2)))\n    dz2 = (p - y) / len(X)\n    dW2 = h.T @ dz2\n    dh = dz2 @ W2.T * (h > 0)\n    dW1 = X.T @ dh\n    W2 -= 0.5 * dW2\n    W1 -= 0.5 * dW1\n\nacc = ((p > 0.5) == y).mean()\nprint(f'Final Neural Churn Accuracy: {acc*100:.1f}%')\n"
+      title: "Population Stability Index (PSI) Drift Monitor",
+      prompt: "Compute PSI across 4 risk-score buckets comparing baseline training distribution vs live production traffic.",
+      hint: "psi = np.sum((live - base) * np.log(live / base)).",
+      starterCode: "import numpy as np\n\nbase_pct = np.array([0.40, 0.30, 0.20, 0.10])\nlive_pct = np.array([0.22, 0.28, 0.28, 0.22])\npsi = np.sum((live_pct - base_pct) * np.log(live_pct / base_pct))\nstatus = 'MAJOR DRIFT' if psi > 0.25 else ('MODERATE' if psi > 0.10 else 'STABLE')\nprint(f'PSI = {psi:.4f} -> Status: {status}')\n"
     }
   },
   {
     day: 131,
-    month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Regularizing Deep Nets: Dropout, Weight Decay & AdamW",
-    instructor: "StatQuest",
-    duration: "16m",
-    videoId: "ARq74QuavAo",
-    altVideoId: "V_xro1bcAuA",
+    month: 5,
+    module: "M5: Machine Learning",
+    title: "Serving ML Models via FastAPI & Pydantic Contracts",
+    instructor: "Patrick Loeber",
+    duration: "25m",
+    videoId: "0sOvCWFmrtA",
+    altVideoId: "0B5eIE_1vpU",
     startSec: 0,
-    bridge: "Stabilizes deep neural training with adaptive momentum (AdamW), decoupled weight decay, and inverted dropout.",
+    bridge: "Wraps trained scoring functions behind strict JSON request/response schemas ready for production microservice deployment.",
     takeaways: [
-      "Understand how AdamW decouples L2 weight decay from adaptive gradient scaling.",
-      "Apply Dropout during training to prevent neuron co-adaptation, and disable it during evaluation.",
-      "Use cosine learning-rate warmup and decay schedules."
+      "Validate incoming feature payloads strictly with typed schemas before running inference.",
+      "Load serialized model weights once at startup rather than on every HTTP request.",
+      "Log request IDs, feature hashes, and predicted probabilities for offline drift monitoring."
     ],
     lab: {
       lang: "python",
-      title: "Inverted Dropout Masking & Scaling Demo",
-      prompt: "Apply inverted dropout (p=0.2) to a hidden activation matrix during training and verify expected magnitude preservation.",
-      hint: "keep_prob = 0.8; mask = (rng.random(h.shape) < keep_prob) / keep_prob.",
-      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\nh = np.ones((1000, 16))\nkeep_prob = 0.8\nmask = (rng.random(h.shape) < keep_prob) / keep_prob\nh_drop = h * mask\nprint(f'Original Mean: {h.mean():.3f} | Inverted Dropout Mean: {h_drop.mean():.3f}')\n"
+      title: "Validated Inference Endpoint Contract Simulator",
+      prompt: "Implement score_customer(payload) with schema validation, probability inference, and risk-tier tagging.",
+      hint: "Validate required keys ('orders', 'days_inactive') and return JSON-serializable prediction dict.",
+      starterCode: "def score_customer(payload: dict) -> dict:\n    for key in ('customer_id', 'orders', 'days_inactive'):\n        if key not in payload:\n            raise ValueError(f'Missing required field: {key}')\n    z = -1.8 + 0.06 * payload['days_inactive'] - 0.35 * payload['orders']\n    prob = round(1.0 / (1.0 + (2.718281828 ** (-z))), 4)\n    tier = 'HIGH' if prob >= 0.65 else ('MEDIUM' if prob >= 0.35 else 'LOW')\n    return {'customer_id': payload['customer_id'], 'churn_prob': prob, 'risk_tier': tier}\n\nprint(score_customer({'customer_id': 104, 'orders': 1, 'days_inactive': 58}))\n"
     }
   },
   {
     day: 132,
-    month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Convolutional Neural Networks (CNNs) & Transfer Learning",
-    instructor: "3Blue1Brown",
+    month: 5,
+    module: "M5: Machine Learning",
+    title: "Experiment Tracking & Model Registry Discipline",
+    instructor: "Krish Naik",
     duration: "15m",
-    videoId: "KuXjwB4LzSA",
-    altVideoId: "V_xro1bcAuA",
+    videoId: "pqNCD_5r0IU",
+    altVideoId: "0sOvCWFmrtA",
     startSec: 0,
-    bridge: "Explains translation-invariant spatial convolutions—useful for ShopPulse product image classification and visual search.",
+    bridge: "Logs hyperparameters, dataset hashes, and validation metrics across training runs so every model is reproducible.",
     takeaways: [
-      "Understand 2D convolution filters, stride, padding, and spatial feature maps.",
-      "Leverage transfer learning by freezing pretrained ResNet/ConvNeXt backbones and fine-tuning the classification head.",
-      "Track output spatial dimensions cleanly across layers."
+      "Record code version, feature schema, hyperparameters, and validation metrics for every run.",
+      "Promote models through Staging -> Production stages only after passing automated metric gates.",
+      "Keep rollback artifacts ready in case live latency or calibration degrades."
     ],
     lab: {
       lang: "python",
-      title: "2D Convolution Edge-Detector Kernel in NumPy",
-      prompt: "Apply a 3x3 vertical edge-detection kernel across a 6x6 grayscale image patch using sliding windows.",
-      hint: "Compute np.sum(img[i:i+3, j:j+3] * kernel) for i in range(4), j in range(4).",
-      starterCode: "import numpy as np\n\nimg = np.hstack([np.zeros((6, 3)), np.ones((6, 3)) * 10])\nkernel = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]], dtype=float)\nout = np.zeros((4, 4))\n\nfor i in range(4):\n    for j in range(4):\n        out[i, j] = np.sum(img[i:i+3, j:j+3] * kernel)\nprint('Edge Activation Map:\\n', out)\n"
+      title: "Lightweight JSON Experiment Run Logger",
+      prompt: "Log 3 candidate model runs and automatically select the best model by validation PR-AUC.",
+      hint: "Sort runs by metrics['pr_auc'] descending and pick index 0.",
+      starterCode: "runs = [\n    {'run_id': 'run_01', 'model': 'LogReg', 'pr_auc': 0.712, 'latency_ms': 1.2},\n    {'run_id': 'run_02', 'model': 'RandomForest', 'pr_auc': 0.784, 'latency_ms': 6.5},\n    {'run_id': 'run_03', 'model': 'LightGBM', 'pr_auc': 0.819, 'latency_ms': 2.8}\n]\nchampion = max(runs, key=lambda r: r['pr_auc'])\nprint('Promoted Champion Model:', champion)\n"
     }
   },
   {
     day: 133,
-    month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Sequence Modeling: RNNs, LSTMs & Vanishing Gradients",
+    month: 5,
+    module: "M5: Machine Learning",
+    title: "Recommender Systems: Collaborative & Content-Based Filtering",
     instructor: "StatQuest",
-    duration: "17m",
-    videoId: "YCzL96nL7j0",
-    altVideoId: "AsNTP8Kwu80",
+    duration: "12m",
+    videoId: "4b5d3muPQmA",
+    altVideoId: "aircAruvnKk",
     startSec: 0,
-    bridge: "Motivates the Attention revolution by showing why sequential recurrent bottlenecks struggle with long-range context.",
+    bridge: "Uses item-item cosine similarity on co-purchase vectors to power ShopPulse 'Frequently Bought Together' recommendations.",
     takeaways: [
-      "Understand recurrent hidden-state recurrence h_t = tanh(W_h h_{t-1} + W_x x_t).",
-      "See how LSTM forget/input/output gates mitigate vanishing gradients over medium sequences.",
-      "Recognize why sequential token-by-token processing prevents GPU parallelization."
+      "Item-based collaborative filtering compares SKU purchase vectors across users via cosine similarity.",
+      "Content-based filtering matches product attribute vectors to solve cold-start items.",
+      "Evaluate recommenders with Precision@K and Normalized Discounted Cumulative Gain (NDCG@K)."
     ],
     lab: {
       lang: "python",
-      title: "Recurrent Hidden-State Stepper",
-      prompt: "Step a 1D recurrent state h_t = np.tanh(0.8 * h_t + 0.5 * x_t) across a 6-step sequence.",
-      hint: "Initialize h = 0.0 and update inside a loop over sequence values.",
-      starterCode: "import numpy as np\n\nseq = [1.0, 0.5, -0.2, 0.8, 1.2, 0.1]\nh = 0.0\nstates = []\nfor x_t in seq:\n    h = float(np.tanh(0.8 * h + 0.5 * x_t))\n    states.append(round(h, 4))\nprint('Hidden State Trajectory:', states)\n"
+      title: "Item-Item Cosine Similarity Recommender",
+      prompt: "Given a 4-customer x 3-SKU purchase matrix, find which SKU is most similar to SKU 0 (Keyboard).",
+      hint: "Compute cosine similarity between item columns M[:, 0] and M[:, j] for j in [1, 2].",
+      starterCode: "import numpy as np\n\n# Rows: Customers | Cols: Keyboard, Mouse, USB-C Hub\nM = np.array([\n    [1, 1, 0],\n    [1, 1, 1],\n    [0, 0, 1],\n    [1, 1, 0]\n], dtype=float)\n\nkb = M[:, 0]\nfor idx, name in [(1, 'Mouse'), (2, 'USB-C Hub')]:\n    col = M[:, idx]\n    sim = np.dot(kb, col) / (np.linalg.norm(kb) * np.linalg.norm(col))\n    print(f'Similarity(Keyboard, {name}): {sim:.3f}')\n"
     }
   },
   {
     day: 134,
-    month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Word Embeddings & Semantic Vector Geometry",
+    month: 5,
+    module: "M5: Machine Learning",
+    title: "Anomaly Detection: Isolation Forest & Mahalanobis Distance",
     instructor: "StatQuest",
-    duration: "14m",
-    videoId: "viZrOnJclY0",
-    altVideoId: "wjZofJX0v4M",
+    duration: "11m",
+    videoId: "J4Wdy0Wc_xQ",
+    altVideoId: "XNgt7F6FqDU",
     startSec: 0,
-    bridge: "Replaces Day 125 sparse bag-of-words TF-IDF vectors with dense semantic embeddings where similar meanings cluster together.",
+    bridge: "Detects multi-dimensional order anomalies (e.g., high quantity + brand-new account + midnight rush) without labeled fraud data.",
     takeaways: [
-      "Map discrete token IDs into dense continuous vectors (d=384 to 1536).",
-      "Measure semantic similarity across paraphrases using cosine similarity.",
-      "Bridge word embeddings directly to vector databases and RAG retrieval."
+      "Anomalies are few and different, requiring far fewer random splits to isolate in tree partitions.",
+      "Multivariate distance catches combinations that look normal on each 1D column individually.",
+      "Tune contamination rates carefully to keep analyst review queues manageable."
     ],
     lab: {
       lang: "python",
-      title: "Dense Semantic Nearest-Neighbor Lookup",
-      prompt: "Given 3 product embeddings and a query embedding, rank products by cosine similarity.",
-      hint: "Normalize rows by L2 norm and multiply embeddings @ query.",
-      starterCode: "import numpy as np\n\nnames = ['Wireless ANC Headphones', 'Mechanical Gaming Keyboard', 'USB-C 4K Docking Hub']\nembs = np.array([\n    [0.92, 0.10, 0.15],\n    [0.12, 0.94, 0.20],\n    [0.18, 0.25, 0.95]\n])\nquery = np.array([0.88, 0.12, 0.10])\n\nembs_norm = embs / np.linalg.norm(embs, axis=1, keepdims=True)\nq_norm = query / np.linalg.norm(query)\nscores = embs_norm @ q_norm\nfor idx in np.argsort(scores)[::-1]:\n    print(f'{names[idx]:30s} -> sim={scores[idx]:.4f}')\n"
+      title: "Multivariate L2 Distance Anomaly Scorer",
+      prompt: "Standardize 2D [order_value, items_qty] records and flag rows whose Euclidean distance from centroid exceeds 2.5.",
+      hint: "dists = np.linalg.norm(X_std, axis=1); flag dists > 2.5.",
+      starterCode: "import numpy as np\n\nX = np.array([[2500, 1], [3100, 2], [2800, 1], [3400, 2], [2900, 1], [45000, 18]], dtype=float)\nX_std = (X - X.mean(axis=0)) / X.std(axis=0)\ndists = np.linalg.norm(X_std, axis=1)\nfor i, d in enumerate(dists):\n    print(f'Row {i}: dist={d:.2f} -> Outlier={d > 2.0}')\n"
     }
   },
   {
     day: 135,
-    month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Tokenization Internals: BPE & Subword Vocabularies",
-    instructor: "Andrej Karpathy",
-    duration: "45m",
-    videoId: "zduSFxRajkE",
-    altVideoId: "wjZofJX0v4M",
+    month: 5,
+    module: "M5: Machine Learning",
+    title: "Uplift Modeling & Treatment Effect Estimation",
+    instructor: "StatQuest",
+    duration: "10m",
+    videoId: "0oc49DyA3hU",
+    altVideoId: "yIYKR4sgzI8",
     startSec: 0,
-    bridge: "Demystifies why LLMs count tokens instead of characters, why arithmetic/spelling quirks occur, and how context windows are budgeted.",
+    bridge: "Targets retention discounts exclusively at 'Persuadables' rather than wasting margin on 'Sure Things' who would buy anyway.",
     takeaways: [
-      "Understand Byte-Pair Encoding (BPE) iteratively merging frequent adjacent byte pairs.",
-      "Estimate token budgets (~4 chars per token in English) for RAG chunking and API costs.",
-      "Handle special control tokens (<|endoftext|>, system/user/assistant delimiters)."
+      "Segment users into four quadrants: Persuadables, Sure Things, Lost Causes, and Sleeping Dogs.",
+      "Estimate Conditional Average Treatment Effect CATE(x) = P(Y=1 | X=x, T=1) - P(Y=1 | X=x, T=0).",
+      "Evaluate uplift models using Qini curves rather than standard accuracy."
     ],
     lab: {
       lang: "python",
-      title: "Byte-Pair Encoding (BPE) Pair Frequency Merger",
-      prompt: "Count adjacent token-pair frequencies in a token ID list and merge the most frequent pair into a new token ID.",
-      hint: "Use zip(ids, ids[1:]) to count adjacent pairs and replace the top pair.",
-      starterCode: "from collections import Counter\n\nids = [1, 2, 3, 1, 2, 4, 1, 2, 3]\npairs = Counter(zip(ids, ids[1:]))\ntop_pair, freq = pairs.most_common(1)[0]\nprint(f'Most frequent pair: {top_pair} (count={freq}) -> Merge into token 256')\n"
+      title: "Two-Model T-Learner Uplift Score Calculator",
+      prompt: "Compute individual uplift scores P_treat - P_control and select customers with uplift > 0.15.",
+      hint: "uplift = p_treat - p_ctrl; select indices where uplift > 0.15.",
+      starterCode: "import numpy as np\n\ncust_ids = np.array([101, 102, 103, 104])\np_treat = np.array([0.85, 0.62, 0.15, 0.40])\np_ctrl  = np.array([0.82, 0.31, 0.12, 0.48])\nuplift = np.round(p_treat - p_ctrl, 3)\n\nfor cid, u in zip(cust_ids, uplift):\n    tag = 'TARGET (Persuadable)' if u > 0.15 else 'SKIP'\n    print(f'Customer {cid}: Uplift = {u:+.3f} -> {tag}')\n"
     }
   },
   {
     day: 136,
-    month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Transformers Part 1: Self-Attention (Q, K, V)",
+    month: 5,
+    module: "M5: Machine Learning",
+    title: "ML System Architecture & Feature Store Patterns",
+    instructor: "Krish Naik",
+    duration: "16m",
+    videoId: "pqNCD_5r0IU",
+    altVideoId: "0sOvCWFmrtA",
+    startSec: 0,
+    bridge: "Unifies batch SQL feature pipelines and real-time online inference lookups so training and serving features never diverge.",
+    takeaways: [
+      "Separate offline batch feature computation (daily SQL/Pandas jobs) from low-latency online feature lookups.",
+      "Enforce point-in-time joins when building historical training sets to prevent future leakage.",
+      "Cache precomputed customer embeddings and RFM vectors in fast key-value stores."
+    ],
+    lab: {
+      lang: "python",
+      title: "Point-in-Time Feature Lookup Merger",
+      prompt: "Join historical customer tier snapshots onto orders using the latest snapshot timestamp <= order_date.",
+      hint: "Use pd.merge_asof(orders.sort_values('date'), tiers.sort_values('date'), on='date', by='cust_id').",
+      starterCode: "import pandas as pd\n\norders = pd.DataFrame({'cust_id': [1, 1], 'date': pd.to_datetime(['2026-02-10', '2026-04-10']), 'rev': [2500, 6500]})\ntiers = pd.DataFrame({'cust_id': [1, 1], 'date': pd.to_datetime(['2026-01-01', '2026-03-15']), 'tier': ['Silver', 'Gold']})\n\nasof_df = pd.merge_asof(orders.sort_values('date'), tiers.sort_values('date'), on='date', by='cust_id')\nprint(asof_df)\n"
+    }
+  },
+  {
+    day: 137,
+    month: 5,
+    module: "M5: Machine Learning",
+    title: "Neural Network Building Blocks: Perceptrons & Activations",
+    instructor: "3Blue1Brown",
+    duration: "19m",
+    videoId: "aircAruvnKk",
+    altVideoId: "Ilg3gGewQ5U",
+    startSec: 0,
+    bridge: "Extends logistic regression into multi-layer perceptrons using ReLU, GELU, and Softmax non-linearities.",
+    takeaways: [
+      "Without non-linear activation functions (ReLU, GELU), stacked linear layers collapse into a single linear transformation.",
+      "Softmax converts raw output logits into a normalized probability distribution summing to 1.0.",
+      "Forward pass computes layer activations; backpropagation applies the chain rule to update weights."
+    ],
+    lab: {
+      lang: "python",
+      title: "Two-Layer Neural Network Forward Pass in NumPy",
+      prompt: "Implement a 2-layer MLP forward pass (Linear -> ReLU -> Linear -> Softmax) on a 3-feature input vector.",
+      hint: "h = np.maximum(0, x @ W1 + b1); logits = h @ W2 + b2; probs = np.exp(logits) / np.sum(np.exp(logits)).",
+      starterCode: "import numpy as np\n\nx = np.array([0.8, 0.2, 0.5])\nW1 = np.array([[0.5, -0.3], [0.2, 0.8], [-0.4, 0.6]])\nb1 = np.array([0.1, 0.0])\nW2 = np.array([[1.2, -0.5, 0.3], [-0.4, 0.9, 0.2]])\nb2 = np.array([0.0, 0.1, -0.1])\n\nh = np.maximum(0.0, x @ W1 + b1)\nlogits = h @ W2 + b2\nexp_l = np.exp(logits - np.max(logits))\nprobs = exp_l / np.sum(exp_l)\nprint('Class Probabilities:', np.round(probs, 4), '| Sum:', round(float(probs.sum()), 4))\n"
+    }
+  },
+  {
+    day: 138,
+    month: 5,
+    module: "M5: Machine Learning",
+    title: "Backpropagation & Adam Optimizer Intuition",
+    instructor: "3Blue1Brown",
+    duration: "14m",
+    videoId: "Ilg3gGewQ5U",
+    altVideoId: "IHZwWFHWa-w",
+    startSec: 0,
+    bridge: "Explains how modern deep learning optimizers combine momentum and adaptive per-parameter learning rates.",
+    takeaways: [
+      "Backpropagation caches forward activations to compute layer gradients in a single backward sweep.",
+      "Adam tracks exponentially decaying first moments (momentum) and second moments (adaptive scaling).",
+      "Gradient clipping prevents exploding updates during sequence training."
+    ],
+    lab: {
+      lang: "python",
+      title: "Momentum Gradient Descent vs Vanilla GD Comparison",
+      prompt: "Compare convergence speed over 25 steps on f(w) = 0.5 * w**2 between vanilla GD and momentum (beta=0.8).",
+      hint: "v = beta * v + grad; w = w - lr * v.",
+      starterCode: "w_gd, w_mom, v = 10.0, 10.0, 0.0\nlr, beta = 0.1, 0.8\nfor _ in range(25):\n    w_gd -= lr * w_gd\n    v = beta * v + w_mom\n    w_mom -= lr * v\nprint(f'After 25 steps -> Vanilla GD w={w_gd:.4f} | Momentum w={w_mom:.4f}')\n"
+    }
+  },
+  {
+    day: 139,
+    month: 5,
+    module: "M5: Machine Learning",
+    title: "Capstone 5A: ShopPulse End-to-End Churn & LTV Scoring Pipeline",
+    instructor: "StatQuest",
+    duration: "18m",
+    videoId: "yIYKR4sgzI8",
+    altVideoId: "OtD8wVaFm6E",
+    startSec: 0,
+    bridge: "Integrates feature engineering, leakage-free scaling, logistic training, and threshold ROI optimization into one pipeline.",
+    takeaways: [
+      "Combine feature engineering, preprocessing, training, and profit-threshold selection into a single reproducible workflow.",
+      "Validate both probability calibration and net retention ROI on held-out test customers.",
+      "Export scored customer risk profiles ready for Month 6 AI agent retrieval."
+    ],
+    lab: {
+      lang: "python",
+      title: "Capstone 5A: Complete Churn Training & Test Evaluation",
+      prompt: "Train a regularized logistic churn model on 80 synthetic customers and evaluate test accuracy and F1 on 20 customers.",
+      hint: "Fit scaler on X_train, run 500 gradient steps with L2 penalty, and evaluate on X_test.",
+      starterCode: "import numpy as np\n\nrng = np.random.default_rng(2026)\nX = rng.normal(0, 1, (100, 3))\nlogits_true = 1.6 * X[:, 0] - 1.2 * X[:, 1] + 0.8 * X[:, 2]\ny = (1 / (1 + np.exp(-logits_true)) > 0.5).astype(float)\n\nX_tr, X_te = X[:80], X[80:]\ny_tr, y_te = y[:80], y[80:]\nw = np.zeros(3)\nfor _ in range(500):\n    p = 1 / (1 + np.exp(-(X_tr @ w)))\n    w -= 0.1 * ((X_tr.T @ (p - y_tr)) / len(y_tr) + 0.05 * w)\n\ntest_preds = ((1 / (1 + np.exp(-(X_te @ w)))) >= 0.5).astype(float)\nacc = np.mean(test_preds == y_te)\nprint(f'Capstone 5A Test Accuracy: {acc * 100:.1f}% | Weights: {np.round(w, 2)}')\n"
+    }
+  },
+  {
+    day: 140,
+    month: 5,
+    module: "M5: Machine Learning",
+    title: "Bridge 5->6: Dense Text Embeddings & Semantic Vector Search",
     instructor: "3Blue1Brown",
     duration: "27m",
     videoId: "wjZofJX0v4M",
     altVideoId: "eMlx5fFNoYc",
     startSec: 0,
-    bridge: "Explains the core Scaled Dot-Product Attention mechanism powering every modern LLM.",
+    bridge: "Hands off Month 5 directly to Month 6 by turning product reviews and support tickets into dense vectors searched via cosine similarity.",
     takeaways: [
-      "Understand Query (what I am looking for), Key (what I contain), and Value (what I pass forward) projections.",
-      "Why dividing Q @ K.T by sqrt(d_k) prevents softmax saturation and vanishing gradients.",
-      "Visualize how tokens dynamically route contextual information across arbitrary distances."
+      "Dense embeddings map semantically similar sentences to nearby coordinates in high-dimensional vector space.",
+      "Keyword LIKE '%refund%' misses 'money back', whereas cosine similarity over embeddings matches meaning directly.",
+      "Top-K vector retrieval forms the retrieval backbone of Month 6 RAG systems."
     ],
     lab: {
       lang: "python",
-      title: "Scaled Dot-Product Self-Attention in NumPy",
-      prompt: "Implement softmax(Q @ K.T / sqrt(d_k)) @ V for a 3-token sequence with d_k=4.",
-      hint: "Subtract row max before np.exp() for numerically stable softmax.",
-      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\nQ = rng.normal(size=(3, 4))\nK = rng.normal(size=(3, 4))\nV = rng.normal(size=(3, 4))\n\nscores = (Q @ K.T) / np.sqrt(4.0)\nscores -= scores.max(axis=-1, keepdims=True)\nweights = np.exp(scores) / np.exp(scores).sum(axis=-1, keepdims=True)\nout = weights @ V\nprint('Attention Weights (rows sum to 1):\\n', np.round(weights, 3))\nprint('Context Vectors shape:', out.shape)\n"
-    }
-  },
-  {
-    day: 137,
-    month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Transformers Part 2: Multi-Head, Causal Mask & RoPE",
-    instructor: "3Blue1Brown",
-    duration: "26m",
-    videoId: "eMlx5fFNoYc",
-    altVideoId: "wjZofJX0v4M",
-    startSec: 0,
-    bridge: "Completes decoder-only LLM internals: causal upper-triangular masking, multi-head subspaces, and Rotary Positional Embeddings.",
-    takeaways: [
-      "Apply upper-triangular -inf causal masks so tokens cannot peek at future tokens during autoregressive training.",
-      "Combine multiple attention heads to capture syntactic, entity, and coreference relations in parallel.",
-      "Understand residual streams, LayerNorm/RMSNorm, and SwiGLU MLP blocks."
-    ],
-    lab: {
-      lang: "python",
-      title: "Causal Autoregressive Attention Mask",
-      prompt: "Apply an upper-triangular -1e9 causal mask to a 4x4 attention score matrix and verify future weights equal 0.",
-      hint: "mask = np.triu(np.ones((4, 4)), k=1) * -1e9.",
-      starterCode: "import numpy as np\n\nraw_scores = np.ones((4, 4))\ncausal_mask = np.triu(np.ones((4, 4)), k=1) * -1e9\nmasked = raw_scores + causal_mask\nweights = np.exp(masked) / np.exp(masked).sum(axis=-1, keepdims=True)\nprint('Causal Attention Matrix:\\n', np.round(weights, 3))\n"
-    }
-  },
-  {
-    day: 138,
-    month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Hugging Face Ecosystem: Pipelines, AutoModel & Tokenizers",
-    instructor: "Hugging Face",
-    duration: "25m",
-    videoId: "QEaBAZQCtwE",
-    altVideoId: "00GKzGyWFEs",
-    startSec: 0,
-    bridge: "Equips you to load pretrained encoder and decoder checkpoints cleanly in Python.",
-    takeaways: [
-      "Use AutoTokenizer and AutoModelForSequenceClassification / AutoModelForCausalLM.",
-      "Inspect model config.json, vocabulary size, and hidden dimensions.",
-      "Batch inputs with padding=True and truncation=True."
-    ],
-    lab: {
-      lang: "python",
-      title: "Token Batch Padding & Attention Mask Builder",
-      prompt: "Pad variable-length token ID sequences to max_len=6 and generate binary attention masks (1=real, 0=pad).",
-      hint: "Pad shorter lists with 0 and set mask entries to 1 for original length, 0 for padding.",
-      starterCode: "seqs = [[101, 2054, 102], [101, 4937, 2003, 2190, 102]]\nmax_len = 6\npadded = [s + [0] * (max_len - len(s)) for s in seqs]\nmasks = [[1] * len(s) + [0] * (max_len - len(s)) for s in seqs]\nprint('Padded IDs:', padded)\nprint('Attention Masks:', masks)\n"
-    }
-  },
-  {
-    day: 139,
-    month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Fine-Tuning Pretrained Encoders for Domain Classification",
-    instructor: "Hugging Face",
-    duration: "25m",
-    videoId: "00GKzGyWFEs",
-    altVideoId: "QEaBAZQCtwE",
-    startSec: 0,
-    bridge: "Upgrades Day 125 TF-IDF sentiment classification to contextual DeBERTa/DistilBERT fine-tuning for nuanced reviews.",
-    takeaways: [
-      "Handle negation and sarcasm ('ANC blocks noise, not bad at all!') via contextual self-attention.",
-      "Configure Trainer / TrainingArguments with warmup, weight decay, and F1 evaluation.",
-      "Compare accuracy vs latency against classical TF-IDF baselines."
-    ],
-    lab: {
-      lang: "python",
-      title: "Aspect-Based Review Router Logic",
-      prompt: "Classify ShopPulse reviews into Product Quality, Shipping, or Pricing categories using keyword/score routing.",
-      hint: "Score each review against domain lexicon weights and pick argmax.",
-      starterCode: "lexicon = {\n    'Quality': {'switches', 'anc', 'build', 'battery', 'overheats'},\n    'Shipping': {'delivery', 'late', 'box', 'courier'},\n    'Pricing': {'expensive', 'discount', 'value', 'worth'}\n}\nreview = 'Great battery life and solid build quality'\ntokens = set(review.lower().split())\nscores = {cat: len(tokens & words) for cat, words in lexicon.items()}\nprint('Aspect Scores:', scores, '-> Predicted:', max(scores, key=scores.get))\n"
-    }
-  },
-  {
-    day: 140,
-    month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Post-Training Alignment: SFT, RLHF & DPO",
-    instructor: "Andrej Karpathy",
-    duration: "35m",
-    videoId: "bZQun8Y4L2A",
-    altVideoId: "7xTGNNLPyMI",
-    startSec: 0,
-    bridge: "Explains how base next-token predictors become helpful instruction-following assistants via SFT and Direct Preference Optimization.",
-    takeaways: [
-      "Trace the 3 stages: Pretraining (internet scale) -> Supervised Fine-Tuning (chat format) -> Preference Alignment (RLHF/DPO).",
-      "Understand why base models hallucinate if prompted without clear grounding context.",
-      "Format instruction datasets cleanly with system/user/assistant roles."
-    ],
-    lab: {
-      lang: "python",
-      title: "Instruction SFT ChatML Formatter",
-      prompt: "Format a ShopPulse customer support Q&A pair into a structured instruction-tuning JSONL record.",
-      hint: "Create a dict with 'messages': [{'role': 'system', ...}, {'role': 'user', ...}, {'role': 'assistant', ...}].",
-      starterCode: "import json\n\nrecord = {\n    'messages': [\n        {'role': 'system', 'content': 'You are the ShopPulse Policy Assistant. Answer strictly from verified policy.'},\n        {'role': 'user', 'content': 'What is the return window for electronics?'},\n        {'role': 'assistant', 'content': 'Electronics can be returned within 7 days of delivery in original packaging.'}\n    ]\n}\nprint(json.dumps(record, indent=2))\n"
+      title: "Bridge 5->6: Semantic Top-K Vector Retriever",
+      prompt: "Rank 4 ShopPulse support doc embeddings against a user query vector using cosine similarity.",
+      hint: "Compute scores = (docs @ query) / (np.linalg.norm(docs, axis=1) * np.linalg.norm(query)).",
+      starterCode: "import numpy as np\n\ndoc_titles = ['Refund & Return Policy', 'Warranty Coverage', 'Express Mumbai Shipping', 'GST Invoice Download']\ndoc_vecs = np.array([\n    [0.92, 0.10, 0.05],\n    [0.30, 0.88, 0.12],\n    [0.08, 0.15, 0.95],\n    [0.45, 0.20, 0.40]\n])\nquery_vec = np.array([0.89, 0.14, 0.08])\n\nscores = (doc_vecs @ query_vec) / (np.linalg.norm(doc_vecs, axis=1) * np.linalg.norm(query_vec))\nfor idx in np.argsort(scores)[::-1]:\n    print(f'{scores[idx]:.4f} -> {doc_titles[idx]}')\n"
     }
   },
   {
     day: 141,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Parameter-Efficient Fine-Tuning: LoRA & QLoRA",
-    instructor: "IBM Technology",
-    duration: "11m",
-    videoId: "t1caDsMzWBk",
-    altVideoId: "bZQun8Y4L2A",
+    module: "M6: LLMs & AI Agents",
+    title: "Transformer Architecture & Self-Attention Visually Explained",
+    instructor: "3Blue1Brown",
+    duration: "26m",
+    videoId: "eMlx5fFNoYc",
+    altVideoId: "wjZofJX0v4M",
     startSec: 0,
-    bridge: "Shows how low-rank adapter matrices (A and B) fine-tune 7B-8B parameter LLMs on a single consumer GPU.",
+    bridge: "Launches Month 6 by opening the Transformer black box: Queries, Keys, Values, and scaled dot-product attention.",
     takeaways: [
-      "Freeze pretrained weights W and train low-rank update delta_W = B @ A (rank r = 8 or 16).",
-      "Reduce trainable parameters by >99% while avoiding catastrophic forgetting.",
-      "Combine 4-bit NormalFloat quantization (QLoRA) with LoRA adapters."
+      "Self-attention lets every token dynamically attend to relevant context tokens via Attention(Q,K,V) = softmax(Q @ K.T / sqrt(d_k)) @ V.",
+      "Multi-head attention learns parallel syntactic, semantic, and entity-tracking relationships.",
+      "Causal masking prevents decoder LLMs from peeking at future tokens during autoregressive generation."
     ],
     lab: {
       lang: "python",
-      title: "LoRA Parameter Compression Ratio Calculator",
-      prompt: "Compare full weight matrix parameters (4096 x 4096) against LoRA rank r=16 matrices A (16 x 4096) + B (4096 x 16).",
-      hint: "full = d * d; lora = 2 * r * d; print reduction percentage.",
-      starterCode: "d = 4096\nr = 16\nfull_params = d * d\nlora_params = 2 * r * d\nsaved_pct = 100 * (1 - lora_params / full_params)\nprint(f'Full: {full_params:,} | LoRA (r={r}): {lora_params:,} ({saved_pct:.2f}% fewer trainable params)')\n"
+      title: "Scaled Dot-Product Self-Attention in Pure NumPy",
+      prompt: "Compute attention weight matrix and context output for 3 tokens using Q, K, and V matrices.",
+      hint: "scores = (Q @ K.T) / np.sqrt(Q.shape[1]); weights = softmax(scores); out = weights @ V.",
+      starterCode: "import numpy as np\n\nQ = np.array([[1.0, 0.0], [0.0, 1.0], [0.7, 0.7]])\nK = np.array([[1.0, 0.1], [0.1, 1.0], [0.6, 0.8]])\nV = np.array([[10.0, 0.0], [0.0, 20.0], [5.0, 10.0]])\n\nscores = (Q @ K.T) / np.sqrt(Q.shape[1])\nexp_s = np.exp(scores - np.max(scores, axis=1, keepdims=True))\nattn_weights = exp_s / np.sum(exp_s, axis=1, keepdims=True)\noutput = attn_weights @ V\nprint('Attention Weights:\\n', np.round(attn_weights, 3))\nprint('Contextualized Output:\\n', np.round(output, 2))\n"
     }
   },
   {
     day: 142,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Prompt Engineering & Structured JSON Outputs",
-    instructor: "DeepLearning.AI",
-    duration: "25m",
-    videoId: "H4YK_7MAckk",
-    altVideoId: "bZQun8Y4L2A",
+    module: "M6: LLMs & AI Agents",
+    title: "Tokenization (BPE), Context Windows & Sampling Parameters",
+    instructor: "Andrej Karpathy",
+    duration: "35m",
+    videoId: "zduSFxRajkE",
+    altVideoId: "sal78ACtGTc",
     startSec: 0,
-    bridge: "Enforces deterministic JSON schemas, few-shot examples, and grounding guardrails so LLM outputs plug straight into Python code.",
+    bridge: "Explains how BPE tokenizers split text, why numbers/JSON cost tokens, and how temperature & top-p shape outputs.",
     takeaways: [
-      "Separate untrusted user input from system instructions using XML delimiters.",
-      "Provide 2-3 high-signal few-shot examples for consistent classification and extraction.",
-      "Validate LLM outputs with strict JSON schema parsing and fallback retries."
+      "LLMs read integer token IDs (~4 English characters per token), not raw characters or words.",
+      "Set temperature=0.0 for deterministic SQL/JSON extraction; use 0.7 for brainstorming.",
+      "Monitor input + output token counts to control API latency and cost budgets."
     ],
     lab: {
       lang: "python",
-      title: "Structured LLM Extraction Validator",
-      prompt: "Parse a model JSON extraction payload and validate required keys ('intent', 'order_id', 'confidence').",
-      hint: "Use json.loads() and verify required_keys <= data.keys().",
-      starterCode: "import json\n\nllm_raw = '{\"intent\": \"refund_request\", \"order_id\": 1008, \"confidence\": 0.94}'\ndata = json.loads(llm_raw)\nrequired = {'intent', 'order_id', 'confidence'}\nassert required.issubset(data.keys()) and 0.0 <= data['confidence'] <= 1.0\nprint('Validated Structured Output:', data)\n"
+      title: "Softmax Temperature Scaling & Token Cost Estimator",
+      prompt: "Compare output token probability sharpness at temperature=0.2 vs temperature=1.5 and estimate prompt API cost.",
+      hint: "scaled = logits / temp; probs = np.exp(scaled) / np.sum(np.exp(scaled)).",
+      starterCode: "import numpy as np\n\nlogits = np.array([2.5, 1.8, 0.4])\nfor temp in [0.2, 1.0, 1.5]:\n    s = logits / temp\n    p = np.exp(s - np.max(s)) / np.sum(np.exp(s - np.max(s)))\n    print(f'Temp {temp:.1f} -> Token Probs: {np.round(p, 3)}')\n"
     }
   },
   {
     day: 143,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "RAG Architecture & Document Chunking Strategies",
-    instructor: "IBM Technology",
-    duration: "10m",
-    videoId: "T-D1OfcDW1M",
-    altVideoId: "2eWuYf-aZE4",
+    module: "M6: LLMs & AI Agents",
+    title: "LLM Training Lifecycle: Pre-Training, SFT & RLHF/DPO",
+    instructor: "Andrej Karpathy",
+    duration: "42m",
+    videoId: "sal78ACtGTc",
+    altVideoId: "7xTGNNLPyMI",
     startSec: 0,
-    bridge: "Grounds LLM answers in private ShopPulse return policies, product manuals, and live catalog specs without retraining.",
+    bridge: "Clarifies the three stages turning raw internet text prediction into a helpful, instruction-following assistant.",
     takeaways: [
-      "Trace the Retrieve -> Augment -> Generate pipeline and why it prevents hallucination.",
-      "Use recursive character/sentence chunking with 10-15% overlap so boundary facts are never severed.",
-      "Attach rich metadata (doc_id, section, updated_at) to every chunk."
+      "Pre-training learns world knowledge via next-token prediction on trillions of tokens.",
+      "Supervised Fine-Tuning (SFT) teaches helpful Q&A and tool-use formatting.",
+      "Preference optimization (RLHF / DPO) aligns responses with safety, honesty, and conciseness."
     ],
     lab: {
       lang: "python",
-      title: "Overlapping Sliding-Window Document Chunker",
-      prompt: "Split a ShopPulse policy document into overlapping word chunks (chunk_size=12, overlap=3).",
-      hint: "Step through words with range(0, len(words), chunk_size - overlap).",
-      starterCode: "doc = (\n    'ShopPulse offers a 7-day replacement window for electronics and audio gear. '\n    'Accessories like desk mats qualify for a 15-day return if unopened. '\n    'Refunds are credited to the original UPI or card within 3 business days.'\n)\nwords = doc.split()\nchunk_size, overlap = 12, 3\nchunks = [' '.join(words[i:i+chunk_size]) for i in range(0, len(words), chunk_size - overlap)]\nfor idx, c in enumerate(chunks):\n    print(f'Chunk {idx}: {c}')\n"
+      title: "SFT Chat-Template Prompt Formatter",
+      prompt: "Build a clean system + user + assistant chat message formatter verifying role alternation and token budget.",
+      hint: "Format role blocks cleanly and assert total word/token estimate stays below max_tokens.",
+      starterCode: "def format_prompt(system_msg: str, user_msg: str) -> str:\n    return f'<|system|>\\n{system_msg}\\n<|user|>\\n{user_msg}\\n<|assistant|>\\n'\n\nprompt = format_prompt('You are a concise SQL analyst.', 'Top 3 cities by revenue?')\nprint(prompt)\n"
     }
   },
   {
     day: 144,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Vector Databases & HNSW Approximate Nearest Neighbors",
-    instructor: "IBM Technology",
-    duration: "12m",
-    videoId: "dN0lsF2cvm4",
-    altVideoId: "T-D1OfcDW1M",
+    module: "M6: LLMs & AI Agents",
+    title: "Systematic Prompt Engineering: Few-Shot & Chain-of-Thought",
+    instructor: "Andrej Karpathy",
+    duration: "35m",
+    videoId: "7xTGNNLPyMI",
+    altVideoId: "bZQun8Y4L2A",
     startSec: 0,
-    bridge: "Scales Day 134 cosine similarity from 3 vectors to millions using Hierarchical Navigable Small World (HNSW) graphs.",
+    bridge: "Replaces brittle ad-hoc prompts with structured delimiters, few-shot examples, and step-by-step reasoning instructions.",
     takeaways: [
-      "Understand why brute-force O(N) vector search slows down at scale and how HNSW achieves sub-linear recall.",
-      "Combine dense semantic vector search with metadata pre-filtering (category == 'Audio').",
-      "Evaluate retrieval recall@k against ground-truth relevant chunks."
+      "Separate system instructions from untrusted user/document input using clear XML tags (<context>, <query>).",
+      "Provide 2-3 canonical few-shot input/output examples to lock in domain edge cases.",
+      "Instruct explicit step-by-step verification for multi-step math or SQL generation."
     ],
     lab: {
       lang: "python",
-      title: "Metadata-Filtered Top-K Vector Retriever",
-      prompt: "Filter candidate chunks by category metadata first, then rank by cosine similarity to return top-2 hits.",
-      hint: "Filter indices where meta['category'] == target_cat before computing dot products.",
-      starterCode: "import numpy as np\n\ndocs = [\n    {'id': 'D1', 'cat': 'Policy', 'vec': np.array([0.9, 0.1, 0.0]), 'text': '7-day electronics return window'},\n    {'id': 'D2', 'cat': 'Spec',   'vec': np.array([0.85, 0.2, 0.1]), 'text': 'ANC headphones 40-hour battery'},\n    {'id': 'D3', 'cat': 'Policy', 'vec': np.array([0.7, 0.6, 0.1]), 'text': 'UPI refunds process in 3 days'}\n]\nq_vec = np.array([0.88, 0.15, 0.05])\nq_vec /= np.linalg.norm(q_vec)\n\npolicy_docs = [d for d in docs if d['cat'] == 'Policy']\nranked = sorted(policy_docs, key=lambda d: float((d['vec']/np.linalg.norm(d['vec'])) @ q_vec), reverse=True)\nfor d in ranked:\n    print(d['id'], '->', d['text'])\n"
+      title: "XML-Delimited Few-Shot SQL Prompt Builder",
+      prompt: "Construct a prompt builder wrapping ShopPulse DDL schema and 2 few-shot examples inside XML tags.",
+      hint: "Embed <schema>, <examples>, and <question> blocks cleanly.",
+      starterCode: "def build_sql_prompt(schema_ddl: str, question: str) -> str:\n    return f'''<schema>\\n{schema_ddl}\\n</schema>\n<examples>\nQ: Total delivered orders?\nSQL: SELECT COUNT(*) FROM orders WHERE status = 'Delivered';\n</examples>\n<question>{question}</question>\nReturn only valid SQLite SQL.'''\n\nprint(build_sql_prompt('orders(order_id, city, status, total_inr)', 'Revenue by city?'))\n"
     }
   },
   {
     day: 145,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Hybrid Search (BM25 + Dense) & Cross-Encoder Reranking",
-    instructor: "Cohere",
-    duration: "18m",
-    videoId: "wC4ef8b5d2E",
-    altVideoId: "dN0lsF2cvm4",
+    module: "M6: LLMs & AI Agents",
+    title: "Structured JSON Outputs, Schemas & Guarded Parsing",
+    instructor: "Andrej Karpathy",
+    duration: "30m",
+    videoId: "bZQun8Y4L2A",
+    altVideoId: "7xTGNNLPyMI",
     startSec: 0,
-    bridge: "Fixes dense embedding blind spots on exact SKU codes ('SP-104') by fusing lexical BM25 with semantic vectors via Reciprocal Rank Fusion.",
+    bridge: "Enforces strict JSON schema contracts on LLM outputs so downstream Python pipelines never crash on markdown chatter.",
     takeaways: [
-      "Combine exact keyword matching (BM25) with semantic embeddings for robust retrieval.",
-      "Fuse two ranked lists cleanly using Reciprocal Rank Fusion: score = 1 / (k + rank).",
-      "Apply a Cross-Encoder reranker on top-10 candidates to promote the top-3 chunks."
+      "Always pair structured JSON mode with defensive markdown fence stripping and schema validation.",
+      "Validate field types, allowed enum values, and numeric bounds before executing downstream actions.",
+      "Implement automatic retry-with-error-feedback when schema validation fails."
     ],
     lab: {
       lang: "python",
-      title: "Reciprocal Rank Fusion (RRF) Hybrid Scorer",
-      prompt: "Combine lexical BM25 ranks and dense vector ranks using RRF (k=60) and print the fused ranking.",
-      hint: "rrf_score[doc] = 1/(60 + rank_bm25) + 1/(60 + rank_dense).",
-      starterCode: "bm25_rank = {'Doc_A': 1, 'Doc_B': 3, 'Doc_C': 2}\ndense_rank = {'Doc_B': 1, 'Doc_A': 2, 'Doc_C': 4}\nk = 60\n\nrrf = {d: round(1/(k + bm25_rank[d]) + 1/(k + dense_rank[d]), 5) for d in bm25_rank}\nfor doc, sc in sorted(rrf.items(), key=lambda x: x[1], reverse=True):\n    print(f'{doc}: RRF={sc}')\n"
+      title: "Resilient LLM JSON Extractor & Schema Validator",
+      prompt: "Strip ```json fences from a raw LLM string, parse JSON, and validate required keys and sentiment enum.",
+      hint: "Strip ```json and ``` wrappers, call json.loads(), and check sentiment in {'positive', 'neutral', 'negative'}.",
+      starterCode: "import json\n\ndef parse_review_json(raw_llm: str) -> dict:\n    cleaned = raw_llm.strip().removeprefix('```json').removeprefix('```').removesuffix('```').strip()\n    data = json.loads(cleaned)\n    if data.get('sentiment') not in {'positive', 'neutral', 'negative'}:\n        raise ValueError('Invalid sentiment label')\n    return data\n\nsample = '```json\\n{\"sku\": \"SP-101\", \"sentiment\": \"positive\", \"score\": 5}\\n```'\nprint(parse_review_json(sample))\n"
     }
   },
   {
     day: 146,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "RAG Evaluation: Faithfulness, Relevancy & Context Recall",
-    instructor: "Arize AI",
-    duration: "20m",
-    videoId: "fT_3A42M_G4",
-    altVideoId: "T-D1OfcDW1M",
+    module: "M6: LLMs & AI Agents",
+    title: "Document Chunking Strategies for Knowledge Retrieval",
+    instructor: "IBM Technology",
+    duration: "10m",
+    videoId: "T-D1OfcDW1M",
+    altVideoId: "fLvJ8VdHLA0",
     startSec: 0,
-    bridge: "Applies Month 4 measurement rigor to GenAI by scoring hallucination rate, context precision, and answer faithfulness.",
+    bridge: "Splits long policy docs and product manuals into overlapping semantic chunks that preserve context across boundaries.",
     takeaways: [
-      "Measure the RAG Triad: Context Relevance, Groundedness/Faithfulness, and Answer Relevance.",
-      "Build a golden evaluation dataset of 30+ real user questions with expected source citations.",
-      "Use LLM-as-a-Judge prompts with strict rubric scoring."
+      "Use recursive character/paragraph splitting with 10-20% overlap so sentences at chunk edges retain context.",
+      "Attach rich metadata (doc_id, section, page, updated_at) to every chunk for filtered search.",
+      "Tune chunk size (300-800 tokens) to balance retrieval precision vs surrounding context."
     ],
     lab: {
       lang: "python",
-      title: "Retrieval Recall@K & MRR Evaluator",
-      prompt: "Compute Recall@3 and Mean Reciprocal Rank (MRR) across 3 test queries with known ground-truth doc IDs.",
-      hint: "RR = 1 / (rank_index + 1) if target in top_k else 0.0.",
-      starterCode: "eval_cases = [\n    {'target': 'D1', 'retrieved': ['D2', 'D1', 'D3']},\n    {'target': 'D4', 'retrieved': ['D4', 'D1', 'D2']},\n    {'target': 'D5', 'retrieved': ['D1', 'D2', 'D3']}\n]\nrecalls, rrs = [], []\nfor c in eval_cases:\n    top3 = c['retrieved'][:3]\n    hit = c['target'] in top3\n    recalls.append(1.0 if hit else 0.0)\n    rrs.append(1.0 / (top3.index(c['target']) + 1) if hit else 0.0)\n\nprint(f'Recall@3: {sum(recalls)/len(recalls):.2f} | MRR: {sum(rrs)/len(rrs):.3f}')\n"
+      title: "Overlapping Sliding-Window Text Chunker",
+      prompt: "Implement chunk_text(text, chunk_size=120, overlap=30) returning overlapping chunks with metadata.",
+      hint: "Step start index by (chunk_size - overlap) until start >= len(text).",
+      starterCode: "def chunk_text(text: str, chunk_size: int = 80, overlap: int = 20) -> list[dict]:\n    chunks = []\n    step = chunk_size - overlap\n    for idx, start in enumerate(range(0, len(text), step)):\n        piece = text[start:start + chunk_size]\n        chunks.append({'chunk_id': idx, 'text': piece})\n        if start + chunk_size >= len(text):\n            break\n    return chunks\n\ndoc = 'ShopPulse offers a 30-day no-questions return policy on all unopened electronics purchased in India with valid GST invoice.'\nfor c in chunk_text(doc, 55, 15):\n    print(c)\n"
     }
   },
   {
     day: 147,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Tool Calling, Function Routing & Agentic Workflows",
+    module: "M6: LLMs & AI Agents",
+    title: "Vector Databases, HNSW Indexing & Metadata Filtering",
     instructor: "IBM Technology",
-    duration: "14m",
-    videoId: "F8NKVhkZZWI",
+    duration: "10m",
+    videoId: "fLvJ8VdHLA0",
     altVideoId: "T-D1OfcDW1M",
     startSec: 0,
-    bridge: "Connects LLMs back to your Month 2 SQL database and Month 1 Python calculators via schema-validated tool calling.",
+    bridge: "Scales Day 140 brute-force cosine search to millions of vectors using Hierarchical Navigable Small World (HNSW) graphs.",
     takeaways: [
-      "Expose deterministic Python/SQL tools via JSON Schema function declarations.",
-      "Enforce read-only SQL guards and max-iteration budgets on agent loops.",
-      "Route structured analytical questions to SQL tools and policy questions to Vector RAG."
+      "Approximate Nearest Neighbor (ANN) indexes like HNSW trade <1% recall for 100x faster sub-millisecond search.",
+      "Combine pre/post metadata filters (category == 'Audio') with vector similarity.",
+      "Normalize embedding vectors to unit L2 norm so dot product equals cosine similarity."
     ],
     lab: {
       lang: "python",
-      title: "Safe Read-Only Text-to-SQL Guard & Router",
-      prompt: "Implement a SQL safety validator blocking DROP/DELETE/UPDATE/INSERT and allowing only read-only SELECT queries.",
-      hint: "Strip whitespace, uppercase, verify query.startswith(('SELECT', 'WITH')), and reject mutating keywords.",
-      starterCode: "import re\n\ndef is_safe_readonly_sql(query: str) -> bool:\n    clean = query.strip().upper()\n    if not clean.startswith(('SELECT', 'WITH')):\n        return False\n    forbidden = r'\\b(DROP|DELETE|UPDATE|INSERT|ALTER|TRUNCATE|ATTACH)\\b'\n    return re.search(forbidden, clean) is None\n\nfor q in ['SELECT * FROM orders LIMIT 5;', 'DROP TABLE orders;', 'WITH cte AS (SELECT 1) SELECT * FROM cte']:\n    print(f'{is_safe_readonly_sql(q)} -> {q}')\n"
+      title: "Metadata-Filtered Vector Store Query Engine",
+      prompt: "Filter candidate chunks by category == 'Returns' first, then rank matching vectors by cosine similarity.",
+      hint: "Filter records matching category, then compute dot product on unit-normalized vectors.",
+      starterCode: "import numpy as np\n\nstore = [\n    {'id': 'c1', 'cat': 'Returns', 'vec': np.array([0.9, 0.1]), 'text': '30-day return window'},\n    {'id': 'c2', 'cat': 'Shipping', 'vec': np.array([0.85, 0.2]), 'text': 'Free shipping over 3000 INR'},\n    {'id': 'c3', 'cat': 'Returns', 'vec': np.array([0.7, 0.7]), 'text': 'Damaged item replacement'}\n]\nq_vec = np.array([0.92, 0.08])\n\nfiltered = [r for r in store if r['cat'] == 'Returns']\nranked = sorted(filtered, key=lambda r: float(np.dot(r['vec'], q_vec) / (np.linalg.norm(r['vec']) * np.linalg.norm(q_vec))), reverse=True)\nprint('Top Filtered Match:', ranked[0]['text'])\n"
     }
   },
   {
     day: 148,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Production Deployment: FastAPI, Docker & Observability",
-    instructor: "NeuralNine",
-    duration: "25m",
-    videoId: "0sOvCWFmrtA",
-    altVideoId: "529LYDgRTgQ",
+    module: "M6: LLMs & AI Agents",
+    title: "RAG Architecture Part 1: Grounded Context Injection",
+    instructor: "IBM Technology",
+    duration: "10m",
+    videoId: "T-D1OfcDW1M",
+    altVideoId: "fLvJ8VdHLA0",
     startSec: 0,
-    bridge: "Packages your ShopPulse churn model and hybrid RAG assistant behind a typed FastAPI service ready for cloud deployment.",
+    bridge: "Connects vector retrieval to LLM generation so answers cite private ShopPulse documentation rather than hallucinating.",
     takeaways: [
-      "Validate request and response payloads automatically with Pydantic BaseModel schemas.",
-      "Expose /health, /predict, and /ask endpoints with structured latency and token logging.",
-      "Containerize reproducible Python environments with slim multi-stage Dockerfiles."
+      "Retrieve top-K relevant chunks and inject them with explicit [doc_id] citation markers.",
+      "Instruct the model to say 'Not found in provided documents' when context lacks the answer.",
+      "Keep retrieved context concise to avoid 'lost-in-the-middle' attention dilution."
     ],
     lab: {
       lang: "python",
-      title: "Pydantic-Style Request/Response Contract Validator",
-      prompt: "Build a request validator enforcing non-empty question strings (<= 500 chars) and top_k in [1..10].",
-      hint: "Raise ValueError if not (1 <= len(q.strip()) <= 500) or not (1 <= top_k <= 10).",
-      starterCode: "def validate_ask_request(payload: dict) -> dict:\n    q = str(payload.get('question', '')).strip()\n    top_k = int(payload.get('top_k', 3))\n    if not (1 <= len(q) <= 500):\n        raise ValueError('Question must be 1..500 characters')\n    if not (1 <= top_k <= 10):\n        raise ValueError('top_k must be between 1 and 10')\n    return {'question': q, 'top_k': top_k}\n\nprint(validate_ask_request({'question': '  Show Mumbai revenue  ', 'top_k': 3}))\n"
+      title: "Grounded RAG Prompt Assembler with Citation IDs",
+      prompt: "Assemble a grounded RAG prompt formatting retrieved chunks with [source_id] tags and strict refusal rules.",
+      hint: "Join chunks as '[id] text' inside <context> tags.",
+      starterCode: "def build_rag_prompt(question: str, chunks: list[dict]) -> str:\n    ctx = '\\n'.join(f\"[{c['id']}] {c['text']}\" for c in chunks)\n    return f'''Answer ONLY using the context below. Cite sources like [c1]. If missing, say \"Insufficient context.\"\n<context>\n{ctx}\n</context>\nQuestion: {question}'''\n\nprint(build_rag_prompt('What is the return window?', [{'id': 'c1', 'text': 'Returns accepted within 30 days.'}]))\n"
     }
   },
   {
     day: 149,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Guardrails, Prompt Injection Defense & Cost Caching",
-    instructor: "DeepLearning.AI",
-    duration: "20m",
-    videoId: "H4YK_7MAckk",
-    altVideoId: "F8NKVhkZZWI",
+    module: "M6: LLMs & AI Agents",
+    title: "RAG Part 2: Hybrid Search (BM25 + Dense) & Reranking",
+    instructor: "IBM Technology",
+    duration: "10m",
+    videoId: "fLvJ8VdHLA0",
+    altVideoId: "T-D1OfcDW1M",
     startSec: 0,
-    bridge: "Hardens your GenAI application against prompt injection, PII leakage, and redundant LLM API spend.",
+    bridge: "Fixes dense embedding blind spots on exact SKU codes ('SP-101') by fusing keyword BM25 scores with semantic vectors via RRF.",
     takeaways: [
-      "Redact sensitive PII (emails, phone numbers) before sending prompts to external LLM APIs.",
-      "Detect prompt-injection override attempts in retrieved documents or user inputs.",
-      "Cache repeated queries to cut latency and API costs by 40-70%."
+      "Dense embeddings capture synonyms; lexical keyword search catches exact SKUs, error codes, and proper nouns.",
+      "Reciprocal Rank Fusion (RRF): score = sum(1 / (k + rank_i)) merges keyword and vector rankings cleanly without score calibration.",
+      "Cross-encoder rerankers score top-20 candidates jointly before passing top-3 to the LLM."
     ],
     lab: {
       lang: "python",
-      title: "PII Email/Phone Redactor Middleware",
-      prompt: "Write a regex sanitizer that masks email addresses and 10-digit phone numbers before LLM logging.",
-      hint: "Use re.sub() to replace emails with '[EMAIL_REDACTED]' and 10-digit numbers with '[PHONE_REDACTED]'.",
-      starterCode: "import re\n\ndef redact_pii(text: str) -> str:\n    text = re.sub(r'[\\w.-]+@[\\w.-]+\\.\\w+', '[EMAIL_REDACTED]', text)\n    text = re.sub(r'\\b\\d{10}\\b', '[PHONE_REDACTED]', text)\n    return text\n\nsample = 'Customer aarav@example.com (9876543210) asked about Order 1001.'\nprint(redact_pii(sample))\n"
+      title: "Reciprocal Rank Fusion (RRF) Hybrid Scorer",
+      prompt: "Fuse lexical rank order and vector rank order using RRF (k=60) to surface the best overall document.",
+      hint: "For each list, add 1.0 / (60 + rank) to doc_id's cumulative RRF score.",
+      starterCode: "lexical_rank = ['doc_sku_101', 'doc_shipping', 'doc_warranty']\nvector_rank  = ['doc_warranty', 'doc_sku_101', 'doc_returns']\n\nrrf = {}\nfor ranking in (lexical_rank, vector_rank):\n    for rank, doc_id in enumerate(ranking, start=1):\n        rrf[doc_id] = rrf.get(doc_id, 0.0) + 1.0 / (60 + rank)\n\nfor doc_id, score in sorted(rrf.items(), key=lambda x: x[1], reverse=True):\n    print(f'{doc_id:15s} -> RRF Score: {score:.5f}')\n"
     }
   },
   {
     day: 150,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Capstone 6A: Hybrid SQL + Vector RAG Copilot",
-    instructor: "IBM Technology",
-    duration: "14m",
-    videoId: "F8NKVhkZZWI",
+    module: "M6: LLMs & AI Agents",
+    title: "Evaluating RAG & LLM Systems (RAGAS & LLM-as-a-Judge)",
+    instructor: "Andrej Karpathy",
+    duration: "30m",
+    videoId: "bZQun8Y4L2A",
     altVideoId: "T-D1OfcDW1M",
     startSec: 0,
-    bridge: "Unites all 6 months into one flagship portfolio system: Python ingestion + SQLite warehouse + ML churn scoring + Hybrid RAG.",
+    bridge: "Replaces 'vibes-based' prompt tweaking with automated Recall@K, Faithfulness, and Answer Relevance evaluation suites.",
     takeaways: [
-      "Route numeric KPI queries to safe read-only SQLite and policy questions to RRF Hybrid RAG.",
-      "Return grounded answers with explicit source citations and zero hallucinations.",
-      "Deploy your interactive DataForge & ShopPulse showcase on GitHub Pages."
+      "Separate retriever evaluation (Recall@K, MRR) from generator evaluation (Faithfulness, Answer Relevance).",
+      "Faithfulness checks whether every claim in the answer is supported by the retrieved context.",
+      "Run golden evaluation sets in CI before deploying prompt or chunking changes."
     ],
     lab: {
       lang: "python",
-      title: "Capstone 6A: End-to-End Router + SQL + RAG Demo",
-      prompt: "Implement a unified copilot router that dispatches metric questions to SQLite and policy questions to Vector RAG.",
-      hint: "Route queries containing 'revenue' or 'orders' to SQLite and others to the policy retriever.",
-      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE orders (city TEXT, total_inr REAL)')\nconn.executemany('INSERT INTO orders VALUES (?, ?)', [('Mumbai', 8997.0), ('Bengaluru', 12297.0)])\n\ndef copilot_answer(question: str) -> str:\n    if any(k in question.lower() for k in ['revenue', 'orders', 'city']):\n        rows = conn.execute('SELECT city, SUM(total_inr) FROM orders GROUP BY city').fetchall()\n        return f'[SQL Tool] Revenue by city: {rows}'\n    return '[RAG Tool] Policy Citation [D1]: Electronics have a 7-day replacement window.'\n\nprint(copilot_answer('What is our revenue by city?'))\nprint(copilot_answer('What is the return policy on headphones?'))\n"
+      title: "Retriever Recall@K & Mean Reciprocal Rank (MRR) Evaluator",
+      prompt: "Compute Recall@2 and MRR across 3 golden ShopPulse test queries against retrieved doc ID lists.",
+      hint: "Recall@2 = 1 if gold_id in retrieved[:2] else 0; RR = 1 / (index + 1) if gold_id in retrieved else 0.",
+      starterCode: "eval_cases = [\n    ('doc_return', ['doc_return', 'doc_ship']),\n    ('doc_gst', ['doc_ship', 'doc_gst']),\n    ('doc_warranty', ['doc_return', 'doc_ship'])\n]\n\nrecalls, rrs = [], []\nfor gold, ret in eval_cases:\n    recalls.append(1.0 if gold in ret[:2] else 0.0)\n    rrs.append(1.0 / (ret.index(gold) + 1) if gold in ret else 0.0)\n\nprint(f'Recall@2: {sum(recalls)/len(recalls):.3f} | MRR: {sum(rrs)/len(rrs):.3f}')\n"
     }
   },
   {
     day: 151,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Portfolio Architecture & GitHub Case-Study Polishing",
-    instructor: "Luke Barousse",
-    duration: "25m",
-    videoId: "QKIGsShyEsQ",
-    altVideoId: "apGV9Kg7ics",
+    module: "M6: LLMs & AI Agents",
+    title: "Function Calling & Structured Tool Use",
+    instructor: "IBM Technology",
+    duration: "10m",
+    videoId: "F8NKVhkZZWI",
+    altVideoId: "bZQun8Y4L2A",
     startSec: 0,
-    bridge: "Packages your 6-month ShopPulse repository with architecture diagrams, reproducible benchmarks, and live GitHub Pages links.",
+    bridge: "Grants LLMs safe, deterministic access to Python calculators, SQLite queries, and live inventory APIs.",
     takeaways: [
-      "Lead every README with business impact metrics, architecture diagram, and a 30-second quickstart.",
-      "Document baseline vs improved metrics across SQL latency, A/B lift, ML ROC-AUC, and RAG Recall@3.",
-      "Pin your top 3 end-to-end repositories on your GitHub profile."
+      "Expose typed tool schemas (name, description, JSON parameters) rather than letting LLMs guess arithmetic.",
+      "The LLM emits a structured tool_call JSON; your runtime executes the function and feeds tool_result back.",
+      "Validate all tool arguments before execution—especially read-only SQL constraints."
     ],
     lab: {
       lang: "python",
-      title: "Portfolio Metrics Scorecard Generator",
-      prompt: "Format a clean executive summary scorecard of your 6-month ShopPulse engineering benchmarks.",
-      hint: "Print a structured Markdown table summarizing each module's verified metric.",
-      starterCode: "benchmarks = [\n    ('M1-M2 Data Warehouse', 'Composite B-Tree Index', 'Full scan -> Indexed search'),\n    ('M3-M4 Experimentation', 'CUPED + Chi-Square', '38% variance reduction, +22% lift'),\n    ('M5 Tabular ML', 'HistGBM Churn Pipeline', '0.91 ROC-AUC (5-fold CV)'),\n    ('M6 Hybrid RAG', 'BM25 + Dense RRF', '0.94 Recall@3, 0% PII leak')\n]\nprint('| Layer | Technique | Verified Benchmark |')\nprint('|---|---|---|')\nfor l, t, b in benchmarks:\n    print(f'| {l} | {t} | {b} |')\n"
+      title: "Tool Dispatcher Router for ShopPulse Assistant",
+      prompt: "Implement a tool registry dispatching structured tool calls ('get_sku_price', 'calc_gst') safely.",
+      hint: "Look up call['name'] in TOOLS dict and invoke with **call['args'].",
+      starterCode: "CATALOG = {'SP-101': 4999.0, 'SP-102': 1499.0}\nTOOLS = {\n    'get_sku_price': lambda sku: CATALOG.get(sku, 0.0),\n    'calc_total_with_gst': lambda amount, rate=0.18: round(amount * (1 + rate), 2)\n}\n\ndef dispatch(tool_call: dict):\n    fn = TOOLS.get(tool_call['name'])\n    if not fn:\n        raise ValueError('Unknown tool')\n    return fn(**tool_call['args'])\n\nprice = dispatch({'name': 'get_sku_price', 'args': {'sku': 'SP-101'}})\nprint('Total INR:', dispatch({'name': 'calc_total_with_gst', 'args': {'amount': price}}))\n"
     }
   },
   {
     day: 152,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "SQL & Python Live Coding Interview Drills",
-    instructor: "Ankit Bansal",
-    duration: "17m",
-    videoId: "MpAMjtvarrc",
-    altVideoId: "6hfsRqmyvog",
+    module: "M6: LLMs & AI Agents",
+    title: "AI Agents Part 1: ReAct Loop (Thought -> Action -> Observation)",
+    instructor: "IBM Technology",
+    duration: "10m",
+    videoId: "F8NKVhkZZWI",
+    altVideoId: "T-D1OfcDW1M",
     startSec: 0,
-    bridge: "Sharpens speed and clarity on top Data Analyst & Junior Data Scientist technical screen patterns.",
+    bridge: "Chains multi-step tool calls inside a bounded Reason-Act-Observe loop so the agent can solve multi-hop questions.",
     takeaways: [
-      "Clarify grain, NULL handling, and tie-breaking rules out loud before writing SQL or Python.",
-      "Master rolling 7-day windows, cohort retention, and top-N-per-group patterns.",
-      "Write clean, modular helper functions with edge-case tests."
+      "ReAct interleaves explicit reasoning traces with tool actions and real observations.",
+      "Always enforce a strict max_steps budget (e.g., 5 steps) to prevent infinite agent loops.",
+      "Terminate cleanly once sufficient evidence is gathered to synthesize the final answer."
     ],
     lab: {
-      lang: "sql",
-      title: "Interview Drill: Top-Spending Customer per City",
-      prompt: "Rank customers within each city by Delivered LTV using DENSE_RANK() OVER (PARTITION BY city ORDER BY ... DESC).",
-      hint: "Aggregate Delivered revenue per customer in a CTE, then apply DENSE_RANK() in the outer query.",
-      starterCode: "WITH cust_rev AS (\n  SELECT c.customer_id, c.full_name, c.city,\n         COALESCE(SUM(o.total_inr), 0) AS ltv_inr\n  FROM customers c\n  LEFT JOIN orders o ON c.customer_id = o.customer_id AND o.status = 'Delivered'\n  GROUP BY c.customer_id, c.full_name, c.city\n)\nSELECT city, full_name, ltv_inr,\n       DENSE_RANK() OVER (PARTITION BY city ORDER BY ltv_inr DESC) AS city_rank\nFROM cust_rev\nORDER BY city, city_rank;\n"
+      lang: "python",
+      title: "Bounded Multi-Step ReAct Agent Loop Simulator",
+      prompt: "Run a 3-step Reason-Act-Observe trace looking up an order total and applying customer tier discount.",
+      hint: "Iterate over planned steps up to max_steps=5, recording observation into state.",
+      starterCode: "ORDERS = {1001: {'customer': 'Aarav', 'subtotal': 6498.0}}\nTIERS = {'Aarav': 0.10}\n\nstate = {'order_id': 1001}\ntrace = [\n    ('lookup_order', lambda s: ORDERS[s['order_id']]),\n    ('lookup_discount', lambda s: {'discount': TIERS[s['customer']]}),\n    ('final_calc', lambda s: {'final_inr': round(s['subtotal'] * (1 - s['discount']), 2)})\n]\n\nfor step_idx, (action, fn) in enumerate(trace, start=1):\n    obs = fn(state)\n    state.update(obs)\n    print(f'Step {step_idx} [{action}] -> Obs: {obs}')\n"
     }
   },
   {
     day: 153,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Product Sense & A/B Case Study Interviews",
-    instructor: "Ronny Kohavi",
-    duration: "25m",
-    videoId: "f0Z5102N7hM",
-    altVideoId: "5koKbTCySjU",
+    module: "M6: LLMs & AI Agents",
+    title: "AI Agents Part 2: Memory, Planning & Multi-Agent Routing",
+    instructor: "IBM Technology",
+    duration: "10m",
+    videoId: "F8NKVhkZZWI",
+    altVideoId: "bZQun8Y4L2A",
     startSec: 0,
-    bridge: "Prepares you to structure open-ended product metric questions ('Conversion dropped 8% yesterday—how do you investigate?').",
+    bridge: "Scales single-loop agents using short-term conversation state, semantic long-term memory, and specialized sub-agent routers.",
     takeaways: [
-      "Diagnose metric drops systematically: Telemetry/Logging -> Platform/Region slice -> Funnel step -> External seasonality.",
-      "Define North Star, driver, and guardrail metrics for any new product feature.",
-      "Explain p-values, power, and SRM in plain language for non-technical stakeholders."
+      "Separate working scratchpad memory (current task) from persistent user preferences and vector memory.",
+      "Use a lightweight supervisor router to dispatch SQL analytics vs policy RAG vs ML scoring requests.",
+      "Keep specialist agents narrow with focused tool sets to maintain high accuracy."
     ],
     lab: {
       lang: "python",
-      title: "Automated Funnel Drop-Off Root-Cause Slicer",
-      prompt: "Slice a simulated conversion drop by device ('Mobile' vs 'Desktop') to isolate which segment caused the dip.",
-      hint: "Group by ['period', 'device'] and compute conversion rate.",
-      starterCode: "import pandas as pd\n\ndf = pd.DataFrame({\n    'period': ['Pre', 'Pre', 'Post', 'Post'],\n    'device': ['Desktop', 'Mobile', 'Desktop', 'Mobile'],\n    'sessions': [5000, 8000, 5000, 8000],\n    'orders': [450, 640, 445, 320]\n})\ndf['conv_pct'] = (100 * df['orders'] / df['sessions']).round(2)\nprint(df.pivot(index='device', columns='period', values='conv_pct'))\n"
+      title: "Intent Router Dispatching to SQL, RAG, or ML Agents",
+      prompt: "Route incoming ShopPulse user queries to 'SQL_AGENT', 'RAG_AGENT', or 'ML_AGENT' based on intent keywords.",
+      hint: "Check domain keywords cleanly and fallback to 'GENERAL_AGENT'.",
+      starterCode: "def route_query(query: str) -> str:\n    q = query.lower()\n    if any(k in q for k in ('revenue', 'orders', 'city', 'top')):\n        return 'SQL_AGENT'\n    if any(k in q for k in ('return', 'policy', 'warranty', 'refund')):\n        return 'RAG_AGENT'\n    if any(k in q for k in ('churn', 'predict', 'risk', 'ltv')):\n        return 'ML_AGENT'\n    return 'GENERAL_AGENT'\n\nfor q in ['Total revenue in Mumbai?', 'What is the return policy?', 'Predict churn risk for user 104']:\n    print(f'{q:36s} -> {route_query(q)}')\n"
     }
   },
   {
     day: 154,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "ML & GenAI System Design Walkthroughs",
+    module: "M6: LLMs & AI Agents",
+    title: "Agent Guardrails: SQL Sandboxing, Prompt Injection & HITL",
     instructor: "IBM Technology",
-    duration: "14m",
+    duration: "10m",
     videoId: "F8NKVhkZZWI",
-    altVideoId: "T-D1OfcDW1M",
+    altVideoId: "sal78ACtGTc",
     startSec: 0,
-    bridge: "Walks through end-to-end architecture trade-offs (latency, cost, drift monitoring, grounding) for ML and RAG interviews.",
+    bridge: "Locks down AI agents against prompt injection, destructive SQL mutations (DROP/DELETE), and unauthorized refunds.",
     takeaways: [
-      "Structure system design answers: Requirements & SLAs -> Data Pipeline -> Baseline vs Model -> Evaluation -> Monitoring.",
-      "Know when to use SQL, classical GBDTs, fine-tuned encoders, or RAG.",
-      "Monitor feature drift (PSI) and retrieval quality in production."
+      "Enforce read-only SELECT validation and row limits on any LLM-generated SQL query.",
+      "Treat retrieved documents and user inputs as untrusted data—never executable instructions.",
+      "Require Human-in-the-Loop (HITL) confirmation before high-impact write actions (refunds, emails, DB writes)."
     ],
     lab: {
       lang: "python",
-      title: "Population Stability Index (PSI) Drift Detector",
-      prompt: "Compute PSI between baseline and production score distributions to detect model drift (PSI > 0.20 = alert).",
-      hint: "PSI = sum((prod_pct - base_pct) * ln(prod_pct / base_pct)).",
-      starterCode: "import numpy as np\n\nbase_pct = np.array([0.25, 0.35, 0.25, 0.15])\nprod_pct = np.array([0.10, 0.25, 0.35, 0.30])\npsi = np.sum((prod_pct - base_pct) * np.log(prod_pct / base_pct))\nprint(f'PSI Drift Score: {psi:.4f} | Drift Alert (>0.20): {psi > 0.20}')\n"
+      title: "Read-Only SQL Safety Guardrail Validator",
+      prompt: "Write validate_readonly_sql(sql) rejecting non-SELECT queries or forbidden keywords (DROP, DELETE, UPDATE, INSERT).",
+      hint: "Normalize uppercase, check startswith('SELECT') or startswith('WITH'), and block DDL/DML tokens.",
+      starterCode: "def validate_readonly_sql(sql: str) -> bool:\n    clean = sql.strip().upper()\n    if not clean.startswith(('SELECT', 'WITH')):\n        return False\n    forbidden = ('DROP ', 'DELETE ', 'UPDATE ', 'INSERT ', 'ALTER ', 'TRUNCATE ')\n    return not any(tok in clean for tok in forbidden)\n\nfor stmt in ['SELECT city, SUM(total_inr) FROM orders GROUP BY city;', 'DROP TABLE orders;', 'DELETE FROM customers WHERE id=1;']:\n    print(f'Allowed={str(validate_readonly_sql(stmt)):5s} | {stmt}')\n"
     }
   },
   {
     day: 155,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Mock Technical Loop 1: SQL + Python Data Wrangling",
-    instructor: "Data with Baraa",
-    duration: "36m",
-    videoId: "GHPHZ8XJxeg",
-    altVideoId: "2uvysYbKdjM",
+    module: "M6: LLMs & AI Agents",
+    title: "Text-to-SQL Agent: Schema Linking & Self-Correction",
+    instructor: "IBM Technology",
+    duration: "10m",
+    videoId: "F8NKVhkZZWI",
+    altVideoId: "T-D1OfcDW1M",
     startSec: 0,
-    bridge: "Timed end-to-end simulation combining multi-table SQL extraction and Pandas feature engineering.",
+    bridge: "Combines Month 2 SQLite analytics with Day 154 read-only guardrails to answer natural-language executive questions over real tables.",
     takeaways: [
-      "Verify row counts before and after every join to guarantee zero silent duplication.",
-      "Handle NULLs, zero denominators, and date boundaries cleanly under time pressure.",
-      "Communicate trade-offs clearly while coding."
+      "Inject exact table DDL and sample rows into the prompt so column names never hallucinate.",
+      "Validate generated SQL against SQLite's EXPLAIN QUERY PLAN before execution.",
+      "Feed syntax or missing-column error messages back to the generator for automatic self-repair."
     ],
     lab: {
-      lang: "sql",
-      title: "Timed SQL Challenge: Category Revenue & Share",
-      prompt: "Compute each product category's Delivered revenue and percentage share of total company revenue.",
-      hint: "Use SUM(rev) OVER () as the denominator for percentage share.",
-      starterCode: "WITH cat_rev AS (\n  SELECT p.category,\n         ROUND(SUM(oi.quantity * oi.unit_price_inr), 2) AS rev_inr\n  FROM orders o\n  JOIN order_items oi ON o.order_id = oi.order_id\n  JOIN products p ON oi.product_id = p.product_id\n  WHERE o.status = 'Delivered'\n  GROUP BY p.category\n)\nSELECT category, rev_inr,\n       ROUND(100.0 * rev_inr / SUM(rev_inr) OVER (), 1) AS share_pct\nFROM cat_rev\nORDER BY rev_inr DESC;\n"
+      lang: "python",
+      title: "End-to-End Safe Text-to-SQL Execution Harness",
+      prompt: "Validate a candidate SQL query with validate_readonly_sql(), execute it against an in-memory SQLite table, and return rows.",
+      hint: "Run sqlite3 in-memory query only after passing the read-only guard.",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE orders (city TEXT, total_inr REAL)')\nconn.executemany('INSERT INTO orders VALUES (?, ?)', [('Mumbai', 6498.0), ('Bengaluru', 8999.0), ('Mumbai', 2499.0)])\n\nsql = 'SELECT city, ROUND(SUM(total_inr), 2) AS rev FROM orders GROUP BY city ORDER BY rev DESC;'\nassert sql.strip().upper().startswith('SELECT')\nprint(conn.execute(sql).fetchall())\n"
     }
   },
   {
     day: 156,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Mock Technical Loop 2: Statistics, ML & RAG Defense",
-    instructor: "StatQuest",
-    duration: "14m",
-    videoId: "4jRBRDbJemM",
-    altVideoId: "fT_3A42M_G4",
+    module: "M6: LLMs & AI Agents",
+    title: "Fine-Tuning vs RAG vs Prompting Decision Framework",
+    instructor: "Andrej Karpathy",
+    duration: "30m",
+    videoId: "bZQun8Y4L2A",
+    altVideoId: "sal78ACtGTc",
     startSec: 0,
-    bridge: "Defends your modeling choices, class-imbalance metrics, and RAG evaluation scores like a senior practitioner.",
+    bridge: "Prevents expensive, unnecessary fine-tuning when RAG + structured prompting solves dynamic business knowledge faster.",
     takeaways: [
-      "Explain why PR-AUC and calibrated thresholds beat raw accuracy on imbalanced churn datasets.",
-      "Walk through how Hybrid RRF + Cross-Encoder reranking eliminates RAG retrieval misses.",
-      "Quantify business impact in INR saved or conversion lift gained."
+      "Use Prompting for formatting/reasoning; use RAG for dynamic, private, or citable knowledge.",
+      "Reserve LoRA/QLoRA fine-tuning for specialized domain style, strict latency budgets, or compact local models.",
+      "Always build a strong RAG + eval baseline before investing in custom weight fine-tuning."
     ],
     lab: {
       lang: "python",
-      title: "Retention Campaign Expected Profit Optimizer",
-      prompt: "Given churn probabilities and INR 500 coupon cost vs INR 4,000 retained LTV, find the optimal probability threshold.",
-      hint: "Net value = sum(LTV * y_true - coupon_cost) across customers targeted with prob >= threshold.",
-      starterCode: "import numpy as np\n\ny_true = np.array([1, 1, 0, 1, 0, 0, 1, 0])\ny_prob = np.array([0.85, 0.72, 0.60, 0.45, 0.30, 0.20, 0.55, 0.10])\n\nfor th in [0.30, 0.50, 0.70]:\n    targeted = y_prob >= th\n    saved_ltv = np.sum(4000 * y_true[targeted])\n    cost = 500 * np.sum(targeted)\n    print(f'Thresh {th:.2f} -> Targeted: {np.sum(targeted)} | Net Profit: INR {saved_ltv - cost:,}')\n"
+      title: "Architecture Decision Matrix Scorer",
+      prompt: "Implement recommend_approach(needs_live_data, custom_tone_only, high_volume_low_latency) returning RAG, Prompting, or LoRA.",
+      hint: "If needs_live_data -> 'RAG'; elif high_volume_low_latency -> 'LoRA Fine-Tune'; else 'Structured Prompting'.",
+      starterCode: "def recommend_approach(needs_live_data: bool, high_volume_low_latency: bool) -> str:\n    if needs_live_data:\n        return 'RAG + Grounded Citations'\n    if high_volume_low_latency:\n        return 'LoRA Fine-Tuned Small Model'\n    return 'Few-Shot Structured Prompting'\n\nprint('Policy Q&A:', recommend_approach(True, False))\nprint('10M Ticket Classifier:', recommend_approach(False, True))\n"
     }
   },
   {
     day: 157,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Buffer & Deep-Dive Consolidation Day 1",
-    instructor: "3Blue1Brown",
-    duration: "18m",
-    videoId: "zeJD6dqJ5lo",
-    altVideoId: "wjZofJX0v4M",
+    module: "M6: LLMs & AI Agents",
+    title: "LLMOps: Semantic Caching, Quantization & Latency Budgets",
+    instructor: "Andrej Karpathy",
+    duration: "30m",
+    videoId: "7xTGNNLPyMI",
+    altVideoId: "bZQun8Y4L2A",
     startSec: 0,
-    bridge: "Dedicated review sprint to revisit any challenging module across Python, SQL, Statistics, ML, or Transformers.",
+    bridge: "Cuts LLM API spend by 40-70% using semantic query caching, model routing, and quantization trade-offs.",
     takeaways: [
-      "Review your Smart Notes across Months 1-6 and close any conceptual gaps.",
-      "Re-run and refactor earlier labs without peeking at hints.",
-      "Consolidate cheat sheets for SQL window functions, SciPy tests, and Scikit-Learn pipelines."
+      "Cache frequent or semantically equivalent queries (cosine similarity > 0.96) to return instant zero-token responses.",
+      "Route simple classification/extraction tasks to fast small models and complex synthesis to frontier models.",
+      "Quantization (INT8 / INT4) shrinks model VRAM footprint 2x-4x with minimal quality loss."
     ],
     lab: {
       lang: "python",
-      title: "Cross-Module Synthesis Check",
-      prompt: "Combine SQLite extraction, NumPy stats, and Scikit-Learn standardization in one concise 15-line pipeline.",
-      hint: "Query SQLite into a NumPy array and apply StandardScaler().fit_transform().",
-      starterCode: "import sqlite3\nimport numpy as np\nfrom sklearn.preprocessing import StandardScaler\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE metrics (val REAL)')\nconn.executemany('INSERT INTO metrics VALUES (?)', [(1200.0,), (3400.0,), (5600.0,), (8900.0,)])\narr = np.array(conn.execute('SELECT val FROM metrics').fetchall())\nscaled = StandardScaler().fit_transform(arr)\nprint('Z-scaled DB column:', np.round(scaled.ravel(), 3))\n"
+      title: "Cosine-Similarity Semantic Response Cache",
+      prompt: "Check if an incoming query embedding matches a cached vector with cosine similarity >= 0.96 before calling the LLM.",
+      hint: "Compute cosine similarity against cached entry; return cached answer if sim >= 0.96.",
+      starterCode: "import numpy as np\n\ncache = [{'vec': np.array([0.91, 0.12, 0.05]), 'answer': 'Returns are accepted within 30 days.'}]\nq_vec = np.array([0.90, 0.13, 0.05])\n\nsim = float(np.dot(cache[0]['vec'], q_vec) / (np.linalg.norm(cache[0]['vec']) * np.linalg.norm(q_vec)))\nprint(f'Cache Similarity: {sim:.4f} -> Cache Hit: {sim >= 0.96}')\n"
     }
   },
   {
     day: 158,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Buffer & Deep-Dive Consolidation Day 2",
-    instructor: "Andrej Karpathy",
-    duration: "35m",
-    videoId: "zduSFxRajkE",
+    module: "M6: LLMs & AI Agents",
+    title: "Observability: Tracing Agent Spans, Tokens & Errors",
+    instructor: "IBM Technology",
+    duration: "10m",
+    videoId: "F8NKVhkZZWI",
     altVideoId: "bZQun8Y4L2A",
     startSec: 0,
-    bridge: "Second consolidation sprint ensuring every capstone artifact in your GitHub portfolio runs cleanly end-to-end.",
+    bridge: "Instruments every retrieval, SQL tool call, and synthesis step with structured latency and token telemetry.",
     takeaways: [
-      "Verify all repository dependencies, sample datasets, and README instructions.",
-      "Test edge cases across your ETL, SQL views, churn model, and RAG router.",
-      "Prepare concise 2-minute verbal walkthroughs for each project."
+      "Log nested trace spans (retriever_ms, sql_ms, llm_ms, input_tokens, output_tokens) for every user turn.",
+      "Track P95 end-to-end latency and fallback/refusal rates on operational dashboards.",
+      "Replay failed production traces directly inside your automated eval suite."
     ],
     lab: {
       lang: "python",
-      title: "End-to-End Pipeline Health Self-Test",
-      prompt: "Run an assertion suite verifying JSON parsing, statistical Z-score computation, and cosine similarity.",
-      hint: "Assert exact expected outputs across all three core primitives.",
-      starterCode: "import json\nimport numpy as np\n\ndata = json.loads('{\"vals\": [10, 20, 30]}')\narr = np.array(data['vals'], dtype=float)\nz = (arr - arr.mean()) / arr.std()\nassert np.isclose(z.mean(), 0.0) and np.isclose(z.std(), 1.0)\nprint('All cross-curriculum self-checks passed!')\n"
+      title: "Structured Agent Trace & Cost Telemetry Summarizer",
+      prompt: "Aggregate span latencies and token costs across a multi-step agent trace.",
+      hint: "Sum duration_ms and compute total USD/INR token cost.",
+      starterCode: "spans = [\n    {'step': 'vector_search', 'ms': 18, 'tokens': 0},\n    {'step': 'sql_tool', 'ms': 12, 'tokens': 0},\n    {'step': 'llm_synthesis', 'ms': 420, 'tokens': 650}\n]\ntotal_ms = sum(s['ms'] for s in spans)\ntotal_tokens = sum(s['tokens'] for s in spans)\nprint(f'End-to-End Latency: {total_ms} ms | Total Tokens: {total_tokens}')\n"
     }
   },
   {
     day: 159,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Capstone Polish: Interactive Streamlit / Web Demo",
-    instructor: "NeuralNine",
-    duration: "25m",
-    videoId: "0sOvCWFmrtA",
-    altVideoId: "QKIGsShyEsQ",
+    module: "M6: LLMs & AI Agents",
+    title: "Multi-Modal Data Extraction: Tables, Charts & PDFs",
+    instructor: "Andrej Karpathy",
+    duration: "30m",
+    videoId: "7xTGNNLPyMI",
+    altVideoId: "sal78ACtGTc",
     startSec: 0,
-    bridge: "Turns backend Python notebooks and SQL queries into a visual interactive demo recruiters can test in seconds.",
+    bridge: "Extends document pipelines beyond plain text to extract structured line items from vendor invoices and PDF reports.",
     takeaways: [
-      "Present live predictions, SHAP/feature drivers, and RAG source citations in a clean UI.",
-      "Keep latency snappy with caching and lightweight quantized/distilled models.",
-      "Embed screenshots and live links at the top of your GitHub README."
+      "Preserve table row/column structure when parsing PDFs and invoices into Markdown or JSON.",
+      "Cross-check extracted invoice line totals against printed grand totals via deterministic Python assertions.",
+      "Store page numbers and bounding metadata for verifiable audit trails."
     ],
     lab: {
       lang: "python",
-      title: "Interactive KPI & Churn Dashboard Payload Builder",
-      prompt: "Assemble a unified JSON dashboard payload combining executive SQL KPIs and top at-risk customers.",
-      hint: "Combine KPI summary dict and sorted risk list into a single JSON response.",
-      starterCode: "import json\n\ndashboard_state = {\n    'kpis': {'revenue_inr': 37590.0, 'aov_inr': 5370.0, 'conversion_pct': 10.2},\n    'high_risk_customers': [\n        {'customer_id': 3, 'name': 'Rohan Deshmukh', 'churn_prob': 0.81},\n        {'customer_id': 6, 'name': 'Sneha Joshi', 'churn_prob': 0.76}\n    ]\n}\nprint(json.dumps(dashboard_state, indent=2))\n"
+      title: "Automated Invoice Line-Item Math Reconciliation",
+      prompt: "Verify that extracted JSON invoice line items sum accurately to the stated grand total within 0.01 INR.",
+      hint: "Compute sum(item['qty'] * item['unit_price']) and compare against stated_total.",
+      starterCode: "invoice = {\n    'invoice_no': 'INV-2026-88',\n    'items': [{'sku': 'SP-101', 'qty': 2, 'unit_price': 4999.0}, {'sku': 'SP-102', 'qty': 1, 'unit_price': 1499.0}],\n    'stated_total': 11497.0\n}\ncomputed = sum(i['qty'] * i['unit_price'] for i in invoice['items'])\nassert abs(computed - invoice['stated_total']) < 0.01\nprint(f\"Invoice {invoice['invoice_no']} reconciled: INR {computed:,.2f}\")\n"
     }
   },
   {
     day: 160,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Resume Quantification & ATS Bullet Engineering",
-    instructor: "Luke Barousse",
-    duration: "20m",
-    videoId: "QKIGsShyEsQ",
-    altVideoId: "apGV9Kg7ics",
+    module: "M6: LLMs & AI Agents",
+    title: "Capstone 6A Design: Architecting the ShopPulse AI Copilot",
+    instructor: "IBM Technology",
+    duration: "10m",
+    videoId: "F8NKVhkZZWI",
+    altVideoId: "T-D1OfcDW1M",
     startSec: 0,
-    bridge: "Translates your 160 days of technical execution into crisp, quantified X-Y-Z resume bullets for Data Analyst & Junior Data Scientist roles.",
+    bridge: "Blueprints the full-stack ShopPulse AI Analyst uniting SQLite analytics, hybrid RAG policy search, and ML churn scoring.",
     takeaways: [
-      "Format every bullet as: Accomplished [X] as measured by [Y], by doing [Z].",
-      "Highlight concrete tools: Python, SQL (Window Functions/CTEs), Pandas, SciPy A/B Testing, Scikit-Learn, XGBoost, PyTorch, RAG.",
-      "Tailor project bullets cleanly for Data Analyst vs Junior Data Scientist job descriptions."
+      "Define clear tool interfaces, read-only SQL guardrails, and citation formatting contracts.",
+      "Design graceful fallback responses when tools return empty rows or low similarity scores.",
+      "Prepare end-to-end integration test cases covering SQL, RAG, and hybrid queries."
     ],
     lab: {
       lang: "python",
-      title: "X-Y-Z Resume Bullet Formatter",
-      prompt: "Generate 3 quantified resume bullets from your ShopPulse capstone metrics.",
-      hint: "Format strings pairing action verbs, concrete technologies, and measured results.",
-      starterCode: "bullets = [\n    'Built an end-to-end Python & SQLite analytics pipeline processing e-commerce orders with composite B-Tree indexing and cohort retention views.',\n    'Designed CUPED-adjusted A/B experimentation workflows in Python/SciPy, cutting metric variance by 38% and validating a +22% checkout lift.',\n    'Engineered a Scikit-Learn churn pipeline (0.91 ROC-AUC) and Hybrid BM25+Vector RAG copilot with automated PII redaction.'\n]\nfor b in bullets:\n    print('-', b)\n"
+      title: "Capstone 6A Blueprint: Tool Registry & Health Check",
+      prompt: "Register and self-test all 3 ShopPulse AI Copilot capabilities (SQL, RAG, Churn Scorer) in one unified class.",
+      hint: "Verify each registered tool returns a non-empty structured dictionary.",
+      starterCode: "class ShopPulseCopilot:\n    def __init__(self):\n        self.tools = {\n            'sql_revenue': lambda city: {'city': city, 'revenue_inr': 8997.0},\n            'rag_policy': lambda topic: {'topic': topic, 'citation': '[doc_ret_01]', 'text': '30-day return window'},\n            'ml_churn': lambda cid: {'customer_id': cid, 'churn_prob': 0.74, 'tier': 'HIGH'}\n        }\n\n    def run(self, tool_name: str, arg):\n        return self.tools[tool_name](arg)\n\nbot = ShopPulseCopilot()\nprint(bot.run('sql_revenue', 'Mumbai'))\nprint(bot.run('rag_policy', 'returns'))\nprint(bot.run('ml_churn', 104))\n"
     }
   },
   {
     day: 161,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Technical Blogging & LinkedIn Project Storytelling",
-    instructor: "Luke Barousse",
-    duration: "15m",
-    videoId: "QKIGsShyEsQ",
-    altVideoId: "apGV9Kg7ics",
+    module: "M6: LLMs & AI Agents",
+    title: "Capstone 6A Build: SQL + RAG + ML Tool Execution Engine",
+    instructor: "IBM Technology",
+    duration: "10m",
+    videoId: "F8NKVhkZZWI",
+    altVideoId: "fLvJ8VdHLA0",
     startSec: 0,
-    bridge: "Amplifies inbound recruiter visibility by publishing concise engineering breakdowns of your ShopPulse architecture.",
+    bridge: "Implements the live multi-tool execution engine querying real SQLite tables and vector policy chunks in a single turn.",
     takeaways: [
-      "Share architecture diagrams, SQL before/after query plans, and A/B lessons learned.",
-      "Link directly to your live GitHub Pages DataForge & ShopPulse demos.",
-      "Engage thoughtfully with data engineering and applied AI practitioners."
+      "Combine live SQLite relational aggregates with retrieved policy citations in one synthesized response.",
+      "Enforce read-only SQL validation before executing any dynamic query.",
+      "Keep all intermediate tool outputs structured for auditability."
     ],
     lab: {
       lang: "python",
-      title: "Case-Study Post Outline Generator",
-      prompt: "Generate a structured 4-part technical post outline covering Problem, Architecture, Key Trade-off, and Live Demo.",
-      hint: "Format a clean Markdown outline ready for publishing.",
-      starterCode: "sections = [\n    ('1. The Problem', 'Connecting raw JSON orders to SQL cohorts, A/B tests, churn ML, and grounded RAG.'),\n    ('2. Architecture', 'Zero-disconnect pipeline: Python ETL -> SQLite -> Pandas -> SciPy -> HistGBM -> Hybrid RAG.'),\n    ('3. Hardest Trade-off', 'Balancing recall vs precision in churn targeting and hybrid RRF retrieval.'),\n    ('4. Live Demo', 'Explore the full 168-day interactive studio on GitHub Pages.')\n]\nfor title, desc in sections:\n    print(f'{title}: {desc}')\n"
+      title: "Live SQLite + Policy Lookup Integrated Execution",
+      prompt: "Query an in-memory SQLite table for Mumbai revenue and attach the matching shipping policy citation.",
+      hint: "Execute validated SELECT query and merge with retrieved policy snippet.",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE orders (city TEXT, total_inr REAL)')\nconn.executemany('INSERT INTO orders VALUES (?, ?)', [('Mumbai', 6498.0), ('Mumbai', 2499.0)])\n\nrev = conn.execute(\"SELECT SUM(total_inr) FROM orders WHERE city = 'Mumbai'\").fetchone()[0]\npolicy = '[doc_ship_02] Free express shipping on orders >= 3000 INR.'\nprint(f'Mumbai Revenue: INR {rev:,.2f} | Policy Note: {policy}')\n"
     }
   },
   {
     day: 162,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Final Capstone Sprint: Full-Stack Audit & Tag v2.0",
-    instructor: "Kunal Kushwaha",
-    duration: "25m",
-    videoId: "apGV9Kg7ics",
-    altVideoId: "zTjRZNkhiEU",
+    module: "M6: LLMs & AI Agents",
+    title: "Capstone 6A Hardening: Red-Teaming & Evaluation Suite",
+    instructor: "Andrej Karpathy",
+    duration: "30m",
+    videoId: "bZQun8Y4L2A",
+    altVideoId: "F8NKVhkZZWI",
     startSec: 0,
-    bridge: "Tags your completed 6-month portfolio milestone as v2.0.0 on GitHub with clean commit history and verified backups.",
+    bridge: "Stress-tests your ShopPulse AI Copilot against SQL injection attempts, out-of-scope questions, and missing-data edge cases.",
     takeaways: [
-      "Export a complete JSON backup of your 168-day study notes and code drafts.",
-      "Tag your repository release v2.0.0 and verify GitHub Pages deployment.",
-      "Celebrate consistent daily execution across Python, SQL, Stats, ML, and GenAI."
+      "Test adversarial inputs (DROP TABLE injections, prompt overrides) in automated CI regression suites.",
+      "Verify abstention accuracy when answering questions outside the knowledge base.",
+      "Track pass/fail across accuracy, safety, and latency assertions."
     ],
     lab: {
       lang: "python",
-      title: "Release v2.0.0 Verification Script",
-      prompt: "Verify all 6 module milestones are accounted for and print your v2.0.0 release manifest.",
-      hint: "Assert len(modules) == 6 and print the final release banner.",
-      starterCode: "modules = [\n    'M1: Python & Git',\n    'M2: SQL Analytics',\n    'M3: NumPy & Pandas',\n    'M4: Stats & Experimentation',\n    'M5: Machine Learning',\n    'M6: Deep Learning, NLP & GenAI RAG'\n]\nassert len(modules) == 6\nprint('DATAFORGE // INSTINCT OS v2.0.0 RELEASE VERIFIED')\nfor m in modules:\n    print('  [OK]', m)\n"
+      title: "Adversarial Safety & Abstention Test Suite",
+      prompt: "Run 4 automated test assertions verifying SQL injection blocking and safe handling of unknown SKUs.",
+      hint: "Assert blocked queries raise ValueError and unknown SKUs return clean fallback.",
+      starterCode: "def safe_query(sql: str) -> str:\n    if 'DROP' in sql.upper() or 'DELETE' in sql.upper():\n        raise ValueError('Blocked unsafe SQL')\n    return 'OK'\n\nassert safe_query('SELECT * FROM orders') == 'OK'\ntry:\n    safe_query('DROP TABLE orders;')\n    assert False, 'Should have blocked DROP'\nexcept ValueError:\n    print('Red-team SQL injection check passed!')\n"
     }
   },
   {
     day: 163,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Capstone Extension 1: Cohort LTV Forecasting",
-    instructor: "Data School",
-    duration: "14m",
-    videoId: "yCgJGsg0Xa4",
-    altVideoId: "0B5eIE_1vpU",
+    module: "M6: LLMs & AI Agents",
+    title: "Portfolio Packaging: Architecture Diagrams & Clean Repos",
+    instructor: "Kunal Kushwaha",
+    duration: "25m",
+    videoId: "apGV9Kg7ics",
+    altVideoId: "0sOvCWFmrtA",
     startSec: 0,
-    bridge: "Combines Month 2 SQL cohorts, Month 3 Pandas resampling, and Month 5 Ridge/GBM regression to forecast 90-day customer LTV.",
+    bridge: "Packages Months 1-6 into an executive-ready GitHub repository with clear architecture flows, benchmarks, and setup scripts.",
     takeaways: [
-      "Predict 90-day LTV from first-14-day behavioral features without future target leakage.",
-      "Evaluate LTV models using MAE and R-squared across customer acquisition channels.",
-      "Feed predicted LTV into marketing CAC payback calculations."
+      "Lead your README with problem statement, architecture diagram, benchmark table, and 3-command quickstart.",
+      "Highlight concrete business metrics (variance reduced, PR-AUC lift, Recall@2, latency ms).",
+      "Keep all secrets out of Git history and pin exact dependency versions."
     ],
     lab: {
       lang: "python",
-      title: "Early-Window 90-Day LTV Predictor",
-      prompt: "Fit a Ridge regression predicting 90-day LTV from Day-14 order count and initial basket size.",
-      hint: "X = [[orders_14d, first_basket]]; fit Ridge().fit(X, ltv_90d).",
-      starterCode: "import numpy as np\nfrom sklearn.linear_model import Ridge\n\nX = np.array([[1, 2499], [2, 4999], [3, 6498], [1, 1499], [4, 8999]], dtype=float)\nltv_90d = np.array([3800, 9200, 14500, 2100, 21000], dtype=float)\nmodel = Ridge(alpha=1.0).fit(X, ltv_90d)\nprint('Predicted 90d LTV for [2 orders, 5500 INR]:', round(float(model.predict([[2, 5500]])[0]), 2))\n"
+      title: "Portfolio Metrics Summary Card Generator",
+      prompt: "Generate a formatted Markdown summary table showcasing all 6 capstone milestones across your 168-day journey.",
+      hint: "Print a clean 6-row Markdown table summarizing M1 through M6 deliverables.",
+      starterCode: "capstones = [\n    ('M1', 'Python & Git', 'JSON-to-SQLite Ingestion CLI'),\n    ('M2', 'SQL Analytics', 'Cohort Retention & LTV Views'),\n    ('M3', 'NumPy & Pandas', 'Vectorized Funnel & EDA Engine'),\n    ('M4', 'Math & Stats', 'CUPED & A/B Decision Gatekeeper'),\n    ('M5', 'Machine Learning', 'Churn & LTV Scoring Pipeline'),\n    ('M6', 'LLMs & AI Agents', 'Grounded SQL + RAG AI Copilot')\n]\nprint('| Month | Module | Production Deliverable |')\nprint('|---|---|---|')\nfor m, mod, d in capstones:\n    print(f'| {m} | {mod} | {d} |')\n"
     }
   },
   {
     day: 164,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Capstone Extension 2: Multi-Armed Bandit Dynamic Pricing",
-    instructor: "StatQuest",
-    duration: "15m",
-    videoId: "HZGCoVF3YvM",
-    altVideoId: "5koKbTCySjU",
+    module: "M6: LLMs & AI Agents",
+    title: "Technical Interview Prep 1: SQL & Python Coding Patterns",
+    instructor: "Ankit Bansal",
+    duration: "17m",
+    videoId: "MpAMjtvarrc",
+    altVideoId: "C7ZZuuwrsVc",
     startSec: 0,
-    bridge: "Extends Month 4 Bayesian Beta-Binomial updating into Thompson Sampling to allocate traffic dynamically toward winning variants.",
+    bridge: "Sharpens rapid problem-solving across window functions, sessionization, and hash-map algorithms under interview time constraints.",
     takeaways: [
-      "Balance exploration vs exploitation by sampling from each arm's posterior Beta distribution.",
-      "Reduce opportunity cost (regret) compared to static 50/50 A/B splits.",
-      "Monitor arm allocation weights over time."
+      "Clarify row grain, NULL handling, and tie-breaking rules before writing a single line of SQL or Python.",
+      "Master Top-N per group (DENSE_RANK), running totals, and gap-and-island streak patterns.",
+      "State time and space complexity (Big-O) explicitly for every Python solution."
     ],
     lab: {
       lang: "python",
-      title: "Thompson Sampling Bandit Simulator",
-      prompt: "Run 500 rounds of Beta-Bernoulli Thompson Sampling across 3 checkout variants with true rates [0.07, 0.11, 0.08].",
-      hint: "Each round, sample rng.beta(alpha, beta) for each arm and pull argmax.",
-      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\ntrue_rates = [0.07, 0.11, 0.08]\nalpha = np.ones(3)\nbeta = np.ones(3)\npulls = np.zeros(3, dtype=int)\n\nfor _ in range(500):\n    arm = int(np.argmax(rng.beta(alpha, beta)))\n    reward = rng.binomial(1, true_rates[arm])\n    alpha[arm] += reward\n    beta[arm] += (1 - reward)\n    pulls[arm] += 1\n\nprint('Arm Pull Allocation (Arm 1 is best):', pulls)\n"
+      title: "O(N) Two-Sum & Top-K Frequent SKUs Pattern",
+      prompt: "Find the top 2 most frequently purchased SKUs in O(N) time using collections.Counter.",
+      hint: "Use Counter(skus).most_common(2).",
+      starterCode: "from collections import Counter\n\nskus = ['SP-101', 'SP-102', 'SP-101', 'SP-103', 'SP-101', 'SP-102', 'SP-104']\ntop_2 = Counter(skus).most_common(2)\nprint('Top 2 SKUs:', top_2)\n"
     }
   },
   {
     day: 165,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Capstone Extension 3: Semantic Product Deduplication",
-    instructor: "IBM Technology",
-    duration: "12m",
-    videoId: "dN0lsF2cvm4",
-    altVideoId: "viZrOnJclY0",
+    module: "M6: LLMs & AI Agents",
+    title: "Technical Interview Prep 2: Statistics & A/B Case Studies",
+    instructor: "StatQuest",
+    duration: "11m",
+    videoId: "vemZtEM63GY",
+    altVideoId: "0oc49DyA3hU",
     startSec: 0,
-    bridge: "Uses cosine similarity matrices to detect near-duplicate catalog listings across third-party marketplace sellers.",
+    bridge: "Practices structuring ambiguous product experiments: metric selection, guardrail trade-offs, and novelty diagnosis.",
     takeaways: [
-      "Compute all-pairs cosine similarity via normalized matrix multiplication E @ E.T.",
-      "Flag catalog pairs exceeding similarity threshold 0.92 for automated catalog merge.",
-      "Combine embedding similarity with exact brand/model attribute checks."
+      "Structure A/B case answers: (1) Primary & Guardrail metrics, (2) Power/MDE sizing, (3) SRM & novelty checks, (4) Ship decision.",
+      "Explain p-values, confidence intervals, and CUPED variance reduction in plain executive language.",
+      "Address network effects and user-level vs session-level randomization units."
     ],
     lab: {
       lang: "python",
-      title: "All-Pairs Embedding Duplicate Detector",
-      prompt: "Compute the pairwise cosine similarity matrix for 4 catalog items and list pairs with similarity > 0.95.",
-      hint: "sim_mat = E_norm @ E_norm.T; inspect upper triangle where i < j.",
-      starterCode: "import numpy as np\n\nE = np.array([\n    [0.90, 0.10, 0.05],\n    [0.89, 0.11, 0.05],\n    [0.10, 0.92, 0.12],\n    [0.15, 0.20, 0.95]\n])\nE_norm = E / np.linalg.norm(E, axis=1, keepdims=True)\nsim = E_norm @ E_norm.T\nfor i in range(len(E)):\n    for j in range(i + 1, len(E)):\n        if sim[i, j] > 0.95:\n            print(f'Duplicate Pair: Item {i} & Item {j} (sim={sim[i, j]:.4f})')\n"
+      title: "Experiment Trade-Off Decision Matrix Evaluator",
+      prompt: "Evaluate an experiment with +4.5% conversion lift (p=0.01) alongside a +1.8% refund guardrail breach.",
+      hint: "Flag guardrail breach for root-cause investigation before full rollout.",
+      starterCode: "exp = {'conv_lift_pct': 4.5, 'p_val': 0.01, 'refund_delta_pct': 1.8, 'refund_sla_max': 0.5}\nguardrail_ok = exp['refund_delta_pct'] <= exp['refund_sla_max']\nverdict = 'SHIP' if (exp['p_val'] < 0.05 and guardrail_ok) else 'INVESTIGATE GUARDRAIL BREACH'\nprint('Executive Verdict:', verdict)\n"
     }
   },
   {
     day: 166,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Capstone Extension 4: Automated SQL Anomaly Alerting",
-    instructor: "Hussein Nasser",
-    duration: "13m",
-    videoId: "T9n_-_oLrbM",
-    altVideoId: "P7EUFtjeAmI",
+    module: "M6: LLMs & AI Agents",
+    title: "Technical Interview Prep 3: ML System Design Walkthrough",
+    instructor: "Krish Naik",
+    duration: "16m",
+    videoId: "pqNCD_5r0IU",
+    altVideoId: "OtD8wVaFm6E",
     startSec: 0,
-    bridge: "Combines SQL window functions with Z-score thresholds to trigger automated daily revenue anomaly alerts.",
+    bridge: "Rehearses end-to-end ML system design from business objective and offline loss to online latency SLAs and drift monitoring.",
     takeaways: [
-      "Compute rolling 7-day baseline mean and standard deviation directly in SQL or Pandas.",
-      "Trigger alerts only when daily revenue deviates by > 2.5 standard deviations.",
-      "Eliminate alert fatigue with severity tiers."
+      "Frame ML systems around business KPIs first, then training labels, leakage-free features, and baseline models.",
+      "Contrast offline metrics (PR-AUC, RMSE) with online A/B business metrics (retention rate, net INR profit).",
+      "Detail retraining cadence, PSI drift alerts, and fallback heuristics."
     ],
     lab: {
       lang: "python",
-      title: "Rolling 7-Day Z-Score Revenue Watchdog",
-      prompt: "Detect anomalous daily revenue drops in a 10-day series using rolling mean and std.",
-      hint: "Compute rolling(5, min_periods=3) mean and std shifted by 1 day.",
-      starterCode: "import pandas as pd\n\ns = pd.Series([5200, 5400, 5100, 5300, 5500, 5250, 1400, 5350], dtype=float)\nbase_mean = s.rolling(5, min_periods=3).mean().shift(1)\nbase_std = s.rolling(5, min_periods=3).std().shift(1)\nz = (s - base_mean) / base_std\nprint(pd.DataFrame({'rev': s, 'z_score': z.round(2), 'alert': z.abs() > 2.5}))\n"
+      title: "ML System SLA & Fallback Router Check",
+      prompt: "Implement a latency-budgeted predictor that falls back to a fast rule heuristic if model inference exceeds 50 ms.",
+      hint: "Check latency_ms <= 50; otherwise return rule-based fallback score.",
+      starterCode: "def predict_with_fallback(orders: int, latency_ms: float) -> dict:\n    if latency_ms > 50.0:\n        score = 0.70 if orders <= 1 else 0.20\n        return {'source': 'rule_fallback', 'churn_prob': score}\n    return {'source': 'lgbm_model', 'churn_prob': 0.64}\n\nprint('Fast path:', predict_with_fallback(1, 12.0))\nprint('Timeout path:', predict_with_fallback(1, 75.0))\n"
     }
   },
   {
     day: 167,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Capstone Extension 5: Citation-Verified RAG Answers",
-    instructor: "Arize AI",
-    duration: "20m",
-    videoId: "fT_3A42M_G4",
+    module: "M6: LLMs & AI Agents",
+    title: "Technical Interview Prep 4: RAG & AI Agent Architecture Design",
+    instructor: "IBM Technology",
+    duration: "10m",
+    videoId: "F8NKVhkZZWI",
     altVideoId: "T-D1OfcDW1M",
     startSec: 0,
-    bridge: "Enforces post-generation citation verification so every claim in a RAG answer maps back to a retrieved chunk ID.",
+    bridge: "Walks through production RAG and agent architecture trade-offs: hybrid search, reranking, guardrails, and cost optimization.",
     takeaways: [
-      "Require inline [D1], [D2] source markers in generated answers.",
-      "Parse bracketed citations via regex and verify every cited ID exists in the retrieved context set.",
-      "Fallback to 'Insufficient verified policy data' when retrieval scores fall below threshold."
+      "Explain why hybrid BM25 + dense retrieval + reranking beats naive single-vector search.",
+      "Detail concrete defenses against hallucinations (grounded citations, refusal prompts) and prompt injections.",
+      "Quantify cost and latency savings from semantic caching and small-model routing."
     ],
     lab: {
       lang: "python",
-      title: "Inline Citation Verifier Guardrail",
-      prompt: "Extract all [D#] citations from a generated answer and verify every cited ID belongs to retrieved_ids = {'D1', 'D3'}.",
-      hint: "cited = set(re.findall(r'\\[(D\\d+)\\]', answer)); assert cited <= retrieved_ids.",
-      starterCode: "import re\n\nretrieved_ids = {'D1', 'D3'}\nanswer = 'Electronics qualify for a 7-day return [D1], and UPI refunds settle within 3 days [D3].'\ncited = set(re.findall(r'\\[(D\\d+)\\]', answer))\nis_grounded = cited.issubset(retrieved_ids) and len(cited) > 0\nprint('Cited IDs:', cited, '| Grounded:', is_grounded)\n"
+      title: "End-to-End RAG Quality & Latency Readiness Audit",
+      prompt: "Verify that a candidate RAG pipeline meets Recall@5 >= 0.85, Faithfulness >= 0.90, and P95 latency <= 1500 ms.",
+      hint: "Check all three production SLA thresholds in a release gate function.",
+      starterCode: "metrics = {'recall_at_5': 0.89, 'faithfulness': 0.94, 'p95_latency_ms': 1120}\nready = (\n    metrics['recall_at_5'] >= 0.85\n    and metrics['faithfulness'] >= 0.90\n    and metrics['p95_latency_ms'] <= 1500\n)\nprint('Production Launch Gate Passed:', ready)\n"
     }
   },
   {
     day: 168,
     month: 6,
-    module: "M6: DL & GenAI RAG",
-    title: "Graduation Capstone: Full 168-Day DataForge Mastery",
-    instructor: "DataForge // Instinct OS",
-    duration: "15m",
-    videoId: "QKIGsShyEsQ",
-    altVideoId: "aircAruvnKk",
+    module: "M6: LLMs & AI Agents",
+    title: "Graduation Capstone: Full-Stack ShopPulse Data & AI Platform",
+    instructor: "Andrej Karpathy",
+    duration: "30m",
+    videoId: "bZQun8Y4L2A",
+    altVideoId: "F8NKVhkZZWI",
     startSec: 0,
-    bridge: "Completes your 168-day transformation from Python & Git fundamentals to production SQL, Statistics, Machine Learning, and Grounded GenAI RAG.",
+    bridge: "Celebrates Day 168 by running an end-to-end integration test unifying Python ingestion, SQLite analytics, statistical testing, ML scoring, and AI retrieval.",
     takeaways: [
-      "You have built a cohesive, end-to-end portfolio spanning data engineering, analytics, experimentation, ML, and GenAI.",
-      "Keep your GitHub Pages studio live as an interactive showcase during technical interviews.",
-      "Continue iterating on real-world datasets with disciplined measurement and clean code."
+      "You have mastered the complete modern Data Science & AI stack from Python syntax anatomy to production AI agents.",
+      "Every layer connects cleanly: raw JSON -> SQLite warehouse -> NumPy/Pandas features -> statistical inference -> ML models -> grounded AI copilot.",
+      "Keep shipping real projects, measuring impact rigorously, and iterating with curiosity."
     ],
     lab: {
       lang: "python",
-      title: "Day 168 Graduation Certificate & Final Check",
-      prompt: "Run the final graduation check verifying your completed 168-day DataForge // Instinct OS milestone.",
-      hint: "Execute the script to print your completion summary.",
-      starterCode: "print('=' * 56)\nprint('  DATAFORGE // INSTINCT OS — 168-DAY CURRICULUM COMPLETE')\nprint('  Stack: Python | Git | SQL | Pandas | Stats | ML | RAG')\nprint('=' * 56)\n"
+      title: "Day 168 Graduation: Full-Stack ShopPulse End-to-End Pipeline",
+      prompt: "Execute the complete 5-stage ShopPulse pipeline: ingest JSON -> query SQLite -> compute stats -> score churn -> retrieve policy.",
+      hint: "Run the integrated script and verify all 5 stages output clean results.",
+      starterCode: "import json\nimport sqlite3\nimport numpy as np\n\n# 1. Python JSON Ingestion\nraw = '[{\"id\": 1, \"city\": \"Mumbai\", \"rev\": 6498.0}, {\"id\": 2, \"city\": \"Bengaluru\", \"rev\": 8999.0}, {\"id\": 3, \"city\": \"Mumbai\", \"rev\": 2499.0}]'\norders = json.loads(raw)\n\n# 2. SQLite Relational Warehouse\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE orders (id INT, city TEXT, rev REAL)')\nconn.executemany('INSERT INTO orders VALUES (?, ?, ?)', [(o['id'], o['city'], o['rev']) for o in orders])\nmumbai_rev = conn.execute(\"SELECT SUM(rev) FROM orders WHERE city='Mumbai'\").fetchone()[0]\n\n# 3. NumPy Statistical Summary\nrevs = np.array([o['rev'] for o in orders])\naov = float(revs.mean())\n\n# 4. ML Churn Risk Score\nchurn_prob = round(1.0 / (1.0 + np.exp(-(-1.5 + 0.05 * 45))), 3)\n\n# 5. Grounded AI Copilot Output\nprint(f'168-Day Capstone Complete | Mumbai Rev: INR {mumbai_rev:,.2f} | AOV: INR {aov:,.2f} | Sample Churn Risk: {churn_prob}')\n"
     }
   }
 );
