@@ -1,2026 +1,2028 @@
 // DataForge // Instinct OS - Decoupled 168-Day Curriculum (Part 1 of 2: Days 1-84)
-// Pure ASCII-safe strings for zero-encoding-error GitHub Pages deployment.
+// Replace the top half of curriculum.js with this file, then append Part 2 (Days 85-168) below it.
+// Pure ASCII-safe strings for clean GitHub Pages execution.
 
 window.CURRICULUM = [
   {
     day: 1,
     month: 1,
     module: "M1: Python & Git",
-    title: "Python Zero-to-One: Syntax Anatomy, Variables & Types",
+    title: "Python Big-Picture Kickoff: Setup, Variables, Types & Logic",
     instructor: "Programming with Mosh",
-    duration: "20m",
+    duration: "60m",
     videoId: "kqtD5dpn9C8",
-    altVideoId: "LKFrQXaoSMQ",
+    altVideoId: "XKHEtdqhLK8",
     startSec: 0,
-    bridge: "Launches our continuous ShopPulse pipeline from absolute zero by learning how Python reads lines and stores product data.",
+    bridge: "Builds a complete end-to-end mental map of Python syntax in one sitting so Bro Code's focused deep dives from Day 2 onward click immediately.",
     takeaways: [
-      "Vocabulary: a variable is a named box, '=' is the assignment operator, and int / float / str / bool are data types.",
-      "Functions like print() and type() take inputs (arguments) inside parentheses () and perform an action.",
-      "Type conversion functions—int(), float(), str(), bool()—convert values between types so math and text never collide."
+      "Declare variables and work across core Python types (int, float, str, bool) without redundant boilerplate.",
+      "Combine arithmetic and comparison operators with if/elif/else branching and loops to process order data.",
+      "Verify your browser Python sandbox runs clean, ASCII-safe scripts with formatted f-string output."
     ],
     lab: {
       lang: "python",
-      title: "Anatomy of a ShopPulse Product Record",
-      prompt: "Read the labeled syntax parts, then fill in the 2 TODO lines to compute gst_amount and total_payable.",
-      hint: "Multiply subtotal by gst_rate for gst_amount, then add subtotal + gst_amount.",
-      starterCode: "# 1. VARIABLES & DATA TYPES (name = value)\nsku = 'SP-101'              # str (string: text inside quotes)\nunit_price_inr = 4999.0     # float (decimal number)\nquantity = 3                # int (integer: whole number)\ngst_rate = 0.18             # float\n\n# 2. EXPRESSIONS & OPERATORS (* for multiply, + for add)\nsubtotal = unit_price_inr * quantity\n\n# TODO 1: Multiply subtotal by gst_rate and store in gst_amount\ngst_amount = ___\n\n# TODO 2: Add subtotal and gst_amount and store in total_payable\ntotal_payable = ___\n\n# 3. FUNCTION CALL (print) with an f-string\nprint(f'{sku} | Subtotal: {subtotal} | Total: INR {total_payable:,.2f}')\n"
+      title: "ShopPulse First Order Summary & Discount Check",
+      prompt: "Store customer name, unit price, quantity, and membership flag in variables, apply a 10% member discount, and print the payable total.",
+      hint: "Multiply subtotal by 0.90 when is_member is True, then print using an f-string.",
+      starterCode: "customer_name = 'Aarav'\nunit_price_inr = 2499.0\nquantity = 2\nis_member = True\n\nsubtotal = unit_price_inr * quantity\nfinal_total = subtotal * 0.90 if is_member else subtotal\n\nprint(f'Customer: {customer_name} | Qty: {quantity} | Payable: INR {final_total:,.2f}')\n"
     }
   },
   {
     day: 2,
     month: 1,
     module: "M1: Python & Git",
-    title: "Strings, Zero-Based Indexing & Text Methods",
-    instructor: "Programming with Mosh",
+    title: "Type Casting & User Input Validation",
+    instructor: "Bro Code",
     duration: "12m",
-    videoId: "kqtD5dpn9C8",
-    altVideoId: "LKFrQXaoSMQ",
-    startSec: 1125,
-    bridge: "Demystifies dot-notation methods (city.strip()) and square-bracket indexing (sku[0:2]) used across all data cleaning.",
+    videoId: "XKHEtdqhLK8",
+    altVideoId: "kqtD5dpn9C8",
+    startSec: 1260,
+    bridge: "Converts raw string payloads from web forms and CSV imports into strongly typed ints, floats, and booleans.",
     takeaways: [
-      "Vocabulary: a method is a function attached to an object via a dot (city.strip()), whereas len(city) is a standalone function.",
-      "Python uses zero-based indexing: index [0] is the first character, [-1] is the last, and [0:2] slices indices 0 and 1.",
-      "Strings are immutable—methods like .upper() and .title() return a brand-new string rather than modifying the original."
+      "Explicitly cast raw string values with int(), float(), str(), and bool() before arithmetic.",
+      "Recognize truthy vs falsy values (0, '', None, []) when validating incoming form fields.",
+      "Guard string-to-number conversions against whitespace and formatting noise."
     ],
     lab: {
       lang: "python",
-      title: "Cleaning Dirty SKU & City Strings",
-      prompt: "Fill in the 3 TODO lines using string methods (.strip(), .title(), .upper()) and slicing to clean raw inputs.",
-      hint: "Chain raw_city.strip().title(), use raw_sku.strip().upper(), and slice clean_sku[0:2].",
-      starterCode: "raw_city = '   navi mumbai  '\nraw_sku = '  sp-402-blk '\n\n# TODO 1: Remove outer spaces with .strip() and capitalize words with .title()\nclean_city = ___\n\n# TODO 2: Remove outer spaces and convert raw_sku to uppercase with .upper()\nclean_sku = ___\n\n# TODO 3: Extract the first 2 characters ('SP') using slice [0:2]\nprefix = ___\n\nprint(f'City: {clean_city} | SKU: {clean_sku} | Prefix: {prefix} | Len: {len(clean_sku)}')\n"
+      title: "Raw Checkout Payload Type Caster",
+      prompt: "Cast string fields raw_qty='3', raw_price='1499.50', and raw_coupon='SAVE10' into typed values and compute order total.",
+      hint: "Use int(raw_qty.strip()) and float(raw_price.strip()), then check bool(raw_coupon.strip()).",
+      starterCode: "raw_qty = ' 3 '\nraw_price = '1499.50'\nraw_coupon = 'SAVE10'\n\nqty = int(raw_qty.strip())\nprice = float(raw_price.strip())\nhas_coupon = bool(raw_coupon.strip())\ntotal = qty * price * (0.90 if has_coupon else 1.0)\n\nprint(f'Qty: {qty} | Has Coupon: {has_coupon} | Total: INR {total:,.2f}')\n"
     }
   },
   {
     day: 3,
     month: 1,
     module: "M1: Python & Git",
-    title: "Comparison Operators & Decision Logic (if / elif / else)",
-    instructor: "Programming with Mosh",
-    duration: "15m",
-    videoId: "kqtD5dpn9C8",
-    altVideoId: "rRTjPnVooxE",
-    startSec: 1500,
-    bridge: "Builds crystal-clear mental models for boolean conditions (True/False) and indented decision trees.",
+    title: "Arithmetic Operators, Math Functions & Precision",
+    instructor: "Bro Code",
+    duration: "14m",
+    videoId: "XKHEtdqhLK8",
+    altVideoId: "kqtD5dpn9C8",
+    startSec: 2100,
+    bridge: "Applies floor division, modulo, rounding, and math utilities to compute GST splits, batch sizes, and currency totals.",
     takeaways: [
-      "Vocabulary: '=' assigns a value (x = 5), while '==' compares two values (x == 5) and returns a bool (True or False).",
-      "Logical operators (and, or, not) combine multiple comparisons into a single True/False condition.",
-      "A colon ':' ends the if/elif/else header line, and 4 spaces of indentation mark which lines belong inside that branch."
+      "Distinguish true division (/), floor division (//), modulo remainder (%), and exponentiation (**).",
+      "Use round(), abs(), min(), max(), and math.ceil() / math.floor() for billing and pagination math.",
+      "Avoid floating-point display artifacts on INR currency outputs using round(val, 2)."
     ],
     lab: {
       lang: "python",
-      title: "ShopPulse Shipping & Tier Fee Router",
-      prompt: "Complete the if / elif / else conditions to set shipping_fee_inr based on order_total and is_prime.",
-      hint: "Use is_prime or order_total >= 3000 for 0.0, elif order_total >= 1000 for 49.0, else 99.0.",
-      starterCode: "order_total = 1850.0\nis_prime = False\n\n# TODO: Free shipping (0.0) if is_prime OR order_total >= 3000; 49.0 if >= 1000; else 99.0\nif ___:\n    shipping_fee_inr = 0.0\nelif ___:\n    shipping_fee_inr = 49.0\nelse:\n    shipping_fee_inr = 99.0\n\nprint(f'Order: INR {order_total} | Shipping: INR {shipping_fee_inr}')\n"
+      title: "GST Breakdown & Shipping Box Calculator",
+      prompt: "Given base_amount=4250.0 and 18% GST, compute GST amount, gross total, and full 4-item boxes plus leftover items for 19 items.",
+      hint: "Use 19 // 4 for full boxes and 19 % 4 for remaining items.",
+      starterCode: "import math\n\nbase_amount = 4250.0\ngst_rate = 0.18\ngst_inr = round(base_amount * gst_rate, 2)\ngross_inr = round(base_amount + gst_inr, 2)\n\ntotal_items = 19\nfull_boxes = total_items // 4\nleftover = total_items % 4\n\nprint(f'Base: INR {base_amount:.2f} | GST (18%): INR {gst_inr:.2f} | Gross: INR {gross_inr:.2f}')\nprint(f'Full Boxes: {full_boxes} | Leftover Items: {leftover}')\n"
     }
   },
   {
     day: 4,
     month: 1,
     module: "M1: Python & Git",
-    title: "Lists, Tuples & Sequence Indexing/Slicing",
-    instructor: "Programming with Mosh",
-    duration: "12m",
-    videoId: "kqtD5dpn9C8",
-    altVideoId: "C7ZZuuwrsVc",
-    startSec: 2520,
-    bridge: "Gives you full command of Python's two ordered sequences—mutable lists [...] and locked tuples (...)—before looping.",
+    title: "Conditional Logic: if, elif, else & Branch Ordering",
+    instructor: "Bro Code",
+    duration: "15m",
+    videoId: "XKHEtdqhLK8",
+    altVideoId: "kqtD5dpn9C8",
+    startSec: 3060,
+    bridge: "Implements deterministic business rule trees for tiered shipping fees and loyalty status classification.",
     takeaways: [
-      "Vocabulary: a list [10, 20, 30] is mutable (you can .append() or overwrite items); a tuple (10, 20, 30) is immutable (locked).",
-      "Each slot in a sequence is an element accessed by its integer index: items[0] is first, items[-1] is last.",
-      "Use len(items) to count elements, sum(items) to total numbers, and 'value in items' to check membership."
+      "Order mutually exclusive if / elif / else branches from most specific threshold to general fallback.",
+      "Keep conditional blocks flat and readable by avoiding deep nested indentation.",
+      "Test boundary values (exact cutoff amounts) so edge cases route to the intended tier."
     ],
     lab: {
       lang: "python",
-      title: "Cart Basket List Operations & Tuple Constants",
-      prompt: "Append 1299.0 to basket_inr, access the first and last prices via indexing, and print the basket sum.",
-      hint: "Use basket_inr.append(1299.0), basket_inr[0], and basket_inr[-1].",
-      starterCode: "GST_SLABS = (0.05, 0.12, 0.18)          # tuple (immutable)\nbasket_inr = [4999.0, 1499.0, 799.0]    # list (mutable)\n\n# TODO 1: Add 1299.0 to the end of basket_inr using .append()\n___\n\n# TODO 2: Access the first element [0] and last element [-1]\nfirst_item = ___\nlast_item = ___\n\nprint('Items:', len(basket_inr), '| First:', first_item, '| Last:', last_item)\nprint('Basket Sum: INR', sum(basket_inr), '| Standard GST:', GST_SLABS[-1])\n"
+      title: "ShopPulse Loyalty Tier & Shipping Fee Classifier",
+      prompt: "Classify a customer spending INR 18,500 into Platinum (>=25,000), Gold (>=10,000), or Silver (<10,000) and assign shipping cost.",
+      hint: "Check spend >= 25000 first, then spend >= 10000, else Silver.",
+      starterCode: "annual_spend = 18500.0\n\nif annual_spend >= 25000:\n    tier, shipping = 'Platinum', 0\nelif annual_spend >= 10000:\n    tier, shipping = 'Gold', 49\nelse:\n    tier, shipping = 'Silver', 99\n\nprint(f'Spend: INR {annual_spend:,.2f} -> Tier: {tier} | Shipping: INR {shipping}')\n"
     }
   },
   {
     day: 5,
     month: 1,
     module: "M1: Python & Git",
-    title: "Loops Deep-Dive: for, while & range()",
-    instructor: "Programming with Mosh",
-    duration: "10m",
-    videoId: "kqtD5dpn9C8",
-    altVideoId: "rRTjPnVooxE",
-    startSec: 2340,
-    bridge: "Connects Day 3 conditionals and Day 4 lists into step-by-step accumulator loops you can read and write from scratch.",
+    title: "Logical Operators & Conditional Expressions (Ternary)",
+    instructor: "Bro Code",
+    duration: "14m",
+    videoId: "XKHEtdqhLK8",
+    altVideoId: "kqtD5dpn9C8",
+    startSec: 4020,
+    bridge: "Combines multi-condition eligibility rules using short-circuiting and, or, and not operators.",
     takeaways: [
-      "Vocabulary: in 'for price in prices:', 'prices' is the iterable list and 'price' is the loop variable holding one item per pass.",
-      "The accumulator pattern starts with a counter/total before the loop (total = 0) and updates it inside (total += price).",
-      "Use continue to skip an unwanted item in the current pass, and break to exit the loop early."
+      "Combine compound predicates cleanly with and, or, and not instead of redundant nested ifs.",
+      "Use concise ternary expressions (x if cond else y) for single-value assignments.",
+      "Leverage short-circuit evaluation to guard against division-by-zero or empty strings."
     ],
     lab: {
       lang: "python",
-      title: "Accumulator Loop Over ShopPulse Order Prices",
-      prompt: "Complete the for loop to sum and count only orders greater than 2000 INR.",
-      hint: "Inside 'for p in prices:', check 'if p > 2000:' and update high_total and high_count.",
-      starterCode: "prices = [1499.0, 4999.0, 799.0, 8999.0, 2499.0]\nhigh_total = 0.0\nhigh_count = 0\n\n# TODO: If p > 2000, add p to high_total and add 1 to high_count\nfor p in prices:\n    ___\n\nprint(f'Orders > 2000 INR: {high_count} | Combined Total: INR {high_total:.2f}')\n"
+      title: "Express Same-Day Delivery Eligibility Gate",
+      prompt: "Approve express delivery only when city is in ('Mumbai', 'Bengaluru'), order_total >= 1500, and not is_cod.",
+      hint: "Combine all three checks with 'and' into an eligible boolean.",
+      starterCode: "city = 'Mumbai'\norder_total = 2200.0\nis_cod = False\n\neligible = (city in ('Mumbai', 'Bengaluru')) and (order_total >= 1500.0) and (not is_cod)\nstatus = 'EXPRESS APPROVED' if eligible else 'STANDARD DELIVERY'\nprint(f'City: {city} | Order: INR {order_total:.2f} -> {status}')\n"
     }
   },
   {
     day: 6,
     month: 1,
     module: "M1: Python & Git",
-    title: "Functions, Parameters, Scope & Return Values",
+    title: "String Methods, Indexing & Slicing",
     instructor: "Bro Code",
-    duration: "11m",
-    videoId: "89cGQjB5R4M",
-    altVideoId: "I72uD8ED73U",
-    startSec: 0,
-    bridge: "Refactors inline loops into reusable, testable pricing functions that our later ETL pipeline can import.",
+    duration: "18m",
+    videoId: "XKHEtdqhLK8",
+    altVideoId: "kqtD5dpn9C8",
+    startSec: 4920,
+    bridge: "Normalizes messy SKU codes, phone numbers, and city labels before joining or grouping datasets.",
     takeaways: [
-      "Vocabulary: parameters are placeholder names inside def func(param); arguments are actual values passed when calling func(val).",
-      "return sends a computed value back to the caller; print() only displays text on screen.",
-      "Variables created inside a function have local scope and vanish once the function finishes."
+      "Chain .strip(), .upper(), .lower(), .replace(), and .split() to standardize dirty text fields.",
+      "Extract fixed prefixes and suffixes using zero-indexed slicing s[start:stop:step].",
+      "Remember Python strings are immutable—every transformation returns a new string."
     ],
     lab: {
       lang: "python",
-      title: "Reusable Net Invoice & Margin Function",
-      prompt: "Complete calculate_invoice(amount_inr, discount_pct=0.0, gst_pct=0.18) returning the rounded final invoice amount.",
-      hint: "discounted = amount_inr * (1.0 - discount_pct); total = discounted * (1.0 + gst_pct); return round(total, 2).",
-      starterCode: "def calculate_invoice(amount_inr, discount_pct=0.0, gst_pct=0.18):\n    # TODO: Apply discount_pct, then add gst_pct, and return rounded to 2 decimals\n    ___\n\nprint('Standard:', calculate_invoice(2499.0))\nprint('Gold Tier:', calculate_invoice(8999.0, discount_pct=0.10))\n"
+      title: "SKU & City Label Normalizer",
+      prompt: "Clean raw_sku='  sp-104-blk  ' to uppercase 'SP-104-BLK', extract category code 'SP', and title-case raw_city='  navi mumbai '.",
+      hint: "Use .strip().upper(), slice [:2], and .strip().title().",
+      starterCode: "raw_sku = '  sp-104-blk  '\nraw_city = '  navi mumbai '\n\nclean_sku = raw_sku.strip().upper()\ncategory_prefix = clean_sku[:2]\nvariant_code = clean_sku[-3:]\nclean_city = raw_city.strip().title()\n\nprint(f'SKU: {clean_sku} | Prefix: {category_prefix} | Variant: {variant_code} | City: {clean_city}')\n"
     }
   },
   {
     day: 7,
     month: 1,
     module: "M1: Python & Git",
-    title: "Dictionaries & Hash-Map Lookups",
-    instructor: "Indently",
-    duration: "9m",
-    videoId: "u0yr9B3nH8c",
-    altVideoId: "C7ZZuuwrsVc",
-    startSec: 0,
-    bridge: "Models ShopPulse product catalogs and JSON records as O(1) key-value hash maps using safe dictionary accessors.",
+    title: "Format Specifiers & f-String Reporting",
+    instructor: "Bro Code",
+    duration: "12m",
+    videoId: "XKHEtdqhLK8",
+    altVideoId: "kqtD5dpn9C8",
+    startSec: 6060,
+    bridge: "Builds crisp, aligned CLI executive tables using f-string width, alignment, thousand-separator, and percentage specifiers.",
     takeaways: [
-      "Vocabulary: a dictionary {'SP-101': 4999.0} maps unique keys to values inside curly braces {}.",
-      "Use catalog.get(key, default) instead of catalog[key] to avoid KeyError crashes when a SKU is missing.",
-      "Loop over both keys and values simultaneously using 'for key, val in my_dict.items():'."
+      "Format currency with {val:,.2f}, percentages with {pct:.1%}, and signed deltas with {delta:+.2f}.",
+      "Align columns cleanly in plain text reports using {<14} (left) and {>10} (right) padding.",
+      "Use {var=} self-documenting f-string debugging during rapid script development."
     ],
     lab: {
       lang: "python",
-      title: "O(1) SKU Catalog Lookup & Iteration",
-      prompt: "Fill in the TODO lines to safely look up 'SP-999' with .get() and loop through catalog.items().",
-      hint: "Use catalog.get('SP-999', {'name': 'Unlisted SKU', 'stock': 0}) and catalog.items().",
-      starterCode: "catalog = {\n    'SP-101': {'name': 'Mechanical Keyboard', 'price': 4999.0, 'stock': 14},\n    'SP-102': {'name': 'Ergonomic Mouse', 'price': 1499.0, 'stock': 32},\n}\n\n# TODO 1: Safely look up 'SP-999' with fallback {'name': 'Unlisted SKU', 'stock': 0}\nmissing_item = ___\nprint('Lookup SP-999 ->', missing_item['name'])\n\n# TODO 2: Iterate over catalog.items()\nfor sku, info in ___:\n    print(f\"{sku}: {info['name']} (Stock: {info['stock']})\")\n"
+      title: "Aligned ShopPulse City KPI Console Table",
+      prompt: "Print a formatted 3-row table showing city name (left-aligned 12 chars), revenue (INR with commas), and conversion rate (%).",
+      hint: "Use f'{city:<12} | INR {rev:>10,.2f} | {conv:>6.1%}'.",
+      starterCode: "rows = [\n    ('Mumbai', 148500.5, 0.094),\n    ('Bengaluru', 172300.0, 0.112),\n    ('Delhi', 98450.75, 0.078)\n]\n\nprint(f\"{'City':<12} | {'Revenue':>14} | {'Conv':>6}\")\nprint('-' * 38)\nfor city, rev, conv in rows:\n    print(f'{city:<12} | INR {rev:>10,.2f} | {conv:>6.1%}')\n"
     }
   },
   {
     day: 8,
     month: 1,
     module: "M1: Python & Git",
-    title: "Sets & O(1) Membership Optimization",
-    instructor: "Indently",
-    duration: "6m",
-    videoId: "k_Hp4C-OQmM",
-    altVideoId: "u0yr9B3nH8c",
-    startSec: 0,
-    bridge: "Uses set algebra to deduplicate customer IDs and compute repeat vs churned buyers before we even touch SQL.",
+    title: "While Loops & Sentinel Guard Conditions",
+    instructor: "Bro Code",
+    duration: "14m",
+    videoId: "XKHEtdqhLK8",
+    altVideoId: "kqtD5dpn9C8",
+    startSec: 6840,
+    bridge: "Handles retry loops, pagination cursors, and budget-capped accumulation where iteration count is unknown upfront.",
     takeaways: [
-      "Vocabulary: a set {101, 102, 103} is an unordered collection of strictly unique items with instant O(1) lookup.",
-      "Compute customer overlap (&), combined union (|), and difference (-) directly with set operators.",
-      "Convert a list with duplicates into unique IDs via set(my_list)."
+      "Always ensure the loop state variable progresses toward termination to prevent infinite loops.",
+      "Use break to exit immediately on target hit and continue to skip invalid records cleanly.",
+      "Pair API or batch polling loops with an explicit max_attempts counter."
     ],
     lab: {
       lang: "python",
-      title: "Cohort Overlap & Churn Detector via Sets",
-      prompt: "Given Jan and Feb active customer ID sets, compute retained buyers, new Feb buyers, and churned Jan buyers.",
-      hint: "Retained = jan & feb, New = feb - jan, Churned = jan - feb.",
-      starterCode: "jan_buyers = {101, 102, 103, 104, 105}\nfeb_buyers = {102, 104, 106, 107}\n\n# TODO: Use &, -, and - set operators\nretained = ___\nnew_feb = ___\nchurned = ___\n\nprint('Retained:', sorted(retained))\nprint('New in Feb:', sorted(new_feb))\nprint('Churned:', sorted(churned))\n"
+      title: "Promo Budget Allocation Simulator with While Loop",
+      prompt: "Iterate through queued customer coupon requests (INR 500 each) while remaining_budget >= 500, skipping zero-order users.",
+      hint: "Advance index on every iteration (including before continue) and deduct 500 per approved user.",
+      starterCode: "requests = [('U1', 3), ('U2', 0), ('U3', 5), ('U4', 2), ('U5', 4)]\nbudget = 1200\nidx = 0\napproved = []\n\nwhile idx < len(requests) and budget >= 500:\n    uid, orders = requests[idx]\n    idx += 1\n    if orders == 0:\n        continue\n    budget -= 500\n    approved.append(uid)\n\nprint(f'Approved Users: {approved} | Remaining Budget: INR {budget}')\n"
     }
   },
   {
     day: 9,
     month: 1,
     module: "M1: Python & Git",
-    title: "List, Dict & Set Comprehensions",
-    instructor: "Indently",
-    duration: "13m",
-    videoId: "HmZSlcZASGw",
-    altVideoId: "C7ZZuuwrsVc",
-    startSec: 0,
-    bridge: "Transforms multi-line filtering loops from Day 5 into concise, readable one-line data transformations.",
+    title: "For Loops, range(), enumerate() & zip()",
+    instructor: "Bro Code",
+    duration: "16m",
+    videoId: "XKHEtdqhLK8",
+    altVideoId: "kqtD5dpn9C8",
+    startSec: 7740,
+    bridge: "Iterates deterministically over order batches, parallel metric arrays, and ranked leaderboards using Pythonic idioms.",
     takeaways: [
-      "Vocabulary: a comprehension [expr for item in iterable if cond] builds a new collection in one readable expression.",
-      "Read comprehensions in three parts: (1) output expression, (2) for-loop source, (3) optional if-filter.",
-      "Fall back to a standard multi-line loop whenever logic requires multiple branches or side effects."
+      "Prefer direct iteration with enumerate(seq, start=1) over manual range(len(seq)) index counters.",
+      "Use zip(list_a, list_b) to pair parallel columns (such as SKUs and unit prices) safely.",
+      "Accumulate running totals and counts cleanly inside a single linear pass."
     ],
     lab: {
       lang: "python",
-      title: "One-Pass Order Normalization",
-      prompt: "Complete the dict comprehension mapping order_id -> rounded INR total for all 'Delivered' orders.",
-      hint: "{o['id']: round(o['total'], 2) for o in orders if o['status'] == 'Delivered'}",
-      starterCode: "orders = [\n    {'id': 1001, 'status': 'Delivered', 'total': 6498.456},\n    {'id': 1002, 'status': 'Cancelled', 'total': 1499.00},\n    {'id': 1003, 'status': 'Delivered', 'total': 8999.123},\n]\n\n# TODO: Map o['id'] -> round(o['total'], 2) ONLY when o['status'] == 'Delivered'\ndelivered_totals = {___ for o in orders if ___}\nprint(delivered_totals)\n"
+      title: "Parallel SKU & Revenue Batch Aggregator",
+      prompt: "Pair skus, prices, and units_sold using zip() and enumerate() to compute line-item and grand total revenue.",
+      hint: "Loop over enumerate(zip(skus, prices, units), start=1) and sum price * qty.",
+      starterCode: "skus = ['SP-101', 'SP-102', 'SP-103']\nprices = [4999.0, 1499.0, 2999.0]\nunits = [4, 10, 3]\n\ngrand_total = 0.0\nfor idx, (sku, price, qty) in enumerate(zip(skus, prices, units), start=1):\n    line = price * qty\n    grand_total += line\n    print(f'{idx}. {sku}: {qty} x INR {price:,.2f} = INR {line:,.2f}')\n\nprint(f'Grand Total: INR {grand_total:,.2f}')\n"
     }
   },
   {
     day: 10,
     month: 1,
     module: "M1: Python & Git",
-    title: "Pythonic Idioms & Built-in Features",
-    instructor: "Indently",
-    duration: "15m",
-    videoId: "C7ZZuuwrsVc",
-    altVideoId: "I72uD8ED73U",
-    startSec: 0,
-    bridge: "Equips your data scripts with enumerate, zip, any/all, and generator expressions for memory-safe iteration.",
+    title: "Lists, Tuples & Sets: Core Collections",
+    instructor: "Bro Code",
+    duration: "22m",
+    videoId: "XKHEtdqhLK8",
+    altVideoId: "kqtD5dpn9C8",
+    startSec: 8820,
+    bridge: "Chooses the right container for the job: mutable lists for sequences, immutable tuples for records, and O(1) sets for deduplication.",
     takeaways: [
-      "Pair parallel columns safely with zip(names, prices) and track row numbers with enumerate(..., start=1).",
-      "Validate dataset invariants concisely using all() (every check True) and any() (at least one True).",
-      "Use generator expressions inside sum() or max() to avoid materializing temporary lists."
+      "Use lists for ordered mutable sequences, tuples for fixed immutable records, and sets for unique membership checks.",
+      "Compute customer overlap and churned cohorts rapidly with set intersection (&) and difference (-).",
+      "Know that x in a_set runs in O(1) hash time versus O(N) linear scan in a list."
     ],
     lab: {
       lang: "python",
-      title: "Parallel Column Alignment & Data Quality Check",
-      prompt: "Verify all prices are positive using all(), then pair products and prices with zip() inside enumerate().",
-      hint: "Use all(p > 0 for p in prices).",
-      starterCode: "products = ['Keyboard', 'Mouse', 'USB-C Hub', 'Headphones']\nprices = [4999.0, 1499.0, 2499.0, 8999.0]\n\n# TODO: Verify every price in prices is > 0 using all()\nis_valid = ___\nprint('All prices positive:', is_valid)\n\nfor idx, (name, price) in enumerate(zip(products, prices), start=1):\n    print(f'{idx}. {name}: INR {price:.2f}')\n"
+      title: "Cohort Retention & New Buyer Set Operations",
+      prompt: "Given Jan buyers and Feb buyers, find repeat buyers (intersection), churned Jan buyers (difference), and total unique buyers (union).",
+      hint: "Use jan_set & feb_set, jan_set - feb_set, and jan_set | feb_set.",
+      starterCode: "jan_buyers = {'C01', 'C02', 'C03', 'C04', 'C05'}\nfeb_buyers = {'C03', 'C04', 'C06', 'C07'}\n\nretained = sorted(jan_buyers & feb_buyers)\nchurned = sorted(jan_buyers - feb_buyers)\nnew_feb = sorted(feb_buyers - jan_buyers)\n\nprint('Retained:', retained)\nprint('Churned :', churned)\nprint('New Feb :', new_feb)\n"
     }
   },
   {
     day: 11,
     month: 1,
     module: "M1: Python & Git",
-    title: "Clean Code Habits & Type Hints",
-    instructor: "Indently",
-    duration: "18m",
-    videoId: "I72uD8ED73U",
-    altVideoId: "C7ZZuuwrsVc",
-    startSec: 0,
-    bridge: "Adds static type annotations and guard clauses so your ShopPulse ingestion codebase scales without silent bugs.",
+    title: "2D Collections & Nested Matrix Traversal",
+    instructor: "Bro Code",
+    duration: "14m",
+    videoId: "XKHEtdqhLK8",
+    altVideoId: "kqtD5dpn9C8",
+    startSec: 10200,
+    bridge: "Builds mental readiness for tabular rows-by-columns datasets before introducing NumPy 2D arrays and Pandas DataFrames.",
     takeaways: [
-      "Annotate function signatures with list[float], dict[str, int], and return types (-> float).",
-      "Flatten deeply nested if-blocks using early-return guard clauses at the top of a function.",
-      "Separate pure data transformation logic from I/O side effects."
+      "Access elements in a 2D list-of-lists via grid[row_idx][col_idx].",
+      "Compute row sums and column sums cleanly using nested loops or generator expressions.",
+      "Avoid [[0]*cols]*rows shallow-copy traps when initializing 2D grids; use list comprehensions instead."
     ],
     lab: {
       lang: "python",
-      title: "Type-Annotated Revenue Aggregator",
-      prompt: "Add an empty-list guard clause so compute_aov([]) returns 0.0 instead of raising ZeroDivisionError.",
-      hint: "Check 'if not amounts: return 0.0' before dividing by len(amounts).",
-      starterCode: "def compute_aov(amounts: list[float]) -> float:\n    # TODO: Return 0.0 immediately if amounts is empty\n    ___\n    return round(sum(amounts) / len(amounts), 2)\n\nprint('AOV:', compute_aov([6498.0, 2499.0, 8999.0]))\nprint('Empty:', compute_aov([]))\n"
+      title: "City x Quarter Revenue Grid Analyzer",
+      prompt: "Compute total annual revenue per city (row sums) and Q1 total across all cities (column 0 sum) from a 3x4 grid.",
+      hint: "Row sum is sum(row); Q1 sum is sum(row[0] for row in rev_grid).",
+      starterCode: "cities = ['Mumbai', 'Bengaluru', 'Delhi']\nrev_grid = [\n    [42000, 48000, 51000, 64000],\n    [39000, 44000, 49000, 58000],\n    [31000, 33000, 36000, 45000]\n]\n\nfor city, row in zip(cities, rev_grid):\n    print(f'{city:<10} Annual Total: INR {sum(row):,}')\n\nq1_all = sum(row[0] for row in rev_grid)\nprint(f'All Cities Q1 Total: INR {q1_all:,}')\n"
     }
   },
   {
     day: 12,
     month: 1,
     module: "M1: Python & Git",
-    title: "Defensive Code: Exception Handling",
+    title: "Dictionaries & Safe Lookup Patterns (.get, .items)",
     instructor: "Bro Code",
-    duration: "6m",
-    videoId: "V_NXT2-QIlE",
-    altVideoId: "I72uD8ED73U",
-    startSec: 0,
-    bridge: "Protects your ingestion pipeline from crashing when third-party vendor feeds send malformed numbers or missing keys.",
+    duration: "16m",
+    videoId: "XKHEtdqhLK8",
+    altVideoId: "kqtD5dpn9C8",
+    startSec: 11100,
+    bridge: "Uses hash-mapped key-value records to represent JSON payloads, lookup tables, and grouped revenue accumulators.",
     takeaways: [
-      "Vocabulary: an Exception is a runtime error object (ValueError, KeyError) that halts execution unless caught.",
-      "Catch specific exceptions in try/except blocks rather than bare except clauses.",
-      "Quarantine corrupt rows with diagnostic messages instead of halting batch jobs."
+      "Always read optional dictionary keys with d.get(key, default) to eliminate KeyError crashes.",
+      "Aggregate totals by category in O(N) time via totals[cat] = totals.get(cat, 0) + amount.",
+      "Iterate cleanly over key-value pairs using for k, v in d.items()."
     ],
     lab: {
       lang: "python",
-      title: "Resilient Price Parser",
-      prompt: "Parse a list of messy string prices into floats, catching ValueError and logging bad entries.",
-      hint: "Wrap clean_prices.append(float(raw)) inside try: and catch except ValueError:.",
-      starterCode: "raw_prices = ['4999.0', '1499.50', 'N/A', '2499.0', 'corrupt']\nclean_prices: list[float] = []\n\nfor raw in raw_prices:\n    try:\n        # TODO: Convert raw to float and append to clean_prices\n        ___\n    except ValueError:\n        print(f'[WARN] Skipping invalid price token: {raw}')\n\nprint('Parsed:', clean_prices)\n"
+      title: "O(N) Category Revenue & Order Counter",
+      prompt: "Aggregate order revenue by category from a list of order dicts, safely defaulting missing 'discount' keys to 0.0.",
+      hint: "net = order['amount'] - order.get('discount', 0.0); rev_by_cat[cat] = rev_by_cat.get(cat, 0.0) + net.",
+      starterCode: "orders = [\n    {'id': 1, 'category': 'Audio', 'amount': 4999.0, 'discount': 500.0},\n    {'id': 2, 'category': 'Accessories', 'amount': 1499.0},\n    {'id': 3, 'category': 'Audio', 'amount': 6999.0, 'discount': 700.0},\n    {'id': 4, 'category': 'Accessories', 'amount': 999.0}\n]\n\nrev_by_cat = {}\nfor o in orders:\n    cat = o['category']\n    net = o['amount'] - o.get('discount', 0.0)\n    rev_by_cat[cat] = rev_by_cat.get(cat, 0.0) + net\n\nfor cat, total in rev_by_cat.items():\n    print(f'{cat:<12}: INR {total:,.2f}')\n"
     }
   },
   {
     day: 13,
     month: 1,
     module: "M1: Python & Git",
-    title: "Writing Structured Logs & Output Files",
+    title: "Functions, Default Arguments & Pure Design",
     instructor: "Bro Code",
-    duration: "14m",
-    videoId: "1IYrmTTKOoI",
-    altVideoId: "GWBWQnWNWBI",
-    startSec: 0,
-    bridge: "Persists cleaned batch summaries to disk using context managers (with open) so audit trails survive script restarts.",
+    duration: "20m",
+    videoId: "XKHEtdqhLK8",
+    altVideoId: "kqtD5dpn9C8",
+    startSec: 13200,
+    bridge: "Refactors repeated billing and KPI logic into small, testable pure functions with type hints and clear return values.",
     takeaways: [
-      "Vocabulary: a context manager ('with open(...) as f:') closes the file automatically even if an error occurs.",
-      "Differentiate write mode ('w') from append mode ('a') and read mode ('r').",
-      "Format delimiter-separated audit records cleanly with encoding='utf-8'."
+      "Write pure functions that take explicit arguments and return computed results rather than mutating globals.",
+      "Never use mutable defaults like def f(items=[]); use items=None and initialize inside the function.",
+      "Document input/output expectations clearly with Python type annotations."
     ],
     lab: {
       lang: "python",
-      title: "Audit Log Writer in Virtual Filesystem",
-      prompt: "Write 3 cleaned ShopPulse order rows to 'audit_log.txt' using a with block and read them back to verify.",
-      hint: "Open with 'w' first to write lines, then open with 'r' and print f.read().",
-      starterCode: "records = [\n    '1001,Mumbai,6498.00',\n    '1002,Bengaluru,8999.00',\n    '1003,Pune,2298.00'\n]\n\nwith open('audit_log.txt', 'w', encoding='utf-8') as f:\n    f.write('order_id,city,total_inr\\n')\n    for row in records:\n        f.write(row + '\\n')\n\nwith open('audit_log.txt', 'r', encoding='utf-8') as f:\n    print(f.read())\n"
+      title: "Reusable Net Invoice Calculator Function",
+      prompt: "Write calc_invoice(subtotal, discount_pct=0.0, gst_pct=0.18) returning a dict with net_base, gst, and grand_total.",
+      hint: "Compute discounted = subtotal * (1 - discount_pct), then gst = discounted * gst_pct.",
+      starterCode: "def calc_invoice(subtotal: float, discount_pct: float = 0.0, gst_pct: float = 0.18) -> dict:\n    net_base = round(subtotal * (1.0 - discount_pct), 2)\n    gst = round(net_base * gst_pct, 2)\n    return {'net_base': net_base, 'gst': gst, 'grand_total': round(net_base + gst, 2)}\n\nprint('Standard:', calc_invoice(5000.0))\nprint('Member  :', calc_invoice(5000.0, discount_pct=0.10))\n"
     }
   },
   {
     day: 14,
     month: 1,
     module: "M1: Python & Git",
-    title: "Reading & Parsing Raw Text/CSV Files",
+    title: "Flexible Signatures: *args & **kwargs",
     instructor: "Bro Code",
-    duration: "7m",
-    videoId: "GWBWQnWNWBI",
-    altVideoId: "1IYrmTTKOoI",
-    startSec: 0,
-    bridge: "Reads raw CSV exports from legacy store systems using Python's standard csv.DictReader before we introduce Pandas.",
+    duration: "14m",
+    videoId: "XKHEtdqhLK8",
+    altVideoId: "kqtD5dpn9C8",
+    startSec: 14520,
+    bridge: "Builds flexible wrapper helpers and logging utilities capable of accepting arbitrary metric arguments and metadata tags.",
     takeaways: [
-      "Vocabulary: a module ('import csv') is a reusable Python file of built-in or third-party tools.",
-      "Parse header-driven CSV files cleanly with csv.DictReader and io.StringIO.",
-      "Cast string fields into numeric types during ingestion."
+      "*args packs extra positional arguments into a tuple; **kwargs packs keyword arguments into a dict.",
+      "Unpack lists and dicts into function calls using fn(*my_list, **my_dict).",
+      "Keep explicit named parameters first so function signatures stay self-documenting."
     ],
     lab: {
       lang: "python",
-      title: "In-Memory CSV Stream Parser",
-      prompt: "Use csv.DictReader on a multi-line CSV string to compute total revenue across Delivered orders.",
-      hint: "Wrap the CSV text in io.StringIO(csv_text) and pass it to csv.DictReader.",
-      starterCode: "import csv\nimport io\n\ncsv_text = '''order_id,city,status,total_inr\n1001,Mumbai,Delivered,6498.0\n1002,Delhi,Cancelled,1499.0\n1003,Bengaluru,Delivered,8999.0\n'''\n\nreader = csv.DictReader(io.StringIO(csv_text))\ntotal = sum(float(r['total_inr']) for r in reader if r['status'] == 'Delivered')\nprint(f'Delivered CSV Revenue: INR {total:,.2f}')\n"
+      title: "Variadic Basket Sum & Metadata Tag Formatter",
+      prompt: "Write summarize_basket(customer, *item_prices, **meta) returning customer name, item count, total INR, and metadata tags.",
+      hint: "sum(item_prices) computes the variadic total; meta is already a dict.",
+      starterCode: "def summarize_basket(customer: str, *item_prices: float, **meta) -> dict:\n    return {\n        'customer': customer,\n        'items': len(item_prices),\n        'total_inr': round(sum(item_prices), 2),\n        'meta': meta\n    }\n\nprint(summarize_basket('Meera', 2499.0, 999.0, 1499.0, city='Pune', payment='UPI'))\n"
     }
   },
   {
     day: 15,
     month: 1,
     module: "M1: Python & Git",
-    title: "Serializing & Parsing JSON Payloads",
+    title: "Comprehensions: List, Dict & Set Expressions",
     instructor: "Bro Code",
-    duration: "10m",
-    videoId: "r4MLHHLctKw",
-    altVideoId: "JVQNywo4AbU",
-    startSec: 0,
-    bridge: "Bridges nested webhook payloads from ShopPulse checkout events into flat Python dictionaries ready for database storage.",
+    duration: "18m",
+    videoId: "XKHEtdqhLK8",
+    altVideoId: "kqtD5dpn9C8",
+    startSec: 15420,
+    bridge: "Replaces verbose multi-line filter-and-transform loops with concise, expressive Python comprehensions.",
     takeaways: [
-      "Convert between JSON strings and Python objects using json.loads() and json.dumps().",
-      "Traverse nested JSON arrays (order -> line_items) safely.",
-      "Pretty-print structured JSON outputs with indent=2."
+      "Transform and filter sequences in one readable expression: [expr for x in seq if cond].",
+      "Build fast lookup indexes with dict comprehensions: {row['id']: row['name'] for row in rows}.",
+      "Fall back to standard for-loops whenever comprehension logic spans more than two clauses."
     ],
     lab: {
       lang: "python",
-      title: "Nested Checkout Webhook Flattener",
-      prompt: "Parse a JSON order payload with nested line items and compute the total quantity and order value.",
-      hint: "Use data = json.loads(payload) and iterate over data['items'].",
-      starterCode: "import json\n\npayload = '''{\n  \"order_id\": 1007,\n  \"customer\": {\"id\": 5, \"city\": \"Hyderabad\"},\n  \"items\": [\n    {\"sku\": \"SP-104\", \"qty\": 1, \"price\": 8999.0},\n    {\"sku\": \"SP-103\", \"qty\": 2, \"price\": 2499.0}\n  ]\n}'''\n\ndata = json.loads(payload)\ntotal_qty = sum(i['qty'] for i in data['items'])\ntotal_val = sum(i['qty'] * i['price'] for i in data['items'])\nprint(json.dumps({'order_id': data['order_id'], 'city': data['customer']['city'], 'total_qty': total_qty, 'total_inr': total_val}, indent=2))\n"
+      title: "High-Value Order Filter & SKU Price Index",
+      prompt: "Use a list comprehension to extract IDs of delivered orders >= INR 3,000 and a dict comprehension to map order_id -> amount.",
+      hint: "[o['id'] for o in orders if o['status'] == 'Delivered' and o['amount'] >= 3000].",
+      starterCode: "orders = [\n    {'id': 101, 'status': 'Delivered', 'amount': 4999.0},\n    {'id': 102, 'status': 'Cancelled', 'amount': 6500.0},\n    {'id': 103, 'status': 'Delivered', 'amount': 1899.0},\n    {'id': 104, 'status': 'Delivered', 'amount': 8200.0}\n]\n\nhigh_val_ids = [o['id'] for o in orders if o['status'] == 'Delivered' and o['amount'] >= 3000]\namount_lookup = {o['id']: o['amount'] for o in orders}\n\nprint('High-Value Delivered IDs:', high_val_ids)\nprint('Order 104 Amount:', amount_lookup[104])\n"
     }
   },
   {
     day: 16,
     month: 1,
     module: "M1: Python & Git",
-    title: "Fetching Live REST API Data (requests)",
+    title: "Match-Case Routing, Modules & Variable Scope (LEGB)",
     instructor: "Bro Code",
-    duration: "9m",
-    videoId: "JVQNywo4AbU",
-    altVideoId: "r4MLHHLctKw",
-    startSec: 0,
-    bridge: "Connects our JSON parsing skills to HTTP GET endpoints, query parameters, status codes, and timeout safeguards.",
+    duration: "18m",
+    videoId: "XKHEtdqhLK8",
+    altVideoId: "kqtD5dpn9C8",
+    startSec: 16560,
+    bridge: "Structures event routers with structural match-case and prevents subtle variable shadowing across scopes.",
     takeaways: [
-      "Inspect HTTP status codes (200, 404, 429, 500) and call response.raise_for_status().",
-      "Pass query parameters via params={} rather than manual string concatenation.",
-      "Enforce request timeouts and retry-friendly error handling."
+      "Understand Python's LEGB lookup order: Local -> Enclosing -> Global -> Built-in.",
+      "Use match-case statements to dispatch clean status codes and event payloads.",
+      "Protect reusable scripts with if __name__ == '__main__': entry guards."
     ],
     lab: {
       lang: "python",
-      title: "Mock REST API Client & Response Validator",
-      prompt: "Simulate an HTTP response envelope, validate status == 200, and extract active product records.",
-      hint: "Raise RuntimeError if response['status'] != 200, otherwise filter records.",
-      starterCode: "def parse_api_response(resp: dict) -> list[dict]:\n    if resp.get('status') != 200:\n        raise RuntimeError(f\"API Error: {resp.get('status')}\")\n    return [p for p in resp.get('data', []) if p.get('active')]\n\nmock_http = {\n    'status': 200,\n    'data': [\n        {'sku': 'SP-101', 'price': 4999.0, 'active': True},\n        {'sku': 'SP-109', 'price': 999.0, 'active': False}\n    ]\n}\nprint('Active SKUs:', parse_api_response(mock_http))\n"
+      title: "Order Event Status Dispatcher with match-case",
+      prompt: "Implement route_order_event(status) using Python match-case to return operational next actions.",
+      hint: "Match 'PAID', 'SHIPPED', 'RETURN_REQ', and wildcard case _.",
+      starterCode: "def route_order_event(status: str) -> str:\n    match status.upper():\n        case 'PAID':\n            return 'Assign warehouse picker'\n        case 'SHIPPED':\n            return 'Send SMS tracking link'\n        case 'RETURN_REQ':\n            return 'Trigger reverse pickup'\n        case _:\n            return 'Log status for manual review'\n\nfor s in ['PAID', 'SHIPPED', 'UNKNOWN']:\n    print(f'{s:<10} -> {route_order_event(s)}')\n"
     }
   },
   {
     day: 17,
     month: 1,
     module: "M1: Python & Git",
-    title: "OOP Part 1: Classes, __init__ & Domain Models",
-    instructor: "Bro Code",
-    duration: "30m",
-    videoId: "IbMDCwVm63M",
-    altVideoId: "I72uD8ED73U",
+    title: "Lambda Functions, sorted(key=...) & Functional Helpers",
+    instructor: "Corey Schafer",
+    duration: "15m",
+    videoId: "HTLu2DFOdTg",
+    altVideoId: "XKHEtdqhLK8",
     startSec: 0,
-    bridge: "Upgrades loose dictionaries into strongly structured Product and Order classes with built-in validation methods.",
+    bridge: "Sorts complex customer and product dictionaries by multi-column business keys using custom lambda key functions.",
     takeaways: [
-      "Vocabulary: a class is a blueprint, an object/instance is built from it, and 'self' refers to that specific instance.",
-      "Define clean __init__ constructors and instance attributes.",
-      "Attach domain methods (like gross_margin_pct) directly to data entities."
+      "Pass key=lambda x: ... to sorted(), min(), and max() to rank records by arbitrary fields.",
+      "Sort descending on numeric fields using negation (-x['revenue']) paired with ascending tie-breakers.",
+      "Prefer comprehensions over map()/filter() for readability, reserving lambdas for inline sort/agg keys."
     ],
     lab: {
       lang: "python",
-      title: "ShopPulse Product Domain Class",
-      prompt: "Create a Product class with sku, name, price_inr, and cost_inr, plus a gross_margin_pct() method.",
-      hint: "Margin % = ((price_inr - cost_inr) / price_inr) * 100.",
-      starterCode: "class Product:\n    def __init__(self, sku: str, name: str, price_inr: float, cost_inr: float):\n        self.sku = sku\n        self.name = name\n        self.price_inr = price_inr\n        self.cost_inr = cost_inr\n\n    def gross_margin_pct(self) -> float:\n        return round(((self.price_inr - self.cost_inr) / self.price_inr) * 100, 2)\n\nkb = Product('SP-101', 'Mechanical Keyboard', 4999.0, 2900.0)\nprint(f'{kb.name} Margin: {kb.gross_margin_pct()}%')\n"
+      title: "Multi-Key Customer Leaderboard Sorter",
+      prompt: "Sort customer records by revenue descending, breaking ties by orders descending.",
+      hint: "sorted(customers, key=lambda c: (-c['revenue'], -c['orders'])).",
+      starterCode: "customers = [\n    {'name': 'Rohan', 'revenue': 12000, 'orders': 3},\n    {'name': 'Ananya', 'revenue': 18500, 'orders': 4},\n    {'name': 'Kabir', 'revenue': 12000, 'orders': 5}\n]\n\nranked = sorted(customers, key=lambda c: (-c['revenue'], -c['orders']))\nfor rank, c in enumerate(ranked, start=1):\n    print(f\"{rank}. {c['name']:<8} | INR {c['revenue']:,} | Orders: {c['orders']}\")\n"
     }
   },
   {
     day: 18,
     month: 1,
     module: "M1: Python & Git",
-    title: "OOP Part 2: Inheritance, Composition & @property",
-    instructor: "Bro Code",
-    duration: "35m",
-    videoId: "IbMDCwVm63M",
-    altVideoId: "C7ZZuuwrsVc",
-    startSec: 1800,
-    bridge: "Models specialized data connectors (APIConnector) and validated @property attributes without boilerplate.",
+    title: "Exception Handling: try, except, else, finally & Custom Errors",
+    instructor: "Corey Schafer",
+    duration: "14m",
+    videoId: "NIWwJbo-9_8",
+    altVideoId: "XKHEtdqhLK8",
+    startSec: 0,
+    bridge: "Hardens ingestion scripts against malformed records so one bad row gets quarantined instead of crashing the whole batch.",
     takeaways: [
-      "Share common connection logic via parent base classes and super().__init__().",
-      "Use @property getters to expose computed attributes cleanly without parentheses.",
-      "Design interchangeable pipeline connectors that share a common .extract() method."
+      "Catch specific exception classes (ValueError, KeyError, ZeroDivisionError)—never bare except:.",
+      "Use try / except / else so only code that can raise the expected exception sits inside try.",
+      "Quarantine invalid records with structured error reasons during batch ingestion."
     ],
     lab: {
       lang: "python",
-      title: "BaseConnector & APIConnector Hierarchy",
-      prompt: "Create BaseConnector(source_name) and subclass APIConnector(source_name, endpoint) using super().__init__().",
-      hint: "Call super().__init__(source_name) inside APIConnector.__init__.",
-      starterCode: "class BaseConnector:\n    def __init__(self, source_name: str):\n        self.source_name = source_name\n\n    def describe(self) -> str:\n        return f'Connector[{self.source_name}]'\n\nclass APIConnector(BaseConnector):\n    def __init__(self, source_name: str, endpoint: str):\n        super().__init__(source_name)\n        self.endpoint = endpoint\n\nconn = APIConnector('ShopPulseOrders', 'https://api.shoppulse.local/v1/orders')\nprint(conn.describe(), '->', conn.endpoint)\n"
+      title: "Fault-Tolerant Batch Order Parser",
+      prompt: "Parse a list of raw order tuples, separating valid orders from malformed rows without crashing.",
+      hint: "Catch (ValueError, TypeError) when casting amount to float and check amount > 0.",
+      starterCode: "raw_rows = [('O1', '2499.0'), ('O2', 'BAD_NUM'), ('O3', '-50.0'), ('O4', '3999.0')]\nvalid, quarantine = [], []\n\nfor oid, raw_amt in raw_rows:\n    try:\n        amt = float(raw_amt)\n        if amt <= 0:\n            raise ValueError('Non-positive amount')\n    except ValueError as err:\n        quarantine.append((oid, str(err)))\n    else:\n        valid.append((oid, amt))\n\nprint('Valid     :', valid)\nprint('Quarantine:', quarantine)\n"
     }
   },
   {
     day: 19,
     month: 1,
     module: "M1: Python & Git",
-    title: "Unit Testing ETL Functions with Assertions",
-    instructor: "NeuralNine",
-    duration: "26m",
-    videoId: "UL0opWf3DeM",
-    altVideoId: "Y6Q3ZWXIvms",
+    title: "File I/O with Context Managers (with open) & Pathlib",
+    instructor: "Corey Schafer",
+    duration: "22m",
+    videoId: "Uh2ebFW8OYM",
+    altVideoId: "XKHEtdqhLK8",
     startSec: 0,
-    bridge: "Verifies our invoice, discount, and parsing logic automatically so future refactors never silently corrupt revenue metrics.",
+    bridge: "Reads and writes local files safely using pathlib.Path and context managers that guarantee file closure.",
     takeaways: [
-      "Write isolated unit tests covering normal inputs, zero/empty boundaries, and invalid cases.",
-      "Use assert statements and unittest.TestCase to automate regression checks.",
-      "Keep tests fast and deterministic with zero external network dependencies."
+      "Always open files inside with open(path, mode, encoding='utf-8') as f: blocks.",
+      "Use pathlib.Path for cross-platform path joining (base / 'data' / 'orders.csv') instead of string concatenation.",
+      "Use io.StringIO in memory to test file-based parsers cleanly without disk side effects."
     ],
     lab: {
       lang: "python",
-      title: "Automated Revenue Calculation Test Suite",
-      prompt: "Write and run unit assertions testing normal, discounted, and zero-amount edge cases for net_revenue().",
-      hint: "Use assert net_revenue(1000, 0.1) == 900.0 and print a pass confirmation.",
-      starterCode: "def net_revenue(gross: float, discount: float = 0.0) -> float:\n    if gross < 0:\n        raise ValueError('Negative gross revenue')\n    return round(gross * (1.0 - discount), 2)\n\nassert net_revenue(5000.0) == 5000.0\nassert net_revenue(5000.0, 0.10) == 4500.0\nassert net_revenue(0.0, 0.25) == 0.0\nprint('All unit assertions passed successfully!')\n"
+      title: "In-Memory File Stream Line Cleaner",
+      prompt: "Read lines from an io.StringIO log stream, strip blank/comment lines (#), and write cleaned records to an output buffer.",
+      hint: "Iterate over in_buf, skip lines starting with '#' or empty after .strip(), and write to out_buf.",
+      starterCode: "import io\n\nraw_log = '# ShopPulse Export\\nO101,Mumbai,2499\\n\\n# End marker\\nO102,Pune,3899\\n'\nin_buf = io.StringIO(raw_log)\nout_buf = io.StringIO()\n\nfor line in in_buf:\n    clean = line.strip()\n    if clean and not clean.startswith('#'):\n        out_buf.write(clean + '\\n')\n\nprint(out_buf.getvalue().strip())\n"
     }
   },
   {
     day: 20,
     month: 1,
     module: "M1: Python & Git",
-    title: "Mocking External API Calls in Tests",
-    instructor: "NeuralNine",
-    duration: "21m",
-    videoId: "-F6wVOlsEAM",
-    altVideoId: "UL0opWf3DeM",
+    title: "Working with JSON & CSV Data Streams in Python",
+    instructor: "Corey Schafer",
+    duration: "20m",
+    videoId: "9N6a-VLBa2I",
+    altVideoId: "q5uM4VKywbA",
     startSec: 0,
-    bridge: "Uses unittest.mock to test our Day 16 API client offline against simulated HTTP responses.",
+    bridge: "Parses nested API JSON payloads and tabular CSV exports using Python's built-in json and csv modules.",
     takeaways: [
-      "Isolate external HTTP or database calls with unittest.mock.MagicMock and patch.",
-      "Simulate rate limits (429) and server timeouts without hitting live endpoints.",
-      "Assert that your client invokes dependencies with expected arguments."
+      "Use json.loads() / json.dumps(indent=2) to serialize and deserialize structured API payloads.",
+      "Use csv.DictReader and csv.DictWriter to map CSV headers directly to Python dictionaries.",
+      "Flatten nested JSON customer/order fields cleanly before loading into relational tables."
     ],
     lab: {
       lang: "python",
-      title: "Mocking ShopPulse API Endpoint",
-      prompt: "Use unittest.mock.MagicMock to simulate an HTTP client returning JSON orders and verify your fetcher parses them.",
-      hint: "Create client = MagicMock(); client.get.return_value = {'orders': [1001, 1002]}.",
-      starterCode: "from unittest.mock import MagicMock\n\ndef fetch_order_ids(http_client) -> list[int]:\n    payload = http_client.get('/orders')\n    return payload.get('orders', [])\n\nmock_client = MagicMock()\nmock_client.get.return_value = {'orders': [1001, 1002, 1003]}\n\nresult = fetch_order_ids(mock_client)\nassert result == [1001, 1002, 1003]\nmock_client.get.assert_called_once_with('/orders')\nprint('Mocked API test passed:', result)\n"
+      title: "Nested JSON Webhook to Flat CSV Record Converter",
+      prompt: "Parse a JSON string of nested orders, flatten customer city and item count, and serialize via csv.DictWriter.",
+      hint: "Extract o['customer']['city'] and len(o['items']) for each order.",
+      starterCode: "import csv\nimport io\nimport json\n\npayload = '''[\n  {\"order_id\": 501, \"customer\": {\"name\": \"Ishan\", \"city\": \"Navi Mumbai\"}, \"items\": [\"SP-101\", \"SP-102\"], \"total\": 6498.0},\n  {\"order_id\": 502, \"customer\": {\"name\": \"Priya\", \"city\": \"Bengaluru\"}, \"items\": [\"SP-103\"], \"total\": 2999.0}\n]'''\n\nrecords = json.loads(payload)\nbuf = io.StringIO()\nwriter = csv.DictWriter(buf, fieldnames=['order_id', 'city', 'item_count', 'total'])\nwriter.writeheader()\nfor r in records:\n    writer.writerow({'order_id': r['order_id'], 'city': r['customer']['city'], 'item_count': len(r['items']), 'total': r['total']})\n\nprint(buf.getvalue().strip())\n"
     }
   },
   {
     day: 21,
     month: 1,
     module: "M1: Python & Git",
-    title: "Git Basics: Init, Stage, Commit & History",
-    instructor: "Kunal Kushwaha",
-    duration: "25m",
-    videoId: "apGV9Kg7ics",
-    altVideoId: "zTjRZNkhiEU",
+    title: "Dates, Times, Timedeltas & Timezones (datetime)",
+    instructor: "Corey Schafer",
+    duration: "24m",
+    videoId: "eirjjyP2qcQ",
+    altVideoId: "XKHEtdqhLK8",
     startSec: 0,
-    bridge: "Places your tested Python ingestion scripts under Git version control with clean atomic commits and a .gitignore.",
+    bridge: "Computes delivery SLA durations, customer recency days, and ISO-8601 timestamps accurately.",
     takeaways: [
-      "Understand the three Git trees: working directory, staging index, and commit history.",
-      "Exclude __pycache__, .env secrets, and local .db files via .gitignore.",
-      "Write clear, imperative commit messages describing why a change was made."
+      "Parse ISO dates with datetime.fromisoformat() and format outputs with .strftime('%Y-%m-%d').",
+      "Subtract two datetime objects to obtain a timedelta and read .days or .total_seconds().",
+      "Store backend timestamps in UTC or explicit IST (+05:30) timezone-aware objects."
     ],
     lab: {
       lang: "python",
-      title: "Generate Production .gitignore & Commit Checklist",
-      prompt: "Write a Python script that generates a clean .gitignore template for Python + SQLite data projects.",
-      hint: "Include __pycache__/, *.pyc, .env, *.sqlite3, and .venv/ in the template.",
-      starterCode: "ignore_rules = [\n    '__pycache__/',\n    '*.py[cod]',\n    '.venv/',\n    '.env',\n    '*.sqlite3',\n    '.pytest_cache/'\n]\n\nprint('# Recommended .gitignore for ShopPulse\\n' + '\\n'.join(ignore_rules))\n"
+      title: "Customer Recency & Delivery SLA Calculator",
+      prompt: "Compute days since last order and delivery turnaround hours from ISO timestamp strings.",
+      hint: "Use datetime.fromisoformat() and subtract timestamps to get timedelta.",
+      starterCode: "from datetime import datetime\n\nordered_at = datetime.fromisoformat('2026-11-20T10:00:00')\ndelivered_at = datetime.fromisoformat('2026-11-22T16:30:00')\nas_of_date = datetime.fromisoformat('2026-11-26T14:00:00')\n\ndelivery_hours = (delivered_at - ordered_at).total_seconds() / 3600\nrecency_days = (as_of_date - ordered_at).days\n\nprint(f'Delivery Time: {delivery_hours:.1f} hrs | Recency: {recency_days} days')\n"
     }
   },
   {
     day: 22,
     month: 1,
     module: "M1: Python & Git",
-    title: "Git Branching & Merging Feature Work",
-    instructor: "Kunal Kushwaha",
-    duration: "25m",
-    videoId: "apGV9Kg7ics",
-    altVideoId: "zTjRZNkhiEU",
-    startSec: 1500,
-    bridge: "Isolates new feature development (like adding SQLite export) on feature branches without destabilizing main.",
+    title: "Regular Expressions (re) for Text Cleaning & Extraction",
+    instructor: "Corey Schafer",
+    duration: "26m",
+    videoId: "K8L6KVGG-7o",
+    altVideoId: "XKHEtdqhLK8",
+    startSec: 0,
+    bridge: "Extracts structured SKU codes, pincodes, and invoice numbers from unstructured support tickets and vendor notes.",
     takeaways: [
-      "Create and switch branches cleanly using git switch -c feat/sqlite-loader.",
-      "Understand fast-forward vs three-way merge commits.",
-      "Keep main deployable at all times for GitHub Pages and CI checks."
+      "Always write regex patterns using raw strings r'...' so backslashes are not escaped twice.",
+      "Use re.findall() for bulk extraction and re.sub() for pattern-based redaction or normalization.",
+      "Pre-compile repeated patterns with re.compile() when scanning thousands of text rows."
     ],
     lab: {
       lang: "python",
-      title: "Branch Naming & Conventional Commit Validator",
-      prompt: "Write a validator verifying branch names start with feat/, fix/, or docs/.",
-      hint: "Use tuple prefixes with str.startswith(('feat/', 'fix/', 'docs/', 'chore/')).",
-      starterCode: "def validate_branch(name: str) -> bool:\n    return name.startswith(('feat/', 'fix/', 'docs/', 'chore/'))\n\nfor b in ['feat/sqlite-ingest', 'random-test', 'fix/null-price']:\n    print(f'{b:22s} -> valid={validate_branch(b)}')\n"
+      title: "Support Ticket SKU & Indian Pincode Extractor",
+      prompt: "Extract all SKU codes matching r'SP-\\d{3}' and 6-digit pincodes matching r'\\b\\d{6}\\b' from a support message.",
+      hint: "Use re.findall(r'SP-\\d{3}', msg) and re.findall(r'\\b\\d{6}\\b', msg).",
+      starterCode: "import re\n\nticket = 'Customer at 410208 reported issue with SP-101 and requested replacement for SP-204.'\nskus = re.findall(r'SP-\\d{3}', ticket)\npincodes = re.findall(r'\\b\\d{6}\\b', ticket)\n\nprint('Extracted SKUs    :', skus)\nprint('Extracted Pincodes:', pincodes)\n"
     }
   },
   {
     day: 23,
     month: 1,
     module: "M1: Python & Git",
-    title: "GitHub Remotes, Pull Requests & Forks",
-    instructor: "Kunal Kushwaha",
-    duration: "30m",
-    videoId: "apGV9Kg7ics",
-    altVideoId: "zTjRZNkhiEU",
-    startSec: 3000,
-    bridge: "Publishes your ShopPulse repository to GitHub so every month's milestone builds a visible public portfolio.",
+    title: "Object-Oriented Python: Classes, __init__ & Instance State",
+    instructor: "Bro Code",
+    duration: "18m",
+    videoId: "XKHEtdqhLK8",
+    altVideoId: "ZDa-Z5JzLYM",
+    startSec: 18600,
+    bridge: "Encapsulates stateful domain entities (like ShoppingCart and DataPipeline) that mirror Scikit-Learn's fit/transform API.",
     takeaways: [
-      "Configure remote origin, push feature branches, and open structured Pull Requests.",
-      "Sync forked repositories against upstream changes cleanly.",
-      "Document setup instructions and architecture diagrams in README.md."
+      "Define classes to bundle structured state attributes with cohesive domain methods.",
+      "Initialize instance attributes inside __init__(self, ...) so objects never share mutable class lists.",
+      "Understand how Scikit-Learn estimators and PyTorch modules rely on this exact stateful class pattern."
     ],
     lab: {
       lang: "python",
-      title: "Automated README Milestone Badge Generator",
-      prompt: "Generate a Markdown progress table for your GitHub README showing Month 1 completion.",
-      hint: "Format a Markdown table with Module, Status, and Artifact columns.",
-      starterCode: "milestones = [\n    ('M1: Python & Git', 'Complete', 'ShopPulse JSON-to-SQLite CLI'),\n    ('M2: SQL Analytics', 'Up Next', 'Cohort Retention & LTV Views')\n]\nprint('| Module | Status | Portfolio Artifact |')\nprint('|---|---|---|')\nfor m, s, a in milestones:\n    print(f'| {m} | {s} | {a} |')\n"
+      title: "Stateful ShopPulse ShoppingCart Class",
+      prompt: "Implement a ShoppingCart class with add_item(sku, price, qty) and total_inr() methods.",
+      hint: "Store self.items = [] in __init__ and sum price * qty in total_inr().",
+      starterCode: "class ShoppingCart:\n    def __init__(self, customer_id: str):\n        self.customer_id = customer_id\n        self.items = []\n\n    def add_item(self, sku: str, price: float, qty: int = 1):\n        self.items.append({'sku': sku, 'price': price, 'qty': qty})\n\n    def total_inr(self) -> float:\n        return round(sum(i['price'] * i['qty'] for i in self.items), 2)\n\ncart = ShoppingCart('C101')\ncart.add_item('SP-101', 4999.0, 1)\ncart.add_item('SP-102', 1499.0, 2)\nprint(f'Customer {cart.customer_id} Cart Total: INR {cart.total_inr():,.2f}')\n"
     }
   },
   {
     day: 24,
     month: 1,
     module: "M1: Python & Git",
-    title: "Resolving Merge Conflicts & Rebasing",
-    instructor: "freeCodeCamp.org",
-    duration: "45m",
-    videoId: "zTjRZNkhiEU",
-    altVideoId: "apGV9Kg7ics",
-    startSec: 5400,
-    bridge: "Gives you calm, methodical control when two branches edit the same configuration or schema file.",
+    title: "Inheritance, Composition & Dunder Methods (__repr__, __len__)",
+    instructor: "Corey Schafer",
+    duration: "20m",
+    videoId: "RSl87lqOXDE",
+    altVideoId: "3ohzBxoFHAY",
+    startSec: 0,
+    bridge: "Customizes object printing, length checks, and reusable base classes for clean pipeline engineering.",
     takeaways: [
-      "Read <<<<<<< HEAD, =======, and >>>>>>> conflict markers and synthesize clean resolutions.",
-      "Use git rebase main on local feature branches for a linear commit history.",
-      "Never rebase commits that have already been pushed to shared public branches."
+      "Implement __repr__ so objects display informative debug strings in logs and collections.",
+      "Prefer composition (has-a) over deep inheritance hierarchies (is-a) for flexible data pipelines.",
+      "Use @dataclass when creating lightweight, typed data-transfer containers."
     ],
     lab: {
       lang: "python",
-      title: "Conflict Marker Scanner",
-      prompt: "Write a pre-commit check function that scans a file string for leftover Git conflict markers.",
-      hint: "Check if any marker ('<<<<<<<', '=======', '>>>>>>>') appears in the text.",
-      starterCode: "def has_conflict_markers(content: str) -> bool:\n    markers = ('<<<<<<<', '=======', '>>>>>>>')\n    return any(m in content for m in markers)\n\nsample_clean = 'def run():\\n    return True\\n'\nsample_dirty = '<<<<<<< HEAD\\nx = 1\\n=======\\nx = 2\\n>>>>>>> feat\\n'\nprint('Clean file conflict:', has_conflict_markers(sample_clean))\nprint('Dirty file conflict:', has_conflict_markers(sample_dirty))\n"
+      title: "Typed OrderRecord @dataclass with Computed Property",
+      prompt: "Define an OrderRecord dataclass with order_id, unit_price, and qty, plus a net_total property and clean repr.",
+      hint: "Decorate with @dataclass and define @property def net_total(self) -> float.",
+      starterCode: "from dataclasses import dataclass\n\n@dataclass\nclass OrderRecord:\n    order_id: int\n    sku: str\n    unit_price: float\n    qty: int\n\n    @property\n    def net_total(self) -> float:\n        return round(self.unit_price * self.qty, 2)\n\nrec = OrderRecord(901, 'SP-101', 4999.0, 2)\nprint(rec, '| Total INR:', rec.net_total)\n"
     }
   },
   {
     day: 25,
     month: 1,
     module: "M1: Python & Git",
-    title: "Git Stash, Reset & Tagging Releases",
-    instructor: "freeCodeCamp.org",
-    duration: "40m",
-    videoId: "zTjRZNkhiEU",
+    title: "Python Environments (venv), pip & Clean Project Structure",
+    instructor: "Corey Schafer",
+    duration: "16m",
+    videoId: "APOPm01BVrk",
     altVideoId: "apGV9Kg7ics",
-    startSec: 9000,
-    bridge: "Tags your finished Month 1 ingestion engine as v1.0.0 before starting Month 2 database modeling.",
+    startSec: 0,
+    bridge: "Isolates project dependencies and standardizes src/tests/data folder layouts for reproducible data science repos.",
     takeaways: [
-      "Use git stash push -m to shelve half-finished experiments safely.",
-      "Understand soft vs mixed vs hard resets and recover lost commits via git reflog.",
-      "Tag milestone releases (v1.0.0) to snapshot working portfolio states."
+      "Create isolated virtual environments (python -m venv .venv) so project packages never collide.",
+      "Pin exact dependencies in requirements.txt and load API keys via environment variables, never hardcoded strings.",
+      "Organize repositories cleanly into src/, data/, notebooks/, and tests/ directories."
     ],
     lab: {
       lang: "python",
-      title: "Semantic Version Bumper (v1.0.0)",
-      prompt: "Write bump_version(tag, part) supporting 'major', 'minor', and 'patch' semantic version increments.",
-      hint: "Strip leading 'v', split by '.', cast to int, increment the target index, and reformat.",
-      starterCode: "def bump_version(tag: str, part: str = 'minor') -> str:\n    major, minor, patch = map(int, tag.lstrip('v').split('.'))\n    if part == 'major':\n        major, minor, patch = major + 1, 0, 0\n    elif part == 'minor':\n        minor, patch = minor + 1, 0\n    else:\n        patch += 1\n    return f'v{major}.{minor}.{patch}'\n\nprint(bump_version('v0.9.4', 'major'))\nprint(bump_version('v1.0.0', 'minor'))\n"
+      title: "Environment Config & Secret Presence Validator",
+      prompt: "Implement validate_config(env_dict) verifying required keys exist and API keys are non-empty without printing secrets.",
+      hint: "Mask secret values as '***SET***' when printing diagnostics.",
+      starterCode: "def audit_config(env: dict) -> dict:\n    required = ('APP_ENV', 'DB_PATH', 'GEMINI_API_KEY')\n    missing = [k for k in required if not str(env.get(k, '')).strip()]\n    return {'ready': len(missing) == 0, 'missing': missing, 'env': env.get('APP_ENV', 'unknown')}\n\nsample_env = {'APP_ENV': 'prod', 'DB_PATH': 'shoppulse.db', 'GEMINI_API_KEY': 'AIzaSy_MASKED'}\nprint(audit_config(sample_env))\n"
     }
   },
   {
     day: 26,
     month: 1,
     module: "M1: Python & Git",
-    title: "Flexible Function Signatures: *args & **kwargs",
-    instructor: "Bro Code",
-    duration: "15m",
-    videoId: "Vh__2V2tXUM",
-    altVideoId: "89cGQjB5R4M",
+    title: "Git & GitHub Essentials: Commits, Branches & Pull Requests",
+    instructor: "Kunal Kushwaha",
+    duration: "25m",
+    videoId: "apGV9Kg7ics",
+    altVideoId: "APOPm01BVrk",
     startSec: 0,
-    bridge: "Equips your ingestion helpers to accept variable-length item bundles (*args) and optional metadata tags (**kwargs).",
+    bridge: "Versions code cleanly on feature branches and protects main with .gitignore rules and atomic commits.",
     takeaways: [
-      "Pack variable positional arguments into a tuple using *args.",
-      "Capture arbitrary keyword metadata into a dictionary using **kwargs.",
-      "Unpack lists and dicts cleanly when forwarding arguments across helper functions."
+      "Never commit .env secrets, raw multi-GB datasets, or __pycache__ artifacts; enforce a strict .gitignore.",
+      "Develop new features on short-lived branches (git checkout -b feat/churn-model) before merging to main.",
+      "Write concise, imperative commit messages describing why a change was made."
     ],
     lab: {
       lang: "python",
-      title: "Dynamic Cart Bundler",
-      prompt: "Create build_order_summary(order_id, *item_prices, **meta) that sums variable item prices and prints metadata.",
-      hint: "Use sum(item_prices) for *args and meta.get('city', 'N/A') for **kwargs.",
-      starterCode: "def build_order_summary(order_id, *item_prices, **meta):\n    subtotal = round(sum(item_prices), 2)\n    city = meta.get('city', 'N/A')\n    tier = meta.get('tier', 'Standard')\n    return {'order_id': order_id, 'items': len(item_prices), 'subtotal_inr': subtotal, 'city': city, 'tier': tier}\n\nprint(build_order_summary(1001, 4999.0, 1499.0, 799.0, city='Mumbai', tier='Gold'))\n"
+      title: "Pre-Commit Secret & Large-File Scanner",
+      prompt: "Scan staged filenames and file lines to block accidental .env commits or hardcoded API key patterns.",
+      hint: "Flag files ending in '.env' or containing 'AIza' or 'SECRET_KEY='.",
+      starterCode: "staged_files = {\n    'src/pipeline.py': 'import os\\nkey = os.getenv(\"API_KEY\")',\n    '.env': 'API_KEY=AIzaSy12345'\n}\n\nblocked = []\nfor fname, content in staged_files.items():\n    if fname.endswith('.env') or 'AIza' in content:\n        blocked.append(fname)\n\nprint('Blocked from commit:', blocked)\n"
     }
   },
   {
     day: 27,
     month: 1,
     module: "M1: Python & Git",
-    title: "Capstone 1A: ShopPulse API Ingestion CLI",
-    instructor: "Bro Code",
-    duration: "15m",
-    videoId: "JVQNywo4AbU",
-    altVideoId: "r4MLHHLctKw",
+    title: "Capstone 1A: ShopPulse JSON-to-SQLite Ingestion CLI",
+    instructor: "Corey Schafer",
+    duration: "24m",
+    videoId: "pd-0G0MigUA",
+    altVideoId: "9N6a-VLBa2I",
     startSec: 0,
-    bridge: "Combines functions, JSON parsing, exception handling, and assertions into a unified Month 1 ingestion pipeline.",
+    bridge: "Unites Month 1 Python parsing, exception quarantine, and sqlite3 persistence into an idempotent ETL ingestion script.",
     takeaways: [
-      "Assemble an end-to-end Extract-Validate-Transform pipeline in clean modular Python.",
-      "Log rejected records separately from valid normalized output.",
-      "Verify pipeline output invariants with automated assertions."
+      "Validate and normalize raw JSON records before inserting into SQLite tables.",
+      "Use INSERT OR IGNORE / UPSERT patterns so re-running the ingestion script never duplicates rows.",
+      "Emit a structured run summary reporting ingested count, quarantined count, and total INR loaded."
     ],
     lab: {
       lang: "python",
-      title: "Capstone 1A: Complete JSON Order Normalizer",
-      prompt: "Process a raw JSON feed of ShopPulse orders: filter valid Delivered orders and output summary metrics.",
-      hint: "Parse JSON, validate total_inr > 0, and aggregate total revenue and order count.",
-      starterCode: "import json\n\nraw_feed = '''[\n  {\"order_id\": 1001, \"city\": \"Mumbai\", \"status\": \"Delivered\", \"total_inr\": 6498.0},\n  {\"order_id\": 1002, \"city\": \"Bengaluru\", \"status\": \"Delivered\", \"total_inr\": 8999.0},\n  {\"order_id\": 1003, \"city\": \"Delhi\", \"status\": \"Cancelled\", \"total_inr\": 1499.0},\n  {\"order_id\": 1004, \"city\": \"Pune\", \"status\": \"Delivered\", \"total_inr\": -50.0}\n]'''\n\norders = json.loads(raw_feed)\nvalid = [o for o in orders if o['status'] == 'Delivered' and o['total_inr'] > 0]\nrevenue = sum(o['total_inr'] for o in valid)\nassert len(valid) == 2\nprint(f'Capstone 1A Verified -> Valid Orders: {len(valid)} | Revenue: INR {revenue:,.2f}')\n"
+      title: "Capstone 1A: Idempotent JSON-to-SQLite Loader",
+      prompt: "Parse raw JSON orders, quarantine invalid rows, load valid rows idempotently into SQLite, and query total loaded revenue.",
+      hint: "Use CREATE TABLE orders (order_id INT PRIMARY KEY, city TEXT, total REAL) and INSERT OR IGNORE.",
+      starterCode: "import json\nimport sqlite3\n\nraw_json = '[{\"order_id\": 1, \"city\": \"Mumbai\", \"total\": 4999.0}, {\"order_id\": 1, \"city\": \"Mumbai\", \"total\": 4999.0}, {\"order_id\": 2, \"city\": \"Pune\", \"total\": -10.0}, {\"order_id\": 3, \"city\": \"Bengaluru\", \"total\": 7499.0}]'\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE orders (order_id INTEGER PRIMARY KEY, city TEXT, total REAL)')\n\nquarantined = 0\nfor row in json.loads(raw_json):\n    if row['total'] <= 0:\n        quarantined += 1\n        continue\n    conn.execute('INSERT OR IGNORE INTO orders VALUES (?, ?, ?)', (row['order_id'], row['city'], row['total']))\n\ncount, rev = conn.execute('SELECT COUNT(*), SUM(total) FROM orders').fetchone()\nprint(f'Loaded Rows: {count} | Quarantined: {quarantined} | Total INR: {rev:,.2f}')\n"
     }
   },
   {
     day: 28,
     month: 1,
     module: "M1: Python & Git",
-    title: "Bridge 1->2: Persisting JSON to SQLite",
-    instructor: "NeuralNine",
-    duration: "24m",
-    videoId: "lFRMdGfo_XA",
-    altVideoId: "529LYDgRTgQ",
-    startSec: 0,
-    bridge: "Hands off Month 1 directly to Month 2 by writing your cleaned Python order records into a real relational SQLite table.",
+    title: "Bridge 1->2: Embedded SQLite3 & Relational Schema Design",
+    instructor: "Corey Schafer",
+    duration: "18m",
+    videoId: "pd-0G0MigUA",
+    altVideoId: "HXV3zeQKqGY",
+    startSec: 900,
+    bridge: "Hands off Month 1 Python engineering directly to Month 2 SQL Analytics by standing up our normalized ShopPulse star schema.",
     takeaways: [
-      "Create relational tables and insert parameterized rows with Python's built-in sqlite3 module.",
-      "Prevent SQL injection by always using ? parameter placeholders.",
-      "Verify persisted rows with a SQL SELECT round-trip inside Python."
+      "Separate dimension tables (customers, products) from fact tables (orders, order_items) to avoid update anomalies.",
+      "Always use parameterized ? placeholders in sqlite3 queries to prevent SQL injection.",
+      "Verify foreign-key relationships across customers, products, and orders before running analytics."
     ],
     lab: {
       lang: "python",
-      title: "Bridge 1->2: Persist ShopPulse Orders into SQLite",
-      prompt: "Create an in-memory SQLite database, insert 3 cleaned order tuples via executemany(), and query total revenue.",
-      hint: "Use sqlite3.connect(':memory:') and cur.executemany('INSERT INTO orders VALUES (?, ?, ?)', rows).",
-      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\ncur = conn.cursor()\ncur.execute('CREATE TABLE orders (order_id INT PRIMARY KEY, city TEXT, total_inr REAL)')\n\nrows = [(1001, 'Mumbai', 6498.0), (1002, 'Bengaluru', 8999.0), (1003, 'Mumbai', 2499.0)]\ncur.executemany('INSERT INTO orders VALUES (?, ?, ?)', rows)\nconn.commit()\n\nfor row in cur.execute('SELECT city, SUM(total_inr) FROM orders GROUP BY city'):\n    print(row)\n"
+      title: "Bridge 1->2: Normalized ShopPulse Star Schema Builder",
+      prompt: "Create customers and orders tables in SQLite, insert sample rows using parameterized queries, and verify row counts.",
+      hint: "Use executemany('INSERT INTO ... VALUES (?, ?, ?)', rows).",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE customers (cust_id INT PRIMARY KEY, name TEXT, city TEXT, tier TEXT)')\nconn.execute('CREATE TABLE orders (order_id INT PRIMARY KEY, cust_id INT, order_date TEXT, total_inr REAL)')\n\nconn.executemany('INSERT INTO customers VALUES (?, ?, ?, ?)', [\n    (1, 'Aarav', 'Mumbai', 'Gold'),\n    (2, 'Diya', 'Bengaluru', 'Platinum'),\n    (3, 'Kabir', 'Delhi', 'Silver')\n])\nconn.executemany('INSERT INTO orders VALUES (?, ?, ?, ?)', [\n    (101, 1, '2026-10-05', 6498.0),\n    (102, 2, '2026-10-12', 12999.0),\n    (103, 1, '2026-11-02', 2999.0)\n])\n\nprint('Customers:', conn.execute('SELECT COUNT(*) FROM customers').fetchone()[0])\nprint('Orders   :', conn.execute('SELECT COUNT(*) FROM orders').fetchone()[0])\n"
     }
   },
   {
     day: 29,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Bridge 1->2: ORM & SQLAlchemy Schemas",
-    instructor: "NeuralNine",
-    duration: "1h 00m",
-    videoId: "529LYDgRTgQ",
-    altVideoId: "lFRMdGfo_XA",
+    title: "SQL Foundations: SELECT, FROM, WHERE & Logical Filtering",
+    instructor: "Joey Blue",
+    duration: "20m",
+    videoId: "HXV3zeQKqGY",
+    altVideoId: "pd-0G0MigUA",
     startSec: 0,
-    bridge: "Completes the Python-to-SQL handoff by defining declarative relational schemas and querying the live ShopPulse SQLite tables.",
+    bridge: "Launches Month 2 relational analytics by querying ShopPulse tables with explicit column projections and WHERE predicates.",
     takeaways: [
-      "Map Python domain models to relational tables with primary keys, foreign keys, and constraints.",
-      "Understand session transactions, commits, and connection lifecycles.",
-      "Inspect the pre-seeded ShopPulse relational schema (customers, products, orders, order_items, reviews)."
+      "Select explicit column names instead of SELECT * to keep analytics queries clear and fast.",
+      "Understand SQL logical execution order: FROM -> WHERE -> SELECT -> ORDER BY -> LIMIT.",
+      "Combine compound WHERE filters with explicit parentheses around OR clauses."
     ],
     lab: {
-      lang: "sql",
-      title: "Inspect ShopPulse Relational Schema",
-      prompt: "Query sqlite_master to list all tables in the pre-seeded ShopPulse database and preview the customers table.",
-      hint: "SELECT name, sql FROM sqlite_master WHERE type = 'table';",
-      starterCode: "SELECT name AS table_name\nFROM sqlite_master\nWHERE type = 'table'\nORDER BY name;\n"
+      lang: "python",
+      title: "Filtered High-Value Mumbai & Bengaluru Orders Query",
+      prompt: "Query delivered orders >= INR 3,000 in Mumbai or Bengaluru from SQLite.",
+      hint: "WHERE status = 'Delivered' AND city IN ('Mumbai', 'Bengaluru') AND total_inr >= 3000.",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE orders (id INT, city TEXT, status TEXT, total_inr REAL)')\nconn.executemany('INSERT INTO orders VALUES (?, ?, ?, ?)', [\n    (1, 'Mumbai', 'Delivered', 4999.0),\n    (2, 'Mumbai', 'Cancelled', 6500.0),\n    (3, 'Bengaluru', 'Delivered', 8200.0),\n    (4, 'Delhi', 'Delivered', 5100.0)\n])\n\nrows = conn.execute(\"\"\"\n    SELECT id, city, total_inr\n    FROM orders\n    WHERE status = 'Delivered' AND city IN ('Mumbai', 'Bengaluru') AND total_inr >= 3000;\n\"\"\").fetchall()\nprint(rows)\n"
     }
   },
   {
     day: 30,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Core Querying: SELECT, DISTINCT, LIMIT",
-    instructor: "Data with Baraa",
-    duration: "55m",
-    videoId: "TDKoTItCVMU",
-    altVideoId: "cMUJFau5Wvg",
-    startSec: 0,
-    bridge: "Starts systematic SQL querying on our ShopPulse database by projecting columns, deduplicating values, and sampling rows.",
+    title: "Sorting, Deduplication & Pagination: ORDER BY, DISTINCT & LIMIT",
+    instructor: "Joey Blue",
+    duration: "16m",
+    videoId: "HXV3zeQKqGY",
+    altVideoId: "pd-0G0MigUA",
+    startSec: 1800,
+    bridge: "Produces deterministic top-K leaderboards and clean unique dimension lists from raw transaction logs.",
     takeaways: [
-      "Select explicit columns rather than SELECT * in production analytical queries.",
-      "Extract unique categorical dimensions with SELECT DISTINCT.",
-      "Control result cardinality safely using LIMIT."
+      "Always pair LIMIT with an explicit deterministic ORDER BY (including a unique tie-breaker column).",
+      "Use SELECT DISTINCT carefully—never use it to mask accidental join fan-out bugs.",
+      "Understand how NULL values sort in ascending vs descending order."
     ],
     lab: {
-      lang: "sql",
-      title: "Distinct Customer Cities & Tiers",
-      prompt: "List all distinct (city, tier) combinations from the customers table.",
-      hint: "Use SELECT DISTINCT city, tier FROM customers;",
-      starterCode: "SELECT DISTINCT city, tier\nFROM customers\nORDER BY city;\n"
+      lang: "python",
+      title: "Top-3 Orders Leaderboard & Distinct Active Cities",
+      prompt: "Fetch distinct cities and the top 2 highest-value orders ordered by total_inr DESC, id ASC.",
+      hint: "Use SELECT DISTINCT city FROM orders and ORDER BY total_inr DESC, id ASC LIMIT 2.",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE orders (id INT, city TEXT, total_inr REAL)')\nconn.executemany('INSERT INTO orders VALUES (?, ?, ?)', [\n    (10, 'Mumbai', 5000.0), (11, 'Pune', 7500.0), (12, 'Mumbai', 7500.0), (13, 'Delhi', 2200.0)\n])\n\ncities = [r[0] for r in conn.execute('SELECT DISTINCT city FROM orders ORDER BY city;').fetchall()]\ntop2 = conn.execute('SELECT id, city, total_inr FROM orders ORDER BY total_inr DESC, id ASC LIMIT 2;').fetchall()\nprint('Active Cities:', cities)\nprint('Top 2 Orders :', top2)\n"
     }
   },
   {
     day: 31,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Filtering Rows: WHERE, IN, BETWEEN, LIKE",
-    instructor: "Data with Baraa",
-    duration: "41m",
-    videoId: "cMUJFau5Wvg",
-    altVideoId: "TDKoTItCVMU",
-    startSec: 0,
-    bridge: "Translates Python list-comprehension filters into push-down SQL WHERE predicates.",
+    title: "Pattern Matching & Null Semantics: LIKE, IN, BETWEEN & COALESCE",
+    instructor: "Joey Blue",
+    duration: "18m",
+    videoId: "HXV3zeQKqGY",
+    altVideoId: "pd-0G0MigUA",
+    startSec: 3200,
+    bridge: "Handles three-valued SQL NULL logic cleanly so missing discounts never wipe out arithmetic expressions.",
     takeaways: [
-      "Combine AND, OR, and NOT with explicit parentheses to avoid operator-precedence bugs.",
-      "Filter sets with IN, closed ranges with BETWEEN, and text patterns with LIKE.",
-      "Understand why filtering early in WHERE reduces downstream compute."
+      "Remember that NULL = NULL evaluates to UNKNOWN; always filter with IS NULL / IS NOT NULL.",
+      "Wrap nullable numeric columns in COALESCE(discount, 0) before subtracting from gross revenue.",
+      "Note that BETWEEN is inclusive on both endpoints (low <= x <= high)."
     ],
     lab: {
-      lang: "sql",
-      title: "High-Value Delivered Orders Filter",
-      prompt: "Find all Delivered orders with total_inr between 2500 and 10000.",
-      hint: "Filter orders WHERE status = 'Delivered' AND total_inr BETWEEN 2500 AND 10000.",
-      starterCode: "SELECT order_id, customer_id, order_date, total_inr\nFROM orders\nWHERE status = 'Delivered'\n  AND total_inr BETWEEN 2500 AND 10000;\n"
+      lang: "python",
+      title: "NULL-Safe Net Revenue Calculation with COALESCE",
+      prompt: "Compute net revenue = gross_inr - COALESCE(discount_inr, 0) for orders matching SKU prefix 'SP-%'.",
+      hint: "SELECT id, gross_inr - COALESCE(discount_inr, 0) FROM orders WHERE sku LIKE 'SP-%'.",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE orders (id INT, sku TEXT, gross_inr REAL, discount_inr REAL)')\nconn.executemany('INSERT INTO orders VALUES (?, ?, ?, ?)', [\n    (1, 'SP-101', 4999.0, 500.0),\n    (2, 'SP-102', 2499.0, None),\n    (3, 'ACC-09', 999.0, 100.0)\n])\n\nrows = conn.execute(\"\"\"\n    SELECT id, sku, gross_inr - COALESCE(discount_inr, 0) AS net_inr\n    FROM orders\n    WHERE sku LIKE 'SP-%';\n\"\"\").fetchall()\nprint(rows)\n"
     }
   },
   {
     day: 32,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Deterministic Sorting: ORDER BY",
-    instructor: "Data with Baraa",
-    duration: "10m",
-    videoId: "q_zD7vmNDZw",
-    altVideoId: "TDKoTItCVMU",
-    startSec: 0,
-    bridge: "Establishes deterministic tie-breaking sort orders needed before we introduce window ranking functions later this month.",
+    title: "Aggregations & Grain: COUNT, SUM, AVG, MIN & MAX",
+    instructor: "Joey Blue",
+    duration: "18m",
+    videoId: "HXV3zeQKqGY",
+    altVideoId: "pd-0G0MigUA",
+    startSec: 4600,
+    bridge: "Computes core executive KPIs (GMV, AOV, active buyers) while respecting SQL's NULL-ignoring aggregate rules.",
     takeaways: [
-      "Sort multi-column keys using ASC and DESC explicitly.",
-      "Break ties deterministically by including a unique primary key as the final sort column.",
-      "Combine ORDER BY with LIMIT for Top-N leaderboard queries."
+      "COUNT(*) counts all rows including NULLs, whereas COUNT(col) counts only non-NULL values.",
+      "Use COUNT(DISTINCT cust_id) to measure unique active buyers rather than total order rows.",
+      "Always verify the table grain (one row per order vs one row per line item) before summing."
     ],
     lab: {
-      lang: "sql",
-      title: "Top 3 Highest-Margin Products",
-      prompt: "Rank products by gross profit (price_inr - cost_inr) descending, breaking ties by product_id.",
-      hint: "Compute (price_inr - cost_inr) AS profit_inr in SELECT and ORDER BY profit_inr DESC, product_id ASC LIMIT 3.",
-      starterCode: "SELECT product_id, product_name, category,\n       (price_inr - cost_inr) AS profit_inr\nFROM products\nORDER BY profit_inr DESC, product_id ASC\nLIMIT 3;\n"
+      lang: "python",
+      title: "Executive GMV, AOV & Unique Buyers Summary",
+      prompt: "Compute total orders, unique customers, total GMV, and rounded AOV in a single SQL aggregate query.",
+      hint: "SELECT COUNT(*), COUNT(DISTINCT cust_id), SUM(total_inr), ROUND(AVG(total_inr), 2) FROM orders.",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE orders (order_id INT, cust_id INT, total_inr REAL)')\nconn.executemany('INSERT INTO orders VALUES (?, ?, ?)', [\n    (1, 101, 4000.0), (2, 101, 6000.0), (3, 102, 5000.0)\n])\n\nkpis = conn.execute(\"\"\"\n    SELECT COUNT(*) AS orders, COUNT(DISTINCT cust_id) AS buyers, SUM(total_inr) AS gmv, ROUND(AVG(total_inr), 2) AS aov\n    FROM orders;\n\"\"\").fetchone()\nprint(dict(zip(['orders', 'buyers', 'gmv', 'aov'], kpis)))\n"
     }
   },
   {
     day: 33,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Summary Metrics: COUNT, SUM, AVG, MIN/MAX",
-    instructor: "Data with Baraa",
-    duration: "7m",
-    videoId: "AsuPVZ_EjEw",
-    altVideoId: "wIljdjni_dc",
-    startSec: 0,
-    bridge: "Computes KPI rollups directly inside the database engine rather than pulling raw rows into Python loops.",
+    title: "Grouping & Post-Aggregation Filtering: GROUP BY vs HAVING",
+    instructor: "Joey Blue",
+    duration: "16m",
+    videoId: "HXV3zeQKqGY",
+    altVideoId: "pd-0G0MigUA",
+    startSec: 5900,
+    bridge: "Separates pre-aggregation row filters (WHERE) from post-aggregation group thresholds (HAVING).",
     takeaways: [
-      "Understand how COUNT(*) differs from COUNT(column) when NULL values exist.",
-      "Use COUNT(DISTINCT customer_id) to measure unique active buyers.",
-      "Compute clean AOV and revenue totals with ROUND(AVG(...), 2)."
+      "Filter raw input rows in WHERE before grouping; filter aggregated group metrics in HAVING.",
+      "Every non-aggregated column in SELECT must appear in the GROUP BY clause.",
+      "Identify repeat VIP buyers using HAVING COUNT(*) >= 2."
     ],
     lab: {
-      lang: "sql",
-      title: "Executive KPI Summary Bar",
-      prompt: "Compute total delivered orders, unique customers, gross revenue, and average order value (AOV).",
-      hint: "Filter WHERE status = 'Delivered' and use COUNT(DISTINCT customer_id).",
-      starterCode: "SELECT COUNT(*) AS delivered_orders,\n       COUNT(DISTINCT customer_id) AS unique_buyers,\n       ROUND(SUM(total_inr), 2) AS gross_revenue_inr,\n       ROUND(AVG(total_inr), 2) AS aov_inr\nFROM orders\nWHERE status = 'Delivered';\n"
+      lang: "python",
+      title: "Repeat High-Value Buyer Identification via HAVING",
+      prompt: "Find customers with at least 2 delivered orders and total delivered spend >= INR 8,000.",
+      hint: "Filter status = 'Delivered' in WHERE, group by cust_id, and apply HAVING COUNT(*) >= 2 AND SUM(total_inr) >= 8000.",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE orders (cust_id INT, status TEXT, total_inr REAL)')\nconn.executemany('INSERT INTO orders VALUES (?, ?, ?)', [\n    (1, 'Delivered', 4500.0), (1, 'Delivered', 5200.0), (2, 'Delivered', 9500.0), (3, 'Delivered', 2000.0), (3, 'Delivered', 2500.0)\n])\n\nvips = conn.execute(\"\"\"\n    SELECT cust_id, COUNT(*) AS order_cnt, SUM(total_inr) AS total_spend\n    FROM orders\n    WHERE status = 'Delivered'\n    GROUP BY cust_id\n    HAVING COUNT(*) >= 2 AND SUM(total_inr) >= 8000;\n\"\"\").fetchall()\nprint('VIP Repeat Customers:', vips)\n"
     }
   },
   {
     day: 34,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Dimensional Rollups: GROUP BY",
-    instructor: "Alex The Analyst",
-    duration: "11m",
-    videoId: "zgYqUP_PhQo",
-    altVideoId: "AsuPVZ_EjEw",
-    startSec: 0,
-    bridge: "Splits executive totals from Day 33 into category, status, and customer-tier breakdowns.",
+    title: "Conditional Metrics & Pivot Columns with CASE WHEN",
+    instructor: "Joey Blue",
+    duration: "18m",
+    videoId: "HXV3zeQKqGY",
+    altVideoId: "MpAMjtvarrc",
+    startSec: 7100,
+    bridge: "Computes conversion rates, cancellation rates, and side-by-side status breakdowns inside a single table scan.",
     takeaways: [
-      "Every non-aggregated column in SELECT must appear in the GROUP BY clause.",
-      "Group by multiple dimensions to build cross-tabulated summaries.",
-      "Order grouped results by aggregate metrics for immediate readability."
+      "Compute conditional counts via SUM(CASE WHEN cond THEN 1 ELSE 0 END).",
+      "Compute conversion or cancellation rates safely with 1.0 * SUM(CASE ...) / COUNT(*).",
+      "Pivot categorical statuses into clean executive columns without multiple self-joins."
     ],
     lab: {
-      lang: "sql",
-      title: "Category Catalog Economics",
-      prompt: "Group products by category to find SKU count, average selling price, and average unit profit.",
-      hint: "GROUP BY category and compute AVG(price_inr - cost_inr).",
-      starterCode: "SELECT category,\n       COUNT(*) AS sku_count,\n       ROUND(AVG(price_inr), 2) AS avg_price_inr,\n       ROUND(AVG(price_inr - cost_inr), 2) AS avg_profit_inr\nFROM products\nGROUP BY category\nORDER BY avg_profit_inr DESC;\n"
+      lang: "python",
+      title: "City-Level Delivery vs Cancellation Rate Pivot",
+      prompt: "Compute total orders, delivered count, and cancellation rate % per city in one grouped CASE WHEN query.",
+      hint: "ROUND(100.0 * SUM(CASE WHEN status = 'Cancelled' THEN 1 ELSE 0 END) / COUNT(*), 1).",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE orders (city TEXT, status TEXT)')\nconn.executemany('INSERT INTO orders VALUES (?, ?)', [\n    ('Mumbai', 'Delivered'), ('Mumbai', 'Delivered'), ('Mumbai', 'Cancelled'), ('Delhi', 'Delivered'), ('Delhi', 'Cancelled')\n])\n\nstats = conn.execute(\"\"\"\n    SELECT city,\n           COUNT(*) AS total,\n           SUM(CASE WHEN status = 'Delivered' THEN 1 ELSE 0 END) AS delivered,\n           ROUND(100.0 * SUM(CASE WHEN status = 'Cancelled' THEN 1 ELSE 0 END) / COUNT(*), 1) AS cancel_pct\n    FROM orders\n    GROUP BY city;\n\"\"\").fetchall()\nprint(stats)\n"
     }
   },
   {
     day: 35,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Post-Aggregation Filtering: HAVING",
-    instructor: "Alex The Analyst",
-    duration: "4m",
-    videoId: "tYBOMw7Ob8E",
-    altVideoId: "VQf0V6Wwbf4",
-    startSec: 0,
-    bridge: "Filters grouped customer segments (like repeat buyers with 2+ orders) after GROUP BY aggregation completes.",
+    title: "Relational Modeling: Primary Keys, Foreign Keys & Normalization",
+    instructor: "Joey Blue",
+    duration: "20m",
+    videoId: "HXV3zeQKqGY",
+    altVideoId: "pd-0G0MigUA",
+    startSec: 8400,
+    bridge: "Designs clean 1-to-many and many-to-many bridge tables (orders -> order_items -> products) without duplicate data.",
     takeaways: [
-      "Use HAVING to filter groups based on aggregate conditions (COUNT, SUM, AVG).",
-      "Never put row-level filters in HAVING when they belong in WHERE.",
-      "Identify high-frequency customers cleanly in one query."
+      "Separate order headers (one row per order) from order_items (one row per SKU line) to avoid double-counting order shipping fees.",
+      "Enforce referential integrity with PRIMARY KEY and FOREIGN KEY constraints.",
+      "Understand star schemas: central fact tables surrounded by descriptive dimension tables."
     ],
     lab: {
-      lang: "sql",
-      title: "Repeat Buyers Filter",
-      prompt: "Find customer_ids who have placed at least 2 Delivered orders and show their total spend.",
-      hint: "Filter WHERE status = 'Delivered', GROUP BY customer_id, and add HAVING COUNT(*) >= 2.",
-      starterCode: "SELECT customer_id,\n       COUNT(*) AS order_count,\n       ROUND(SUM(total_inr), 2) AS total_spend_inr\nFROM orders\nWHERE status = 'Delivered'\nGROUP BY customer_id\nHAVING COUNT(*) >= 2\nORDER BY total_spend_inr DESC;\n"
+      lang: "python",
+      title: "Normalized Order Header & Line-Item Schema Query",
+      prompt: "Create products and order_items tables, insert line items, and compute revenue per product category.",
+      hint: "Join order_items to products on sku and sum qty * unit_price.",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE products (sku TEXT PRIMARY KEY, category TEXT, unit_price REAL)')\nconn.execute('CREATE TABLE order_items (order_id INT, sku TEXT, qty INT)')\nconn.executemany('INSERT INTO products VALUES (?, ?, ?)', [('SP-101', 'Audio', 4999.0), ('SP-102', 'Power', 1499.0)])\nconn.executemany('INSERT INTO order_items VALUES (?, ?, ?)', [(1, 'SP-101', 2), (2, 'SP-102', 3)])\n\nres = conn.execute(\"\"\"\n    SELECT p.category, SUM(oi.qty * p.unit_price) AS rev\n    FROM order_items oi\n    JOIN products p ON oi.sku = p.sku\n    GROUP BY p.category;\n\"\"\").fetchall()\nprint(res)\n"
     }
   },
   {
     day: 36,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "WHERE vs HAVING Execution Order",
-    instructor: "Neso Academy",
-    duration: "8m",
-    videoId: "VQf0V6Wwbf4",
-    altVideoId: "tYBOMw7Ob8E",
-    startSec: 0,
-    bridge: "Locks in the logical SQL query execution pipeline (FROM -> WHERE -> GROUP BY -> HAVING -> SELECT -> ORDER BY -> LIMIT).",
+    title: "INNER JOIN & Multi-Table Star-Schema Queries",
+    instructor: "Joey Blue",
+    duration: "20m",
+    videoId: "HXV3zeQKqGY",
+    altVideoId: "MpAMjtvarrc",
+    startSec: 9800,
+    bridge: "Combines customer attributes, order headers, and product dimensions into rich multi-table analytical views.",
     takeaways: [
-      "Understand why column aliases defined in SELECT cannot be referenced in WHERE.",
-      "Combine pre-aggregation WHERE filters with post-aggregation HAVING filters accurately.",
-      "Debug subtle aggregation count discrepancies caused by misplaced predicates."
+      "Always qualify column names with concise table aliases (c.city, o.total_inr) in multi-table joins.",
+      "Verify join cardinality (1:1 vs 1:N) so joining line items does not accidentally multiply order-level totals.",
+      "Use explicit INNER JOIN ... ON syntax rather than legacy comma joins."
     ],
     lab: {
-      lang: "sql",
-      title: "Combined Pre- and Post-Aggregation Pipeline",
-      prompt: "From Delivered orders only, find customers whose average order value exceeds 4000 INR.",
-      hint: "WHERE status = 'Delivered' runs before GROUP BY; HAVING AVG(total_inr) > 4000 runs after.",
-      starterCode: "SELECT customer_id,\n       COUNT(*) AS orders_cnt,\n       ROUND(AVG(total_inr), 2) AS avg_order_inr\nFROM orders\nWHERE status = 'Delivered'\nGROUP BY customer_id\nHAVING AVG(total_inr) > 4000;\n"
+      lang: "python",
+      title: "Three-Table Customer Tier Revenue Breakdown",
+      prompt: "Join customers, orders, and order_items to calculate total spend by customer loyalty tier.",
+      hint: "Join customers c -> orders o -> order_items oi and group by c.tier.",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE customers (cust_id INT, tier TEXT)')\nconn.execute('CREATE TABLE orders (order_id INT, cust_id INT)')\nconn.execute('CREATE TABLE order_items (order_id INT, line_total REAL)')\nconn.executemany('INSERT INTO customers VALUES (?, ?)', [(1, 'Gold'), (2, 'Silver')])\nconn.executemany('INSERT INTO orders VALUES (?, ?)', [(10, 1), (11, 2)])\nconn.executemany('INSERT INTO order_items VALUES (?, ?)', [(10, 4999.0), (10, 1499.0), (11, 2200.0)])\n\nrows = conn.execute(\"\"\"\n    SELECT c.tier, SUM(oi.line_total) AS tier_rev\n    FROM customers c\n    JOIN orders o ON c.cust_id = o.cust_id\n    JOIN order_items oi ON o.order_id = oi.order_id\n    GROUP BY c.tier;\n\"\"\").fetchall()\nprint(rows)\n"
     }
   },
   {
     day: 37,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Relational Modeling: INNER & OUTER JOIN",
-    instructor: "Alex The Analyst",
-    duration: "16m",
-    videoId: "9URM1_2S0ho",
-    altVideoId: "ImgpDC8d32s",
-    startSec: 0,
-    bridge: "Recombines normalized ShopPulse tables (customers + orders) so we can analyze revenue by city and loyalty tier.",
+    title: "LEFT JOIN, Anti-Joins & Preserving Zero-Order Customers",
+    instructor: "Joey Blue",
+    duration: "18m",
+    videoId: "HXV3zeQKqGY",
+    altVideoId: "MpAMjtvarrc",
+    startSec: 11200,
+    bridge: "Prevents silent survivor bias by preserving signed-up customers who have zero orders or zero delivered purchases.",
     takeaways: [
-      "Use INNER JOIN to keep matching records and LEFT JOIN to preserve all left-table entities (including zero-order customers).",
-      "Always qualify column names with table aliases to prevent ambiguity.",
-      "Spot accidental row fan-out when joining one-to-many tables."
+      "Place filters on the right-hand table inside the LEFT JOIN ... ON clause rather than WHERE, or LEFT JOIN silently becomes an INNER JOIN.",
+      "Find unactivated users via anti-join: LEFT JOIN orders o ON ... WHERE o.order_id IS NULL.",
+      "Use COUNT(o.order_id) instead of COUNT(*) on left-joined tables so zero-order users show 0 instead of 1."
     ],
     lab: {
-      lang: "sql",
-      title: "Left Join Customer Spend Audit (Including Zero-Order Users)",
-      prompt: "List every customer, their city, and their Delivered order count (showing 0 for customers with no delivered orders).",
-      hint: "LEFT JOIN orders o ON c.customer_id = o.customer_id AND o.status = 'Delivered'.",
-      starterCode: "SELECT c.customer_id, c.full_name, c.city,\n       COUNT(o.order_id) AS delivered_orders,\n       COALESCE(SUM(o.total_inr), 0) AS revenue_inr\nFROM customers c\nLEFT JOIN orders o\n  ON c.customer_id = o.customer_id AND o.status = 'Delivered'\nGROUP BY c.customer_id, c.full_name, c.city\nORDER BY revenue_inr DESC;\n"
+      lang: "python",
+      title: "Zero-Order Signup Audit & Full Customer Spend Summary",
+      prompt: "LEFT JOIN customers to delivered orders (filtering status in ON) so zero-order customers report 0 orders and 0.0 spend.",
+      hint: "LEFT JOIN orders o ON c.cust_id = o.cust_id AND o.status = 'Delivered'.",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE customers (cust_id INT, name TEXT)')\nconn.execute('CREATE TABLE orders (order_id INT, cust_id INT, status TEXT, total_inr REAL)')\nconn.executemany('INSERT INTO customers VALUES (?, ?)', [(1, 'Aarav'), (2, 'Sneha'), (3, 'Vikram')])\nconn.executemany('INSERT INTO orders VALUES (?, ?, ?, ?)', [(101, 1, 'Delivered', 4500.0), (102, 2, 'Cancelled', 3000.0)])\n\nrows = conn.execute(\"\"\"\n    SELECT c.name, COUNT(o.order_id) AS delivered_cnt, COALESCE(SUM(o.total_inr), 0) AS spend\n    FROM customers c\n    LEFT JOIN orders o ON c.cust_id = o.cust_id AND o.status = 'Delivered'\n    GROUP BY c.cust_id, c.name\n    ORDER BY spend DESC;\n\"\"\").fetchall()\nprint(rows)\n"
     }
   },
   {
     day: 38,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Multi-Table Star-Schema Joins in Postgres",
-    instructor: "Alex The Analyst",
+    title: "Self Joins & Cross Joins for Pairwise Product Affinity",
+    instructor: "Ankit Bansal",
     duration: "16m",
-    videoId: "ImgpDC8d32s",
-    altVideoId: "9URM1_2S0ho",
+    videoId: "MpAMjtvarrc",
+    altVideoId: "HXV3zeQKqGY",
     startSec: 0,
-    bridge: "Chains 4 normalized tables (customers -> orders -> order_items -> products) to compute true product-level gross profit.",
+    bridge: "Discovers 'Frequently Bought Together' SKU pairs directly inside SQL using self-joins on order_id.",
     takeaways: [
-      "Traverse fact-to-dimension joins across bridge tables like order_items.",
-      "Verify row grain at every join step so line-item sums are never double-counted.",
-      "Compute realized profit by subtracting product cost from sold quantity."
+      "Join a table to itself using distinct aliases (a, b) to compare rows within the same order or employee hierarchy.",
+      "Enforce a.sku < b.sku in market-basket self-joins so pairs are counted once without (A,A) self-pairs.",
+      "Use CROSS JOIN deliberately when generating all City x Month calendar grids."
     ],
     lab: {
-      lang: "sql",
-      title: "4-Table Product Profitability Rollup",
-      prompt: "Join orders, order_items, and products to compute total units sold and realized gross profit per product.",
-      hint: "Filter o.status = 'Delivered' and sum oi.quantity * (p.price_inr - p.cost_inr).",
-      starterCode: "SELECT p.product_name, p.category,\n       SUM(oi.quantity) AS units_sold,\n       ROUND(SUM(oi.quantity * (p.price_inr - p.cost_inr)), 2) AS realized_profit_inr\nFROM orders o\nJOIN order_items oi ON o.order_id = oi.order_id\nJOIN products p ON oi.product_id = p.product_id\nWHERE o.status = 'Delivered'\nGROUP BY p.product_id, p.product_name, p.category\nORDER BY realized_profit_inr DESC;\n"
+      lang: "python",
+      title: "Market-Basket Co-Purchase Pair Finder in SQL",
+      prompt: "Find SKU pairs purchased together in the same order using a self-join with a.sku < b.sku.",
+      hint: "JOIN order_items b ON a.order_id = b.order_id AND a.sku < b.sku.",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE order_items (order_id INT, sku TEXT)')\nconn.executemany('INSERT INTO order_items VALUES (?, ?)', [\n    (1, 'SP-101'), (1, 'SP-102'), (2, 'SP-101'), (2, 'SP-102'), (2, 'SP-103')\n])\n\npairs = conn.execute(\"\"\"\n    SELECT a.sku AS sku_1, b.sku AS sku_2, COUNT(*) AS co_orders\n    FROM order_items a\n    JOIN order_items b ON a.order_id = b.order_id AND a.sku < b.sku\n    GROUP BY a.sku, b.sku\n    ORDER BY co_orders DESC;\n\"\"\").fetchall()\nprint(pairs)\n"
     }
   },
   {
     day: 39,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Business Logic Segmentation: CASE WHEN",
-    instructor: "Data with Baraa",
-    duration: "36m",
-    videoId: "GHPHZ8XJxeg",
-    altVideoId: "X_cPXHV2NQ4",
-    startSec: 0,
-    bridge: "Creates RFM/value buckets and conditional pivot counts directly inside SQL queries.",
+    title: "Set Operations: UNION, UNION ALL, INTERSECT & EXCEPT",
+    instructor: "Joey Blue",
+    duration: "15m",
+    videoId: "HXV3zeQKqGY",
+    altVideoId: "MpAMjtvarrc",
+    startSec: 12500,
+    bridge: "Stacks web and mobile event streams with UNION ALL and audits dataset diffs with EXCEPT.",
     takeaways: [
-      "Bucket continuous revenue metrics into discrete customer segments using CASE WHEN.",
-      "Use conditional aggregation SUM(CASE WHEN ... THEN 1 ELSE 0 END) to pivot statuses into columns.",
-      "Always include an explicit ELSE fallback branch."
+      "Prefer UNION ALL over UNION when stacking disjoint partitions so SQL skips expensive sort-deduplication.",
+      "Use EXCEPT to find records present in source exports but missing from warehouse tables.",
+      "Ensure both SELECT branches share identical column counts and compatible data types."
     ],
     lab: {
-      lang: "sql",
-      title: "Order Value Tiering & Status Pivot",
-      prompt: "Classify Delivered orders into High (>=7000), Medium (3000-6999), and Standard (<3000) segments.",
-      hint: "Use CASE WHEN total_inr >= 7000 THEN 'High' WHEN total_inr >= 3000 THEN 'Medium' ELSE 'Standard' END.",
-      starterCode: "SELECT\n  CASE\n    WHEN total_inr >= 7000 THEN 'High (>=7k)'\n    WHEN total_inr >= 3000 THEN 'Medium (3k-7k)'\n    ELSE 'Standard (<3k)'\n  END AS basket_segment,\n  COUNT(*) AS order_count,\n  ROUND(SUM(total_inr), 2) AS segment_revenue_inr\nFROM orders\nWHERE status = 'Delivered'\nGROUP BY basket_segment\nORDER BY segment_revenue_inr DESC;\n"
+      lang: "python",
+      title: "App vs Web Channel Unification & Discrepancy Check",
+      prompt: "Combine app_orders and web_orders with UNION ALL including a channel tag, and find customers in web but not app via EXCEPT.",
+      hint: "SELECT 'app' AS channel, cust_id, total FROM app_orders UNION ALL SELECT 'web', cust_id, total FROM web_orders.",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE app_orders (cust_id INT, total REAL)')\nconn.execute('CREATE TABLE web_orders (cust_id INT, total REAL)')\nconn.executemany('INSERT INTO app_orders VALUES (?, ?)', [(1, 2500.0), (2, 3100.0)])\nconn.executemany('INSERT INTO web_orders VALUES (?, ?)', [(2, 4200.0), (3, 5500.0)])\n\ncombined = conn.execute(\"SELECT 'app' AS ch, cust_id, total FROM app_orders UNION ALL SELECT 'web', cust_id, total FROM web_orders;\").fetchall()\nweb_only = conn.execute('SELECT cust_id FROM web_orders EXCEPT SELECT cust_id FROM app_orders;').fetchall()\nprint('Combined Rows:', combined)\nprint('Web-Only Cust:', web_only)\n"
     }
   },
   {
     day: 40,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Handling Missingness: COALESCE & NULLIF",
-    instructor: "Data with Baraa",
-    duration: "53m",
-    videoId: "X_cPXHV2NQ4",
-    altVideoId: "GHPHZ8XJxeg",
-    startSec: 0,
-    bridge: "Eliminates division-by-zero crashes and NULL propagation in left-joined KPI reports.",
+    title: "Scalar, IN & EXISTS Correlated Subqueries",
+    instructor: "Ankit Bansal",
+    duration: "18m",
+    videoId: "MpAMjtvarrc",
+    altVideoId: "HXV3zeQKqGY",
+    startSec: 960,
+    bridge: "Filters customers against dynamic benchmarks and avoids NOT IN NULL-poisoning bugs using NOT EXISTS.",
     takeaways: [
-      "Replace NULL values cleanly with COALESCE(expr, fallback).",
-      "Prevent division-by-zero errors using numerator / NULLIF(denominator, 0).",
-      "Remember that NULL = NULL evaluates to UNKNOWN, not TRUE; always use IS NULL."
+      "Avoid NOT IN (subquery) whenever the subquery can return NULL—use NOT EXISTS instead.",
+      "Use scalar subqueries in WHERE to compare rows against global averages.",
+      "Use EXISTS for fast semi-joins that stop scanning as soon as one matching child row is found."
     ],
     lab: {
-      lang: "sql",
-      title: "Safe Cancellation Rate Calculator",
-      prompt: "Compute the cancellation percentage per city safely using COALESCE and NULLIF.",
-      hint: "Divide cancelled order count by NULLIF(COUNT(o.order_id), 0) * 100.0.",
-      starterCode: "SELECT c.city,\n       COUNT(o.order_id) AS total_orders,\n       SUM(CASE WHEN o.status = 'Cancelled' THEN 1 ELSE 0 END) AS cancelled_orders,\n       COALESCE(ROUND(100.0 * SUM(CASE WHEN o.status = 'Cancelled' THEN 1 ELSE 0 END) / NULLIF(COUNT(o.order_id), 0), 1), 0.0) AS cancel_rate_pct\nFROM customers c\nLEFT JOIN orders o ON c.customer_id = o.customer_id\nGROUP BY c.city;\n"
+      lang: "python",
+      title: "Above-Average Order Filter & Safe NOT EXISTS Churn Check",
+      prompt: "Select orders strictly above overall average order value and find customers with no orders via NOT EXISTS.",
+      hint: "WHERE total_inr > (SELECT AVG(total_inr) FROM orders).",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE customers (cust_id INT, name TEXT)')\nconn.execute('CREATE TABLE orders (order_id INT, cust_id INT, total_inr REAL)')\nconn.executemany('INSERT INTO customers VALUES (?, ?)', [(1, 'Aarav'), (2, 'Diya')])\nconn.executemany('INSERT INTO orders VALUES (?, ?, ?)', [(10, 1, 2000.0), (11, 1, 8000.0)])\n\nabove_avg = conn.execute('SELECT order_id, total_inr FROM orders WHERE total_inr > (SELECT AVG(total_inr) FROM orders);').fetchall()\nno_orders = conn.execute('SELECT name FROM customers c WHERE NOT EXISTS (SELECT 1 FROM orders o WHERE o.cust_id = c.cust_id);').fetchall()\nprint('Above Avg Orders:', above_avg)\nprint('Zero-Order Cust :', no_orders)\n"
     }
   },
   {
     day: 41,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Cleaning Dirty Text: SQL String Functions",
-    instructor: "Data with Baraa",
-    duration: "26m",
-    videoId: "NOTWx5s-s1o",
-    altVideoId: "X_cPXHV2NQ4",
-    startSec: 0,
-    bridge: "Standardizes customer names, extracts domain/code substrings, and inspects review text lengths directly in SQL.",
+    title: "Common Table Expressions (WITH CTEs) for Modular SQL",
+    instructor: "Ankit Bansal",
+    duration: "18m",
+    videoId: "MpAMjtvarrc",
+    altVideoId: "C7ZZuuwrsVc",
+    startSec: 2100,
+    bridge: "Replaces unreadable nested subqueries with step-by-step named CTE building blocks.",
     takeaways: [
-      "Normalize casing and whitespace with TRIM(), UPPER(), and LOWER().",
-      "Measure review verbosity with LENGTH() and extract prefixes with SUBSTR().",
-      "Clean messy text keys prior to joining across external data sources."
+      "Chain multiple CTEs (WITH step1 AS (...), step2 AS (...)) so complex pipelines read top-to-bottom.",
+      "Pre-aggregate fact tables inside a CTE before joining to avoid accidental row multiplication.",
+      "Give every CTE a clear grain-descriptive name (e.g., customer_monthly_spend)."
     ],
     lab: {
-      lang: "sql",
-      title: "Customer Review Length & Keyword Audit",
-      prompt: "Inspect customer reviews, normalize text to lowercase, and flag reviews mentioning 'noise' or '4k'.",
-      hint: "Use LOWER(review_text) LIKE '%noise%' inside a CASE expression.",
-      starterCode: "SELECT r.review_id, p.product_name, r.rating,\n       LENGTH(r.review_text) AS char_len,\n       CASE WHEN LOWER(r.review_text) LIKE '%noise%' THEN 'Audio Feature' ELSE 'General' END AS topic_tag\nFROM reviews r\nJOIN products p ON r.product_id = p.product_id;\n"
+      lang: "python",
+      title: "Multi-CTE Customer LTV & Segment Summary",
+      prompt: "Build a CTE computing per-customer total spend, then aggregate average LTV by loyalty tier.",
+      hint: "WITH cust_ltv AS (SELECT cust_id, SUM(total_inr) AS ltv FROM orders GROUP BY cust_id) SELECT ...",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE customers (cust_id INT, tier TEXT)')\nconn.execute('CREATE TABLE orders (cust_id INT, total_inr REAL)')\nconn.executemany('INSERT INTO customers VALUES (?, ?)', [(1, 'Gold'), (2, 'Gold'), (3, 'Silver')])\nconn.executemany('INSERT INTO orders VALUES (?, ?)', [(1, 6000.0), (1, 4000.0), (2, 8000.0), (3, 3000.0)])\n\nres = conn.execute(\"\"\"\n    WITH cust_ltv AS (\n        SELECT cust_id, SUM(total_inr) AS ltv\n        FROM orders\n        GROUP BY cust_id\n    )\n    SELECT c.tier, ROUND(AVG(cl.ltv), 2) AS avg_ltv\n    FROM customers c\n    JOIN cust_ltv cl ON c.cust_id = cl.cust_id\n    GROUP BY c.tier;\n\"\"\").fetchall()\nprint(res)\n"
     }
   },
   {
     day: 42,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Cohort Bucketing: DATEPART & DATETRUNC",
-    instructor: "Data with Baraa",
-    duration: "43m",
-    videoId: "7RCxH9x5StM",
-    altVideoId: "U7WMMzxvwT4",
+    title: "Recursive CTEs for Date Spines & Hierarchical Trees",
+    instructor: "Ankit Bansal",
+    duration: "16m",
+    videoId: "C7ZZuuwrsVc",
+    altVideoId: "MpAMjtvarrc",
     startSec: 0,
-    bridge: "Truncates daily timestamps into monthly signup and order cohorts—essential groundwork for Day 51 retention analysis.",
+    bridge: "Generates continuous calendar date spines so days with zero orders still appear as 0 in time-series charts.",
     takeaways: [
-      "Bucket ISO dates into YYYY-MM month keys using SUBSTR(date, 1, 7) or DATE_TRUNC('month', ts).",
-      "Extract day-of-week and month components for seasonality analysis.",
-      "Align signup months with purchase months on a uniform calendar grain."
+      "Structure recursive CTEs with an anchor SELECT, UNION ALL, and a terminating recursive step.",
+      "Left-join daily order aggregates onto a generated date spine to eliminate missing-date gaps.",
+      "Traverse category parent-child hierarchies cleanly using recursive depth tracking."
     ],
     lab: {
-      lang: "sql",
-      title: "Monthly Revenue & Signup Cohort Bucketing",
-      prompt: "Group Delivered orders by YYYY-MM order month and compute monthly order volume and revenue.",
-      hint: "Use SUBSTR(order_date, 1, 7) AS order_month and GROUP BY order_month.",
-      starterCode: "SELECT SUBSTR(order_date, 1, 7) AS order_month,\n       COUNT(*) AS orders_cnt,\n       ROUND(SUM(total_inr), 2) AS monthly_revenue_inr\nFROM orders\nWHERE status = 'Delivered'\nGROUP BY order_month\nORDER BY order_month;\n"
+      lang: "python",
+      title: "Zero-Gap Daily Revenue Spine with Recursive CTE",
+      prompt: "Generate a 5-day date spine ('2026-11-01' to '2026-11-05') and LEFT JOIN sparse daily orders to show 0 on quiet days.",
+      hint: "WITH RECURSIVE dates(d) AS (SELECT '2026-11-01' UNION ALL SELECT date(d, '+1 day') FROM dates WHERE d < '2026-11-05').",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE daily_sales (order_date TEXT, rev REAL)')\nconn.executemany('INSERT INTO daily_sales VALUES (?, ?)', [('2026-11-01', 5000.0), ('2026-11-03', 8200.0), ('2026-11-05', 6100.0)])\n\nrows = conn.execute(\"\"\"\n    WITH RECURSIVE dates(d) AS (\n        SELECT '2026-11-01'\n        UNION ALL\n        SELECT date(d, '+1 day') FROM dates WHERE d < '2026-11-05'\n    )\n    SELECT dates.d, COALESCE(ds.rev, 0.0) AS rev\n    FROM dates\n    LEFT JOIN daily_sales ds ON dates.d = ds.order_date;\n\"\"\").fetchall()\nprint(rows)\n"
     }
   },
   {
     day: 43,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Date Math & Type Casting (CAST, CONVERT)",
-    instructor: "Data with Baraa",
-    duration: "31m",
-    videoId: "U7WMMzxvwT4",
-    altVideoId: "7RCxH9x5StM",
-    startSec: 0,
-    bridge: "Calculates days-since-signup (customer tenure at purchase) by casting ISO strings into date values.",
+    title: "Window Functions Part 1: OVER(), PARTITION BY & Running Totals",
+    instructor: "Ankit Bansal",
+    duration: "20m",
+    videoId: "C7ZZuuwrsVc",
+    altVideoId: "MpAMjtvarrc",
+    startSec: 1020,
+    bridge: "Computes cumulative revenue and each order's share of customer spend without collapsing individual rows.",
     takeaways: [
-      "Prevent integer division truncation using CAST(x AS REAL) or multiplying by 1.0.",
-      "Compute elapsed days between signup_date and order_date with JULIANDAY() / DATEDIFF().",
-      "Standardize mixed schema data types cleanly in views."
+      "Window functions compute group aggregates across OVER (PARTITION BY ...) while preserving original row grain.",
+      "Add ORDER BY inside OVER() to turn SUM() into a running cumulative total.",
+      "Compute % share of city revenue cleanly via total_inr / SUM(total_inr) OVER (PARTITION BY city)."
     ],
     lab: {
-      lang: "sql",
-      title: "Days from Signup to Purchase",
-      prompt: "Calculate how many days after signup each customer placed their Delivered orders.",
-      hint: "Use ROUND(JULIANDAY(o.order_date) - JULIANDAY(c.signup_date)) AS days_since_signup.",
-      starterCode: "SELECT o.order_id, c.full_name, c.signup_date, o.order_date,\n       CAST(JULIANDAY(o.order_date) - JULIANDAY(c.signup_date) AS INT) AS days_since_signup\nFROM orders o\nJOIN customers c ON o.customer_id = c.customer_id\nWHERE o.status = 'Delivered'\nORDER BY days_since_signup;\n"
+      lang: "python",
+      title: "Cumulative Customer Spend & Order Share Query",
+      prompt: "For each order, compute running cumulative spend per customer and % share of that customer's total spend.",
+      hint: "SUM(rev) OVER (PARTITION BY cust_id ORDER BY order_date) and SUM(rev) OVER (PARTITION BY cust_id).",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE orders (cust_id INT, order_date TEXT, rev REAL)')\nconn.executemany('INSERT INTO orders VALUES (?, ?, ?)', [\n    (1, '2026-10-01', 2000.0), (1, '2026-10-15', 3000.0), (1, '2026-11-01', 5000.0)\n])\n\nrows = conn.execute(\"\"\"\n    SELECT order_date,\n           rev,\n           SUM(rev) OVER (PARTITION BY cust_id ORDER BY order_date) AS running_rev,\n           ROUND(100.0 * rev / SUM(rev) OVER (PARTITION BY cust_id), 1) AS share_pct\n    FROM orders;\n\"\"\").fetchall()\nprint(rows)\n"
     }
   },
   {
     day: 44,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Scalar & Inline Subqueries",
-    instructor: "techTFQ",
-    duration: "35m",
-    videoId: "nJIEIzF7tDw",
-    altVideoId: "QNfnuK-1YYY",
-    startSec: 0,
-    bridge: "Compares individual orders against the global average order value using dynamic scalar subqueries.",
+    title: "Ranking Windows: ROW_NUMBER, RANK & DENSE_RANK (Top-N per Group)",
+    instructor: "Ankit Bansal",
+    duration: "18m",
+    videoId: "C7ZZuuwrsVc",
+    altVideoId: "MpAMjtvarrc",
+    startSec: 2220,
+    bridge: "Solves the #1 SQL interview and analytics pattern: extracting the Top-N products or latest order per category/user.",
     takeaways: [
-      "Embed scalar subqueries in WHERE or SELECT to compare rows against global benchmarks.",
-      "Use IN (SELECT ...) subqueries to filter against dynamic entity lists.",
-      "Know when a JOIN outperforms an IN subquery."
+      "ROW_NUMBER assigns unique 1,2,3 ranks; RANK leaves gaps on ties (1,1,3); DENSE_RANK keeps consecutive ranks (1,1,2).",
+      "Filter window ranks inside an outer query or CTE (WHERE rn <= 2) because window functions run after WHERE.",
+      "Use ROW_NUMBER() OVER (PARTITION BY cust_id ORDER BY order_date DESC) = 1 to fetch each customer's latest order."
     ],
     lab: {
-      lang: "sql",
-      title: "Above-Average Basket Detector",
-      prompt: "Find all Delivered orders whose total_inr exceeds the overall average Delivered order value.",
-      hint: "Compare total_inr > (SELECT AVG(total_inr) FROM orders WHERE status = 'Delivered').",
-      starterCode: "SELECT order_id, customer_id, order_date, total_inr\nFROM orders\nWHERE status = 'Delivered'\n  AND total_inr > (\n    SELECT AVG(total_inr)\n    FROM orders\n    WHERE status = 'Delivered'\n  )\nORDER BY total_inr DESC;\n"
+      lang: "python",
+      title: "Top-2 Highest Revenue SKUs per City",
+      prompt: "Rank SKUs within each city by revenue descending and filter to the top 2 per city.",
+      hint: "Use DENSE_RANK() OVER (PARTITION BY city ORDER BY rev DESC) inside a CTE, then WHERE rnk <= 2.",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE city_sku (city TEXT, sku TEXT, rev REAL)')\nconn.executemany('INSERT INTO city_sku VALUES (?, ?, ?)', [\n    ('Mumbai', 'SP-101', 9000), ('Mumbai', 'SP-102', 7000), ('Mumbai', 'SP-103', 4000),\n    ('Delhi', 'SP-102', 8500), ('Delhi', 'SP-101', 6000), ('Delhi', 'SP-104', 3000)\n])\n\ntop2 = conn.execute(\"\"\"\n    WITH ranked AS (\n        SELECT city, sku, rev, DENSE_RANK() OVER (PARTITION BY city ORDER BY rev DESC) AS rnk\n        FROM city_sku\n    )\n    SELECT city, sku, rev FROM ranked WHERE rnk <= 2;\n\"\"\").fetchall()\nprint(top2)\n"
     }
   },
   {
     day: 45,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Correlated Subqueries & EXISTS",
-    instructor: "techTFQ",
-    duration: "35m",
-    videoId: "nJIEIzF7tDw",
-    altVideoId: "QNfnuK-1YYY",
-    startSec: 2100,
-    bridge: "Uses short-circuiting EXISTS / NOT EXISTS predicates to isolate customers or products without related records.",
+    title: "Offset Windows: LAG, LEAD & Period-over-Period Growth",
+    instructor: "Ankit Bansal",
+    duration: "18m",
+    videoId: "C7ZZuuwrsVc",
+    altVideoId: "MpAMjtvarrc",
+    startSec: 3360,
+    bridge: "Computes Month-over-Month revenue growth and inter-order days between consecutive customer purchases without self-joins.",
     takeaways: [
-      "Understand how correlated subqueries evaluate once per outer candidate row.",
-      "Prefer EXISTS / NOT EXISTS over NOT IN when NULL values may appear in the subquery.",
-      "Identify unreviewed products or non-converting users cleanly."
+      "LAG(col, 1) accesses the preceding row in the partition; LEAD(col, 1) accesses the following row.",
+      "Compute MoM % growth via ROUND(100.0 * (rev - LAG(rev) OVER (...)) / LAG(rev) OVER (...), 1).",
+      "Compute inter-order repurchase intervals using julianday(order_date) - julianday(LAG(order_date) OVER (...))."
     ],
     lab: {
-      lang: "sql",
-      title: "Find Unreviewed Products via NOT EXISTS",
-      prompt: "List all products in the catalog that do not yet have any entry in the reviews table.",
-      hint: "SELECT * FROM products p WHERE NOT EXISTS (SELECT 1 FROM reviews r WHERE r.product_id = p.product_id).",
-      starterCode: "SELECT p.product_id, p.product_name, p.category, p.price_inr\nFROM products p\nWHERE NOT EXISTS (\n  SELECT 1\n  FROM reviews r\n  WHERE r.product_id = p.product_id\n);\n"
+      lang: "python",
+      title: "Month-over-Month Revenue Growth Calculator",
+      prompt: "Compute prior-month revenue and MoM percentage growth across monthly ShopPulse revenue rows.",
+      hint: "Use LAG(rev) OVER (ORDER BY month) in a CTE, then compute percentage delta.",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE monthly_rev (month TEXT, rev REAL)')\nconn.executemany('INSERT INTO monthly_rev VALUES (?, ?)', [\n    ('2026-08', 100000.0), ('2026-09', 115000.0), ('2026-10', 138000.0)\n])\n\nmom = conn.execute(\"\"\"\n    WITH lagged AS (\n        SELECT month, rev, LAG(rev) OVER (ORDER BY month) AS prev_rev\n        FROM monthly_rev\n    )\n    SELECT month, rev, prev_rev, ROUND(100.0 * (rev - prev_rev) / prev_rev, 1) AS mom_pct\n    FROM lagged;\n\"\"\").fetchall()\nprint(mom)\n"
     }
   },
   {
     day: 46,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Modular Analytics: CTEs (WITH Clause)",
-    instructor: "techTFQ",
-    duration: "25m",
-    videoId: "QNfnuK-1YYY",
-    altVideoId: "nJIEIzF7tDw",
-    startSec: 0,
-    bridge: "Replaces nested subqueries with readable, step-by-step WITH pipelines—just like chaining clean Python functions.",
+    title: "Window Frames: ROWS BETWEEN Moving Averages & Rolling Windows",
+    instructor: "Ankit Bansal",
+    duration: "17m",
+    videoId: "C7ZZuuwrsVc",
+    altVideoId: "MpAMjtvarrc",
+    startSec: 4500,
+    bridge: "Smooths noisy daily order spikes into 3-day and 7-day rolling averages using explicit ROWS BETWEEN frame bounds.",
     takeaways: [
-      "Decompose multi-stage transformations into named Common Table Expressions (CTEs).",
-      "Chain multiple CTEs sequentially to separate cleaning, aggregation, and ranking.",
-      "Improve code reviewability and debugging across complex analytical queries."
+      "Specify ROWS BETWEEN 2 PRECEDING AND CURRENT ROW for a true 3-row trailing moving average.",
+      "Understand why default RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW groups tied ORDER BY values together.",
+      "Use ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING for partition-wide totals."
     ],
     lab: {
-      lang: "sql",
-      title: "Two-Stage Customer LTV CTE Pipeline",
-      prompt: "Use a CTE to aggregate Delivered spend per customer, then join with customers to rank LTV by tier.",
-      hint: "Define WITH customer_ltv AS (SELECT customer_id, SUM(total_inr) AS ltv ...) and join to customers.",
-      starterCode: "WITH customer_ltv AS (\n  SELECT customer_id,\n         COUNT(*) AS orders_cnt,\n         ROUND(SUM(total_inr), 2) AS ltv_inr\n  FROM orders\n  WHERE status = 'Delivered'\n  GROUP BY customer_id\n)\nSELECT c.full_name, c.tier, c.city, l.orders_cnt, l.ltv_inr\nFROM customer_ltv l\nJOIN customers c ON l.customer_id = c.customer_id\nORDER BY l.ltv_inr DESC;\n"
+      lang: "python",
+      title: "3-Day Trailing Moving Average of Daily Revenue",
+      prompt: "Compute a 3-day trailing moving average over daily revenue using ROWS BETWEEN 2 PRECEDING AND CURRENT ROW.",
+      hint: "ROUND(AVG(rev) OVER (ORDER BY day ROWS BETWEEN 2 PRECEDING AND CURRENT ROW), 2).",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE daily (day TEXT, rev REAL)')\nconn.executemany('INSERT INTO daily VALUES (?, ?)', [\n    ('D1', 4000), ('D2', 5000), ('D3', 6000), ('D4', 9000), ('D5', 6000)\n])\n\nma = conn.execute(\"\"\"\n    SELECT day, rev,\n           ROUND(AVG(rev) OVER (ORDER BY day ROWS BETWEEN 2 PRECEDING AND CURRENT ROW), 2) AS ma_3d\n    FROM daily;\n\"\"\").fetchall()\nprint(ma)\n"
     }
   },
   {
     day: 47,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Window Functions Intro: OVER & PARTITION BY",
-    instructor: "Maven Analytics",
-    duration: "8m",
-    videoId: "rIcB4zMYMas",
-    altVideoId: "Ww71knvhQ-s",
-    startSec: 0,
-    bridge: "Computes group totals and revenue share percentages without collapsing rows like GROUP BY does.",
+    title: "Date Bucketing, Cohort Assignment & Retention Matrices in SQL",
+    instructor: "Ankit Bansal",
+    duration: "22m",
+    videoId: "MpAMjtvarrc",
+    altVideoId: "C7ZZuuwrsVc",
+    startSec: 3300,
+    bridge: "Assigns every buyer to their first-purchase acquisition cohort month and tracks repeat retention over subsequent months.",
     takeaways: [
-      "Keep row-level granularity while computing partition-wide aggregates via OVER (PARTITION BY ...).",
-      "Calculate each order's percentage contribution to a customer's total spend.",
-      "Understand the difference between GROUP BY collapsing and window partitioning."
+      "Anchor each customer's cohort month via MIN(strftime('%Y-%m', order_date)) OVER (PARTITION BY cust_id).",
+      "Compute cohort month offset (0, 1, 2...) from order month minus cohort month.",
+      "Measure cohort retention as active_users_in_month_k / cohort_size_in_month_0."
     ],
     lab: {
-      lang: "sql",
-      title: "Order Share of Customer Lifetime Spend",
-      prompt: "Show each Delivered order alongside that customer's total spend and the order's percentage share.",
-      hint: "Use SUM(total_inr) OVER (PARTITION BY customer_id).",
-      starterCode: "SELECT order_id, customer_id, order_date, total_inr,\n       SUM(total_inr) OVER (PARTITION BY customer_id) AS cust_total_inr,\n       ROUND(100.0 * total_inr / SUM(total_inr) OVER (PARTITION BY customer_id), 1) AS share_pct\nFROM orders\nWHERE status = 'Delivered'\nORDER BY customer_id, order_date;\n"
+      lang: "python",
+      title: "First-Order Acquisition Cohort Retention Query",
+      prompt: "Assign each customer to their first order month and count active customers by cohort_month and order_month.",
+      hint: "Use MIN(substr(order_date, 1, 7)) OVER (PARTITION BY cust_id) AS cohort.",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE orders (cust_id INT, order_date TEXT)')\nconn.executemany('INSERT INTO orders VALUES (?, ?)', [\n    (1, '2026-09-05'), (1, '2026-10-10'), (2, '2026-09-18'), (3, '2026-10-02')\n])\n\ncohorts = conn.execute(\"\"\"\n    WITH tagged AS (\n        SELECT cust_id,\n               substr(order_date, 1, 7) AS order_m,\n               MIN(substr(order_date, 1, 7)) OVER (PARTITION BY cust_id) AS cohort_m\n        FROM orders\n    )\n    SELECT cohort_m, order_m, COUNT(DISTINCT cust_id) AS active_buyers\n    FROM tagged\n    GROUP BY cohort_m, order_m\n    ORDER BY cohort_m, order_m;\n\"\"\").fetchall()\nprint(cohorts)\n"
     }
   },
   {
     day: 48,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Ranking & Period Comparisons: RANK, LEAD, LAG",
-    instructor: "techTFQ",
-    duration: "25m",
-    videoId: "Ww71knvhQ-s",
-    altVideoId: "rIcB4zMYMas",
-    startSec: 0,
-    bridge: "Unlocks Top-N-per-group deduplication (ROW_NUMBER) and month-over-month growth deltas (LAG).",
+    title: "RFM Customer Segmentation & Percentile NTILE Bucketing",
+    instructor: "Ankit Bansal",
+    duration: "18m",
+    videoId: "C7ZZuuwrsVc",
+    altVideoId: "MpAMjtvarrc",
+    startSec: 5600,
+    bridge: "Scores customers on Recency, Frequency, and Monetary spend using SQL NTILE() quartiles.",
     takeaways: [
-      "Contrast ROW_NUMBER(), RANK(), and DENSE_RANK() on tied values.",
-      "Access previous and next rows in an ordered sequence using LAG() and LEAD().",
-      "Compute month-over-month revenue growth and days between repeat customer orders."
+      "Compute Recency (days since last order), Frequency (order count), and Monetary (total spend) per customer.",
+      "Bucket customers into quartiles or deciles using NTILE(4) OVER (ORDER BY metric).",
+      "Combine RFM scores to surface 'Champions' vs 'At-Risk High Spenders'."
     ],
     lab: {
-      lang: "sql",
-      title: "Month-over-Month Revenue Growth via LAG()",
-      prompt: "Aggregate monthly Delivered revenue in a CTE, then use LAG() to compute previous month revenue and MoM delta.",
-      hint: "Use LAG(rev) OVER (ORDER BY order_month) in the outer SELECT.",
-      starterCode: "WITH monthly AS (\n  SELECT SUBSTR(order_date, 1, 7) AS order_month,\n         ROUND(SUM(total_inr), 2) AS rev\n  FROM orders\n  WHERE status = 'Delivered'\n  GROUP BY order_month\n)\nSELECT order_month, rev,\n       LAG(rev) OVER (ORDER BY order_month) AS prev_month_rev,\n       ROUND(rev - COALESCE(LAG(rev) OVER (ORDER BY order_month), rev), 2) AS mom_delta_inr\nFROM monthly\nORDER BY order_month;\n"
+      lang: "python",
+      title: "SQL NTILE Monetary Spend Quartile Scorer",
+      prompt: "Aggregate total spend per customer and assign NTILE(4) spend tiers (4 = highest spenders).",
+      hint: "NTILE(4) OVER (ORDER BY SUM(rev) ASC) AS m_score.",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE orders (cust_id INT, rev REAL)')\nconn.executemany('INSERT INTO orders VALUES (?, ?)', [\n    (1, 2000), (2, 5000), (3, 12000), (4, 28000), (1, 1000)\n])\n\nrfm = conn.execute(\"\"\"\n    SELECT cust_id, SUM(rev) AS monetary,\n           NTILE(4) OVER (ORDER BY SUM(rev) ASC) AS spend_quartile\n    FROM orders\n    GROUP BY cust_id\n    ORDER BY monetary DESC;\n\"\"\").fetchall()\nprint(rfm)\n"
     }
   },
   {
     day: 49,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Rolling Windows & Percentiles: ROWS BETWEEN",
-    instructor: "techTFQ",
-    duration: "54m",
-    videoId: "zAmJPdZu8Rg",
-    altVideoId: "Ww71knvhQ-s",
-    startSec: 0,
-    bridge: "Constructs cumulative running totals and moving averages using explicit window frame clauses.",
+    title: "Funnel Conversion & Drop-Off Analysis in Pure SQL",
+    instructor: "Ankit Bansal",
+    duration: "18m",
+    videoId: "MpAMjtvarrc",
+    altVideoId: "C7ZZuuwrsVc",
+    startSec: 4680,
+    bridge: "Measures step-by-step user progression across view -> cart -> checkout -> purchase events.",
     takeaways: [
-      "Control exact sliding frames with ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW.",
-      "Compute 3-period moving averages with ROWS BETWEEN 2 PRECEDING AND CURRENT ROW.",
-      "Understand why ROWS frames differ from RANGE frames when duplicate sort keys exist."
+      "Aggregate user-level stage flags with MAX(CASE WHEN event = 'purchase' THEN 1 ELSE 0 END).",
+      "Compute both step-to-step conversion and overall top-of-funnel conversion rates.",
+      "Pinpoint the stage with the steepest drop-off for A/B experiment prioritization."
     ],
     lab: {
-      lang: "sql",
-      title: "Cumulative Running Revenue Curve",
-      prompt: "Calculate the chronological running total of Delivered revenue across all orders.",
-      hint: "SUM(total_inr) OVER (ORDER BY order_date, order_id ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW).",
-      starterCode: "SELECT order_id, order_date, total_inr,\n       ROUND(SUM(total_inr) OVER (\n         ORDER BY order_date, order_id\n         ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW\n       ), 2) AS cumulative_revenue_inr\nFROM orders\nWHERE status = 'Delivered'\nORDER BY order_date, order_id;\n"
+      lang: "python",
+      title: "4-Stage E-Commerce Funnel Conversion Query",
+      prompt: "Compute unique users at view, cart, and purchase stages plus overall view-to-purchase conversion %.",
+      hint: "Aggregate per user first with MAX(CASE WHEN stage = ... THEN 1 ELSE 0 END), then sum across users.",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE events (user_id INT, stage TEXT)')\nconn.executemany('INSERT INTO events VALUES (?, ?)', [\n    (1, 'view'), (1, 'cart'), (1, 'purchase'),\n    (2, 'view'), (2, 'cart'),\n    (3, 'view'), (4, 'view')\n])\n\nfunnel = conn.execute(\"\"\"\n    WITH u AS (\n        SELECT user_id,\n               MAX(CASE WHEN stage = 'view' THEN 1 ELSE 0 END) AS v,\n               MAX(CASE WHEN stage = 'cart' THEN 1 ELSE 0 END) AS c,\n               MAX(CASE WHEN stage = 'purchase' THEN 1 ELSE 0 END) AS p\n        FROM events GROUP BY user_id\n    )\n    SELECT SUM(v) AS views, SUM(c) AS carts, SUM(p) AS purchases,\n           ROUND(100.0 * SUM(p) / SUM(v), 1) AS conv_pct\n    FROM u;\n\"\"\").fetchone()\nprint(dict(zip(['views', 'carts', 'purchases', 'conv_pct'], funnel)))\n"
     }
   },
   {
     day: 50,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Case Study 1: New vs Repeat Customer Split",
+    title: "Gap-and-Island Streak Detection with ROW_NUMBER Differences",
     instructor: "Ankit Bansal",
-    duration: "17m",
-    videoId: "MpAMjtvarrc",
-    altVideoId: "6hfsRqmyvog",
-    startSec: 0,
-    bridge: "Solves a classic product-analytics interview pattern by tagging every order's purchase sequence number.",
+    duration: "19m",
+    videoId: "C7ZZuuwrsVc",
+    altVideoId: "MpAMjtvarrc",
+    startSec: 6720,
+    bridge: "Detects consecutive active buying days and uninterrupted SLA streaks using the classic date minus row-number invariant.",
     takeaways: [
-      "Identify a customer's first purchase date using MIN(order_date) OVER (PARTITION BY customer_id).",
-      "Classify every subsequent order as New vs Repeat revenue.",
-      "Aggregate monthly revenue split between new acquisition and repeat retention."
+      "Subtracting sequential ROW_NUMBER() days from consecutive dates yields a constant island anchor date.",
+      "Group by (user_id, island_anchor) to compute streak start, streak end, and streak length.",
+      "Apply the same pattern to detect consecutive failed payment attempts or downtime windows."
     ],
     lab: {
-      lang: "sql",
-      title: "New vs Repeat Revenue Breakdown by Month",
-      prompt: "Tag each Delivered order as 'New' (first order for that customer) or 'Repeat', then aggregate by month.",
-      hint: "Compare order_date = MIN(order_date) OVER (PARTITION BY customer_id) inside a CTE.",
-      starterCode: "WITH tagged AS (\n  SELECT order_id, customer_id,\n         SUBSTR(order_date, 1, 7) AS order_month,\n         total_inr,\n         CASE\n           WHEN order_date = MIN(order_date) OVER (PARTITION BY customer_id) THEN 'New'\n           ELSE 'Repeat'\n         END AS buyer_type\n  FROM orders\n  WHERE status = 'Delivered'\n)\nSELECT order_month, buyer_type,\n       COUNT(*) AS orders_cnt,\n       ROUND(SUM(total_inr), 2) AS revenue_inr\nFROM tagged\nGROUP BY order_month, buyer_type\nORDER BY order_month, buyer_type;\n"
+      lang: "python",
+      title: "Consecutive Active Day Streak Finder",
+      prompt: "Find the longest streak of consecutive purchase dates for customer 1.",
+      hint: "Compute date(order_date, '-' || ROW_NUMBER() OVER (ORDER BY order_date) || ' days') AS grp and group by grp.",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE logins (day TEXT)')\nconn.executemany('INSERT INTO logins VALUES (?)', [\n    ('2026-11-01',), ('2026-11-02',), ('2026-11-03',), ('2026-11-06',), ('2026-11-07',)\n])\n\nstreaks = conn.execute(\"\"\"\n    WITH grouped AS (\n        SELECT day, date(day, '-' || ROW_NUMBER() OVER (ORDER BY day) || ' days') AS island\n        FROM logins\n    )\n    SELECT MIN(day) AS start_day, MAX(day) AS end_day, COUNT(*) AS streak_len\n    FROM grouped\n    GROUP BY island\n    ORDER BY streak_len DESC;\n\"\"\").fetchall()\nprint(streaks)\n"
     }
   },
   {
     day: 51,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Case Study 2: Monthly Cohort Retention & Churn",
-    instructor: "Ankit Bansal",
-    duration: "12m",
-    videoId: "6hfsRqmyvog",
-    altVideoId: "MpAMjtvarrc",
-    startSec: 0,
-    bridge: "Builds a full cohort retention matrix tracking how many customers return in Month +1, +2, and beyond.",
+    title: "Views, Constraints, Transactions & ACID Guarantees",
+    instructor: "Joey Blue",
+    duration: "18m",
+    videoId: "HXV3zeQKqGY",
+    altVideoId: "pd-0G0MigUA",
+    startSec: 13600,
+    bridge: "Encapsulates governed KPI logic in reusable SQL VIEWS and protects multi-step writes with atomic transactions.",
     takeaways: [
-      "Anchor every user to their acquisition cohort month.",
-      "Compute month offset index between cohort_month and activity_month.",
-      "Measure cohort retention curves cleanly in pure SQL."
+      "Publish standardized KPI definitions as SQL VIEWs so BI dashboards and Python scripts query one source of truth.",
+      "Wrap multi-table updates inside explicit BEGIN / COMMIT transactions so partial failures roll back cleanly.",
+      "Enforce CHECK and NOT NULL constraints at the schema layer."
     ],
     lab: {
-      lang: "sql",
-      title: "Cohort Activity Matrix",
-      prompt: "Pair each customer's signup month with their Delivered order months to track active buyers per cohort.",
-      hint: "Join customers c and orders o, extracting SUBSTR(c.signup_date, 1, 7) and SUBSTR(o.order_date, 1, 7).",
-      starterCode: "SELECT SUBSTR(c.signup_date, 1, 7) AS cohort_month,\n       SUBSTR(o.order_date, 1, 7) AS active_month,\n       COUNT(DISTINCT o.customer_id) AS retained_customers,\n       ROUND(SUM(o.total_inr), 2) AS cohort_rev_inr\nFROM customers c\nJOIN orders o ON c.customer_id = o.customer_id\nWHERE o.status = 'Delivered'\nGROUP BY cohort_month, active_month\nORDER BY cohort_month, active_month;\n"
+      lang: "python",
+      title: "Governed Executive KPI View & Atomic Rollback Check",
+      prompt: "Create a VIEW v_city_summary and verify that a failed transaction rolls back cleanly without corrupting balances.",
+      hint: "CREATE VIEW v_city_summary AS SELECT city, SUM(rev) AS total_rev FROM orders GROUP BY city.",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE orders (city TEXT, rev REAL CHECK(rev > 0))')\nconn.execute(\"INSERT INTO orders VALUES ('Mumbai', 5000.0)\")\nconn.execute('CREATE VIEW v_city_summary AS SELECT city, SUM(rev) AS total_rev FROM orders GROUP BY city;')\n\ntry:\n    with conn:\n        conn.execute(\"INSERT INTO orders VALUES ('Pune', 3000.0)\")\n        conn.execute(\"INSERT INTO orders VALUES ('Delhi', -50.0)\")\nexcept sqlite3.IntegrityError:\n    pass\n\nprint('View after atomic rollback:', conn.execute('SELECT * FROM v_city_summary;').fetchall())\n"
     }
   },
   {
     day: 52,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "B-Tree & Composite Database Indexing",
-    instructor: "Hussein Nasser",
-    duration: "13m",
-    videoId: "T9n_-_oLrbM",
-    altVideoId: "P7EUFtjeAmI",
-    startSec: 0,
-    bridge: "Explains how B-Tree indexes turn O(N) full table scans into O(log N) seeks on high-traffic filter and join columns.",
+    title: "B-Tree Indexes, Composite Keys & EXPLAIN QUERY PLAN",
+    instructor: "Corey Schafer",
+    duration: "16m",
+    videoId: "pd-0G0MigUA",
+    altVideoId: "HXV3zeQKqGY",
+    startSec: 1500,
+    bridge: "Accelerates slow table scans into logarithmic B-tree index lookups verified via EXPLAIN QUERY PLAN.",
     takeaways: [
-      "Understand B-Tree leaf navigation and why composite index column order matters (leftmost prefix rule).",
-      "Index foreign keys (customer_id, product_id) and frequent WHERE/ORDER BY columns.",
-      "Balance read query speed against write amplification overhead."
+      "Create indexes on high-selectivity foreign keys and frequent WHERE / ORDER BY filter columns.",
+      "Order composite index columns (city, order_date) with equality filters first and range filters second.",
+      "Verify index adoption using EXPLAIN QUERY PLAN (SEARCH USING INDEX vs SCAN TABLE)."
     ],
     lab: {
-      lang: "sql",
-      title: "Create Composite Analytical Index & Verify Schema",
-      prompt: "Create a composite index on orders(status, order_date, customer_id) and inspect sqlite_master.",
-      hint: "CREATE INDEX IF NOT EXISTS idx_orders_status_date ON orders(status, order_date, customer_id);",
-      starterCode: "CREATE INDEX IF NOT EXISTS idx_orders_status_date\nON orders(status, order_date, customer_id);\n\nSELECT name, tbl_name, sql\nFROM sqlite_master\nWHERE type = 'index';\n"
+      lang: "python",
+      title: "Verifying B-Tree Index Adoption with EXPLAIN QUERY PLAN",
+      prompt: "Create a composite index on (city, order_date) and inspect SQLite's EXPLAIN QUERY PLAN output.",
+      hint: "CREATE INDEX idx_city_date ON orders(city, order_date); then run EXPLAIN QUERY PLAN SELECT ...",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE orders (id INT, city TEXT, order_date TEXT, rev REAL)')\nconn.execute('CREATE INDEX idx_city_date ON orders(city, order_date);')\n\nplan = conn.execute(\"\"\"\n    EXPLAIN QUERY PLAN\n    SELECT * FROM orders WHERE city = 'Mumbai' AND order_date >= '2026-10-01';\n\"\"\").fetchall()\nprint('Query Plan:', plan)\n"
     }
   },
   {
     day: 53,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Reading Query Plans with EXPLAIN ANALYZE",
-    instructor: "Hussein Nasser",
-    duration: "10m",
-    videoId: "P7EUFtjeAmI",
-    altVideoId: "O7AzUDogXsw",
-    startSec: 0,
-    bridge: "Verifies whether your SQLite/Postgres query planner actually uses your new index or falls back to a sequential scan.",
+    title: "Query Optimization: SARGable Predicates & Join Fan-Out Traps",
+    instructor: "Ankit Bansal",
+    duration: "16m",
+    videoId: "MpAMjtvarrc",
+    altVideoId: "C7ZZuuwrsVc",
+    startSec: 5820,
+    bridge: "Eliminates index-breaking functions in WHERE clauses and prevents 1:N join fan-out inflation.",
     takeaways: [
-      "Inspect query execution trees with EXPLAIN QUERY PLAN (SQLite) and EXPLAIN ANALYZE (Postgres).",
-      "Recognize SCAN TABLE vs SEARCH TABLE USING INDEX.",
-      "Spot non-sargable predicates (like wrapping indexed columns in functions) that defeat indexes."
+      "Keep indexed columns bare in WHERE (order_date >= '2026-10-01') rather than wrapping them in strftime(order_date).",
+      "Pre-aggregate child tables in CTEs before joining to parent tables so totals never inflate.",
+      "Filter early inside CTEs to shrink intermediate join row counts."
     ],
     lab: {
-      lang: "sql",
-      title: "Inspect EXPLAIN QUERY PLAN on Indexed Orders",
-      prompt: "Run EXPLAIN QUERY PLAN on a filtered orders query to observe how SQLite scans or searches the table.",
-      hint: "Prefix your SELECT statement with EXPLAIN QUERY PLAN.",
-      starterCode: "EXPLAIN QUERY PLAN\nSELECT order_id, customer_id, total_inr\nFROM orders\nWHERE status = 'Delivered' AND order_date >= '2026-03-01';\n"
+      lang: "python",
+      title: "Fixing 1:N Join Fan-Out Revenue Inflation",
+      prompt: "Join customers with pre-aggregated orders and pre-aggregated support tickets without duplicating order revenue.",
+      hint: "Aggregate orders by cust_id in one CTE and tickets by cust_id in a second CTE before joining to customers.",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE orders (cust_id INT, rev REAL)')\nconn.execute('CREATE TABLE tickets (cust_id INT, ticket_id INT)')\nconn.executemany('INSERT INTO orders VALUES (?, ?)', [(1, 5000.0)])\nconn.executemany('INSERT INTO tickets VALUES (?, ?)', [(1, 10), (1, 11), (1, 12)])\n\nrow = conn.execute(\"\"\"\n    WITH o_agg AS (SELECT cust_id, SUM(rev) AS rev FROM orders GROUP BY cust_id),\n         t_agg AS (SELECT cust_id, COUNT(*) AS t_cnt FROM tickets GROUP BY cust_id)\n    SELECT o_agg.cust_id, o_agg.rev, t_agg.t_cnt\n    FROM o_agg JOIN t_agg ON o_agg.cust_id = t_agg.cust_id;\n\"\"\").fetchone()\nprint('Fan-out Free Result:', row)\n"
     }
   },
   {
     day: 54,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Tuning Slow Joins & Eliminating Table Scans",
-    instructor: "Data with Baraa",
-    duration: "32m",
-    videoId: "O7AzUDogXsw",
-    altVideoId: "P7EUFtjeAmI",
-    startSec: 0,
-    bridge: "Applies sargable date ranges and pre-aggregated CTEs to keep multi-million-row analytical queries fast.",
+    title: "Data Quality Assertions & Deduplication Pipelines in SQL",
+    instructor: "Ankit Bansal",
+    duration: "15m",
+    videoId: "C7ZZuuwrsVc",
+    altVideoId: "MpAMjtvarrc",
+    startSec: 7900,
+    bridge: "Builds automated SQL data-quality gates that deduplicate webhook retries and flag null/negative anomalies.",
     takeaways: [
-      "Rewrite non-sargable WHERE YEAR(date) = 2026 into sargable range predicates date >= '2026-01-01'.",
-      "Pre-aggregate large fact tables before joining to dimension tables.",
-      "Select only required columns to enable covering index-only scans."
+      "Deduplicate latest event snapshots deterministically using ROW_NUMBER() OVER (PARTITION BY event_id ORDER BY updated_at DESC) = 1.",
+      "Run automated SQL assertion queries checking for null keys, duplicate IDs, and negative totals.",
+      "Block downstream ML feature builds whenever critical data quality checks fail."
     ],
     lab: {
-      lang: "sql",
-      title: "Sargable Range Filter Refactor",
-      prompt: "Query Q1 2026 Delivered orders using a sargable BETWEEN date range rather than string substring functions in WHERE.",
-      hint: "WHERE status = 'Delivered' AND order_date BETWEEN '2026-01-01' AND '2026-03-31'.",
-      starterCode: "SELECT order_id, customer_id, order_date, total_inr\nFROM orders\nWHERE status = 'Delivered'\n  AND order_date BETWEEN '2026-01-01' AND '2026-03-31'\nORDER BY order_date;\n"
+      lang: "python",
+      title: "Webhook Event Deduplicator with ROW_NUMBER()",
+      prompt: "Deduplicate duplicate webhook events keeping only the latest updated_at timestamp per event_id.",
+      hint: "Partition by event_id, order by updated_at DESC, and keep rn = 1.",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE webhooks (event_id TEXT, status TEXT, updated_at TEXT)')\nconn.executemany('INSERT INTO webhooks VALUES (?, ?, ?)', [\n    ('EV-1', 'PENDING', '2026-11-01T10:00:00'),\n    ('EV-1', 'PAID', '2026-11-01T10:02:00'),\n    ('EV-2', 'PAID', '2026-11-01T10:05:00')\n])\n\nclean = conn.execute(\"\"\"\n    WITH dedup AS (\n        SELECT event_id, status, ROW_NUMBER() OVER (PARTITION BY event_id ORDER BY updated_at DESC) AS rn\n        FROM webhooks\n    )\n    SELECT event_id, status FROM dedup WHERE rn = 1;\n\"\"\").fetchall()\nprint(clean)\n"
     }
   },
   {
     day: 55,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Capstone 2A: End-to-End SQL Analytics Project",
-    instructor: "Luke Barousse",
-    duration: "1h 15m",
-    videoId: "QKIGsShyEsQ",
-    altVideoId: "7mz73uXD9DA",
-    startSec: 18000,
-    bridge: "Consolidates all Month 2 SQL techniques into a clean analytical VIEW ready to be consumed by Python in Month 3.",
+    title: "Capstone 2A: ShopPulse Executive KPI & Cohort Retention Views",
+    instructor: "Ankit Bansal",
+    duration: "22m",
+    videoId: "MpAMjtvarrc",
+    altVideoId: "C7ZZuuwrsVc",
+    startSec: 6900,
+    bridge: "Synthesizes CTEs, window functions, joins, and views into a production ShopPulse executive reporting layer.",
     takeaways: [
-      "Encapsulate complex multi-table joins and window ranks into a reusable SQL VIEW.",
-      "Deliver an executive city-and-tier performance leaderboard.",
-      "Ensure downstream Python consumers can query clean, pre-joined analytical tables."
+      "Combine customer demographics, order revenue, and cohort retention into clean SQL views.",
+      "Validate KPI totals against raw source tables to guarantee zero reconciliation drift.",
+      "Expose clean SQL views ready for direct Pandas consumption on Day 56."
     ],
     lab: {
-      lang: "sql",
-      title: "Capstone 2A: ShopPulse Executive Analytics View",
-      prompt: "Create a VIEW vw_customer_summary combining customer profile, delivered orders, LTV, and rank, then query it.",
-      hint: "CREATE VIEW IF NOT EXISTS vw_customer_summary AS WITH ... SELECT ...;",
-      starterCode: "CREATE VIEW IF NOT EXISTS vw_customer_summary AS\nSELECT c.customer_id, c.full_name, c.city, c.tier,\n       COUNT(o.order_id) AS delivered_orders,\n       COALESCE(ROUND(SUM(o.total_inr), 2), 0) AS ltv_inr,\n       DENSE_RANK() OVER (ORDER BY COALESCE(SUM(o.total_inr), 0) DESC) AS ltv_rank\nFROM customers c\nLEFT JOIN orders o ON c.customer_id = o.customer_id AND o.status = 'Delivered'\nGROUP BY c.customer_id, c.full_name, c.city, c.tier;\n\nSELECT * FROM vw_customer_summary;\n"
+      lang: "python",
+      title: "Capstone 2A: Executive City & Tier Performance Mart",
+      prompt: "Build and query an executive summary combining city revenue, order count, AOV, and top-city rank.",
+      hint: "Use CTE city_metrics with GROUP BY city, then RANK() OVER (ORDER BY rev DESC).",
+      starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE orders (city TEXT, rev REAL)')\nconn.executemany('INSERT INTO orders VALUES (?, ?)', [\n    ('Mumbai', 6500), ('Mumbai', 4500), ('Bengaluru', 8500), ('Bengaluru', 5500), ('Delhi', 4000)\n])\n\nmart = conn.execute(\"\"\"\n    WITH cm AS (\n        SELECT city, COUNT(*) AS orders, SUM(rev) AS rev, ROUND(AVG(rev), 2) AS aov\n        FROM orders GROUP BY city\n    )\n    SELECT RANK() OVER (ORDER BY rev DESC) AS rnk, city, orders, rev, aov FROM cm;\n\"\"\").fetchall()\nfor r in mart:\n    print(r)\n"
     }
   },
   {
     day: 56,
     month: 2,
     module: "M2: SQL Analytics",
-    title: "Bridge 2->3: Exporting SQL Views to Python Arrays",
-    instructor: "Keith Galli",
-    duration: "20m",
-    videoId: "GB9ByFAIAH4",
-    altVideoId: "2uvysYbKdjM",
-    startSec: 0,
-    bridge: "Bridges Month 2 SQL directly into Month 3 scientific Python by loading SQLite query outputs into NumPy arrays.",
+    title: "Bridge 2->3: SQL-to-Pandas Feature Extraction & Hybrid Workflows",
+    instructor: "Corey Schafer",
+    duration: "16m",
+    videoId: "pd-0G0MigUA",
+    altVideoId: "ZyhVh-qRZPA",
+    startSec: 2100,
+    bridge: "Hands off Month 2 SQL Analytics to Month 3 NumPy & Pandas by loading relational query outputs directly into typed DataFrames.",
     takeaways: [
-      "Bridge relational database tables into contiguous C-backed NumPy ndarrays.",
-      "Understand why vectorized NumPy operations outperform Python loops by 50x-100x.",
-      "Inspect array dtype, shape, and memory footprint."
+      "Push heavy joins, filtering, and initial aggregations down to SQL before loading into Pandas.",
+      "Use pd.read_sql_query(sql, conn, parse_dates=['order_date']) to preserve clean dtypes on load.",
+      "Combine SQL's relational power with Pandas' vectorized statistical and time-series toolkit."
     ],
     lab: {
       lang: "python",
-      title: "Bridge 2->3: SQLite Revenue Vector to NumPy",
-      prompt: "Query an in-memory SQLite orders table, convert the revenue column into a NumPy float64 array, and compute mean & std.",
-      hint: "Pass [r[0] for r in cur.fetchall()] into np.array(..., dtype=np.float64).",
-      starterCode: "import sqlite3\nimport numpy as np\n\nconn = sqlite3.connect(':memory:')\ncur = conn.cursor()\ncur.execute('CREATE TABLE orders (id INT, total_inr REAL)')\ncur.executemany('INSERT INTO orders VALUES (?, ?)', [(1, 6498.0), (2, 8999.0), (3, 2499.0), (4, 4999.0), (5, 11498.0)])\n\nrevs = np.array([r[0] for r in cur.execute('SELECT total_inr FROM orders')], dtype=np.float64)\nprint('Shape:', revs.shape, '| Dtype:', revs.dtype)\nprint(f'Mean: INR {revs.mean():.2f} | Std: INR {revs.std():.2f}')\n"
+      title: "Bridge 2->3: Loading SQLite Mart into Pandas DataFrame",
+      prompt: "Execute a grouped SQLite query via pd.read_sql_query() and inspect DataFrame shape, dtypes, and summary.",
+      hint: "df = pd.read_sql_query('SELECT ...', conn).",
+      starterCode: "import sqlite3\nimport pandas as pd\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE orders (cust_id INT, city TEXT, rev REAL)')\nconn.executemany('INSERT INTO orders VALUES (?, ?, ?)', [\n    (1, 'Mumbai', 4999.0), (1, 'Mumbai', 2499.0), (2, 'Bengaluru', 8999.0)\n])\n\ndf = pd.read_sql_query('SELECT cust_id, city, COUNT(*) AS orders, SUM(rev) AS spend FROM orders GROUP BY cust_id, city;', conn)\nprint(df)\n"
     }
   },
   {
     day: 57,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "Bridge 2->3: NumPy Arrays, Shapes & Slicing",
+    title: "NumPy Foundations: ndarrays, dtypes, Shapes & Memory Layout",
     instructor: "Keith Galli",
-    duration: "20m",
-    videoId: "GB9ByFAIAH4",
-    altVideoId: "2uvysYbKdjM",
+    duration: "18m",
+    videoId: "QUT1VHiLmmI",
+    altVideoId: "ZyhVh-qRZPA",
     startSec: 0,
-    bridge: "Builds on Day 56 by mastering 2D matrix indexing, axis semantics, and zero-copy views in NumPy.",
+    bridge: "Launches Month 3 numerical computing with contiguous typed NumPy ndarrays that power Pandas and Scikit-Learn.",
     takeaways: [
-      "Navigate 1D vectors and 2D matrices with [row, col] slicing.",
-      "Understand axis=0 (down rows / per column) vs axis=1 (across columns / per row).",
-      "Recognize that NumPy slices return views sharing underlying memory."
+      "Inspect .shape, .ndim, .dtype, and .nbytes on every array to catch accidental object dtypes early.",
+      "Initialize arrays cleanly with np.array(), np.zeros(), np.ones(), np.arange(), and np.linspace().",
+      "Specify float64 / float32 or int64 explicitly for predictable numerical precision."
     ],
     lab: {
       lang: "python",
-      title: "2D Daily Store Revenue Matrix Slicing",
-      prompt: "Given a 3x4 matrix (3 cities x 4 weeks) of ShopPulse revenue, compute total revenue per city and per week.",
-      hint: "Use matrix.sum(axis=1) for city totals and matrix.sum(axis=0) for weekly totals.",
-      starterCode: "import numpy as np\n\n# Rows: Mumbai, Bengaluru, Delhi | Cols: W1, W2, W3, W4\nrev_matrix = np.array([\n    [6498, 2499, 7200, 8100],\n    [8999, 3298, 9400, 10200],\n    [4999, 2100, 4500, 5300]\n], dtype=np.float64)\n\nprint('City totals (axis=1):', rev_matrix.sum(axis=1))\nprint('Weekly totals (axis=0):', rev_matrix.sum(axis=0))\n"
+      title: "ShopPulse Order Matrix Shape & Dtype Inspector",
+      prompt: "Create a 2D float64 NumPy array of [orders, revenue_inr, avg_rating] for 4 cities and print shape, dtype, and column means.",
+      hint: "arr = np.array(..., dtype=np.float64); arr.mean(axis=0).",
+      starterCode: "import numpy as np\n\nmetrics = np.array([\n    [120, 480000.0, 4.7],\n    [145, 610000.0, 4.8],\n    [95,  350000.0, 4.5],\n    [110, 420000.0, 4.6]\n], dtype=np.float64)\n\nprint('Shape:', metrics.shape, '| Dtype:', metrics.dtype)\nprint('Column Means:', np.round(metrics.mean(axis=0), 2))\n"
     }
   },
   {
     day: 58,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "Vectorized Math, Broadcasting & Linear Algebra",
+    title: "Indexing, Slicing, Views vs Copies & Boolean Masking",
     instructor: "Keith Galli",
-    duration: "20m",
-    videoId: "GB9ByFAIAH4",
-    altVideoId: "2uvysYbKdjM",
-    startSec: 1200,
-    bridge: "Uses broadcasting and dot products (@) to compute multi-SKU cart totals and margins without a single Python loop.",
+    duration: "18m",
+    videoId: "QUT1VHiLmmI",
+    altVideoId: "ZyhVh-qRZPA",
+    startSec: 1080,
+    bridge: "Filters millions of numerical telemetry points in microseconds using vectorized boolean masks.",
     takeaways: [
-      "Apply scalar and 1D vector broadcasting rules across 2D feature matrices.",
-      "Compute weighted sums and linear projections cleanly with the @ matrix multiplication operator.",
-      "Use np.where(cond, x, y) for vectorized conditional logic."
+      "Basic slices (arr[1:3]) return zero-copy views sharing memory; boolean/fancy indexing returns independent copies.",
+      "Combine boolean masks using bitwise &, |, and ~ with parentheses around each comparison.",
+      "Call .copy() explicitly whenever mutating a sliced subset."
     ],
     lab: {
       lang: "python",
-      title: "Vectorized Order Matrix x Price Vector (@)",
-      prompt: "Multiply a 3x3 order-quantity matrix by a unit-price vector using @ and apply 18% GST via scalar broadcasting.",
-      hint: "subtotals = qty_matrix @ unit_prices; totals_with_gst = subtotals * 1.18.",
-      starterCode: "import numpy as np\n\nqty_matrix = np.array([\n    [1, 1, 0],\n    [0, 2, 1],\n    [2, 0, 1]\n])\nunit_prices = np.array([4999.0, 1499.0, 2499.0])\n\nsubtotals = qty_matrix @ unit_prices\ntotals_gst = np.round(subtotals * 1.18, 2)\nprint('Order Totals (incl. GST):', totals_gst)\n"
+      title: "Vectorized High-Value Order Masking",
+      prompt: "Filter order revenues between INR 2,500 and INR 10,000 using a compound NumPy boolean mask.",
+      hint: "mask = (revs >= 2500) & (revs <= 10000); filtered = revs[mask].",
+      starterCode: "import numpy as np\n\nrevs = np.array([1200.0, 2800.0, 4999.0, 14500.0, 7200.0, 999.0])\nmask = (revs >= 2500.0) & (revs <= 10000.0)\nfiltered = revs[mask]\n\nprint('Filtered Orders:', filtered)\nprint('Filtered Mean  : INR', round(float(filtered.mean()), 2))\n"
     }
   },
   {
     day: 59,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "Reshaping, Stacking & Boolean Masking in NumPy",
+    title: "Vectorized Arithmetic, Universal Functions (ufuncs) & Speed",
     instructor: "Keith Galli",
-    duration: "18m",
-    videoId: "GB9ByFAIAH4",
-    altVideoId: "2uvysYbKdjM",
-    startSec: 2400,
-    bridge: "Translates SQL WHERE filtering into high-speed NumPy boolean masks and prepares 2D feature shapes for Scikit-Learn.",
+    duration: "16m",
+    videoId: "QUT1VHiLmmI",
+    altVideoId: "ZyhVh-qRZPA",
+    startSec: 2160,
+    bridge: "Replaces slow Python element-by-element loops with C-speed vectorized arithmetic, log1p transforms, and np.where.",
     takeaways: [
-      "Filter arrays cleanly using compound boolean masks (&, |, ~ with parentheses).",
-      "Reshape 1D arrays into 2D column vectors via .reshape(-1, 1).",
-      "Combine arrays vertically with np.vstack and horizontally with np.hstack."
+      "Apply arithmetic operators (+, -, *, /) and ufuncs (np.log1p, np.sqrt, np.clip) across entire arrays at once.",
+      "Use np.where(cond, val_if_true, val_if_false) for vectorized conditional labeling.",
+      "Use np.log1p(x) instead of np.log(x) when values can be zero."
     ],
     lab: {
       lang: "python",
-      title: "Boolean Masking High-Value Orders",
-      prompt: "Filter orders between 2500 and 10000 INR using a boolean mask and reshape the result into a (-1, 1) column matrix.",
-      hint: "mask = (orders >= 2500) & (orders <= 10000); filtered = orders[mask].reshape(-1, 1).",
-      starterCode: "import numpy as np\n\norders = np.array([6498.0, 8999.0, 1499.0, 2499.0, 4999.0, 11498.0])\nmask = (orders >= 2500) & (orders <= 10000)\nselected = orders[mask].reshape(-1, 1)\n\nprint('Filtered shape:', selected.shape)\nprint(selected)\n"
+      title: "Vectorized GST, Discount & Log-Revenue Transform",
+      prompt: "Apply 10% discount to orders >= 5000 via np.where, add 18% GST, and compute np.log1p(gross).",
+      hint: "discounted = np.where(base >= 5000, base * 0.90, base).",
+      starterCode: "import numpy as np\n\nbase = np.array([2000.0, 5000.0, 8000.0, 1500.0])\ndiscounted = np.where(base >= 5000.0, base * 0.90, base)\ngross = np.round(discounted * 1.18, 2)\nlog_gross = np.round(np.log1p(gross), 3)\n\nprint('Gross INR:', gross)\nprint('Log1p    :', log_gross)\n"
     }
   },
   {
     day: 60,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "Synthetic Data Generation & Random Seeds",
+    title: "Broadcasting Rules & Axis-Wise Reductions (axis=0 vs axis=1)",
     instructor: "Keith Galli",
-    duration: "1h 00m",
-    videoId: "VJBY2eVtf7o",
-    altVideoId: "GB9ByFAIAH4",
-    startSec: 0,
-    bridge: "Uses reproducible NumPy random generators (np.random.default_rng) to simulate realistic order distributions for stress testing.",
+    duration: "18m",
+    videoId: "QUT1VHiLmmI",
+    altVideoId: "ZyhVh-qRZPA",
+    startSec: 3120,
+    bridge: "Standardizes multi-feature matrices in one vectorized expression using NumPy trailing-dimension broadcasting.",
     takeaways: [
-      "Use np.random.default_rng(seed=42) for reproducible synthetic experiments.",
-      "Sample normal, uniform, and discrete choice arrays to mock large datasets.",
-      "Lay the foundation for Monte Carlo and bootstrapping simulations in Month 4."
+      "Remember: axis=0 collapses rows (down columns), while axis=1 collapses columns (across each row).",
+      "NumPy broadcasts shapes from right to left when dimensions are equal or one of them is 1.",
+      "Standardize every feature column cleanly via (X - X.mean(axis=0)) / X.std(axis=0)."
     ],
     lab: {
       lang: "python",
-      title: "Reproducible 1,000-Order Traffic Simulator",
-      prompt: "Simulate 1,000 ShopPulse order values using default_rng(42) and print median, p90, and max values.",
-      hint: "Use rng = np.random.default_rng(42) and np.percentile(samples, 90).",
-      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\nsamples = np.round(rng.lognormal(mean=8.2, sigma=0.6, size=1000), 2)\n\nprint(f'Median: INR {np.median(samples):,.2f}')\nprint(f'90th Percentile: INR {np.percentile(samples, 90):,.2f}')\nprint(f'Max Order: INR {samples.max():,.2f}')\n"
+      title: "Z-Score Feature Matrix Standardization via Broadcasting",
+      prompt: "Standardize a (4, 3) customer feature matrix column-wise using axis=0 mean and std.",
+      hint: "X_std = (X - X.mean(axis=0)) / X.std(axis=0).",
+      starterCode: "import numpy as np\n\nX = np.array([\n    [2.0, 4000.0, 10.0],\n    [6.0, 18000.0, 5.0],\n    [4.0, 10000.0, 20.0],\n    [8.0, 24000.0, 2.0]\n])\n\nX_std = (X - X.mean(axis=0)) / X.std(axis=0)\nprint('Standardized Matrix:\\n', np.round(X_std, 3))\nprint('Column Means:', np.round(X_std.mean(axis=0), 6))\n"
     }
   },
   {
     day: 61,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "Pandas Architecture: Series, Index & DataFrames",
-    instructor: "codebasics",
-    duration: "10m",
-    videoId: "CmorAWRsCAw",
-    altVideoId: "2uvysYbKdjM",
-    startSec: 0,
-    bridge: "Wraps NumPy's fast typed arrays with labeled row Indexes and heterogeneous column schemas inside Pandas DataFrames.",
+    title: "Reshaping, Stacking & Linear Algebra Helpers",
+    instructor: "Keith Galli",
+    duration: "15m",
+    videoId: "QUT1VHiLmmI",
+    altVideoId: "ZyhVh-qRZPA",
+    startSec: 4200,
+    bridge: "Prepares 1D feature columns into 2D (n_samples, n_features) design matrices expected by Scikit-Learn.",
     takeaways: [
-      "Understand how a DataFrame is a collection of aligned Series sharing an Index.",
-      "Inspect dtypes, memory usage, and summary stats immediately with .info() and .describe().",
-      "Construct DataFrames cleanly from lists of dicts or SQL query outputs."
+      "Use .reshape(-1, 1) to promote a 1D feature vector of length N into a 2D (N, 1) column matrix.",
+      "Combine feature columns horizontally with np.column_stack([col1, col2]) or np.hstack().",
+      "Use @ for clean matrix multiplication and dot products."
     ],
     lab: {
       lang: "python",
-      title: "Construct & Profile ShopPulse DataFrame",
-      prompt: "Build a DataFrame of ShopPulse orders and print its shape, dtypes, and descriptive statistics.",
-      hint: "df = pd.DataFrame(records); print(df.describe()).",
-      starterCode: "import pandas as pd\n\ndf = pd.DataFrame([\n    {'order_id': 1001, 'city': 'Mumbai', 'total_inr': 6498.0},\n    {'order_id': 1002, 'city': 'Bengaluru', 'total_inr': 8999.0},\n    {'order_id': 1003, 'city': 'Pune', 'total_inr': 2298.0},\n    {'order_id': 1004, 'city': 'Hyderabad', 'total_inr': 11498.0}\n])\n\nprint(df.dtypes)\nprint('\\nSummary:\\n', df['total_inr'].describe())\n"
+      title: "Design Matrix Assembly & Weighted Score Dot Product",
+      prompt: "Stack two 1D feature arrays with an intercept column of ones and compute batch linear scores via X @ weights.",
+      hint: "X = np.column_stack([np.ones(len(orders)), orders, tenure]).",
+      starterCode: "import numpy as np\n\norders = np.array([2.0, 5.0, 8.0])\ntenure = np.array([3.0, 12.0, 24.0])\nX = np.column_stack([np.ones(len(orders)), orders, tenure])\nw = np.array([1000.0, 1800.0, 250.0])\n\nscores = X @ w\nprint('Design Matrix Shape:', X.shape)\nprint('Predicted LTV INR  :', scores)\n"
     }
   },
   {
     day: 62,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "Loading CSV/Excel/SQL & Inspecting Schemas",
+    title: "Random Number Generation (default_rng) & Monte Carlo Simulation",
     instructor: "Keith Galli",
-    duration: "20m",
-    videoId: "2uvysYbKdjM",
-    altVideoId: "CmorAWRsCAw",
-    startSec: 0,
-    bridge: "Connects Month 2 SQLite databases directly to Pandas via pd.read_sql_query() and io.StringIO CSV readers.",
+    duration: "16m",
+    videoId: "QUT1VHiLmmI",
+    altVideoId: "XNgt7F6FqDU",
+    startSec: 5100,
+    bridge: "Simulates revenue uncertainty, A/B traffic splits, and inventory stockout risk using seeded reproducible generators.",
     takeaways: [
-      "Load relational tables into DataFrames with pd.read_sql_query(sql, conn).",
-      "Configure parse_dates, usecols, and dtype parameters in pd.read_csv().",
-      "Run immediate schema sanity checks (.head(), .isna().sum(), .nunique())."
+      "Always instantiate explicit seeded generators via rng = np.random.default_rng(42) instead of legacy global np.random.",
+      "Simulate thousands of business scenarios in vectorized matrices without Python loops.",
+      "Extract risk percentiles (P5, P50, P95) directly from simulated distributions."
     ],
     lab: {
       lang: "python",
-      title: "SQL-to-Pandas DataFrame Ingestion",
-      prompt: "Load an in-memory SQLite table directly into a Pandas DataFrame via pd.read_sql_query() and inspect nulls.",
-      hint: "df = pd.read_sql_query('SELECT * FROM orders', conn).",
-      starterCode: "import sqlite3\nimport pandas as pd\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE orders (order_id INT, city TEXT, total_inr REAL)')\nconn.executemany('INSERT INTO orders VALUES (?, ?, ?)', [(1001, 'Mumbai', 6498.0), (1002, 'Delhi', None), (1003, 'Bengaluru', 8999.0)])\n\ndf = pd.read_sql_query('SELECT * FROM orders', conn)\nprint(df)\nprint('\\nNull counts:\\n', df.isna().sum())\n"
+      title: "Monte Carlo Monthly Revenue Risk Simulator",
+      prompt: "Simulate 5,000 months where daily orders ~ Normal(100, 15) and AOV ~ Normal(3200, 400), reporting P10, P50, and P90.",
+      hint: "rev_sim = (orders_sim * aov_sim) * 30; np.percentile(rev_sim, [10, 50, 90]).",
+      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\ndaily_orders = rng.normal(100, 15, size=5000)\naov = rng.normal(3200, 400, size=5000)\nmonthly_rev = daily_orders * aov * 30\n\np10, p50, p90 = np.percentile(monthly_rev, [10, 50, 90])\nprint(f'Monthly Rev -> P10: INR {p10:,.0f} | Median: INR {p50:,.0f} | P90: INR {p90:,.0f}')\n"
     }
   },
   {
     day: 63,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "Label vs Position Indexing: .loc[] & .iloc[]",
-    instructor: "Keith Galli",
+    title: "Pandas Series, DataFrames, Indexes & Schema Inspection",
+    instructor: "Corey Schafer",
     duration: "20m",
-    videoId: "2uvysYbKdjM",
-    altVideoId: "CmorAWRsCAw",
-    startSec: 1200,
-    bridge: "Eliminates ambiguous bracket indexing by enforcing explicit label (.loc) and integer-position (.iloc) access.",
+    videoId: "ZyhVh-qRZPA",
+    altVideoId: "zmdjNSmRXF4",
+    startSec: 0,
+    bridge: "Transitions from homogeneous NumPy matrices to labeled, heterogeneous Pandas DataFrames for real business tables.",
     takeaways: [
-      "Use .loc[row_mask, ['col_a', 'col_b']] for label and boolean selection.",
-      "Use .iloc[0:5, 0:3] for strict zero-based positional slicing.",
-      "Never chain df[mask]['col'] = val when mutating DataFrames."
+      "Inspect every newly loaded DataFrame with .shape, .dtypes, .isna().sum(), and .describe().",
+      "Understand that each DataFrame column is a Series backed by a typed NumPy or extension array.",
+      "Verify numeric columns were not accidentally parsed as object strings due to currency symbols."
     ],
     lab: {
       lang: "python",
-      title: "Explicit .loc[] Filtering & Safe Assignment",
-      prompt: "Use .loc[] to select Mumbai orders and assign a new 'priority' flag without chained indexing.",
-      hint: "df.loc[df['city'] == 'Mumbai', 'priority'] = 'Express'.",
-      starterCode: "import pandas as pd\n\ndf = pd.DataFrame({\n    'order_id': [1001, 1002, 1003],\n    'city': ['Mumbai', 'Delhi', 'Mumbai'],\n    'total_inr': [6498.0, 4999.0, 2499.0]\n})\ndf['priority'] = 'Standard'\ndf.loc[df['city'] == 'Mumbai', 'priority'] = 'Express'\nprint(df.loc[:, ['order_id', 'city', 'priority']])\n"
+      title: "ShopPulse DataFrame Audit & Summary Profiler",
+      prompt: "Construct a DataFrame of orders, verify dtypes, and print summary statistics for numeric columns.",
+      hint: "Use df.dtypes and df['rev'].agg(['count', 'mean', 'median', 'max']).",
+      starterCode: "import pandas as pd\n\ndf = pd.DataFrame({\n    'order_id': [101, 102, 103, 104],\n    'city': ['Mumbai', 'Bengaluru', 'Mumbai', 'Pune'],\n    'rev': [4999.0, 8999.0, 2499.0, 3999.0]\n})\n\nprint('Shape:', df.shape)\nprint(df['rev'].agg(['count', 'mean', 'median', 'max']).round(2))\n"
     }
   },
   {
     day: 64,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "Filtering, Sorting & Vectorized Column Creation",
-    instructor: "Keith Galli",
-    duration: "20m",
-    videoId: "2uvysYbKdjM",
-    altVideoId: "CmorAWRsCAw",
-    startSec: 2400,
-    bridge: "Mirrors SQL SELECT expressions, WHERE predicates, and ORDER BY clauses inside clean method-chained Pandas pipelines.",
+    title: "Label vs Positional Selection: .loc[], .iloc[] & Query Filters",
+    instructor: "Corey Schafer",
+    duration: "22m",
+    videoId: "zmdjNSmRXF4",
+    altVideoId: "ZyhVh-qRZPA",
+    startSec: 0,
+    bridge: "Eliminates SettingWithCopyWarning and off-by-one slicing bugs by mastering explicit .loc and .iloc accessors.",
     takeaways: [
-      "Build readable transformation pipelines using .assign(), .query(), and .sort_values().",
-      "Use .isin() and .between() for expressive row filtering.",
-      "Compute derived profit and margin columns vectorially across entire Series."
+      "Use .loc[row_filter, col_list] for label-based and boolean-mask selection (inclusive end labels).",
+      "Use .iloc[row_pos, col_pos] strictly for zero-based integer positions (exclusive end positions).",
+      "Never chain brackets like df[mask]['col'] = val; always assign via df.loc[mask, 'col'] = val."
     ],
     lab: {
       lang: "python",
-      title: "Method-Chained Product Profitability Pipeline",
-      prompt: "Use .assign() and .sort_values() to compute profit_inr and margin_pct across the product catalog.",
-      hint: "df.assign(profit=lambda d: d['price'] - d['cost']).sort_values('profit', ascending=False).",
-      starterCode: "import pandas as pd\n\nproducts = pd.DataFrame({\n    'name': ['Keyboard', 'Mouse', 'USB-C Hub', 'Headphones'],\n    'price': [4999.0, 1499.0, 2499.0, 8999.0],\n    'cost': [2900.0, 750.0, 1200.0, 5100.0]\n})\n\nranked = (\n    products\n    .assign(\n        profit=lambda d: d['price'] - d['cost'],\n        margin_pct=lambda d: ((d['profit'] / d['price']) * 100).round(1)\n    )\n    .sort_values('profit', ascending=False)\n)\nprint(ranked)\n"
+      title: "Safe .loc Conditional Tagging & Column Projection",
+      prompt: "Use .loc to flag orders with rev >= 5000 as 'High' priority and select ['order_id', 'city', 'priority'].",
+      hint: "df['priority'] = 'Standard'; df.loc[df['rev'] >= 5000, 'priority'] = 'High'.",
+      starterCode: "import pandas as pd\n\ndf = pd.DataFrame({\n    'order_id': [1, 2, 3],\n    'city': ['Mumbai', 'Delhi', 'Bengaluru'],\n    'rev': [2500.0, 6200.0, 8900.0]\n})\n\ndf['priority'] = 'Standard'\ndf.loc[df['rev'] >= 5000, 'priority'] = 'High'\nprint(df.loc[:, ['order_id', 'city', 'priority']])\n"
     }
   },
   {
     day: 65,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "Missing Data Strategies: isna, fillna, interpolate",
-    instructor: "codebasics",
-    duration: "22m",
-    videoId: "EaGbS7eWSs0",
-    altVideoId: "2uvysYbKdjM",
+    title: "Index Management, Sorting & Multi-Column Ranking",
+    instructor: "Corey Schafer",
+    duration: "18m",
+    videoId: "W9XjRYFkkyw",
+    altVideoId: "zmdjNSmRXF4",
     startSec: 0,
-    bridge: "Handles real-world sensor and telemetry gaps cleanly before statistical inference or ML training.",
+    bridge: "Keeps DataFrame indexes clean across filtering and sorting operations with .sort_values() and .reset_index(drop=True).",
     takeaways: [
-      "Diagnose missingness patterns (MCAR vs MAR) with .isna().mean().",
-      "Choose domain-appropriate strategies: median/group imputation, forward-fill (.ffill()), or linear interpolation.",
-      "Preserve missingness indicator flags when nullity itself carries signal."
+      "Call .reset_index(drop=True) after filtering or sorting when you want a clean 0..N-1 positional index.",
+      "Sort multi-column leaderboards via .sort_values(by=['city', 'rev'], ascending=[True, False]).",
+      "Use .nlargest(k, 'rev') for fast top-K extraction without sorting the entire table."
     ],
     lab: {
       lang: "python",
-      title: "Time-Ordered Metric Interpolation & Fallback Imputation",
-      prompt: "Interpolate a missing daily traffic metric and fill missing city labels with 'Unknown'.",
-      hint: "Use df['sessions'].interpolate(method='linear') and df['city'].fillna('Unknown').",
-      starterCode: "import pandas as pd\nimport numpy as np\n\ndf = pd.DataFrame({\n    'day': [1, 2, 3, 4],\n    'city': ['Mumbai', None, 'Bengaluru', 'Pune'],\n    'sessions': [1200.0, np.nan, 1600.0, 1800.0]\n})\n\ndf['city'] = df['city'].fillna('Unknown')\ndf['sessions'] = df['sessions'].interpolate(method='linear')\nprint(df)\n"
+      title: "Multi-Column Leaderboard & Top-2 Extractor",
+      prompt: "Sort orders by city ascending and rev descending, reset index cleanly, and display top 2 overall orders.",
+      hint: "df.sort_values(['city', 'rev'], ascending=[True, False]).reset_index(drop=True).",
+      starterCode: "import pandas as pd\n\ndf = pd.DataFrame({\n    'id': [1, 2, 3, 4],\n    'city': ['Mumbai', 'Bengaluru', 'Mumbai', 'Bengaluru'],\n    'rev': [4000, 7500, 9200, 3100]\n})\n\nsorted_df = df.sort_values(['city', 'rev'], ascending=[True, False]).reset_index(drop=True)\nprint(sorted_df)\nprint('Top 2 Overall:\\n', df.nlargest(2, 'rev')[['id', 'city', 'rev']])\n"
     }
   },
   {
     day: 66,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "String & Regex Cleaning with .str Accessor",
-    instructor: "Keith Galli",
-    duration: "15m",
-    videoId: "2uvysYbKdjM",
-    altVideoId: "EaGbS7eWSs0",
-    startSec: 3600,
-    bridge: "Standardizes dirty user-entered city names, coupon codes, and SKU tags across entire Series vectorially.",
+    title: "Filtering DataFrames: Compound Masks, .isin() & .between()",
+    instructor: "Corey Schafer",
+    duration: "20m",
+    videoId: "Lw2rlcxScZY",
+    altVideoId: "zmdjNSmRXF4",
+    startSec: 0,
+    bridge: "Translates complex SQL WHERE clauses into readable Pandas boolean masks and .query() expressions.",
     takeaways: [
-      "Chain .str.strip().str.title() to normalize inconsistent categorical labels.",
-      "Extract structured codes or numeric values from text using .str.extract(regex).",
-      "Filter text columns safely using .str.contains(..., na=False)."
+      "Replace long chains of == comparisons with df['city'].isin(['Mumbai', 'Pune', 'Bengaluru']).",
+      "Use df['rev'].between(2000, 8000) for clean inclusive range filtering.",
+      "Name complex boolean sub-masks (is_metro, is_valid_order) so filter logic reads like English."
     ],
     lab: {
       lang: "python",
-      title: "Normalizing Dirty City & Coupon Strings",
-      prompt: "Clean messy city names (' mumbai ', 'BENGALURU') and extract numeric discount percentages from coupon strings.",
-      hint: "Use df['city'].str.strip().str.title() and df['coupon'].str.extract(r'(\\d+)').astype(float).",
-      starterCode: "import pandas as pd\n\ndf = pd.DataFrame({\n    'city': ['  mumbai ', 'BENGALURU', 'Mumbai ', ' pune'],\n    'coupon': ['SAVE10', 'FESTIVE20', 'NONE', 'VIP15']\n})\n\ndf['city_clean'] = df['city'].str.strip().str.title()\ndf['disc_pct'] = df['coupon'].str.extract(r'(\\d+)').fillna(0).astype(int)\nprint(df[['city_clean', 'coupon', 'disc_pct']])\n"
+      title: "Metro Tier Order Segmentation Filter",
+      prompt: "Filter delivered orders in ['Mumbai', 'Bengaluru'] with revenue between 2,000 and 10,000 INR.",
+      hint: "Combine df['city'].isin(...), df['status'] == 'Delivered', and df['rev'].between(2000, 10000).",
+      starterCode: "import pandas as pd\n\ndf = pd.DataFrame({\n    'id': [1, 2, 3, 4],\n    'city': ['Mumbai', 'Delhi', 'Bengaluru', 'Mumbai'],\n    'status': ['Delivered', 'Delivered', 'Delivered', 'Cancelled'],\n    'rev': [4500, 6000, 8500, 5000]\n})\n\nmask = df['city'].isin(['Mumbai', 'Bengaluru']) & (df['status'] == 'Delivered') & df['rev'].between(2000, 10000)\nprint(df.loc[mask])\n"
     }
   },
   {
     day: 67,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "Translating SQL GROUP BY into Pandas Split-Apply-Combine",
-    instructor: "Data School",
-    duration: "9m",
-    videoId: "qy0fDqoMJx8",
-    altVideoId: "VRmXto2YA2I",
+    title: "Updating Rows & Columns: .assign(), np.where & Vectorized Ops",
+    instructor: "Corey Schafer",
+    duration: "22m",
+    videoId: "DCDe29sIKcE",
+    altVideoId: "ZyhVh-qRZPA",
     startSec: 0,
-    bridge: "Maps your Day 34 SQL GROUP BY mastery directly onto Pandas .groupby() split-apply-combine workflows.",
+    bridge: "Replaces slow row-by-row .apply(axis=1) loops with 50x faster vectorized column expressions.",
     takeaways: [
-      "Understand the Split-Apply-Combine execution model behind .groupby().",
-      "Pass as_index=False (or .reset_index()) to keep grouped keys as flat columns.",
-      "Control observed=True when grouping over categorical dtypes."
+      "Never use df.apply(..., axis=1) for arithmetic or conditionals—use vectorized column math or np.select().",
+      "Use .assign(net_rev=lambda d: d['gross'] - d['discount']) to create derived features cleanly in pipelines.",
+      "Use .map(mapping_dict) to translate category codes into readable labels in O(N) time."
     ],
     lab: {
       lang: "python",
-      title: "City Revenue Rollup in Pandas",
-      prompt: "Group orders by city (with as_index=False) to compute total orders and revenue.",
-      hint: "df.groupby('city', as_index=False)['total_inr'].agg(['count', 'sum']).",
-      starterCode: "import pandas as pd\n\norders = pd.DataFrame({\n    'city': ['Mumbai', 'Bengaluru', 'Mumbai', 'Pune', 'Bengaluru'],\n    'total_inr': [6498.0, 8999.0, 2499.0, 2298.0, 3298.0]\n})\n\nsummary = orders.groupby('city', as_index=False).agg(\n    orders_cnt=('total_inr', 'count'),\n    revenue_inr=('total_inr', 'sum')\n).sort_values('revenue_inr', ascending=False)\nprint(summary)\n"
+      title: "Vectorized Feature Creation with .assign() & np.select()",
+      prompt: "Add net_rev and multi-tier size_band ('Small', 'Medium', 'Large') columns without using .apply().",
+      hint: "Use np.select([df['net_rev'] >= 7000, df['net_rev'] >= 3000], ['Large', 'Medium'], default='Small').",
+      starterCode: "import numpy as np\nimport pandas as pd\n\ndf = pd.DataFrame({'id': [1, 2, 3], 'gross': [2500.0, 5200.0, 9500.0], 'disc': [0.0, 500.0, 1000.0]})\ndf = df.assign(net_rev=lambda d: d['gross'] - d['disc'])\ndf['size_band'] = np.select([df['net_rev'] >= 7000, df['net_rev'] >= 3000], ['Large', 'Medium'], default='Small')\nprint(df)\n"
     }
   },
   {
     day: 68,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "Multi-Metric Aggregations (.agg()) & transform()",
-    instructor: "Alex The Analyst",
-    duration: "11m",
-    videoId: "VRmXto2YA2I",
-    altVideoId: "qy0fDqoMJx8",
-    startSec: 0,
-    bridge: "Replicates SQL window PARTITION BY aggregates in Pandas using .groupby(...).transform() without collapsing rows.",
+    title: "Vectorized String Operations (.str) & Regex Extraction",
+    instructor: "Corey Schafer",
+    duration: "16m",
+    videoId: "DCDe29sIKcE",
+    altVideoId: "K8L6KVGG-7o",
+    startSec: 1320,
+    bridge: "Cleans messy text columns and extracts SKU prefixes across entire DataFrames using the .str accessor.",
     takeaways: [
-      "Use named aggregations .agg(col=('src', 'func')) for clean flat column headers.",
-      "Use .transform('sum') or .transform('mean') to broadcast group metrics back onto every original row.",
-      "Compute within-group Z-scores and share-of-wallet features for ML."
+      "Chain .str.strip().str.upper() to standardize categorical string columns before grouping.",
+      "Extract structured substrings into new columns via .str.extract(r'^([A-Z]+)-(\\d+)').",
+      "Pass na=False inside .str.contains(..., na=False) so missing values do not break boolean masks."
     ],
     lab: {
       lang: "python",
-      title: "Order Share of City Revenue via transform()",
-      prompt: "Add a city_total_inr column using .groupby('city')['total_inr'].transform('sum') and compute each order's share %.",
-      hint: "df['city_total'] = df.groupby('city')['total_inr'].transform('sum').",
-      starterCode: "import pandas as pd\n\ndf = pd.DataFrame({\n    'order_id': [1001, 1002, 1003, 1006],\n    'city': ['Mumbai', 'Bengaluru', 'Mumbai', 'Bengaluru'],\n    'total_inr': [6498.0, 8999.0, 2499.0, 3298.0]\n})\n\ndf['city_total'] = df.groupby('city')['total_inr'].transform('sum')\ndf['city_share_pct'] = (100 * df['total_inr'] / df['city_total']).round(1)\nprint(df)\n"
+      title: "Vectorized SKU Code & Category Parser in Pandas",
+      prompt: "Normalize raw_sku whitespace/case and extract product family prefix and numeric model ID into two new columns.",
+      hint: "s = df['raw_sku'].str.strip().str.upper(); s.str.extract(r'^([A-Z]+)-(\\d+)').",
+      starterCode: "import pandas as pd\n\ndf = pd.DataFrame({'raw_sku': ['  sp-101 ', 'acc-205', ' SP-309  ']})\nclean = df['raw_sku'].str.strip().str.upper()\ndf[['family', 'model_num']] = clean.str.extract(r'^([A-Z]+)-(\\d+)')\nprint(df)\n"
     }
   },
   {
     day: 69,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "Translating SQL JOIN into pd.merge() & concat()",
-    instructor: "Absent Data",
-    duration: "15m",
-    videoId: "1LaSCxx3xhA",
-    altVideoId: "2uvysYbKdjM",
+    title: "Handling Missing Data: isna(), fillna(), dropna() & Casting",
+    instructor: "Corey Schafer",
+    duration: "22m",
+    videoId: "KdmPHEnPJPs",
+    altVideoId: "ZyhVh-qRZPA",
     startSec: 0,
-    bridge: "Brings SQL INNER, LEFT, and ANTI joins into Pandas with cardinality validation (validate='many_to_one').",
+    bridge: "Audits missingness patterns and applies domain-informed imputation before statistical analysis or ML modeling.",
     takeaways: [
-      "Use pd.merge(left, right, on=..., how='left', validate='many_to_one') to catch accidental join fan-out.",
-      "Use indicator=True to audit unmatched keys (_merge == 'left_only').",
-      "Stack homogenous monthly DataFrames vertically with pd.concat(..., ignore_index=True)."
+      "Audit missingness rates per column via (df.isna().mean() * 100).round(1).",
+      "Impute structural zeros (like missing discount_inr) with 0.0, and skewed continuous metrics with group medians.",
+      "Use nullable integer dtype 'Int64' when integer columns must preserve missing values."
     ],
     lab: {
       lang: "python",
-      title: "Validated Customer-Order Left Merge",
-      prompt: "Merge orders onto customers with how='left' and validate='one_to_many', filling missing revenue with 0.",
-      hint: "pd.merge(customers, orders, on='customer_id', how='left', validate='one_to_many').",
-      starterCode: "import pandas as pd\n\ncustomers = pd.DataFrame({'customer_id': [1, 2, 3], 'name': ['Aarav', 'Priya', 'Rohan']})\norders = pd.DataFrame({'order_id': [1001, 1003, 1002], 'customer_id': [1, 1, 2], 'total_inr': [6498.0, 2499.0, 8999.0]})\n\nmerged = pd.merge(customers, orders, on='customer_id', how='left', validate='one_to_many')\nmerged['total_inr'] = merged['total_inr'].fillna(0.0)\nprint(merged)\n"
+      title: "Domain-Specific Missing Value Imputation Pipeline",
+      prompt: "Fill missing discount with 0.0, impute missing rating with median rating, and drop rows missing order_id.",
+      hint: "df.dropna(subset=['order_id']).assign(discount=lambda d: d['discount'].fillna(0.0), rating=lambda d: d['rating'].fillna(d['rating'].median())).",
+      starterCode: "import numpy as np\nimport pandas as pd\n\ndf = pd.DataFrame({\n    'order_id': [1, 2, np.nan, 4],\n    'discount': [500.0, np.nan, 100.0, np.nan],\n    'rating': [5.0, np.nan, 4.0, 4.5]\n})\n\nclean = (\n    df.dropna(subset=['order_id'])\n      .assign(\n          order_id=lambda d: d['order_id'].astype(int),\n          discount=lambda d: d['discount'].fillna(0.0),\n          rating=lambda d: d['rating'].fillna(d['rating'].median())\n      )\n)\nprint(clean)\n"
     }
   },
   {
     day: 70,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "Reshaping Long vs Wide: pivot_table, melt, stack",
-    instructor: "Misra Turp",
-    duration: "13m",
-    videoId: "M3oB2urOHXY",
-    altVideoId: "tcRGa2soc-c",
-    startSec: 0,
-    bridge: "Converts normalized long event tables into executive cross-tab matrices (pivot_table) and back into tidy long format (melt).",
+    title: "Deduplication, Outlier Capping (.clip) & Validation Contracts",
+    instructor: "Corey Schafer",
+    duration: "16m",
+    videoId: "KdmPHEnPJPs",
+    altVideoId: "ZyhVh-qRZPA",
+    startSec: 1320,
+    bridge: "Protects downstream ML features from duplicate records and extreme sensor/entry outliers via winsorization.",
     takeaways: [
-      "Build multi-dimensional executive summary matrices with pd.pivot_table(..., fill_value=0).",
-      "Unpivot wide reporting spreadsheets into tidy long format with pd.melt() for Seaborn plotting.",
-      "Understand tidy data rules: one variable per column, one observation per row."
+      "Deduplicate deterministically by sorting timestamp first, then calling .drop_duplicates(subset=['id'], keep='last').",
+      "Winsorize extreme values at the 1st and 99th percentiles via s.clip(lower=q01, upper=q99).",
+      "Assert primary-key uniqueness and non-negative revenue constraints at the end of every cleaning function."
     ],
     lab: {
       lang: "python",
-      title: "City x Month Revenue Pivot Matrix",
-      prompt: "Pivot a long orders table into a City (rows) x Month (columns) revenue matrix with fill_value=0.",
-      hint: "pd.pivot_table(df, index='city', columns='month', values='rev', aggfunc='sum', fill_value=0).",
-      starterCode: "import pandas as pd\n\ndf = pd.DataFrame({\n    'city': ['Mumbai', 'Bengaluru', 'Mumbai', 'Pune'],\n    'month': ['2026-02', '2026-02', '2026-03', '2026-03'],\n    'rev': [6498.0, 8999.0, 2499.0, 2298.0]\n})\n\nmatrix = pd.pivot_table(df, index='city', columns='month', values='rev', aggfunc='sum', fill_value=0.0)\nprint(matrix)\n"
+      title: "Deterministic Deduplication & 95th-Percentile Outlier Clipping",
+      prompt: "Keep the latest row per order_id and cap extreme revenue values at the 90th percentile using .clip().",
+      hint: "Sort by updated_at, call drop_duplicates('order_id', keep='last'), then clip(upper=s.quantile(0.90)).",
+      starterCode: "import pandas as pd\n\ndf = pd.DataFrame({\n    'order_id': [1, 1, 2, 3, 4],\n    'updated_at': [1, 2, 1, 1, 1],\n    'rev': [2000.0, 2500.0, 3200.0, 4100.0, 95000.0]\n})\n\ndedup = df.sort_values('updated_at').drop_duplicates('order_id', keep='last').copy()\ncap = dedup['rev'].quantile(0.90)\ndedup['rev_capped'] = dedup['rev'].clip(upper=cap).round(2)\nassert dedup['order_id'].is_unique\nprint(dedup[['order_id', 'rev', 'rev_capped']])\n"
     }
   },
   {
     day: 71,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "Hierarchical MultiIndex Slicing & Unstacking",
-    instructor: "Data School",
+    title: "GroupBy Split-Apply-Combine & Named Aggregations (.agg)",
+    instructor: "Corey Schafer",
     duration: "25m",
-    videoId: "tcRGa2soc-c",
-    altVideoId: "M3oB2urOHXY",
+    videoId: "txMdrV1Ut64",
+    altVideoId: "ZyhVh-qRZPA",
     startSec: 0,
-    bridge: "Gives you mastery over hierarchical group outputs so you never get stuck on tuple column names.",
+    bridge: "Produces flat, single-level executive summary DataFrames using Pandas named aggregations.",
     takeaways: [
-      "Navigate MultiIndex rows and columns cleanly using .xs() and pd.IndexSlice.",
-      "Convert hierarchical row levels into wide columns via .unstack(fill_value=0).",
-      "Flatten MultiIndex column headers cleanly after multi-function aggregations."
+      "Use named aggregations .groupby('city', as_index=False).agg(orders=('id', 'count'), gmv=('rev', 'sum')) to avoid MultiIndex columns.",
+      "Combine built-in stats ('count', 'nunique', 'sum', 'mean', 'median') in one pass.",
+      "Always pass observed=True when grouping on categorical columns."
     ],
     lab: {
       lang: "python",
-      title: "MultiIndex Groupby & Unstack to Wide Matrix",
-      prompt: "Group orders by ['city', 'tier'] and unstack('tier') into a clean comparison table.",
-      hint: "df.groupby(['city', 'tier'])['rev'].sum().unstack(fill_value=0).",
-      starterCode: "import pandas as pd\n\ndf = pd.DataFrame({\n    'city': ['Mumbai', 'Mumbai', 'Bengaluru', 'Bengaluru'],\n    'tier': ['Gold', 'Silver', 'Platinum', 'Gold'],\n    'rev': [8997.0, 1499.0, 12297.0, 4999.0]\n})\n\nwide = df.groupby(['city', 'tier'])['rev'].sum().unstack(fill_value=0.0)\nprint(wide)\n"
+      title: "City Performance Mart via Named GroupBy Aggregations",
+      prompt: "Group orders by city to compute order_count, unique_buyers, total_gmv, and median_order_inr.",
+      hint: "df.groupby('city', as_index=False).agg(order_count=('id', 'count'), unique_buyers=('cust_id', 'nunique'), ...).",
+      starterCode: "import pandas as pd\n\ndf = pd.DataFrame({\n    'id': [1, 2, 3, 4, 5],\n    'cust_id': [10, 10, 11, 12, 13],\n    'city': ['Mumbai', 'Mumbai', 'Mumbai', 'Bengaluru', 'Bengaluru'],\n    'rev': [3000.0, 5000.0, 4000.0, 8000.0, 6000.0]\n})\n\nsummary = df.groupby('city', as_index=False).agg(\n    order_count=('id', 'count'),\n    unique_buyers=('cust_id', 'nunique'),\n    total_gmv=('rev', 'sum'),\n    median_order=('rev', 'median')\n)\nprint(summary)\n"
     }
   },
   {
     day: 72,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "Time Series: to_datetime, Resampling & Rolling Windows",
-    instructor: "Data School",
-    duration: "10m",
-    videoId: "yCgJGsg0Xa4",
-    altVideoId: "2uvysYbKdjM",
-    startSec: 0,
-    bridge: "Turns string dates into DatetimeIndex series for calendar resampling ('W', 'ME') and seasonality feature extraction.",
+    title: "Group-Wise Transforms (.transform) & Within-Group Normalization",
+    instructor: "Corey Schafer",
+    duration: "16m",
+    videoId: "txMdrV1Ut64",
+    altVideoId: "ZyhVh-qRZPA",
+    startSec: 1500,
+    bridge: "Mirrors SQL OVER (PARTITION BY ...) window functions in Pandas so every row retains its original shape.",
     takeaways: [
-      "Parse dates reliably with pd.to_datetime(..., format='ISO8601').",
-      "Extract day_name(), month, and is_weekend features via the .dt accessor.",
-      "Downsample daily transactions into weekly or monthly totals via .resample('ME').sum()."
+      "Use .groupby('city')['rev'].transform('sum') to broadcast group totals back onto every row.",
+      "Compute within-city Z-scores or % share of city revenue without an extra merge.",
+      "Filter groups cleanly via df.groupby('city').filter(lambda g: len(g) >= 2)."
     ],
     lab: {
       lang: "python",
-      title: "Datetime Indexing & Monthly Resampling",
-      prompt: "Convert order_date strings to datetime, set as index, and resample total_inr to month-end ('ME') sums.",
-      hint: "df['order_date'] = pd.to_datetime(df['order_date']); df.set_index('order_date')['total_inr'].resample('ME').sum().",
-      starterCode: "import pandas as pd\n\ndf = pd.DataFrame({\n    'order_date': ['2026-02-01', '2026-02-14', '2026-03-11', '2026-03-25'],\n    'total_inr': [6498.0, 8999.0, 2499.0, 2298.0]\n})\ndf['order_date'] = pd.to_datetime(df['order_date'])\nmonthly = df.set_index('order_date')['total_inr'].resample('ME').sum()\nprint(monthly)\n"
+      title: "Order Share of City Revenue & Within-City Z-Score",
+      prompt: "Compute each order's % share of its city's total revenue using .groupby('city')['rev'].transform('sum').",
+      hint: "df['city_share_pct'] = (100 * df['rev'] / df.groupby('city')['rev'].transform('sum')).round(1).",
+      starterCode: "import pandas as pd\n\ndf = pd.DataFrame({\n    'id': [1, 2, 3, 4],\n    'city': ['Mumbai', 'Mumbai', 'Delhi', 'Delhi'],\n    'rev': [3000.0, 7000.0, 4000.0, 4000.0]\n})\n\ndf['city_total'] = df.groupby('city')['rev'].transform('sum')\ndf['city_share_pct'] = (100.0 * df['rev'] / df['city_total']).round(1)\nprint(df)\n"
     }
   },
   {
     day: 73,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "Pandas Window Functions (rolling, expanding, shift)",
-    instructor: "Keith Galli",
-    duration: "15m",
-    videoId: "2uvysYbKdjM",
-    altVideoId: "yCgJGsg0Xa4",
-    startSec: 4500,
-    bridge: "Translates Day 48-49 SQL LEAD/LAG and ROWS BETWEEN frames into Pandas .shift(), .rolling(), and .expanding()—critical for Month 5 forecasting.",
+    title: "Time-Series Indexing, .shift(), .diff() & Rolling Windows",
+    instructor: "Corey Schafer",
+    duration: "24m",
+    videoId: "UFuo7EHI8zc",
+    altVideoId: "eirjjyP2qcQ",
+    startSec: 0,
+    bridge: "Engineers lag features, day-over-day deltas, and trailing moving averages for forecasting and anomaly detection.",
     takeaways: [
-      "Create lag features and period-over-period diffs with .shift(1) and .pct_change().",
-      "Smooth noisy daily revenue with .rolling(window=3, min_periods=1).mean().",
-      "Track cumulative running totals with .expanding().sum()."
+      "Convert string dates with pd.to_datetime() and sort chronologically before calling .shift() or .rolling().",
+      "Use .groupby('cust_id')['rev'].shift(1) so lag features never bleed across different customers.",
+      "Use .rolling(window=3, min_periods=1).mean() to smooth noisy daily revenue series."
     ],
     lab: {
       lang: "python",
-      title: "3-Day Moving Average & Lag Feature Builder",
-      prompt: "Compute a 3-period rolling average and 1-period lag on a daily ShopPulse revenue Series.",
-      hint: "Use s.shift(1) and s.rolling(3, min_periods=1).mean().round(2).",
-      starterCode: "import pandas as pd\n\ndaily_rev = pd.Series([4200.0, 5100.0, 4800.0, 7900.0, 8400.0], name='rev')\ndf = pd.DataFrame({\n    'rev': daily_rev,\n    'lag_1': daily_rev.shift(1),\n    'rolling_3d_avg': daily_rev.rolling(3, min_periods=1).mean().round(2),\n    'cum_rev': daily_rev.expanding().sum()\n})\nprint(df)\n"
+      title: "Customer-Grouped Lag Order & 3-Day Rolling Revenue",
+      prompt: "Sort daily sales by date and compute prev_day_rev (.shift(1)) and 3-day rolling average (.rolling(3).mean()).",
+      hint: "df['prev_rev'] = df['rev'].shift(1); df['roll_3d'] = df['rev'].rolling(3).mean().round(2).",
+      starterCode: "import pandas as pd\n\ndf = pd.DataFrame({\n    'date': pd.to_datetime(['2026-11-01', '2026-11-02', '2026-11-03', '2026-11-04']),\n    'rev': [4000.0, 5000.0, 6000.0, 9000.0]\n}).sort_values('date')\n\ndf['prev_rev'] = df['rev'].shift(1)\ndf['roll_3d'] = df['rev'].rolling(3).mean().round(2)\nprint(df)\n"
     }
   },
   {
     day: 74,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "Memory Optimization: Downcasting & category Dtypes",
-    instructor: "Rob Mulla",
-    duration: "11m",
-    videoId: "u4_c2LDi4b8",
-    altVideoId: "SAFmrTnEHLg",
-    startSec: 0,
-    bridge: "Shrinks DataFrame RAM usage by 60-85% using categorical dtypes and integer/float downcasting before large EDA runs.",
+    title: "Resampling Time Series (.resample) & Period Aggregations",
+    instructor: "Corey Schafer",
+    duration: "16m",
+    videoId: "UFuo7EHI8zc",
+    altVideoId: "eirjjyP2qcQ",
+    startSec: 1440,
+    bridge: "Rolls high-frequency timestamped order logs up into weekly ('W') and month-end ('ME') executive time series.",
     takeaways: [
-      "Measure true deep memory footprint via df.memory_usage(deep=True).",
-      "Convert low-cardinality string columns (city, tier, status) to 'category' dtype.",
-      "Downcast int64/float64 columns safely using pd.to_numeric(..., downcast='integer')."
+      "Set a DatetimeIndex and call .resample('W')['rev'].sum() to aggregate irregular event logs into regular intervals.",
+      "Fill quiet intervals with .asfreq('D', fill_value=0) so zero-order days are explicitly represented.",
+      "Extract calendar attributes cleanly via .dt.day_name(), .dt.month, and .dt.is_weekend."
     ],
     lab: {
       lang: "python",
-      title: "Benchmarking Categorical Memory Compression",
-      prompt: "Compare memory_usage(deep=True) on a 10,000-row city Series before and after converting to 'category'.",
-      hint: "s_cat = s.astype('category'); compare s.memory_usage(deep=True) vs s_cat.memory_usage(deep=True).",
-      starterCode: "import pandas as pd\n\ncities = pd.Series(['Mumbai', 'Bengaluru', 'Pune', 'Delhi', 'Hyderabad'] * 2000)\nmem_obj = cities.memory_usage(deep=True)\nmem_cat = cities.astype('category').memory_usage(deep=True)\n\nprint(f'Object RAM: {mem_obj:,} bytes | Category RAM: {mem_cat:,} bytes ({100*(1 - mem_cat/mem_obj):.1f}% saved)')\n"
+      title: "Daily-to-Weekly Revenue Resampler with Zero-Fill",
+      prompt: "Resample timestamped order events into daily totals filling missing days with 0, then compute weekly sum.",
+      hint: "s.resample('D').sum() automatically fills missing calendar days with 0.",
+      starterCode: "import pandas as pd\n\ndf = pd.DataFrame({\n    'ts': pd.to_datetime(['2026-11-02 10:00', '2026-11-02 18:00', '2026-11-05 14:00', '2026-11-09 11:00']),\n    'rev': [3000.0, 4500.0, 6000.0, 8000.0]\n}).set_index('ts')\n\ndaily = df['rev'].resample('D').sum()\nweekly = df['rev'].resample('W-MON').sum()\nprint('Daily Active Days:', len(daily), '| Sum:', daily.sum())\nprint('Weekly Totals:\\n', weekly)\n"
     }
   },
   {
     day: 75,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "Eliminating .iterrows() Loops via Vectorization",
-    instructor: "Rob Mulla",
-    duration: "11m",
-    videoId: "SAFmrTnEHLg",
-    altVideoId: "u4_c2LDi4b8",
-    startSec: 0,
-    bridge: "Replaces slow row-by-row .iterrows() and .apply() loops with vectorized NumPy/Pandas array operations.",
+    title: "Relational Joins in Pandas: pd.merge(), Validation & pd.concat()",
+    instructor: "Corey Schafer",
+    duration: "20m",
+    videoId: "ZyhVh-qRZPA",
+    altVideoId: "txMdrV1Ut64",
+    startSec: 1200,
+    bridge: "Enforces join cardinality contracts in Python via pd.merge(..., validate='many_to_one') to catch duplicate dimension keys.",
     takeaways: [
-      "Understand why .iterrows() boxes every row into a new Series object.",
-      "Replace row-wise if/else logic with np.where() or np.select().",
-      "Benchmark execution speedups with time.perf_counter()."
+      "Always pass validate='many_to_one' (or 'one_to_one') to pd.merge() so duplicate lookup rows raise an immediate error.",
+      "Use indicator=True during data audits to inspect 'left_only', 'right_only', and 'both' match counts.",
+      "Stack homogeneous monthly DataFrames vertically using pd.concat([df_oct, df_nov], ignore_index=True)."
     ],
     lab: {
       lang: "python",
-      title: "Vectorized Tiered Commission Calculator (np.select)",
-      prompt: "Use np.select() to assign 12%, 8%, or 5% commission rates across 50,000 orders without loops.",
-      hint: "np.select([rev >= 8000, rev >= 4000], [0.12, 0.08], default=0.05).",
-      starterCode: "import numpy as np\nimport pandas as pd\n\nrng = np.random.default_rng(7)\ndf = pd.DataFrame({'rev': rng.uniform(1000, 12000, size=50000)})\n\nconds = [df['rev'] >= 8000, df['rev'] >= 4000]\nchoices = [0.12, 0.08]\ndf['comm_rate'] = np.select(conds, choices, default=0.05)\ndf['commission'] = (df['rev'] * df['comm_rate']).round(2)\nprint(df.head())\n"
+      title: "Validated Many-to-One Order Enrichment Merge",
+      prompt: "Merge orders onto customers using how='left' and validate='many_to_one', filling unmatched tiers with 'Guest'.",
+      hint: "pd.merge(orders, customers, on='cust_id', how='left', validate='many_to_one').",
+      starterCode: "import pandas as pd\n\norders = pd.DataFrame({'order_id': [1, 2, 3], 'cust_id': [101, 101, 999], 'rev': [4000, 3000, 1500]})\ncustomers = pd.DataFrame({'cust_id': [101, 102], 'tier': ['Gold', 'Silver']})\n\nmerged = pd.merge(orders, customers, on='cust_id', how='left', validate='many_to_one')\nmerged['tier'] = merged['tier'].fillna('Guest')\nprint(merged)\n"
     }
   },
   {
     day: 76,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "25 Anti-Patterns: Chained Indexing & SettingWithCopy",
-    instructor: "Rob Mulla",
-    duration: "12m",
-    videoId: "_gaAoJBMJ_Q",
-    altVideoId: "SAFmrTnEHLg",
-    startSec: 0,
-    bridge: "Hardens your data cleaning scripts against silent mutation bugs, inplace=True traps, and unaligned index joins.",
+    title: "Reshaping Tables: pivot_table(), melt() & crosstab()",
+    instructor: "Corey Schafer",
+    duration: "18m",
+    videoId: "txMdrV1Ut64",
+    altVideoId: "ZyhVh-qRZPA",
+    startSec: 2460,
+    bridge: "Converts long transaction logs into wide executive City x Category matrices and unpivots wide spreadsheets back to tidy rows.",
     takeaways: [
-      "Avoid inplace=True and prefer explicit reassignment or method chaining.",
-      "Call .copy() explicitly when slicing a subset DataFrame that you intend to modify.",
-      "Use .isna() instead of == np.nan."
+      "Build multi-dimensional executive matrices via df.pivot_table(index='city', columns='category', values='rev', aggfunc='sum', fill_value=0).",
+      "Unpivot wide monthly columns back into tidy long format using pd.melt().",
+      "Use pd.crosstab(df['city'], df['status'], normalize='index') for quick row-normalized contingency tables."
     ],
     lab: {
       lang: "python",
-      title: "Fixing Chained Assignment & Subset Mutation Bugs",
-      prompt: "Create an explicit .copy() of Delivered orders and safely add a normalized tax column.",
-      hint: "delivered = df.loc[df['status'] == 'Delivered'].copy().",
-      starterCode: "import pandas as pd\n\ndf = pd.DataFrame({\n    'order_id': [1001, 1002, 1003],\n    'status': ['Delivered', 'Cancelled', 'Delivered'],\n    'total_inr': [6498.0, 1499.0, 8999.0]\n})\n\ndelivered = df.loc[df['status'] == 'Delivered'].copy()\ndelivered['base_ex_gst'] = (delivered['total_inr'] / 1.18).round(2)\nprint(delivered)\n"
+      title: "City x Category Revenue Pivot & Unpivot Round-Trip",
+      prompt: "Create a City x Category revenue pivot table with fill_value=0, then melt it back into tidy long format.",
+      hint: "piv = df.pivot_table(index='city', columns='cat', values='rev', aggfunc='sum', fill_value=0).reset_index().",
+      starterCode: "import pandas as pd\n\ndf = pd.DataFrame({\n    'city': ['Mumbai', 'Mumbai', 'Delhi'],\n    'cat': ['Audio', 'Power', 'Audio'],\n    'rev': [8000, 3000, 5000]\n})\n\npiv = df.pivot_table(index='city', columns='cat', values='rev', aggfunc='sum', fill_value=0).reset_index()\nprint('Pivot Matrix:\\n', piv)\ntidy = piv.melt(id_vars='city', var_name='cat', value_name='rev')\nprint('Unpivoted Long:\\n', tidy)\n"
     }
   },
   {
     day: 77,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "Matplotlib Fundamentals: Figures, Axes & Subplots",
-    instructor: "Derek Banas",
-    duration: "45m",
-    videoId: "wB9C0Mz9gSo",
-    altVideoId: "6GUZXDef2U0",
-    startSec: 0,
-    bridge: "Transitions from tabular summaries into visual EDA using Matplotlib's object-oriented Figure and Axes API.",
+    title: "Categorical dtypes, Memory Optimization & Vectorized Performance",
+    instructor: "Corey Schafer",
+    duration: "16m",
+    videoId: "ZyhVh-qRZPA",
+    altVideoId: "QUT1VHiLmmI",
+    startSec: 2400,
+    bridge: "Shrinks DataFrame RAM footprints by 5x-10x on repeated string columns and enforces ordered category sorting.",
     takeaways: [
-      "Always use fig, ax = plt.subplots() instead of the stateful pyplot global API.",
-      "Build multi-panel diagnostic layouts with plt.subplots(nrows, ncols).",
-      "Format currency axes, titles, and legends for immediate executive clarity."
+      "Cast low-cardinality repeated string columns (city, status, tier) to 'category' dtype to save memory and speed up groupbys.",
+      "Use pd.CategoricalDtype(['Silver', 'Gold', 'Platinum'], ordered=True) so sorting respects business tier rank.",
+      "Inspect exact memory footprint via df.memory_usage(deep=True)."
     ],
     lab: {
       lang: "python",
-      title: "Programmatic Chart Summary & ASCII/Stats Diagnostic",
-      prompt: "Compute histogram bin edges and counts via np.histogram() on ShopPulse order values to inspect skew.",
-      hint: "counts, edges = np.histogram(orders, bins=4).",
-      starterCode: "import numpy as np\n\norders = np.array([1499, 2298, 2499, 3298, 4999, 6498, 8999, 11498], dtype=float)\ncounts, edges = np.histogram(orders, bins=4)\nfor i, c in enumerate(counts):\n    print(f'INR {edges[i]:7.0f} - {edges[i+1]:7.0f} : {\"#\" * c} ({c})')\n"
+      title: "Ordered Categorical Tier Sorting & Memory Check",
+      prompt: "Cast tier column to an ordered CategoricalDtype ['Silver', 'Gold', 'Platinum'] and sort customers from highest to lowest tier.",
+      hint: "tier_type = pd.CategoricalDtype(['Silver', 'Gold', 'Platinum'], ordered=True).",
+      starterCode: "import pandas as pd\n\ndf = pd.DataFrame({'name': ['Rohan', 'Diya', 'Kabir'], 'tier': ['Silver', 'Platinum', 'Gold']})\ntier_type = pd.CategoricalDtype(['Silver', 'Gold', 'Platinum'], ordered=True)\ndf['tier'] = df['tier'].astype(tier_type)\n\nprint(df.sort_values('tier', ascending=False))\n"
     }
   },
   {
     day: 78,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "Customizing Publication-Grade Annotations & Grids",
-    instructor: "Derek Banas",
-    duration: "45m",
-    videoId: "wB9C0Mz9gSo",
-    altVideoId: "6GUZXDef2U0",
-    startSec: 2700,
-    bridge: "Adds event callouts (like promo launch dates) and reference threshold lines directly onto analytical charts.",
+    title: "Method Chaining (.pipe) for Clean, Auditable Data Pipelines",
+    instructor: "Keith Galli",
+    duration: "20m",
+    videoId: "vmEHCJofslg",
+    altVideoId: "ZyhVh-qRZPA",
+    startSec: 0,
+    bridge: "Replaces tangled intermediate DataFrames (df1, df2, df_final) with readable, composable .pipe() transformation chains.",
     takeaways: [
-      "Highlight target KPI thresholds with ax.axhline() and campaign dates with ax.axvline().",
-      "Use ax.annotate() with clean offsets rather than cluttering every data point.",
-      "Remove top and right chart spines for a modern editorial aesthetic."
+      "Encapsulate each cleaning or feature step as a pure function df -> df and compose with .pipe().",
+      "Avoid inplace=True everywhere—method chaining creates clean, immutable-style data flows.",
+      "Log row counts inside pipeline steps to catch unexpected row drops immediately."
     ],
     lab: {
       lang: "python",
-      title: "KPI Threshold & Promo Spike Annotator",
-      prompt: "Detect days exceeding the 85th-percentile revenue threshold and generate structured annotation coordinates.",
-      hint: "Compute thresh = np.percentile(rev, 85) and filter rows above thresh.",
-      starterCode: "import pandas as pd\nimport numpy as np\n\ndf = pd.DataFrame({\n    'date': ['2026-03-01', '2026-03-02', '2026-03-03', '2026-03-04', '2026-03-05'],\n    'rev': [4500.0, 4800.0, 12900.0, 5100.0, 4900.0]\n})\nthresh = np.percentile(df['rev'], 85)\nspikes = df[df['rev'] >= thresh]\nprint(f'Threshold: INR {thresh:.2f}\\nAnnotated Spikes:\\n', spikes)\n"
+      title: "Composable Three-Stage .pipe() Cleaning Pipeline",
+      prompt: "Chain filter_valid_orders, add_net_revenue, and summarize_by_city using DataFrame.pipe().",
+      hint: "raw_df.pipe(filter_valid).pipe(add_net).pipe(agg_city).",
+      starterCode: "import pandas as pd\n\ndef filter_valid(d):\n    return d.loc[d['rev'] > 0].copy()\n\ndef add_gst(d):\n    return d.assign(gross=lambda x: (x['rev'] * 1.18).round(2))\n\ndef agg_city(d):\n    return d.groupby('city', as_index=False)['gross'].sum()\n\nraw = pd.DataFrame({'city': ['Mumbai', 'Mumbai', 'Pune'], 'rev': [4000.0, -100.0, 3000.0]})\nprint(raw.pipe(filter_valid).pipe(add_gst).pipe(agg_city))\n"
     }
   },
   {
     day: 79,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "Seaborn Distributions: Histograms, KDE, Box & Violin",
-    instructor: "Derek Banas",
-    duration: "30m",
-    videoId: "6GUZXDef2U0",
-    altVideoId: "wB9C0Mz9gSo",
-    startSec: 0,
-    bridge: "Exposes right-skewed order distributions and outliers visually—setting up Month 4's mathematical probability distributions.",
+    title: "Customer Cohort Retention Pivot Matrix in Pandas",
+    instructor: "Keith Galli",
+    duration: "20m",
+    videoId: "vmEHCJofslg",
+    altVideoId: "txMdrV1Ut64",
+    startSec: 1200,
+    bridge: "Builds a complete Month-0..Month-N customer retention percentage matrix in Pandas.",
     takeaways: [
-      "Compare mean vs median and IQR on skewed revenue data using boxplots and violin plots.",
-      "Overlay KDE density curves onto histograms to inspect modality.",
-      "Identify heavy right tails that require log transforms or median-based metrics."
+      "Compute cohort_period = order_period - cohort_period using Pandas Period('M') arithmetic.",
+      "Pivot active unique users by (cohort_month, cohort_index) and divide each row by column 0 size.",
+      "Track Month-1 retention as an early leading indicator of product-market fit."
     ],
     lab: {
       lang: "python",
-      title: "Distribution Skewness & IQR Outlier Audit",
-      prompt: "Compute mean, median, IQR (Q3 - Q1), and Tukey upper outlier fence on ShopPulse basket sizes.",
-      hint: "q1, q3 = np.percentile(baskets, [25, 75]); upper_fence = q3 + 1.5 * (q3 - q1).",
-      starterCode: "import numpy as np\n\nbaskets = np.array([1499, 2298, 2499, 2799, 3298, 4999, 6498, 8999, 18500], dtype=float)\nq1, med, q3 = np.percentile(baskets, [25, 50, 75])\niqr = q3 - q1\nupper_fence = q3 + 1.5 * iqr\n\nprint(f'Mean: {baskets.mean():.2f} vs Median: {med:.2f}')\nprint(f'IQR: {iqr:.2f} | Upper Fence: {upper_fence:.2f}')\nprint('Outliers:', baskets[baskets > upper_fence])\n"
+      title: "Pandas Cohort Retention Table Builder",
+      prompt: "Compute acquisition cohort month per customer, calculate period offset (0, 1), and build a retention count pivot.",
+      hint: "Convert dates with .dt.to_period('M') and subtract cohort period.",
+      starterCode: "import pandas as pd\n\ndf = pd.DataFrame({\n    'cust_id': [1, 1, 2, 3, 3],\n    'date': pd.to_datetime(['2026-09-05', '2026-10-12', '2026-09-20', '2026-10-03', '2026-11-04'])\n})\ndf['order_m'] = df['date'].dt.to_period('M')\ndf['cohort_m'] = df.groupby('cust_id')['order_m'].transform('min')\ndf['offset'] = (df['order_m'] - df['cohort_m']).apply(lambda x: x.n)\n\nmat = df.pivot_table(index='cohort_m', columns='offset', values='cust_id', aggfunc='nunique', fill_value=0)\nprint(mat)\n"
     }
   },
   {
     day: 80,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "Multivariate Seaborn: Pairplots, Heatmaps & FacetGrids",
-    instructor: "Derek Banas",
-    duration: "30m",
-    videoId: "6GUZXDef2U0",
-    altVideoId: "wB9C0Mz9gSo",
-    startSec: 1800,
-    bridge: "Reveals multi-variable feature correlations and segment interactions before formal statistical testing in Month 4.",
+    title: "RFM Customer Scoring & Quantile Tiering (pd.qcut)",
+    instructor: "Keith Galli",
+    duration: "18m",
+    videoId: "vmEHCJofslg",
+    altVideoId: "txMdrV1Ut64",
+    startSec: 2400,
+    bridge: "Segments ShopPulse customers into actionable lifecycle tiers using quantile-based RFM scoring.",
     takeaways: [
-      "Compute and visualize correlation matrices (.corr()) to spot collinear features.",
-      "Use FacetGrid / small multiples to compare conversion rates across cities and tiers.",
-      "Avoid Simpson's Paradox by slicing aggregates by confounding dimensions."
+      "Use pd.qcut(s.rank(method='first'), q=4, labels=[1, 2, 3, 4]) so duplicate values never fail bin edges.",
+      "Invert recency labels [4, 3, 2, 1] because lower days_since_last_order is better.",
+      "Combine R, F, and M scores into a composite RFM index for CRM targeting."
     ],
     lab: {
       lang: "python",
-      title: "Feature Correlation Matrix Computation",
-      prompt: "Build a multivariate customer metrics DataFrame and compute its pairwise Pearson correlation matrix.",
-      hint: "Call df[['orders', 'tenure_days', 'ltv_inr']].corr().round(3).",
-      starterCode: "import pandas as pd\n\ndf = pd.DataFrame({\n    'orders': [2, 5, 1, 4, 6, 3],\n    'tenure_days': [45, 180, 20, 120, 210, 90],\n    'ltv_inr': [8997, 24500, 2298, 16800, 31200, 11500]\n})\nprint(df.corr().round(3))\n"
+      title: "Rank-Safe RFM Customer Scorer in Pandas",
+      prompt: "Compute composite RFM score (1..4 scale) across 4 customers using rank-safe pd.qcut.",
+      hint: "Use pd.qcut(s.rank(method='first'), q=4, labels=...).astype(int).",
+      starterCode: "import pandas as pd\n\ncust = pd.DataFrame({\n    'cust_id': [1, 2, 3, 4],\n    'recency_days': [5, 45, 12, 80],\n    'freq': [6, 2, 4, 1],\n    'monetary': [28000, 6000, 15000, 2200]\n})\n\ncust['R'] = pd.qcut(cust['recency_days'].rank(method='first'), 4, labels=[4, 3, 2, 1]).astype(int)\ncust['F'] = pd.qcut(cust['freq'].rank(method='first'), 4, labels=[1, 2, 3, 4]).astype(int)\ncust['M'] = pd.qcut(cust['monetary'].rank(method='first'), 4, labels=[1, 2, 3, 4]).astype(int)\ncust['RFM_Total'] = cust['R'] + cust['F'] + cust['M']\nprint(cust.sort_values('RFM_Total', ascending=False))\n"
     }
   },
   {
     day: 81,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "Interactive Dashboards & Hover Charts with Plotly",
-    instructor: "Derek Banas",
-    duration: "1h 22m",
-    videoId: "GGL6U0k8WYA",
-    altVideoId: "6GUZXDef2U0",
-    startSec: 0,
-    bridge: "Upgrades static plots into interactive Plotly Express charts with hover tooltips and zoomable time sliders.",
+    title: "Event Sessionization & Funnel Drop-Off Metrics in Pandas",
+    instructor: "Keith Galli",
+    duration: "20m",
+    videoId: "vmEHCJofslg",
+    altVideoId: "UFuo7EHI8zc",
+    startSec: 3480,
+    bridge: "Groups raw clickstream timestamps into user sessions using a 30-minute inactivity timeout rule.",
     takeaways: [
-      "Build interactive scatter, line, and funnel charts with plotly.express.",
-      "Configure custom hover_data fields so stakeholders can inspect individual order IDs.",
-      "Export standalone interactive HTML reports."
+      "Start a new user session whenever time since previous event exceeds 30 minutes: (ts.diff() > pd.Timedelta('30min')).cumsum().",
+      "Compute session duration, page depth, and checkout conversion per session.",
+      "Keep clickstream timestamps sorted by (user_id, timestamp) before computing time diffs."
     ],
     lab: {
       lang: "python",
-      title: "Checkout Funnel Stage Conversion Table",
-      prompt: "Compute step-to-step and overall conversion percentages across the 4-stage ShopPulse checkout funnel.",
-      hint: "Divide each stage's user count by the previous stage and by stage 0 ('Landing').",
-      starterCode: "import pandas as pd\n\nfunnel = pd.DataFrame({\n    'stage': ['Landing', 'Product View', 'Add to Cart', 'Checkout Paid'],\n    'users': [10000, 5400, 2160, 864]\n})\nfunnel['step_conv_pct'] = (100 * funnel['users'] / funnel['users'].shift(1).fillna(funnel['users'])).round(1)\nfunnel['overall_conv_pct'] = (100 * funnel['users'] / funnel['users'].iloc[0]).round(2)\nprint(funnel)\n"
+      title: "30-Minute Inactivity Clickstream Sessionizer",
+      prompt: "Assign sequential session IDs to user click timestamps whenever the gap exceeds 30 minutes.",
+      hint: "new_sess = df['ts'].diff().gt(pd.Timedelta(minutes=30)); df['session_id'] = new_sess.cumsum() + 1.",
+      starterCode: "import pandas as pd\n\ndf = pd.DataFrame({\n    'ts': pd.to_datetime(['2026-11-20 10:00', '2026-11-20 10:12', '2026-11-20 11:05', '2026-11-20 11:15'])\n}).sort_values('ts')\n\ndf['session_id'] = df['ts'].diff().gt(pd.Timedelta(minutes=30)).cumsum() + 1\nprint(df)\n"
     }
   },
   {
     day: 82,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "End-to-End Exploratory Data Analysis (EDA) Workflow",
-    instructor: "Rishabh Mishra",
-    duration: "25m",
-    videoId: "_BA5kFO7w44",
-    altVideoId: "2uvysYbKdjM",
-    startSec: 2400,
-    bridge: "Establishes a repeatable 5-step EDA checklist (Schema -> Missingness -> Univariate -> Bivariate -> Hypotheses).",
+    title: "Univariate EDA: Central Tendency, Spread, IQR & Skewness",
+    instructor: "StatQuest",
+    duration: "14m",
+    videoId: "rzFX5NWojp0",
+    altVideoId: "vmEHCJofslg",
+    startSec: 0,
+    bridge: "Diagnoses right-skewed order distributions by pairing parametric (mean/std) and robust (median/IQR) statistics.",
     takeaways: [
-      "Follow a disciplined EDA protocol rather than ad-hoc chart wandering.",
-      "Document anomalies, data leakage risks, and testable business hypotheses.",
-      "Summarize key findings in executive bullet points backed by exact numbers."
+      "Always compare mean vs median: when mean >> median, extreme high orders are pulling the average upward.",
+      "Compute Interquartile Range IQR = Q3 - Q1 and Tukey outlier fences [Q1 - 1.5*IQR, Q3 + 1.5*IQR].",
+      "Measure skewness via s.skew() before choosing linear vs log-transformed modeling features."
     ],
     lab: {
       lang: "python",
-      title: "Automated EDA Health Report Function",
-      prompt: "Write an eda_profile(df) function returning row count, duplicate count, null count, and column count.",
-      hint: "Combine len(df), df.duplicated().sum(), and df.isna().sum().sum().",
-      starterCode: "import pandas as pd\n\ndef eda_profile(df: pd.DataFrame) -> dict:\n    return {\n        'rows': len(df),\n        'cols': df.shape[1],\n        'duplicates': int(df.duplicated().sum()),\n        'total_nulls': int(df.isna().sum().sum())\n    }\n\nsample = pd.DataFrame({'id': [1, 2, 2], 'val': [100.0, None, None]})\nprint(eda_profile(sample))\n"
+      title: "Parametric vs Robust Univariate EDA Summary",
+      prompt: "Compute mean, median, std, IQR, and upper Tukey fence on skewed ShopPulse order values.",
+      hint: "q1, q3 = s.quantile([0.25, 0.75]); iqr = q3 - q1; upper_fence = q3 + 1.5 * iqr.",
+      starterCode: "import pandas as pd\n\ns = pd.Series([1499, 1899, 2299, 2499, 2899, 3199, 3599, 18500], dtype=float)\nq1, q3 = s.quantile([0.25, 0.75])\niqr = q3 - q1\nupper_fence = q3 + 1.5 * iqr\n\nprint(f'Mean: INR {s.mean():.2f} | Median: INR {s.median():.2f} | IQR: INR {iqr:.2f}')\nprint(f'Upper Tukey Fence: INR {upper_fence:.2f} | Outliers: {s[s > upper_fence].tolist()}')\n"
     }
   },
   {
     day: 83,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "Capstone 3A: ShopPulse Funnel & Cohort EDA Notebook",
-    instructor: "Rishabh Mishra",
-    duration: "25m",
-    videoId: "_BA5kFO7w44",
-    altVideoId: "2uvysYbKdjM",
-    startSec: 3200,
-    bridge: "Synthesizes Month 3 by joining, cleaning, and analyzing the complete ShopPulse funnel and revenue cohort dataset.",
+    title: "Multivariate EDA: Cross-Tabs, Group Comparisons & Outliers",
+    instructor: "StatQuest",
+    duration: "15m",
+    videoId: "9yl6-HEY7_s",
+    altVideoId: "vmEHCJofslg",
+    startSec: 0,
+    bridge: "Uncovers segment differences across cities, devices, and loyalty tiers before formulating formal statistical hypotheses.",
     takeaways: [
-      "Combine SQL extraction, Pandas cleaning, window metrics, and funnel diagnostics in one pipeline.",
-      "Quantify exact conversion drop-offs between Add-to-Cart and Payment.",
-      "Produce the clean analytical dataset used throughout Month 4 hypothesis testing."
+      "Compare group distributions across segments using grouped quantiles (P25, P50, P75, P90) rather than means alone.",
+      "Inspect row-normalized cross-tabs to spot conversion differences between mobile and desktop traffic.",
+      "Document concrete hypotheses from EDA anomalies to test rigorously in Month 4."
     ],
     lab: {
       lang: "python",
-      title: "Capstone 3A: Control vs Variant Checkout Funnel Audit",
-      prompt: "Compare conversion rates between Control and Variant checkout flows across 2,000 simulated users.",
-      hint: "Group by 'variant' and compute mean of 'converted' (0/1).",
-      starterCode: "import numpy as np\nimport pandas as pd\n\nrng = np.random.default_rng(2026)\nn = 2000\ndf = pd.DataFrame({\n    'variant': np.repeat(['Control', 'Variant_B'], n // 2),\n    'converted': np.concatenate([rng.binomial(1, 0.082, n // 2), rng.binomial(1, 0.104, n // 2)])\n})\nsummary = df.groupby('variant')['converted'].agg(users='count', conversions='sum', conv_rate=lambda s: round(s.mean()*100, 2))\nprint(summary)\n"
+      title: "Device x Conversion Cross-Tab & Segment Quantiles",
+      prompt: "Compute row-normalized conversion percentages across Mobile vs Desktop using pd.crosstab(normalize='index').",
+      hint: "(pd.crosstab(df['device'], df['converted'], normalize='index') * 100).round(1).",
+      starterCode: "import pandas as pd\n\ndf = pd.DataFrame({\n    'device': ['Mobile', 'Mobile', 'Mobile', 'Desktop', 'Desktop', 'Desktop'],\n    'converted': [1, 0, 0, 1, 1, 0]\n})\n\nct = (pd.crosstab(df['device'], df['converted'], normalize='index') * 100).round(1)\nprint('Conversion % by Device (0=No, 1=Yes):\\n', ct)\n"
     }
   },
   {
     day: 84,
     month: 3,
     module: "M3: NumPy & Pandas",
-    title: "Bridge 3->4: Quantifying EDA Shapes as Distributions",
-    instructor: "StatQuest",
-    duration: "6m",
-    videoId: "oI3hZJqXJuc",
-    altVideoId: "J8jNoF-K8E8",
-    startSec: 0,
-    bridge: "Hands off Month 3 directly to Month 4 by turning empirical EDA conversion counts and basket histograms into formal probability distributions.",
+    title: "Bridge 3->4: Capstone ShopPulse EDA Summary & Empirical Distributions",
+    instructor: "Keith Galli",
+    duration: "22m",
+    videoId: "vmEHCJofslg",
+    altVideoId: "oI3hZJqXJuc",
+    startSec: 4680,
+    bridge: "Hands off Month 3 NumPy & Pandas mastery to Month 4 Probability & Statistics by profiling empirical distributions and binned histograms.",
     takeaways: [
-      "Stop eyeballing histograms: map discrete conversion clicks to Binomial models and continuous basket sizes to Normal/Log-Normal models.",
-      "Understand why observed sample metrics fluctuate around true population parameters.",
-      "Prepare directly for Day 85 PMF/PDF/CDF probability foundations."
+      "Combine data cleaning, grouped KPIs, and empirical distribution binning into one repeatable EDA report.",
+      "Inspect binned frequency distributions via pd.cut() and np.histogram() to preview probability mass/density shapes.",
+      "Carry clean, validated ShopPulse features directly into Month 4 statistical inference."
     ],
     lab: {
       lang: "python",
-      title: "Bridge 3->4: Empirical vs Theoretical Mean & Variance",
-      prompt: "Simulate 5,000 Bernoulli checkout trials (p=0.10) and compare sample mean & variance against theoretical p and p*(1-p).",
-      hint: "Theoretical mean = p; theoretical variance = p * (1 - p).",
-      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\np = 0.10\ntrials = rng.binomial(1, p, size=5000)\n\nprint(f'Empirical Mean: {trials.mean():.4f} | Theoretical: {p:.4f}')\nprint(f'Empirical Var : {trials.var():.4f} | Theoretical: {p*(1-p):.4f}')\n"
+      title: "Bridge 3->4: Empirical Order Value Histogram & EDA Report",
+      prompt: "Bin order revenues into INR brackets using pd.cut() and compute empirical relative frequencies summing to 1.0.",
+      hint: "pd.cut(revs, bins=[0, 2500, 5000, 10000, 50000]).value_counts(normalize=True).sort_index().",
+      starterCode: "import pandas as pd\n\nrevs = pd.Series([1200, 1800, 2400, 2900, 3500, 4200, 4800, 6500, 8900, 14500])\nbins = pd.cut(revs, bins=[0, 2500, 5000, 10000, 50000])\nemp_dist = bins.value_counts(normalize=True).sort_index()\n\nprint('Empirical Order Value Distribution:\\n', emp_dist)\nprint('Total Probability:', round(float(emp_dist.sum()), 4))\n"
     }
   }
 ];
 // DataForge // Instinct OS - Decoupled 168-Day Curriculum (Part 2 of 2: Days 85-168)
-// Paste directly below Part 1 in curriculum.js. Pure ASCII-safe strings.
+// Paste directly below the closing ]; of Part 1 in curriculum.js.
+// Pure ASCII-safe strings for clean GitHub Pages execution.
 
 window.CURRICULUM.push(
   {
@@ -2105,7 +2107,7 @@ window.CURRICULUM.push(
     videoId: "rzFX5NWojp0",
     altVideoId: "XNgt7F6FqDU",
     startSec: 0,
-    bridge: "Proves why sample means become Normally distributed even when raw order revenue is heavily skewed—enabling A/B test math.",
+    bridge: "Proves why sample means become Normally distributed even when raw order revenue is heavily skewed -- enabling A/B test math.",
     takeaways: [
       "The Central Limit Theorem states that the sampling distribution of the mean approaches Normal as sample size n grows.",
       "Standard Error SE = std / sqrt(n) shrinks as sample size increases, tightening measurement precision.",
@@ -2369,7 +2371,7 @@ window.CURRICULUM.push(
     videoId: "9yl6-HEY7_s",
     altVideoId: "TqOeMYtOc1w",
     startSec: 0,
-    bridge: "Shrinks A/B test variance by 25-40% using pre-experiment user spend as a covariate—cutting experiment runtime in half.",
+    bridge: "Shrinks A/B test variance by 25-40% using pre-experiment user spend as a covariate -- cutting experiment runtime in half.",
     takeaways: [
       "CUPED adjusts post-experiment metric Y using pre-experiment covariate X: Y_cuped = Y - theta * (X - mean(X)).",
       "Optimal theta = Cov(Y, X) / Var(X), which removes pre-existing user heterogeneity.",
@@ -2513,7 +2515,7 @@ window.CURRICULUM.push(
     videoId: "sDv4f4s2SB8",
     altVideoId: "IHZwWFHWa-w",
     startSec: 0,
-    bridge: "Implements iterative parameter updates w = w - lr * grad in pure NumPy—demystifying how every ML model trains.",
+    bridge: "Implements iterative parameter updates w = w - lr * grad in pure NumPy -- demystifying how every ML model trains.",
     takeaways: [
       "Learning rate (lr) controls step size: too large diverges, too small crawls slowly.",
       "Contrast Batch GD, Stochastic GD (SGD), and Mini-Batch GD.",
@@ -2849,7 +2851,7 @@ window.CURRICULUM.push(
     videoId: "3CC4N4z3GJc",
     altVideoId: "OtD8wVaFm6E",
     startSec: 0,
-    bridge: "Builds additive weak learners sequentially—each new shallow tree predicts and corrects the residual errors of prior trees.",
+    bridge: "Builds additive weak learners sequentially -- each new shallow tree predicts and corrects the residual errors of prior trees.",
     takeaways: [
       "Unlike independent Random Forest trees, Gradient Boosting fits trees sequentially on pseudo-residuals.",
       "Learning rate (shrinkage) scales each tree's contribution so more trees generalize better.",
@@ -2980,7 +2982,7 @@ window.CURRICULUM.push(
       title: "Random Hyperparameter Search Over Regularization Alpha",
       prompt: "Sample 8 log-uniform alpha candidates between 1e-3 and 1e2 and select the lowest validation MSE.",
       hint: "alphas = 10 ** rng.uniform(-3, 2, size=8).",
-      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\nalphas = np.sort(10 ** rng.uniform(-3, 2, size=8))\n# Simulated validation loss curve peaking around alpha ~ 1.5\nval_losses = 0.42 + 0.08 * (np.log10(alphas) - 0.18) ** 2\nbest_idx = int(np.argmin(val_losses))\nprint(f'Best Alpha: {alphas[best_idx]:.4f} | Val Loss: {val_losses[best_idx]:.4f}')\n"
+      starterCode: "import numpy as np\n\nrng = np.random.default_rng(42)\nalphas = np.sort(10 ** rng.uniform(-3, 2, size=8))\nval_losses = 0.42 + 0.08 * (np.log10(alphas) - 0.18) ** 2\nbest_idx = int(np.argmin(val_losses))\nprint(f'Best Alpha: {alphas[best_idx]:.4f} | Val Loss: {val_losses[best_idx]:.4f}')\n"
     }
   },
   {
@@ -2996,7 +2998,7 @@ window.CURRICULUM.push(
     bridge: "Trains accurate fraud and rare-churn models when positive events represent only 1-5% of traffic.",
     takeaways: [
       "Prefer class_weight='balanced' and threshold tuning before synthetic oversampling (SMOTE).",
-      "Apply SMOTE strictly inside training folds—never before train/validation splitting.",
+      "Apply SMOTE strictly inside training folds -- never before train/validation splitting.",
       "Recalibrate predicted probabilities (Platt scaling / isotonic) whenever training class priors are altered."
     ],
     lab: {
@@ -3218,8 +3220,8 @@ window.CURRICULUM.push(
     lab: {
       lang: "python",
       title: "Multivariate L2 Distance Anomaly Scorer",
-      prompt: "Standardize 2D [order_value, items_qty] records and flag rows whose Euclidean distance from centroid exceeds 2.5.",
-      hint: "dists = np.linalg.norm(X_std, axis=1); flag dists > 2.5.",
+      prompt: "Standardize 2D [order_value, items_qty] records and flag rows whose Euclidean distance from centroid exceeds 2.0.",
+      hint: "dists = np.linalg.norm(X_std, axis=1); flag dists > 2.0.",
       starterCode: "import numpy as np\n\nX = np.array([[2500, 1], [3100, 2], [2800, 1], [3400, 2], [2900, 1], [45000, 18]], dtype=float)\nX_std = (X - X.mean(axis=0)) / X.std(axis=0)\ndists = np.linalg.norm(X_std, axis=1)\nfor i, d in enumerate(dists):\n    print(f'Row {i}: dist={d:.2f} -> Outlier={d > 2.0}')\n"
     }
   },
@@ -3338,8 +3340,8 @@ window.CURRICULUM.push(
     lab: {
       lang: "python",
       title: "Capstone 5A: Complete Churn Training & Test Evaluation",
-      prompt: "Train a regularized logistic churn model on 80 synthetic customers and evaluate test accuracy and F1 on 20 customers.",
-      hint: "Fit scaler on X_train, run 500 gradient steps with L2 penalty, and evaluate on X_test.",
+      prompt: "Train a regularized logistic churn model on 80 synthetic customers and evaluate test accuracy on 20 customers.",
+      hint: "Fit weights on X_train over 500 gradient steps with L2 penalty, and evaluate accuracy on X_test.",
       starterCode: "import numpy as np\n\nrng = np.random.default_rng(2026)\nX = rng.normal(0, 1, (100, 3))\nlogits_true = 1.6 * X[:, 0] - 1.2 * X[:, 1] + 0.8 * X[:, 2]\ny = (1 / (1 + np.exp(-logits_true)) > 0.5).astype(float)\n\nX_tr, X_te = X[:80], X[80:]\ny_tr, y_te = y[:80], y[80:]\nw = np.zeros(3)\nfor _ in range(500):\n    p = 1 / (1 + np.exp(-(X_tr @ w)))\n    w -= 0.1 * ((X_tr.T @ (p - y_tr)) / len(y_tr) + 0.05 * w)\n\ntest_preds = ((1 / (1 + np.exp(-(X_te @ w)))) >= 0.5).astype(float)\nacc = np.mean(test_preds == y_te)\nprint(f'Capstone 5A Test Accuracy: {acc * 100:.1f}% | Weights: {np.round(w, 2)}')\n"
     }
   },
@@ -3410,7 +3412,7 @@ window.CURRICULUM.push(
     lab: {
       lang: "python",
       title: "Softmax Temperature Scaling & Token Cost Estimator",
-      prompt: "Compare output token probability sharpness at temperature=0.2 vs temperature=1.5 and estimate prompt API cost.",
+      prompt: "Compare output token probability sharpness at temperature=0.2 vs temperature=1.5.",
       hint: "scaled = logits / temp; probs = np.exp(scaled) / np.sum(np.exp(scaled)).",
       starterCode: "import numpy as np\n\nlogits = np.array([2.5, 1.8, 0.4])\nfor temp in [0.2, 1.0, 1.5]:\n    s = logits / temp\n    p = np.exp(s - np.max(s)) / np.sum(np.exp(s - np.max(s)))\n    print(f'Temp {temp:.1f} -> Token Probs: {np.round(p, 3)}')\n"
     }
@@ -3434,8 +3436,8 @@ window.CURRICULUM.push(
     lab: {
       lang: "python",
       title: "SFT Chat-Template Prompt Formatter",
-      prompt: "Build a clean system + user + assistant chat message formatter verifying role alternation and token budget.",
-      hint: "Format role blocks cleanly and assert total word/token estimate stays below max_tokens.",
+      prompt: "Build a clean system + user + assistant chat message formatter verifying role alternation.",
+      hint: "Format role blocks cleanly using chat template markers.",
       starterCode: "def format_prompt(system_msg: str, user_msg: str) -> str:\n    return f'<|system|>\\n{system_msg}\\n<|user|>\\n{user_msg}\\n<|assistant|>\\n'\n\nprompt = format_prompt('You are a concise SQL analyst.', 'Top 3 cities by revenue?')\nprint(prompt)\n"
     }
   },
@@ -3458,7 +3460,7 @@ window.CURRICULUM.push(
     lab: {
       lang: "python",
       title: "XML-Delimited Few-Shot SQL Prompt Builder",
-      prompt: "Construct a prompt builder wrapping ShopPulse DDL schema and 2 few-shot examples inside XML tags.",
+      prompt: "Construct a prompt builder wrapping ShopPulse DDL schema and a few-shot example inside XML tags.",
       hint: "Embed <schema>, <examples>, and <question> blocks cleanly.",
       starterCode: "def build_sql_prompt(schema_ddl: str, question: str) -> str:\n    return f'''<schema>\\n{schema_ddl}\\n</schema>\n<examples>\nQ: Total delivered orders?\nSQL: SELECT COUNT(*) FROM orders WHERE status = 'Delivered';\n</examples>\n<question>{question}</question>\nReturn only valid SQLite SQL.'''\n\nprint(build_sql_prompt('orders(order_id, city, status, total_inr)', 'Revenue by city?'))\n"
     }
@@ -3506,9 +3508,9 @@ window.CURRICULUM.push(
     lab: {
       lang: "python",
       title: "Overlapping Sliding-Window Text Chunker",
-      prompt: "Implement chunk_text(text, chunk_size=120, overlap=30) returning overlapping chunks with metadata.",
+      prompt: "Implement chunk_text(text, chunk_size=55, overlap=15) returning overlapping chunks with metadata.",
       hint: "Step start index by (chunk_size - overlap) until start >= len(text).",
-      starterCode: "def chunk_text(text: str, chunk_size: int = 80, overlap: int = 20) -> list[dict]:\n    chunks = []\n    step = chunk_size - overlap\n    for idx, start in enumerate(range(0, len(text), step)):\n        piece = text[start:start + chunk_size]\n        chunks.append({'chunk_id': idx, 'text': piece})\n        if start + chunk_size >= len(text):\n            break\n    return chunks\n\ndoc = 'ShopPulse offers a 30-day no-questions return policy on all unopened electronics purchased in India with valid GST invoice.'\nfor c in chunk_text(doc, 55, 15):\n    print(c)\n"
+      starterCode: "def chunk_text(text: str, chunk_size: int = 55, overlap: int = 15) -> list[dict]:\n    chunks = []\n    step = chunk_size - overlap\n    for idx, start in enumerate(range(0, len(text), step)):\n        piece = text[start:start + chunk_size]\n        chunks.append({'chunk_id': idx, 'text': piece})\n        if start + chunk_size >= len(text):\n            break\n    return chunks\n\ndoc = 'ShopPulse offers a 30-day no-questions return policy on all unopened electronics purchased in India with valid GST invoice.'\nfor c in chunk_text(doc, 55, 15):\n    print(c)\n"
     }
   },
   {
@@ -3621,12 +3623,12 @@ window.CURRICULUM.push(
     takeaways: [
       "Expose typed tool schemas (name, description, JSON parameters) rather than letting LLMs guess arithmetic.",
       "The LLM emits a structured tool_call JSON; your runtime executes the function and feeds tool_result back.",
-      "Validate all tool arguments before execution—especially read-only SQL constraints."
+      "Validate all tool arguments before execution -- especially read-only SQL constraints."
     ],
     lab: {
       lang: "python",
       title: "Tool Dispatcher Router for ShopPulse Assistant",
-      prompt: "Implement a tool registry dispatching structured tool calls ('get_sku_price', 'calc_gst') safely.",
+      prompt: "Implement a tool registry dispatching structured tool calls ('get_sku_price', 'calc_total_with_gst') safely.",
       hint: "Look up call['name'] in TOOLS dict and invoke with **call['args'].",
       starterCode: "CATALOG = {'SP-101': 4999.0, 'SP-102': 1499.0}\nTOOLS = {\n    'get_sku_price': lambda sku: CATALOG.get(sku, 0.0),\n    'calc_total_with_gst': lambda amount, rate=0.18: round(amount * (1 + rate), 2)\n}\n\ndef dispatch(tool_call: dict):\n    fn = TOOLS.get(tool_call['name'])\n    if not fn:\n        raise ValueError('Unknown tool')\n    return fn(**tool_call['args'])\n\nprice = dispatch({'name': 'get_sku_price', 'args': {'sku': 'SP-101'}})\nprint('Total INR:', dispatch({'name': 'calc_total_with_gst', 'args': {'amount': price}}))\n"
     }
@@ -3692,7 +3694,7 @@ window.CURRICULUM.push(
     bridge: "Locks down AI agents against prompt injection, destructive SQL mutations (DROP/DELETE), and unauthorized refunds.",
     takeaways: [
       "Enforce read-only SELECT validation and row limits on any LLM-generated SQL query.",
-      "Treat retrieved documents and user inputs as untrusted data—never executable instructions.",
+      "Treat retrieved documents and user inputs as untrusted data -- never executable instructions.",
       "Require Human-in-the-Loop (HITL) confirmation before high-impact write actions (refunds, emails, DB writes)."
     ],
     lab: {
@@ -3722,7 +3724,7 @@ window.CURRICULUM.push(
     lab: {
       lang: "python",
       title: "End-to-End Safe Text-to-SQL Execution Harness",
-      prompt: "Validate a candidate SQL query with validate_readonly_sql(), execute it against an in-memory SQLite table, and return rows.",
+      prompt: "Validate a candidate SQL query with read-only checks, execute it against an in-memory SQLite table, and return rows.",
       hint: "Run sqlite3 in-memory query only after passing the read-only guard.",
       starterCode: "import sqlite3\n\nconn = sqlite3.connect(':memory:')\nconn.execute('CREATE TABLE orders (city TEXT, total_inr REAL)')\nconn.executemany('INSERT INTO orders VALUES (?, ?)', [('Mumbai', 6498.0), ('Bengaluru', 8999.0), ('Mumbai', 2499.0)])\n\nsql = 'SELECT city, ROUND(SUM(total_inr), 2) AS rev FROM orders GROUP BY city ORDER BY rev DESC;'\nassert sql.strip().upper().startswith('SELECT')\nprint(conn.execute(sql).fetchall())\n"
     }
@@ -3746,8 +3748,8 @@ window.CURRICULUM.push(
     lab: {
       lang: "python",
       title: "Architecture Decision Matrix Scorer",
-      prompt: "Implement recommend_approach(needs_live_data, custom_tone_only, high_volume_low_latency) returning RAG, Prompting, or LoRA.",
-      hint: "If needs_live_data -> 'RAG'; elif high_volume_low_latency -> 'LoRA Fine-Tune'; else 'Structured Prompting'.",
+      prompt: "Implement recommend_approach(needs_live_data, high_volume_low_latency) returning RAG, Prompting, or LoRA.",
+      hint: "If needs_live_data -> 'RAG + Grounded Citations'; elif high_volume_low_latency -> 'LoRA Fine-Tuned Small Model'; else 'Few-Shot Structured Prompting'.",
       starterCode: "def recommend_approach(needs_live_data: bool, high_volume_low_latency: bool) -> str:\n    if needs_live_data:\n        return 'RAG + Grounded Citations'\n    if high_volume_low_latency:\n        return 'LoRA Fine-Tuned Small Model'\n    return 'Few-Shot Structured Prompting'\n\nprint('Policy Q&A:', recommend_approach(True, False))\nprint('10M Ticket Classifier:', recommend_approach(False, True))\n"
     }
   },
@@ -3794,8 +3796,8 @@ window.CURRICULUM.push(
     lab: {
       lang: "python",
       title: "Structured Agent Trace & Cost Telemetry Summarizer",
-      prompt: "Aggregate span latencies and token costs across a multi-step agent trace.",
-      hint: "Sum duration_ms and compute total USD/INR token cost.",
+      prompt: "Aggregate span latencies and token counts across a multi-step agent trace.",
+      hint: "Sum duration_ms and tokens across span records.",
       starterCode: "spans = [\n    {'step': 'vector_search', 'ms': 18, 'tokens': 0},\n    {'step': 'sql_tool', 'ms': 12, 'tokens': 0},\n    {'step': 'llm_synthesis', 'ms': 420, 'tokens': 650}\n]\ntotal_ms = sum(s['ms'] for s in spans)\ntotal_tokens = sum(s['tokens'] for s in spans)\nprint(f'End-to-End Latency: {total_ms} ms | Total Tokens: {total_tokens}')\n"
     }
   },
@@ -3890,8 +3892,8 @@ window.CURRICULUM.push(
     lab: {
       lang: "python",
       title: "Adversarial Safety & Abstention Test Suite",
-      prompt: "Run 4 automated test assertions verifying SQL injection blocking and safe handling of unknown SKUs.",
-      hint: "Assert blocked queries raise ValueError and unknown SKUs return clean fallback.",
+      prompt: "Run automated test assertions verifying SQL injection blocking and safe handling of unsafe queries.",
+      hint: "Assert blocked queries raise ValueError cleanly.",
       starterCode: "def safe_query(sql: str) -> str:\n    if 'DROP' in sql.upper() or 'DELETE' in sql.upper():\n        raise ValueError('Blocked unsafe SQL')\n    return 'OK'\n\nassert safe_query('SELECT * FROM orders') == 'OK'\ntry:\n    safe_query('DROP TABLE orders;')\n    assert False, 'Should have blocked DROP'\nexcept ValueError:\n    print('Red-team SQL injection check passed!')\n"
     }
   },
@@ -4040,3 +4042,8 @@ window.CURRICULUM.push(
     }
   }
 );
+
+// Auto-index safeguard: guarantees contiguous 1..168 day numbering
+window.CURRICULUM.forEach((item, index) => {
+  item.day = index + 1;
+});
